@@ -1,49 +1,307 @@
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  body {
+    background-color: #080808;
+    color: #e5e2e1;
+    scroll-behavior: smooth;
+  }
+
+  /* Remove all grain/noise overlays */
+  .grain, .noise-overlay, .grain-overlay {
+    display: none !important;
   }
 }
 
-html {
-  height: 100%;
-}
+@layer utilities {
+  /* ─── Reveal on scroll ─── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(36px);
+    transition: opacity 0.9s cubic-bezier(0.2, 0.8, 0.2, 1),
+                transform 0.9s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  .reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+  }
 
-html,
-body {
-  max-width: 100vw;
-  overflow-x: hidden;
-}
+  /* ─── Gold shimmer sweep ─── */
+  .gold-shimmer {
+    position: relative;
+    overflow: hidden;
+  }
+  .gold-shimmer::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 60%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(232, 201, 106, 0.18),
+      transparent
+    );
+    transition: left 0.6s ease;
+    pointer-events: none;
+  }
+  .gold-shimmer:hover::after {
+    left: 150%;
+  }
 
-body {
-  min-height: 100%;
-  display: flex;
-  flex-direction: column;
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+  /* ─── Luxury button ─── */
+  .luxury-button {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid #C9A84C;
+    transition: background 0.4s ease, color 0.4s ease;
+  }
+  .luxury-button::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(201,168,76,0) 0%, rgba(201,168,76,0.12) 50%, rgba(201,168,76,0) 100%);
+    transform: translateX(-100%);
+    transition: transform 0.5s ease;
+  }
+  .luxury-button:hover::before {
+    transform: translateX(100%);
+  }
+  .luxury-button:hover {
+    background-color: #C9A84C;
+    color: #080808;
+  }
 
-* {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
-}
+  /* ─── Card glow ─── */
+  .glow-card {
+    transition: box-shadow 0.5s ease, transform 0.5s ease;
+  }
+  .glow-card:hover {
+    box-shadow: 0 0 40px rgba(201, 168, 76, 0.12), 0 20px 60px rgba(0,0,0,0.6);
+    transform: translateY(-4px);
+  }
 
-a {
-  color: inherit;
-  text-decoration: none;
-}
+  /* ─── Hover underline ─── */
+  .hover-line {
+    position: relative;
+    display: inline-block;
+  }
+  .hover-line::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 1px;
+    bottom: -4px;
+    left: 50%;
+    background-color: #C9A84C;
+    transition: width 0.4s ease-out, left 0.4s ease-out;
+    transform: translateX(-50%);
+  }
+  .hover-line:hover::after {
+    width: 100%;
+  }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
+  /* ─── Scroll bounce indicator ─── */
+  .scroll-indicator {
+    animation: scrollBounce 2.4s ease-in-out infinite;
+  }
+
+  /* ─── Luxury input ─── */
+  .luxury-input {
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid rgba(255,255,255,0.12);
+    border-radius: 0;
+    transition: border-color 0.3s ease;
+  }
+  .luxury-input:focus {
+    outline: none;
+    box-shadow: none;
+    border-bottom-color: #C9A84C;
+  }
+  .luxury-label {
+    transition: all 0.3s ease;
+  }
+  .luxury-input:focus + .luxury-label,
+  .luxury-input:not(:placeholder-shown) + .luxury-label {
+    transform: translateY(-20px);
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    font-weight: 600;
+    color: #C9A84C;
+  }
+
+  /* ─── Scrollbar ─── */
+  .hide-scrollbar::-webkit-scrollbar { display: none; }
+  .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+  .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+  /* ─── Slide aspect ─── */
+  .slide-aspect {
+    aspect-ratio: 4 / 5;
+  }
+
+  /* ─── Gold line divider ─── */
+  .gold-divider {
+    width: 60px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #C9A84C, transparent);
+    margin: 0 auto;
+  }
+
+  /* ─── Floating gold orb background ─── */
+  .gold-orb {
+    position: absolute;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(201,168,76,0.07) 0%, transparent 70%);
+    pointer-events: none;
+    animation: orbFloat 12s ease-in-out infinite;
+  }
+  .gold-orb-1 {
+    width: 600px;
+    height: 600px;
+    top: -200px;
+    right: -200px;
+    animation-delay: 0s;
+  }
+  .gold-orb-2 {
+    width: 400px;
+    height: 400px;
+    bottom: -100px;
+    left: -100px;
+    animation-delay: -6s;
+  }
+
+  /* ─── Experience icon box ─── */
+  .experience-icon {
+    transition: background 0.4s ease, color 0.4s ease, border-color 0.4s ease, transform 0.4s ease;
+  }
+  .experience-icon:hover {
+    background: #C9A84C;
+    color: #080808;
+    border-color: #C9A84C;
+    transform: translateY(-4px) scale(1.05);
+  }
+
+  /* ─── Marquee scroll ─── */
+  .marquee-track {
+    animation: marquee 28s linear infinite;
+    display: flex;
+    gap: 4rem;
+  }
+
+  /* ─── Image hover zoom ─── */
+  .img-zoom {
+    transition: transform 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+  .group:hover .img-zoom {
+    transform: scale(1.06);
+  }
+
+  /* ─── Section background pulse ─── */
+  .bg-pulse {
+    position: relative;
+    overflow: hidden;
+  }
+  .bg-pulse::before {
+    content: '';
+    position: absolute;
+    width: 800px;
+    height: 800px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(201,168,76,0.04) 0%, transparent 65%);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: pulse-slow 8s ease-in-out infinite;
+    pointer-events: none;
+  }
+
+  /* ─── Testimonial quote mark ─── */
+  .quote-mark {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 140px;
+    line-height: 1;
+    color: rgba(201,168,76,0.12);
+    display: block;
+    margin-bottom: -60px;
+  }
+
+  /* ─── Gold border accent ─── */
+  .gold-accent-left {
+    position: relative;
+  }
+  .gold-accent-left::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 2px;
+    height: 48px;
+    background: linear-gradient(to bottom, transparent, #C9A84C, transparent);
   }
 }
+
+/* ─── Media queries ─── */
+@media (min-width: 768px) {
+  .slide-aspect {
+    aspect-ratio: 3 / 4;
+  }
+}
+
+/* ─── Scrollbar styling ─── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: #080808; }
+::-webkit-scrollbar-thumb { background: linear-gradient(to bottom, #C9A84C, #8a6a1f); border-radius: 2px; }
+
+/* ─── Keyframe animations ─── */
+@keyframes scrollBounce {
+  0%, 100% { transform: translateY(0); opacity: 1; }
+  50% { transform: translateY(10px); opacity: 0.5; }
+}
+
+@keyframes orbFloat {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(30px, -20px) scale(1.05); }
+  66% { transform: translate(-20px, 15px) scale(0.97); }
+}
+
+@keyframes pulse-slow {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+  50% { transform: translate(-50%, -50%) scale(1.3); opacity: 0.5; }
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes shimmer-line {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes goldPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(201,168,76,0.4); }
+  50% { box-shadow: 0 0 0 12px rgba(201,168,76,0); }
+}
+
+.animate-gold-pulse {
+  animation: goldPulse 2s ease-in-out infinite;
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
