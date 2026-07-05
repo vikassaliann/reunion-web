@@ -3,8 +3,8 @@ import './globals.css'
 import { ContactProvider } from '@/components/ContactContext'
 
 export const metadata: Metadata = {
-  title: 'REUNION GLOBAL | Quiet Luxury Estates',
-  description: 'Reunion Global — A sanctuary for those who appreciate excellence without the noise. Timeless luxury estates across the globe.',
+  title: 'REUNION | Quiet Luxury Estates',
+  description: 'Reunion — A sanctuary for those who appreciate excellence without the noise. Timeless luxury estates across the globe.',
 }
 
 export default function RootLayout({

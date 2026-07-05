@@ -170,7 +170,7 @@ export default function Home() {
             {/* Eyebrow line */}
             <div className="flex items-center justify-center gap-4 mb-8 reveal">
               <div className="h-px w-12 bg-[#C9A84C]" />
-              <p className="font-cinzel text-[11px] tracking-[0.55em] text-[#C9A84C] uppercase">Reunion Global</p>
+              <p className="font-cinzel text-[11px] tracking-[0.55em] text-[#C9A84C] uppercase">Reunion</p>
               <div className="h-px w-12 bg-[#C9A84C]" />
             </div>
             <h1
@@ -186,7 +186,7 @@ export default function Home() {
               className="text-[#c8c4c0]/80 text-base md:text-lg tracking-wide mb-12 max-w-xl mx-auto reveal"
               style={{ transitionDelay: '280ms' }}
             >
-              Premium beach stays, coastal cafés &amp; city villas — curated for those who gather in style.
+              Premium beach stays, coastal cafés, boutique hotels &amp; city villas — curated for those who gather in style.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 reveal" style={{ transitionDelay: '400ms' }}>
               <Link
@@ -485,25 +485,36 @@ export default function Home() {
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-8 border-t border-[#C9A84C]/15 pt-10">
               {/* Menu highlights */}
               <div className="flex flex-wrap gap-x-10 gap-y-4">
-                {['Specialty Coffee', 'Fresh Juices', 'Seafood Brunch', 'Coastal Cocktails', 'Vegan Options'].map((item) => (
+                {['Specialty Coffee', 'Fresh Juices', 'Seafood Brunch', 'Coastal Mocktails', 'Vegan Options'].map((item) => (
                   <div key={item} className="flex items-center gap-2">
                     <div className="w-1 h-1 rounded-full bg-[#C9A84C]" />
                     <span className="font-cinzel text-[10px] tracking-[0.3em] text-[#a09c98] uppercase">{item}</span>
                   </div>
                 ))}
               </div>
-              {/* Maps Directions CTA */}
-              <a
-                href="https://share.google/vsXAVG9Y8vshzClQG"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex-shrink-0 inline-flex items-center gap-3 px-8 py-3 border border-[#C9A84C]/50 font-cinzel text-[10px] tracking-[0.35em] text-[#C9A84C] uppercase hover:bg-[#C9A84C] hover:text-[#080808] hover:border-[#C9A84C] transition-all duration-300 gold-shimmer whitespace-nowrap"
-              >
-                Get Directions
-                <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                  <line x1="5" y1="12" x2="19" y2="12" /><polyline points="13 6 19 12 13 18" />
-                </svg>
-              </a>
+              {/* CTA buttons */}
+              <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 flex-shrink-0">
+                <a
+                  href="tel:+919972231289"
+                  className="flex-shrink-0 inline-flex items-center gap-3 px-8 py-3 border border-[#C9A84C]/50 font-cinzel text-[10px] tracking-[0.35em] text-[#C9A84C] uppercase hover:bg-[#C9A84C] hover:text-[#080808] hover:border-[#C9A84C] transition-all duration-300 gold-shimmer whitespace-nowrap"
+                >
+                  <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                    <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.5 9.5a19.79 19.79 0 01-3-8.59A2 2 0 012.48 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 8.86a16 16 0 006.29 6.29l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" />
+                  </svg>
+                  +91 9972231289
+                </a>
+                <a
+                  href="https://share.google/vsXAVG9Y8vshzClQG"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex-shrink-0 inline-flex items-center gap-3 px-8 py-3 border border-[#C9A84C]/50 font-cinzel text-[10px] tracking-[0.35em] text-[#C9A84C] uppercase hover:bg-[#C9A84C] hover:text-[#080808] hover:border-[#C9A84C] transition-all duration-300 gold-shimmer whitespace-nowrap"
+                >
+                  Get Directions
+                  <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                    <line x1="5" y1="12" x2="19" y2="12" /><polyline points="13 6 19 12 13 18" />
+                  </svg>
+                </a>
+              </div>
             </div>
           </div>
         </section>

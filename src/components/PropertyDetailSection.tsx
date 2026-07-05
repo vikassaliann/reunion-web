@@ -24,6 +24,27 @@ interface PropertyDetailSectionProps {
   mapLink?: string;
 }
 
+// Phone numbers per property
+const PROPERTY_PHONES: Record<string, string> = {
+  "ocean-waves":    "+91 9980208289",
+  "ocean-elite":    "+91 9980208289",
+  "ocean-manor":    "+91 9980208289",
+  "ocean-bliss":    "+91 9980208289",
+  "ocean-daaffy":   "+91 9980208289",
+  "arya":           "+91 9980208289",
+  "marina-villa":   "+91 9980208289",
+  "krshna":         "+91 9980208289",
+  "charm-villa":    "+91 9980208289",
+  "de-homes":       "+91 9380740060",
+  "aradhya-villa":  "+91 9980208289",
+  "ocean-hridayam": "+91 9980208289",
+  "ocean-cafe":     "+91 9972231289",
+  "ocean-givaah":   "+91 9980208289",
+  "villa":          "+91 9980208289",
+  "ocean-royal":    "+91 9980208289",
+  "regal-villa":    "+91 9980208289",
+};
+
 export default function PropertyDetailSection({ property, mapLink }: PropertyDetailSectionProps) {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
@@ -231,9 +252,22 @@ export default function PropertyDetailSection({ property, mapLink }: PropertyDet
               </div>
             </div>
 
-            {/* Location Button */}
-            {mapLink && (
-              <div className="pt-2">
+            {/* Phone & Location Buttons */}
+            <div className="pt-2 flex flex-wrap gap-3">
+              {/* Phone CTA */}
+              {PROPERTY_PHONES[property.id] && (
+                <a
+                  href={`tel:${PROPERTY_PHONES[property.id].replace(/[^+\d]/g, "")}`}
+                  className="inline-flex items-center gap-3 py-3.5 px-7 border border-[#C9A84C]/45 text-[#C9A84C] hover:text-black hover:bg-[#C9A84C] hover:border-transparent transition-all duration-500 font-cinzel text-[9px] tracking-[0.3em] uppercase rounded-sm bg-transparent"
+                >
+                  <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.5 9.5a19.79 19.79 0 01-3-8.59A2 2 0 012.48 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 8.86a16 16 0 006.29 6.29l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" />
+                  </svg>
+                  {PROPERTY_PHONES[property.id]}
+                </a>
+              )}
+              {/* Map CTA */}
+              {mapLink && (
                 <a
                   href={mapLink}
                   target="_blank"
@@ -249,8 +283,8 @@ export default function PropertyDetailSection({ property, mapLink }: PropertyDet
                     <line x1="7" y1="17" x2="17" y2="7" /><polyline points="7 7 17 7 17 17" />
                   </svg>
                 </a>
-              </div>
-            )}
+              )}
+            </div>
 
             {/* Travel Guide & Rules Dashboard (Fills the Dead Space at the bottom) */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-6 border-t border-[#C9A84C]/10">
@@ -294,7 +328,11 @@ export default function PropertyDetailSection({ property, mapLink }: PropertyDet
                 <h3 className="font-cormorant text-2xl text-white font-light">Reserve Your Stay</h3>
                 <div className="w-8 h-[1px] bg-[#C9A84C]/25 mt-4"></div>
               </div>
-              <ContactForm defaultPreference={property.name} />
+              <ContactForm
+                defaultPreference={property.name}
+                whatsappNumber={property.id === "de-homes" ? "919380740060" : "919980208289"}
+                instagramHandle={property.id === "de-homes" ? "@de_homes_reunion" : undefined}
+              />
             </div>
           </div>
         </div>

@@ -26,7 +26,7 @@ const CONTACT_INFO = [
         <polyline points="22,6 12,13 2,6" />
       </svg>
     ),
-    label: "Support Email",
+    label: "Guest Support",
     value: "support@reunionglobal.in",
     href: "mailto:support@reunionglobal.in",
   },
@@ -37,7 +37,7 @@ const CONTACT_INFO = [
         <polyline points="22,6 12,13 2,6" />
       </svg>
     ),
-    label: "Revenue Email",
+    label: "Reservations & Enquiry",
     value: "reunionrevenue@gmail.com",
     href: "mailto:reunionrevenue@gmail.com",
   },
@@ -49,11 +49,33 @@ const CONTACT_INFO = [
         <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
       </svg>
     ),
-    label: "Instagram",
+    label: "Follow Us On",
     value: "@reunionteam19",
     href: "https://instagram.com/reunionteam19",
   },
+  {
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-5 h-5">
+        <path d="M22.54 6.42a2.78 2.78 0 00-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 001.46 6.42 29 29 0 001 12a29 29 0 00.46 5.58 2.78 2.78 0 001.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 001.95-1.96A29 29 0 0023 12a29 29 0 00-.46-5.58z" />
+        <polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="currentColor" stroke="none" />
+      </svg>
+    ),
+    label: "Follow Us On",
+    value: "@reunionteam19 (YouTube)",
+    href: "https://youtube.com/@reunionteam19?si=Q6RR_X9UCSPajGEN",
+  },
+  {
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-5 h-5">
+        <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z" />
+      </svg>
+    ),
+    label: "Follow Us On",
+    value: "Facebook",
+    href: "https://www.facebook.com/share/1HEff1Dir3/",
+  },
 ];
+
 
 function ContactOverlayUI({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
   useEffect(() => {

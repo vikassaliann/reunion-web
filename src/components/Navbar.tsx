@@ -61,7 +61,7 @@ export default function Navbar() {
                   backgroundClip: "text",
                 }}
               >
-                REUNION GLOBAL
+                REUNION
               </span>
             </div>
           </Link>
@@ -101,7 +101,7 @@ export default function Navbar() {
                 backgroundClip: "text",
               }}
             >
-              REUNION GLOBAL
+              REUNION
             </span>
           </Link>
 
@@ -133,7 +133,7 @@ export default function Navbar() {
             <Logo className="h-10 w-10" />
             <span className="font-cinzel text-[11px] tracking-[0.4em] font-medium"
               style={{ background: "linear-gradient(90deg, #C9A84C, #f0d78c, #C9A84C)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
-              REUNION GLOBAL
+              REUNION
             </span>
           </Link>
           <button onClick={closeMobile} className="w-9 h-9 flex items-center justify-center text-[#C9A84C] hover:opacity-70 transition-opacity" aria-label="Close menu">

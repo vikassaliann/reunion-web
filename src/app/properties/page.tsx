@@ -4,7 +4,7 @@ import properties from "@/data/properties.json";
 import Link from "next/link";
 
 export const metadata = {
-  title: 'Our Residences | REUNION GLOBAL',
+  title: 'Our Residences | REUNION',
 };
 
 export default function PropertiesPage() {
