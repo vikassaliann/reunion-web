@@ -524,5 +524,37 @@
       "/properties/villa/villa7.jpeg"
     ],
     "videoUrl": ""
+  },
+  {
+    "id": "ocean-cafe",
+    "name": "Reunion Ocean Café",
+    "location": "Mattu Beach, Udupi",
+    "description": "Acclaimed as a premier coastal sanctuary, Reunion Ocean Café is situated immediately adjacent to the pristine shoreline of Mattu Beach in Udupi, Karnataka. Celebrated for its breathtaking sunset vistas over the Arabian Sea, this beachfront destination offers a serene ambiance where casual sophistication meets family-friendly warmth. Guests can relax in breezy outdoor seating areas directly facing the rolling waves, or unwind in a cozy lounge featuring a fireplace and live musical performances on select occasions. The culinary offerings showcase an elegant blend of continental and Chinese gastronomy, gourmet coastal snacks, artisanal burgers, fresh seafood, specialty coffees, and refreshing mocktails, complete with a dedicated selection of vegetarian and vegan creations. It is highly recommended for romantic candlelight dinners and memorable group gatherings.",
+    "price": "Contact for pricing / Table bookings",
+    "bedrooms": 0,
+    "acreage": "N/A",
+    "sqft": "N/A",
+    "completion": "N/A",
+    "amenities": [
+      "Mattu Beachfront",
+      "Sunset Seating",
+      "Cozy Fireplace",
+      "Seafood & Continental Delicacies",
+      "Specialty Coffee & Mocktails",
+      "Romantic Candlelight Dinner Setup"
+    ],
+    "heroImage": "/properties/ocean cafe/ocean4.png",
+    "gallery": [
+      "/properties/ocean cafe/ocean1.png",
+      "/properties/ocean cafe/ocean2.png",
+      "/properties/ocean cafe/ocean3.png",
+      "/properties/ocean cafe/ocean4.png",
+      "/properties/ocean cafe/ocean5.jpeg",
+      "/properties/ocean cafe/ocean8.webp",
+      "/properties/ocean cafe/ocean7.webp",
+      "/properties/ocean cafe/ocean6.webp",
+      "/properties/ocean cafe/ocean9.webp"
+    ],
+    "videoUrl": ""
   }
 ]

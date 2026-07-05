@@ -5,7 +5,7 @@ export async function POST(request: Request) {
     const data = await request.json();
     
     // Format the message for WhatsApp
-    const message = `Hello Reunion Global! I would like to inquire about your estates.
+    const message = `Hello Reunion! I would like to inquire about your luxury villas.
     
 *Name*: ${data.name}
 *Email*: ${data.email}

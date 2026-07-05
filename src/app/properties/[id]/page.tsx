@@ -61,7 +61,7 @@ export default async function PropertyPage({ params }: { params: Promise<{ id: s
         <PropertyDetailSection property={property} mapLink={MAP_LINKS[id]} />
       </main>
 
-      <Footer variant="estate" />
+      <Footer />
     </div>
   );
 }

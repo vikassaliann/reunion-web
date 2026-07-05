@@ -153,11 +153,17 @@ export default function Footer({ variant = "default" }: FooterProps) {
         {/* Legal */}
         <div className="space-y-8">
           <p className="font-label-caps text-label-caps text-primary tracking-widest">LEGAL</p>
-          <ul className="space-y-5">
-            <li><Link className="text-on-surface-variant text-sm hover:text-primary transition-colors" href="#">Privacy Policy</Link></li>
-            <li><Link className="text-on-surface-variant text-sm hover:text-primary transition-colors" href="#">Terms of Service</Link></li>
-            <li><Link className="text-on-surface-variant text-sm hover:text-primary transition-colors" href="#">Press</Link></li>
-            <li><Link className="text-on-surface-variant text-sm hover:text-primary transition-colors" href="#">Careers</Link></li>
+          <ul className="space-y-4">
+            <li>
+              <Link className="text-[10px] text-on-surface-variant/40 hover:text-primary transition-colors font-medium tracking-wide" href="#">
+                Privacy Policy
+              </Link>
+            </li>
+            <li>
+              <Link className="text-[10px] text-on-surface-variant/40 hover:text-primary transition-colors font-medium tracking-wide" href="#">
+                Terms of Service
+              </Link>
+            </li>
           </ul>
         </div>
 

@@ -233,7 +233,7 @@ export default function Home() {
               className="text-[#a09c98] text-base md:text-lg leading-relaxed max-w-2xl mx-auto mb-16 reveal"
               style={{ transitionDelay: '300ms' }}
             >
-              From premium beach stays and vibrant coastal cafés to sophisticated city villas, our curated spaces are designed to bring people together in absolute comfort and elegance.
+              From premium beach stays, vibrant coastal cafés, and boutique hotels to sophisticated city villas, our curated spaces are designed to bring people together in absolute comfort and elegance.
             </p>
             <div className="gold-divider reveal" style={{ transitionDelay: '400ms' }} />
 

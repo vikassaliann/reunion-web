@@ -62,10 +62,12 @@ export default function PropertyDetailSection({ property, mapLink }: PropertyDet
   };
 
   // Highlights: bedrooms + amenities only (no guest count — not provided by user)
-  const highlights: string[] = [
-    `${property.bedrooms} Bedroom${property.bedrooms > 1 ? "s" : ""}`,
-    ...property.amenities,
-  ];
+  const highlights: string[] = property.bedrooms > 0
+    ? [
+        `${property.bedrooms} Bedroom${property.bedrooms > 1 ? "s" : ""}`,
+        ...property.amenities,
+      ]
+    : property.amenities;
 
   // Helper to determine destination details based strictly on user-provided description facts
   const getDestinationDetails = () => {
@@ -157,6 +159,11 @@ export default function PropertyDetailSection({ property, mapLink }: PropertyDet
       attraction = "Chitpady Area (5km to Manipal)";
       power = "3 Bedrooms (2 AC + 1 Non-AC)";
       highlightDetail = "Meals Arranged on Request";
+    } else if (id === "ocean-cafe") {
+      beach = "Mattu Beach (Immediate Access)";
+      attraction = "Mattu Beach (Kapu Road)";
+      power = "Fireplace & Live Music (Select Occasions)";
+      highlightDetail = "Open Daily: 9:30 AM – 10:00 PM";
     }
 
     return { beach, attraction, power, highlightDetail };
@@ -193,7 +200,11 @@ export default function PropertyDetailSection({ property, mapLink }: PropertyDet
                 <img
                   src={src}
                   alt={`${property.name} gallery image ${index + 1}`}
-                  className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
+                  className={`w-full h-full transition-transform duration-700 hover:scale-105 ${
+                    src.includes("ocean cafe") && (src.includes("ocean6") || src.includes("ocean7") || src.includes("ocean8") || src.includes("ocean9"))
+                      ? "object-contain bg-black/40"
+                      : "object-cover"
+                  }`}
                 />
                 <div className="absolute bottom-4 right-4 bg-black/60 backdrop-blur-md border border-white/10 px-2.5 py-1 text-[9px] tracking-widest font-mono text-white/95 rounded">
                   {index + 1} / {images.length}
@@ -330,8 +341,14 @@ export default function PropertyDetailSection({ property, mapLink }: PropertyDet
               </div>
               <ContactForm
                 defaultPreference={property.name}
-                whatsappNumber={property.id === "de-homes" ? "919380740060" : "919980208289"}
-                instagramHandle={property.id === "de-homes" ? "@de_homes_reunion" : undefined}
+                whatsappNumber={PROPERTY_PHONES[property.id] ? PROPERTY_PHONES[property.id].replace(/[^\d]/g, "") : "919980208289"}
+                instagramHandle={
+                  property.id === "de-homes" 
+                    ? "@de_homes_reunion" 
+                    : property.id === "ocean-cafe" 
+                    ? "@reunionteam19" 
+                    : undefined
+                }
               />
             </div>
           </div>

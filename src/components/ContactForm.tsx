@@ -30,7 +30,7 @@ export default function ContactForm({
       description: formData.get("description") as string,
     };
 
-    const message = `Hello Reunion! I would like to inquire about your estates.
+    const message = `Hello Reunion! I would like to inquire about your villas.
 
 Name: ${data.name}
 Phone: ${data.phone}
