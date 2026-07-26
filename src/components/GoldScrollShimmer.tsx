@@ -53,7 +53,7 @@ export default function GoldScrollShimmer() {
   const shiftY2 = (scrollY * -0.12) % 250;
 
   return (
-    <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden" aria-hidden="true">
+    <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden md:hidden" aria-hidden="true">
       {/* Dynamic Gold Orb 1 — Top Right floating shimmer */}
       <div
         className="absolute -top-20 -right-20 w-[280px] h-[280px] sm:w-[450px] sm:h-[450px] rounded-full blur-[90px] transition-all duration-300 ease-out"
