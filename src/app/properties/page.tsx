@@ -70,7 +70,7 @@ export default function PropertiesPage() {
 
                       {/* View indicator */}
                       <div className="flex items-center gap-2 mt-3 opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-2 group-hover:translate-y-0">
-                        <span className="font-cinzel text-[8px] tracking-[0.25em] text-[#C9A84C] uppercase">Explore Estate</span>
+                        <span className="font-cinzel text-[8px] tracking-[0.25em] text-[#C9A84C] uppercase">Explore Property</span>
                         <svg className="w-3 h-3 text-[#C9A84C]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                           <line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" />
                         </svg>

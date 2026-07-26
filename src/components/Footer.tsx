@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import Logo from "./Logo";
 import { useContact } from "./ContactContext";
+import { usePartner } from "./PartnerContext";
 
 interface FooterProps {
   variant?: "default" | "estate";
@@ -97,6 +98,7 @@ function NewsletterForm() {
 
 export default function Footer({ variant = "default" }: FooterProps) {
   const { open: openContact } = useContact();
+  const { open: openPartner } = usePartner();
 
   if (variant === "estate") {
     return (
@@ -106,10 +108,10 @@ export default function Footer({ variant = "default" }: FooterProps) {
             <Logo className="h-14 w-14 transition-opacity group-hover:opacity-80" />
           </Link>
           <div className="flex flex-wrap gap-8">
+            <Link className="font-body-md text-body-md text-on-surface-variant hover:text-antique-gold transition-colors" href="/about">About Us</Link>
+            <button onClick={() => openPartner()} className="font-body-md text-body-md text-antique-gold hover:underline">Partner With Us</button>
             <Link className="font-body-md text-body-md text-on-surface-variant hover:text-antique-gold transition-colors" href="#">Privacy Policy</Link>
             <Link className="font-body-md text-body-md text-on-surface-variant hover:text-antique-gold transition-colors" href="#">Terms of Service</Link>
-            <Link className="font-body-md text-body-md text-on-surface-variant hover:text-antique-gold transition-colors" href="#">Cookie Policy</Link>
-            <Link className="font-body-md text-body-md text-on-surface-variant hover:text-antique-gold transition-colors" href="#">Sustainability</Link>
           </div>
           <p className="font-body-md text-[11px] text-on-surface-variant/60 whitespace-nowrap">
             © 2024 Reunion. All Rights Reserved.
@@ -122,23 +124,42 @@ export default function Footer({ variant = "default" }: FooterProps) {
   return (
     <footer className="bg-surface-dim border-t border-antique-gold/20 pt-24 pb-12">
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-16 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
-        {/* Logo + Tagline */}
-        <div className="flex flex-col gap-8 md:col-span-1">
+        {/* Logo + Tagline + Golden Bordered Partner Button */}
+        <div className="flex flex-col gap-6 md:col-span-1">
           <Link href="/" className="group inline-block">
             <Logo className="h-16 w-16 transition-opacity group-hover:opacity-80" />
           </Link>
           <p className="text-on-surface-variant text-sm leading-relaxed max-w-xs">
             A world of absolute discretion and curated luxury, defining the new standard of global living.
           </p>
+          
+          {/* Partner With Us Button — Highlighted with Gold Border */}
+          <div className="pt-2">
+            <button
+              onClick={() => openPartner()}
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 border-2 border-[#C9A84C] text-[#C9A84C] font-cinzel text-[10px] tracking-[0.3em] font-semibold uppercase hover:bg-[#C9A84C] hover:text-[#080808] transition-all duration-300 rounded-sm gold-shimmer shadow-[0_0_15px_rgba(201,168,76,0.15)]"
+            >
+              Partner With Us
+            </button>
+          </div>
         </div>
 
         {/* Navigation */}
         <div className="space-y-8">
           <p className="font-label-caps text-label-caps text-primary tracking-widest">NAVIGATION</p>
-          <ul className="space-y-5">
+          <ul className="space-y-4">
             <li><Link className="text-on-surface-variant text-sm hover:text-primary transition-colors" href="/properties">Properties</Link></li>
             <li><Link className="text-on-surface-variant text-sm hover:text-primary transition-colors" href="/#dining">Cafe</Link></li>
             <li><Link className="text-on-surface-variant text-sm hover:text-primary transition-colors" href="/#experiences">Experiences</Link></li>
+            <li><Link className="text-on-surface-variant text-sm hover:text-primary transition-colors" href="/about">About Us</Link></li>
+            <li>
+              <button
+                onClick={() => openPartner()}
+                className="text-[#C9A84C] font-medium text-sm hover:underline text-left"
+              >
+                Partner With Us
+              </button>
+            </li>
             <li>
               <button
                 onClick={() => openContact()}

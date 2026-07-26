@@ -196,7 +196,7 @@ export default function Home() {
                 Explore Properties
               </Link>
               <Link
-                href="#about"
+                href="/about"
                 className="inline-flex items-center gap-3 px-10 py-4 border border-[#C9A84C]/50 text-[#C9A84C] font-cinzel text-[11px] tracking-[0.3em] uppercase hover:border-[#C9A84C] hover:bg-[#C9A84C]/10 transition-all duration-300"
               >
                 Our Story
@@ -485,7 +485,7 @@ export default function Home() {
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-8 border-t border-[#C9A84C]/15 pt-10">
               {/* Menu highlights */}
               <div className="flex flex-wrap gap-x-10 gap-y-4">
-                {['Specialty Coffee', 'Fresh Juices', 'Seafood Brunch', 'Coastal Mocktails', 'Vegan Options'].map((item) => (
+                {['Fresh Seafood & Continental Cuisine', 'Specialty Coffee & Signature Mocktails', 'Romantic Candlelight Dinner', 'Beach Birthday Celebrations & Private Events'].map((item) => (
                   <div key={item} className="flex items-center gap-2">
                     <div className="w-1 h-1 rounded-full bg-[#C9A84C]" />
                     <span className="font-cinzel text-[10px] tracking-[0.3em] text-[#a09c98] uppercase">{item}</span>

@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import './globals.css'
 import { ContactProvider } from '@/components/ContactContext'
+import { PartnerProvider } from '@/components/PartnerContext'
 
 export const metadata: Metadata = {
   title: 'REUNION | Quiet Luxury Estates',
@@ -29,7 +30,9 @@ export default function RootLayout({
       </head>
       <body>
         <ContactProvider>
-          {children}
+          <PartnerProvider>
+            {children}
+          </PartnerProvider>
         </ContactProvider>
       </body>
     </html>

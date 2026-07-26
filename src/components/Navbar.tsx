@@ -4,18 +4,20 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import Logo from "./Logo";
 import { useContact } from "./ContactContext";
+import { usePartner } from "./PartnerContext";
 
 const NAV_LINKS = [
   { href: "/properties", label: "Properties" },
   { href: "/#dining", label: "Café" },
   { href: "/#experiences", label: "Experiences" },
-  { href: "/#about", label: "About Us" },
+  { href: "/about", label: "About Us" },
 ];
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const { open: openContact } = useContact();
+  const { open: openPartner } = usePartner();
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 60);
@@ -48,7 +50,7 @@ export default function Navbar() {
         style={{ backdropFilter: "blur(16px)", WebkitBackdropFilter: "blur(16px)" }}
       >
         {/* ── Desktop ── */}
-        <div className="hidden lg:flex items-center justify-between w-full px-14 h-[72px]">
+        <div className="hidden lg:flex items-center justify-between w-full px-10 xl:px-14 h-[72px]">
           <Link href="/" className="flex items-center gap-3 group flex-shrink-0">
             <Logo className="h-14 w-14 transition-opacity duration-300 group-hover:opacity-75" />
             <div className="flex flex-col leading-none">
@@ -66,7 +68,7 @@ export default function Navbar() {
             </div>
           </Link>
 
-          <div className="flex items-center gap-12">
+          <div className="flex items-center gap-8 xl:gap-12">
             {NAV_LINKS.map(({ href, label }) => (
               <Link
                 key={label}
@@ -79,13 +81,21 @@ export default function Navbar() {
             ))}
           </div>
 
-          {/* Desktop Contact Us — opens contact info overlay */}
-          <button
-            onClick={() => openContact()}
-            className="flex-shrink-0 inline-flex items-center gap-2 px-7 py-2.5 border border-[#C9A84C]/60 font-cinzel text-[10px] tracking-[0.35em] text-[#C9A84C] uppercase hover:bg-[#C9A84C] hover:text-[#080808] hover:border-[#C9A84C] transition-all duration-300 gold-shimmer"
-          >
-            Contact Us
-          </button>
+          {/* Desktop Actions: Partner with us & Contact Us */}
+          <div className="flex items-center gap-3.5 flex-shrink-0">
+            <button
+              onClick={() => openPartner()}
+              className="inline-flex items-center gap-2 px-5 py-2 border border-[#C9A84C] font-cinzel text-[9.5px] tracking-[0.3em] text-[#080808] bg-[#C9A84C] uppercase font-semibold hover:bg-[#f0d78c] hover:border-[#f0d78c] transition-all duration-300 gold-shimmer rounded-sm"
+            >
+              Partner With Us
+            </button>
+            <button
+              onClick={() => openContact()}
+              className="inline-flex items-center gap-2 px-5 py-2 border border-[#C9A84C]/60 font-cinzel text-[9.5px] tracking-[0.3em] text-[#C9A84C] uppercase hover:bg-[#C9A84C] hover:text-[#080808] hover:border-[#C9A84C] transition-all duration-300 rounded-sm"
+            >
+              Contact Us
+            </button>
+          </div>
         </div>
 
         {/* ── Mobile/Tablet Bar ── */}
@@ -105,16 +115,25 @@ export default function Navbar() {
             </span>
           </Link>
 
-          {/* Animated Hamburger */}
-          <button
-            className="relative w-9 h-9 flex flex-col items-center justify-center gap-[5px] flex-shrink-0"
-            onClick={() => setMobileOpen(!mobileOpen)}
-            aria-label="Toggle menu"
-          >
-            <span className={`block h-px bg-[#C9A84C] transition-all duration-400 ease-in-out origin-center ${mobileOpen ? "w-5 rotate-45 translate-y-[6px]" : "w-5"}`} />
-            <span className={`block h-px bg-[#C9A84C] transition-all duration-300 ease-in-out ${mobileOpen ? "w-0 opacity-0" : "w-4 opacity-80"}`} />
-            <span className={`block h-px bg-[#C9A84C] transition-all duration-400 ease-in-out origin-center ${mobileOpen ? "w-5 -rotate-45 -translate-y-[6px]" : "w-5"}`} />
-          </button>
+          {/* Mobile Actions & Hamburger */}
+          <div className="flex items-center gap-3">
+            <button
+              onClick={() => openPartner()}
+              className="inline-flex lg:hidden items-center gap-1.5 px-3 py-1.5 border border-[#C9A84C] bg-[#C9A84C] text-[#080808] font-cinzel text-[8.5px] tracking-[0.25em] font-semibold uppercase rounded-sm"
+            >
+              Partner
+            </button>
+
+            <button
+              className="relative w-9 h-9 flex flex-col items-center justify-center gap-[5px] flex-shrink-0"
+              onClick={() => setMobileOpen(!mobileOpen)}
+              aria-label="Toggle menu"
+            >
+              <span className={`block h-px bg-[#C9A84C] transition-all duration-400 ease-in-out origin-center ${mobileOpen ? "w-5 rotate-45 translate-y-[6px]" : "w-5"}`} />
+              <span className={`block h-px bg-[#C9A84C] transition-all duration-300 ease-in-out ${mobileOpen ? "w-0 opacity-0" : "w-4 opacity-80"}`} />
+              <span className={`block h-px bg-[#C9A84C] transition-all duration-400 ease-in-out origin-center ${mobileOpen ? "w-5 -rotate-45 -translate-y-[6px]" : "w-5"}`} />
+            </button>
+          </div>
         </div>
       </nav>
 
@@ -145,10 +164,10 @@ export default function Navbar() {
 
         {/* Nav Links */}
         <nav className="flex flex-col justify-center h-[calc(100%-60px)] px-8 pb-12">
-          <div className="space-y-0 mb-10">
+          <div className="space-y-0 mb-8">
             {NAV_LINKS.map(({ href, label }, i) => (
               <Link key={label} href={href} onClick={closeMobile}
-                className="group flex items-center justify-between border-b border-[#C9A84C]/8 py-6"
+                className="group flex items-center justify-between border-b border-[#C9A84C]/8 py-5"
                 style={{
                   transitionDelay: mobileOpen ? `${i * 60}ms` : "0ms",
                   opacity: mobileOpen ? 1 : 0,
@@ -164,19 +183,25 @@ export default function Navbar() {
             ))}
           </div>
 
-          {/* Contact Us — opens contact info overlay */}
-          <button
-            onClick={() => { closeMobile(); openContact(); }}
-            className="w-full inline-flex items-center justify-center gap-3 py-4 border border-[#C9A84C]/60 font-cinzel text-[10px] tracking-[0.45em] text-[#C9A84C] uppercase hover:bg-[#C9A84C] hover:text-[#080808] transition-all duration-400 gold-shimmer"
-            style={{ opacity: mobileOpen ? 1 : 0, transform: mobileOpen ? "translateY(0)" : "translateY(12px)", transition: "opacity 0.4s ease 0.28s, transform 0.4s ease 0.28s" }}
-          >
-            <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-              <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.5 9.5a19.79 19.79 0 01-3-8.59A2 2 0 012.48 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 8.86a16 16 0 006.29 6.29l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" />
-            </svg>
-            Contact Us
-          </button>
+          <div className="space-y-3">
+            <button
+              onClick={() => { closeMobile(); openPartner(); }}
+              className="w-full inline-flex items-center justify-center gap-3 py-3.5 border border-[#C9A84C] bg-[#C9A84C] font-cinzel text-[10px] tracking-[0.35em] text-[#080808] font-bold uppercase transition-all duration-400 gold-shimmer rounded-sm"
+              style={{ opacity: mobileOpen ? 1 : 0, transform: mobileOpen ? "translateY(0)" : "translateY(12px)", transition: "opacity 0.4s ease 0.22s, transform 0.4s ease 0.22s" }}
+            >
+              Partner With Us
+            </button>
 
-          <div className="mt-10 flex items-center gap-3 opacity-30">
+            <button
+              onClick={() => { closeMobile(); openContact(); }}
+              className="w-full inline-flex items-center justify-center gap-3 py-3.5 border border-[#C9A84C]/60 font-cinzel text-[10px] tracking-[0.35em] text-[#C9A84C] uppercase hover:bg-[#C9A84C] hover:text-[#080808] transition-all duration-400 rounded-sm"
+              style={{ opacity: mobileOpen ? 1 : 0, transform: mobileOpen ? "translateY(0)" : "translateY(12px)", transition: "opacity 0.4s ease 0.28s, transform 0.4s ease 0.28s" }}
+            >
+              Contact Us
+            </button>
+          </div>
+
+          <div className="mt-8 flex items-center gap-3 opacity-30">
             <div className="flex-1 h-px bg-[#C9A84C]/40" />
             <span className="text-[#C9A84C] text-[10px]">✦</span>
             <div className="flex-1 h-px bg-[#C9A84C]/40" />

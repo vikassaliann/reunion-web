@@ -106,31 +106,54 @@ const CONTACT_INFO: ContactItem[] = [
 
 function ContactOverlayUI({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
   useEffect(() => {
-    if (isOpen) document.body.style.overflow = "hidden";
-    else document.body.style.overflow = "";
-    return () => { document.body.style.overflow = ""; };
-  }, [isOpen]);
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+      window.addEventListener("keydown", handleKeyDown);
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [isOpen, onClose]);
 
   return (
     <div
-      className={`fixed inset-0 z-[999] flex items-center justify-center transition-all duration-500 ease-in-out ${isOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`}
+      onClick={onClose}
+      className={`fixed inset-0 z-[9999] flex items-center justify-center transition-all duration-500 ease-in-out ${
+        isOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+      }`}
       style={{ backdropFilter: "blur(28px)", WebkitBackdropFilter: "blur(28px)", background: "rgba(4,4,4,0.94)" }}
     >
       {/* Ambient glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full pointer-events-none"
         style={{ background: "radial-gradient(circle, rgba(201,168,76,0.07) 0%, transparent 65%)" }} />
 
-      {/* Close */}
-      <button onClick={onClose}
-        className="absolute top-5 right-5 w-10 h-10 flex items-center justify-center text-[#C9A84C]/70 hover:text-[#C9A84C] border border-[#C9A84C]/20 hover:border-[#C9A84C]/50 rounded-sm transition-all duration-300"
-        aria-label="Close contact info">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="square">
-          <line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" />
+      {/* Close Button — High z-index, large touch target for mobile */}
+      <button
+        type="button"
+        onClick={(e) => {
+          e.stopPropagation();
+          onClose();
+        }}
+        className="fixed top-4 right-4 sm:top-6 sm:right-6 z-[10000] w-12 h-12 flex items-center justify-center text-[#C9A84C] hover:text-white bg-black/60 hover:bg-[#C9A84C]/20 border border-[#C9A84C]/40 hover:border-[#C9A84C] rounded-full transition-all duration-300 active:scale-95 cursor-pointer touch-manipulation shadow-xl"
+        aria-label="Close contact info"
+      >
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+          <line x1="18" y1="6" x2="6" y2="18" />
+          <line x1="6" y1="6" x2="18" y2="18" />
         </svg>
       </button>
 
       {/* Card */}
-      <div className="relative z-10 w-full max-w-md mx-auto px-8 py-12 text-center space-y-10">
+      <div
+        onClick={(e) => e.stopPropagation()}
+        className="relative z-10 w-full max-w-md mx-auto px-6 py-10 sm:px-8 sm:py-12 text-center space-y-8"
+      >
         <div className="space-y-3">
           <p className="font-cinzel text-[9px] tracking-[0.55em] text-[#C9A84C]/70 uppercase">Get In Touch</p>
           <h2 className="font-cormorant text-[clamp(2rem,5vw,3rem)] font-light text-white leading-tight">
@@ -165,7 +188,7 @@ function ContactOverlayUI({ isOpen, onClose }: { isOpen: boolean; onClose: () =>
                         <span className="text-[#C9A84C]/60 group-hover/social:text-[#C9A84C] transition-colors duration-300">
                           {link.icon}
                         </span>
-                        <span className="font-cormorant text-sm tracking-wide">
+                        <span className="font-cormorant text-base sm:text-lg tracking-wide font-light">
                           {link.name}
                         </span>
                       </a>
@@ -193,7 +216,7 @@ function ContactOverlayUI({ isOpen, onClose }: { isOpen: boolean; onClose: () =>
                 </span>
                 <div className="min-w-0">
                   <p className="font-cinzel text-[8px] tracking-[0.4em] text-[#C9A84C]/50 uppercase mb-1">{item.label}</p>
-                  <p className="font-cormorant text-base text-white group-hover:text-[#C9A84C] transition-colors duration-300 truncate">
+                  <p className="font-cormorant text-lg sm:text-xl text-white group-hover:text-[#C9A84C] transition-colors duration-300 truncate font-light tracking-wide">
                     {item.value}
                   </p>
                 </div>
