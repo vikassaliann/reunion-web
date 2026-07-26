@@ -3,6 +3,8 @@ import './globals.css'
 import { ContactProvider } from '@/components/ContactContext'
 import { PartnerProvider } from '@/components/PartnerContext'
 
+import GoldScrollShimmer from '@/components/GoldScrollShimmer'
+
 export const metadata: Metadata = {
   title: 'REUNION | Quiet Luxury Estates',
   description: 'Reunion — A sanctuary for those who appreciate excellence without the noise. Timeless luxury estates across the globe.',
@@ -28,7 +30,8 @@ export default function RootLayout({
         <link rel="preload" as="image" href="/properties/homeslide/five.png" />
         <link rel="preload" as="image" href="/properties/homeslide/six.png" />
       </head>
-      <body>
+      <body className="relative bg-[#060606] text-white overflow-x-hidden">
+        <GoldScrollShimmer />
         <ContactProvider>
           <PartnerProvider>
             {children}

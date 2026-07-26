@@ -467,6 +467,30 @@ export default function PropertyDetailSection({ property, mapLink }: PropertyDet
               )}
             </div>
 
+            {/* ═══ MOBILE ONLY: Enquiry Form (shown first on mobile before guidelines, hidden on desktop) ═══ */}
+            <div className="block lg:hidden">
+              <div className="bg-[#070707] border border-[#C9A84C]/15 rounded-lg p-4 sm:p-8 shadow-xl max-w-[440px] w-full mx-auto">
+                <div className="space-y-6">
+                  <div>
+                    <span className="font-cinzel text-[8px] tracking-[0.4em] text-[#C9A84C]/60 block mb-2 uppercase">Inquire</span>
+                    <h3 className="font-cormorant text-2xl text-white font-light">Reserve Your Stay</h3>
+                    <div className="w-8 h-[1px] bg-[#C9A84C]/25 mt-4"></div>
+                  </div>
+                  <ContactForm
+                    defaultPreference={property.name}
+                    whatsappNumber={PROPERTY_PHONES[property.id] ? PROPERTY_PHONES[property.id].replace(/[^\d]/g, "") : "919980208289"}
+                    instagramHandle={
+                      property.id === "de-homes" 
+                        ? "@de_homes_reunion" 
+                        : property.id === "ocean-cafe" 
+                        ? "@reunionteam19" 
+                        : undefined
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+
             {/* Property Guidelines Box (Hidden for Ocean Cafe) */}
             {property.id !== "ocean-cafe" && (
               <div className="bg-[#080808] border border-[#C9A84C]/15 rounded-lg p-5 space-y-4">
@@ -492,30 +516,6 @@ export default function PropertyDetailSection({ property, mapLink }: PropertyDet
                 </div>
               </div>
             )}
-
-            {/* ═══ MOBILE ONLY: Enquiry Form (shown first on mobile, hidden on desktop) ═══ */}
-            <div className="block lg:hidden">
-              <div className="bg-[#070707] border border-[#C9A84C]/15 rounded-lg p-4 sm:p-8 shadow-xl max-w-[440px] w-full mx-auto">
-                <div className="space-y-6">
-                  <div>
-                    <span className="font-cinzel text-[8px] tracking-[0.4em] text-[#C9A84C]/60 block mb-2 uppercase">Inquire</span>
-                    <h3 className="font-cormorant text-2xl text-white font-light">Reserve Your Stay</h3>
-                    <div className="w-8 h-[1px] bg-[#C9A84C]/25 mt-4"></div>
-                  </div>
-                  <ContactForm
-                    defaultPreference={property.name}
-                    whatsappNumber={PROPERTY_PHONES[property.id] ? PROPERTY_PHONES[property.id].replace(/[^\d]/g, "") : "919980208289"}
-                    instagramHandle={
-                      property.id === "de-homes" 
-                        ? "@de_homes_reunion" 
-                        : property.id === "ocean-cafe" 
-                        ? "@reunionteam19" 
-                        : undefined
-                    }
-                  />
-                </div>
-              </div>
-            </div>
 
             {/* ═══ Nearby Tourist Places — Expandable Section ═══ */}
             <div className="pt-6 border-t border-[#C9A84C]/10">
