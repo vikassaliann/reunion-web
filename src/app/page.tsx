@@ -898,15 +898,15 @@ Details: ${fd.get('cafe_desc') || 'None'}`;
                   const loc = MAP_LOCATIONS[hoveredLoc];
                   const xPct = (loc.x / 300) * 100;
                   const yPct = (loc.y / 300) * 100;
-                  const nearBottom = loc.y > 180;
+                  const nearBottom = loc.y > 170;
                   const nearLeft = loc.x < 100;
                   let transform = 'translate(-50%, -108%)';
                   let left = `${xPct}%`;
                   let top = `${yPct}%`;
                   if (nearBottom && nearLeft) {
-                    transform = 'translate(10%, -60%)';
+                    transform = 'translate(15%, -105%)';
                   } else if (nearBottom) {
-                    transform = 'translate(-110%, -60%)';
+                    transform = 'translate(-105%, -105%)';
                   }
                   return (
                     <div 
@@ -943,16 +943,16 @@ Details: ${fd.get('cafe_desc') || 'None'}`;
                   if (!loc) return null;
                   const leftPct = (loc.x / 300) * 100;
                   const topPct = (loc.y / 300) * 100;
-                  const nearBottom = loc.y > 180;
+                  const nearBottom = loc.y > 170;
                   const nearLeft = loc.x < 100;
                   let mobileTransform: string;
                   if (nearBottom && nearLeft) {
-                    mobileTransform = 'translate(10%, -65%)';
+                    mobileTransform = 'translate(15%, -105%)';
                   } else if (nearBottom) {
-                    mobileTransform = 'translate(-110%, -65%)';
+                    mobileTransform = 'translate(-105%, -105%)';
                   } else {
                     const xShift = leftPct < 30 ? '0%' : leftPct > 70 ? '-100%' : '-50%';
-                    mobileTransform = `translate(${xShift}, -110%)`;
+                    mobileTransform = `translate(${xShift}, -108%)`;
                   }
                   return (
                     <a
