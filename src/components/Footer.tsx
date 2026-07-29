@@ -113,9 +113,23 @@ export default function Footer({ variant = "default" }: FooterProps) {
             <Link className="font-body-md text-body-md text-on-surface-variant hover:text-antique-gold transition-colors" href="#">Privacy Policy</Link>
             <Link className="font-body-md text-body-md text-on-surface-variant hover:text-antique-gold transition-colors" href="#">Terms of Service</Link>
           </div>
-          <p className="font-body-md text-[11px] text-on-surface-variant/60 whitespace-nowrap">
-            © 2024 Reunion. All Rights Reserved.
-          </p>
+          <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-4">
+            <p className="font-body-md text-[11px] text-on-surface-variant/60 whitespace-nowrap">
+              © 2024 Reunion. All Rights Reserved.
+            </p>
+            <span className="text-[#C9A84C]/40 hidden sm:inline">•</span>
+            <p className="font-body-md text-[11px] text-on-surface-variant/60 whitespace-nowrap">
+              Designed by{" "}
+              <a
+                href="https://www.linkedin.com/in/vikas-salian-b8aa66372?utm_source=share_via&utm_content=profile&utm_medium=member_android"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[#C9A84C] hover:underline font-semibold"
+              >
+                Vikas Salian
+              </a>
+            </p>
+          </div>
         </div>
       </footer>
     );
@@ -195,9 +209,23 @@ export default function Footer({ variant = "default" }: FooterProps) {
       </div>
 
       {/* Bottom Bar */}
-      <div className="mt-20 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto flex flex-col md:flex-row justify-between items-center pt-8 border-t border-antique-gold/10">
-        <p className="text-on-surface-variant text-[10px] font-label-caps tracking-widest">© 2024 Reunion. All Rights Reserved.</p>
-        <div className="flex gap-7 mt-6 md:mt-0 items-center">
+      <div className="mt-20 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto flex flex-col md:flex-row justify-between items-center pt-8 border-t border-antique-gold/10 gap-4">
+        <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-4 text-center sm:text-left">
+          <p className="text-on-surface-variant text-[10px] font-label-caps tracking-widest">© 2024 Reunion. All Rights Reserved.</p>
+          <span className="text-[#C9A84C]/40 hidden sm:inline">•</span>
+          <p className="text-on-surface-variant/80 text-[10px] font-label-caps tracking-widest">
+            Designed by{" "}
+            <a
+              href="https://www.linkedin.com/in/vikas-salian-b8aa66372?utm_source=share_via&utm_content=profile&utm_medium=member_android"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[#C9A84C] hover:underline font-semibold"
+            >
+              Vikas Salian
+            </a>
+          </p>
+        </div>
+        <div className="flex gap-7 items-center">
           <a
             aria-label="Instagram"
             href="https://instagram.com/reunionteam19"
