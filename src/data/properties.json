@@ -145,11 +145,12 @@
     "location": "Chitpady, Udupi",
     "description": "Reunion Dehomes Premium Suites — where luxury meets convenience. Perfectly situated in the absolute center of Udupi city, our premium suites are located in close proximity to the sacred Udupi Sri Krishna Matha, offering the ideal blend of comfort, privacy, and modern living. Whether you are a devotee on a spiritual journey, a corporate professional, or a family on vacation, our beautifully designed spaces serve as your peaceful sanctuary in the middle of a vibrant city. Room categories include Standard Double Room, Standard Twin Room, Deluxe Double Room, Deluxe Double Room with Balcony, and Presidential Suite.",
     "price": "Contact for pricing",
-    "bedrooms": 5,
+    "bedrooms": 0,
     "acreage": "N/A",
     "sqft": "N/A",
     "completion": "N/A",
     "amenities": [
+      "Olive Mini Banquet Hall",
       "Prime City Center Location",
       "Near Sri Krishna Matha",
       "Presidential Suite",

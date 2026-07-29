@@ -247,6 +247,7 @@ function PartnerOverlayUI({ isOpen, onClose }: { isOpen: boolean; onClose: () =>
                   <option value="Mangalore">Mangalore</option>
                   <option value="Kundapura">Kundapura</option>
                   <option value="Other Coastal Karnataka">Other Coastal Karnataka</option>
+                  <option value="Other State">Other State</option>
                 </select>
               </div>
 

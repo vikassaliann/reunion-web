@@ -217,17 +217,17 @@ const PROPERTY_FAQS: Record<string, FAQ[]> = {
 };
 
 // Nearby Tourist Places — 4 route groups with accurate Google Maps search URLs
-interface TouristPlace {
+export interface TouristPlace {
   name: string;
   mapUrl: string;
 }
 
-interface RouteGroup {
+export interface RouteGroup {
   title: string;
   places: TouristPlace[];
 }
 
-const TOURIST_ROUTES: RouteGroup[] = [
+export const TOURIST_ROUTES: RouteGroup[] = [
   {
     title: "Udupi → Malpe Route",
     places: [
@@ -287,6 +287,15 @@ export default function PropertyDetailSection({ property, mapLink }: PropertyDet
   const [expandedRoutes, setExpandedRoutes] = useState<Record<number, boolean>>({});
   const [faqOpen, setFaqOpen] = useState(false);
   const [expandedFaqs, setExpandedFaqs] = useState<Record<number, boolean>>({});
+
+  const scrollToForm = () => {
+    const isMobile = window.innerWidth < 1024;
+    const targetId = isMobile ? "reserve-form-container-mobile" : "reserve-form-container";
+    const el = document.getElementById(targetId);
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+  };
 
   const images = property.gallery && property.gallery.length > 0 ? property.gallery : [property.heroImage];
 
@@ -422,19 +431,34 @@ export default function PropertyDetailSection({ property, mapLink }: PropertyDet
               )}
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-3">
-                {highlights.map((item, i) => (
-                  <div key={i} className="flex items-center gap-3 group/item">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#C9A84C] shrink-0 group-hover/item:scale-150 transition-transform" />
-                    <span className="text-[13px] text-[#b0aba6] group-hover/item:text-white transition-colors duration-300">
-                      {item}
-                    </span>
-                  </div>
-                ))}
+                {highlights.map((item, i) => {
+                  const isOliveHall = item.includes("Olive Mini Banquet Hall");
+                  return (
+                    <div key={i} className={`flex items-center gap-3 group/item ${isOliveHall ? "sm:col-span-2" : ""}`}>
+                      <span className={`w-1.5 h-1.5 rounded-full shrink-0 group-hover/item:scale-150 transition-transform ${isOliveHall ? "bg-[#C9A84C] scale-125" : "bg-[#C9A84C]/60"}`} />
+                      <span className={`text-[13px] transition-colors duration-300 ${isOliveHall ? "text-[#C9A84C] font-semibold" : "text-[#b0aba6] group-hover/item:text-white"}`}>
+                        {item}
+                      </span>
+                    </div>
+                  );
+                })}
               </div>
             </div>
 
             {/* Phone & Location Buttons */}
             <div className="pt-2 flex flex-wrap gap-3">
+              {/* Reserve Stay CTA */}
+              <button
+                onClick={scrollToForm}
+                className="inline-flex items-center gap-3 py-3.5 px-7 bg-[#C9A84C] text-black hover:bg-[#f0d78c] hover:border-transparent transition-all duration-500 font-cinzel text-[10px] tracking-[0.3em] uppercase rounded-sm font-semibold shadow-lg"
+              >
+                <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16" />
+                  <path d="M12 11h.01" />
+                </svg>
+                Reserve Your Stay
+              </button>
+
               {/* Phone CTA */}
               {PROPERTY_PHONES[property.id] && (
                 <a
@@ -468,7 +492,7 @@ export default function PropertyDetailSection({ property, mapLink }: PropertyDet
             </div>
 
             {/* ═══ MOBILE ONLY: Enquiry Form (shown first on mobile before guidelines, hidden on desktop) ═══ */}
-            <div className="block lg:hidden">
+            <div id="reserve-form-container-mobile" className="block lg:hidden">
               <div className="bg-[#070707] border border-[#C9A84C]/15 rounded-lg p-4 sm:p-8 shadow-xl max-w-[440px] w-full mx-auto">
                 <div className="space-y-6">
                   <div>
@@ -704,7 +728,7 @@ export default function PropertyDetailSection({ property, mapLink }: PropertyDet
           </div>
 
           {/* Right Column — Enquiry Form (Desktop only — hidden on mobile since it's shown above) */}
-          <div className="hidden lg:block lg:col-span-5 xl:col-span-4 lg:sticky lg:top-24 bg-[#070707] border border-[#C9A84C]/15 rounded-lg p-4 sm:p-8 shadow-xl max-w-[440px] lg:max-w-none w-full mx-auto">
+          <div id="reserve-form-container" className="hidden lg:block lg:col-span-5 xl:col-span-4 lg:sticky lg:top-24 bg-[#070707] border border-[#C9A84C]/15 rounded-lg p-4 sm:p-8 shadow-xl max-w-[440px] lg:max-w-none w-full mx-auto">
             <div className="space-y-6">
               <div>
                 <span className="font-cinzel text-[8px] tracking-[0.4em] text-[#C9A84C]/60 block mb-2 uppercase">Inquire</span>

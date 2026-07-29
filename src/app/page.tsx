@@ -7,6 +7,7 @@ import ContactForm from "@/components/ContactForm";
 import PropertyCarousel from "@/components/PropertyCarousel";
 import Stats from "@/components/Stats";
 import Link from "next/link";
+import { TOURIST_ROUTES } from "@/components/PropertyDetailSection";
 
 const FEATURED_PROPERTIES = [
   {
@@ -120,6 +121,7 @@ export default function Home() {
   const [activeFeatured, setActiveFeatured] = useState(0);
   const [activeReview, setActiveReview] = useState(0);
   const [hoveredLoc, setHoveredLoc] = useState<number | null>(null);
+  const [cafeFormOpen, setCafeFormOpen] = useState(false);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -482,21 +484,31 @@ export default function Home() {
 
           {/* ── Café CTA Row ── */}
           <div className="max-w-5xl mx-auto px-6 md:px-20 py-16 reveal" style={{ transitionDelay: '300ms' }}>
-            <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-8 border-t border-[#C9A84C]/15 pt-10">
-              {/* Menu highlights */}
-              <div className="flex flex-wrap gap-x-10 gap-y-4">
+            <div className="flex flex-col gap-10 border-t border-[#C9A84C]/15 pt-10">
+              {/* Menu highlights — horizontal on desktop, grid on mobile */}
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-x-6 gap-y-3">
                 {['Fresh Seafood & Continental Cuisine', 'Specialty Coffee & Signature Mocktails', 'Romantic Candlelight Dinner', 'Beach Birthday Celebrations & Private Events'].map((item) => (
-                  <div key={item} className="flex items-center gap-2">
-                    <div className="w-1 h-1 rounded-full bg-[#C9A84C]" />
-                    <span className="font-cinzel text-[10px] tracking-[0.3em] text-[#a09c98] uppercase">{item}</span>
+                  <div key={item} className="flex items-start gap-2">
+                    <div className="w-1 h-1 rounded-full bg-[#C9A84C] mt-1.5 shrink-0" />
+                    <span className="font-cinzel text-[9px] sm:text-[10px] tracking-[0.2em] text-[#a09c98] uppercase leading-snug">{item}</span>
                   </div>
                 ))}
               </div>
-              {/* CTA buttons */}
-              <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 flex-shrink-0">
+
+              {/* CTA buttons row */}
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4">
+                <button
+                  onClick={() => setCafeFormOpen(true)}
+                  className="inline-flex items-center justify-center gap-3 px-6 sm:px-8 py-3 bg-[#C9A84C] border border-[#C9A84C] font-cinzel text-[10px] tracking-[0.3em] text-[#080808] uppercase hover:bg-transparent hover:text-[#C9A84C] transition-all duration-300 whitespace-nowrap font-bold shadow-lg"
+                >
+                  <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+                  </svg>
+                  Reserve Your Stay
+                </button>
                 <a
                   href="tel:+919972231289"
-                  className="flex-shrink-0 inline-flex items-center gap-3 px-8 py-3 border border-[#C9A84C]/50 font-cinzel text-[10px] tracking-[0.35em] text-[#C9A84C] uppercase hover:bg-[#C9A84C] hover:text-[#080808] hover:border-[#C9A84C] transition-all duration-300 gold-shimmer whitespace-nowrap"
+                  className="inline-flex items-center justify-center gap-3 px-6 sm:px-8 py-3 border border-[#C9A84C]/50 font-cinzel text-[10px] tracking-[0.3em] text-[#C9A84C] uppercase hover:bg-[#C9A84C] hover:text-[#080808] hover:border-[#C9A84C] transition-all duration-300 whitespace-nowrap"
                 >
                   <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
                     <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.5 9.5a19.79 19.79 0 01-3-8.59A2 2 0 012.48 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 8.86a16 16 0 006.29 6.29l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" />
@@ -507,7 +519,7 @@ export default function Home() {
                   href="https://share.google/vsXAVG9Y8vshzClQG"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex-shrink-0 inline-flex items-center gap-3 px-8 py-3 border border-[#C9A84C]/50 font-cinzel text-[10px] tracking-[0.35em] text-[#C9A84C] uppercase hover:bg-[#C9A84C] hover:text-[#080808] hover:border-[#C9A84C] transition-all duration-300 gold-shimmer whitespace-nowrap"
+                  className="inline-flex items-center justify-center gap-3 px-6 sm:px-8 py-3 border border-[#C9A84C]/50 font-cinzel text-[10px] tracking-[0.3em] text-[#C9A84C] uppercase hover:bg-[#C9A84C] hover:text-[#080808] hover:border-[#C9A84C] transition-all duration-300 whitespace-nowrap"
                 >
                   Get Directions
                   <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
@@ -517,6 +529,139 @@ export default function Home() {
               </div>
             </div>
           </div>
+
+          {/* ── Ocean Café Reservation Form Modal ── */}
+          {cafeFormOpen && (
+            <div
+              className="fixed inset-0 z-[9999] flex items-center justify-center p-4 sm:p-6"
+              style={{ background: 'rgba(6,6,6,0.88)', backdropFilter: 'blur(20px)', WebkitBackdropFilter: 'blur(20px)' }}
+              onClick={() => setCafeFormOpen(false)}
+            >
+              <div
+                onClick={(e) => e.stopPropagation()}
+                className="relative w-full max-w-md bg-[#0f0e0e] border border-[#C9A84C]/25 rounded-sm p-6 sm:p-8 shadow-[0_16px_60px_rgba(0,0,0,0.8)] overflow-y-auto max-h-[90vh]"
+              >
+                {/* Close */}
+                <button
+                  onClick={() => setCafeFormOpen(false)}
+                  className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full border border-[#C9A84C]/40 text-[#C9A84C] hover:bg-[#C9A84C]/20 transition-all"
+                >
+                  <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+                    <line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" />
+                  </svg>
+                </button>
+
+                {/* Header */}
+                <div className="space-y-2 mb-8">
+                  <span className="font-cinzel text-[9px] tracking-[0.45em] text-[#C9A84C] uppercase font-semibold">Reunion Ocean Café</span>
+                  <h2 className="font-cormorant text-2xl sm:text-3xl font-light text-white leading-snug">
+                    Reserve Your <em className="text-[#C9A84C]">Stay</em>
+                  </h2>
+                  <div className="w-12 h-px bg-[#C9A84C]/30" />
+                </div>
+
+                <form
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    const fd = new FormData(e.currentTarget);
+                    const msg = `Hello Reunion Ocean Café! I would like to reserve.
+
+Name: ${fd.get('cafe_name') || 'N/A'}
+Phone: ${fd.get('cafe_phone') || 'N/A'}
+Date: ${fd.get('cafe_date') || 'Not specified'}
+Time: ${fd.get('cafe_time') || 'Not specified'}
+Guests: ${fd.get('cafe_guests') || 'Not specified'}
+Details: ${fd.get('cafe_desc') || 'None'}`;
+                    window.open(`https://wa.me/919972231289?text=${encodeURIComponent(msg)}`, '_blank');
+                    setCafeFormOpen(false);
+                  }}
+                  className="space-y-5"
+                >
+                  {/* Name */}
+                  <div>
+                    <label className="block font-cinzel text-[9px] tracking-[0.2em] text-[#C9A84C]/80 uppercase mb-1.5">
+                      Your Name <span className="text-red-400">*</span>
+                    </label>
+                    <input
+                      name="cafe_name"
+                      required
+                      type="text"
+                      placeholder="Full Name"
+                      className="w-full bg-[#161515] border border-white/10 rounded-sm px-3.5 py-2.5 text-sm text-white placeholder-white/20 focus:outline-none focus:border-[#C9A84C] transition-colors"
+                    />
+                  </div>
+
+                  {/* Phone */}
+                  <div>
+                    <label className="block font-cinzel text-[9px] tracking-[0.2em] text-[#C9A84C]/80 uppercase mb-1.5">
+                      Phone Number <span className="text-red-400">*</span>
+                    </label>
+                    <input
+                      name="cafe_phone"
+                      required
+                      type="tel"
+                      placeholder="98765 43210"
+                      className="w-full bg-[#161515] border border-white/10 rounded-sm px-3.5 py-2.5 text-sm text-white placeholder-white/20 focus:outline-none focus:border-[#C9A84C] transition-colors"
+                    />
+                  </div>
+
+                  {/* Date & Time */}
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <label className="block font-cinzel text-[9px] tracking-[0.2em] text-[#C9A84C]/80 uppercase mb-1.5">Date</label>
+                      <input
+                        name="cafe_date"
+                        type="date"
+                        className="w-full bg-[#161515] border border-white/10 rounded-sm px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-[#C9A84C] transition-colors [color-scheme:dark]"
+                      />
+                    </div>
+                    <div>
+                      <label className="block font-cinzel text-[9px] tracking-[0.2em] text-[#C9A84C]/80 uppercase mb-1.5">Time</label>
+                      <input
+                        name="cafe_time"
+                        type="time"
+                        className="w-full bg-[#161515] border border-white/10 rounded-sm px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-[#C9A84C] transition-colors [color-scheme:dark]"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Guests */}
+                  <div>
+                    <label className="block font-cinzel text-[9px] tracking-[0.2em] text-[#C9A84C]/80 uppercase mb-1.5">Number of Guests</label>
+                    <select
+                      name="cafe_guests"
+                      defaultValue=""
+                      className="w-full bg-[#161515] border border-white/10 rounded-sm px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-[#C9A84C] transition-colors"
+                    >
+                      <option value="" disabled>Select</option>
+                      <option value="1-2">1 – 2</option>
+                      <option value="3-5">3 – 5</option>
+                      <option value="6-10">6 – 10</option>
+                      <option value="10+">10+</option>
+                    </select>
+                  </div>
+
+                  {/* Description */}
+                  <div>
+                    <label className="block font-cinzel text-[9px] tracking-[0.2em] text-[#C9A84C]/80 uppercase mb-1.5">Special Requests / Description</label>
+                    <textarea
+                      name="cafe_desc"
+                      rows={3}
+                      placeholder="E.g. candlelight dinner, birthday setup, dietary needs..."
+                      className="w-full bg-[#161515] border border-white/10 rounded-sm px-3.5 py-2.5 text-sm text-white placeholder-white/20 focus:outline-none focus:border-[#C9A84C] transition-colors resize-none"
+                    />
+                  </div>
+
+                  <button
+                    type="submit"
+                    className="w-full py-4 bg-[#C9A84C] text-black font-cinzel text-[10px] tracking-[0.3em] uppercase font-bold hover:bg-[#f0d78c] transition-colors"
+                  >
+                    Send to WhatsApp
+                  </button>
+                </form>
+              </div>
+            </div>
+          )}
         </section>
 
         {/* ── Guest Testimonials Slideshow ── */}
@@ -740,6 +885,76 @@ export default function Home() {
                   <span className="font-cinzel text-[7.5px] tracking-[0.2em] text-[#a09c98] uppercase">Hover marker to preview</span>
                 </div>
               </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ═══ Nearby Tourist Places Section (Aesthetic General Section) ═══ */}
+        <section className="py-24 bg-[#060606] border-t border-[#C9A84C]/10 relative overflow-hidden">
+          {/* Subtle background glow */}
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full pointer-events-none" style={{ background: 'radial-gradient(circle, rgba(201,168,76,0.03) 0%, transparent 70%)' }} />
+          
+          <div className="max-w-[1400px] mx-auto px-6 md:px-8 relative z-10">
+            {/* Header */}
+            <div className="text-center mb-16">
+              <span className="font-cinzel text-[10px] tracking-[0.5em] text-[#C9A84C] uppercase block mb-4">Explore Udupi</span>
+              <h2 className="font-cormorant text-[clamp(2.2rem,4.5vw,3.5rem)] font-light text-white leading-tight">
+                Nearby <em className="text-[#C9A84C] italic">Tourist Places</em>
+              </h2>
+              <div className="w-16 h-[1px] bg-[#C9A84C]/40 mx-auto mt-6"></div>
+              <p className="text-[#8a8682] text-sm max-w-xl mx-auto mt-6 leading-relaxed">
+                Discover the best local attractions, historic temples, golden beaches, and scenic view points around Udupi.
+              </p>
+            </div>
+
+            {/* Grid of Route Cards */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {TOURIST_ROUTES.map((route, rIdx) => (
+                <div 
+                  key={rIdx} 
+                  className="bg-[#080808] border border-[#C9A84C]/10 hover:border-[#C9A84C]/35 rounded-lg p-6 flex flex-col justify-between transition-all duration-500 hover:shadow-[0_10px_30px_rgba(0,0,0,0.5)] group/card"
+                >
+                  <div className="space-y-6">
+                    {/* Card Header */}
+                    <div className="space-y-2">
+                      <span className="text-[9px] font-mono text-[#C9A84C]/60 tracking-wider">ROUTE 0{rIdx + 1}</span>
+                      <h3 className="font-cinzel text-xs tracking-[0.15em] text-white group-hover/card:text-[#C9A84C] transition-colors duration-300 uppercase font-semibold">
+                        {route.title}
+                      </h3>
+                      <div className="w-8 h-[1px] bg-[#C9A84C]/20 group-hover/card:w-16 transition-all duration-500"></div>
+                    </div>
+
+                    {/* Places List */}
+                    <div className="space-y-2 max-h-[300px] overflow-y-auto pr-1 scrollbar-thin scrollbar-thumb-[#C9A84C]/10 scrollbar-track-transparent">
+                      {route.places.map((place, pIdx) => (
+                        <a
+                          key={pIdx}
+                          href={place.mapUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-start gap-2.5 py-1.5 px-2 rounded hover:bg-[#C9A84C]/5 transition-colors duration-200 group/item text-left"
+                        >
+                          <span className="text-[10px] text-[#C9A84C]/40 font-mono mt-0.5 w-4 shrink-0 text-right">{pIdx + 1}.</span>
+                          <span className="text-[12px] text-[#b0aba6] group-hover/item:text-white transition-colors duration-200 flex-1 leading-snug">
+                            {place.name}
+                          </span>
+                          <svg className="w-3 h-3 text-[#C9A84C] opacity-0 group-hover/item:opacity-100 group-hover/item:translate-x-0.5 group-hover/item:-translate-y-0.5 transition-all duration-300 shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                            <line x1="7" y1="17" x2="17" y2="7" />
+                            <polyline points="7 7 17 7 17 17" />
+                          </svg>
+                        </a>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Card Footer */}
+                  <div className="border-t border-white/5 pt-4 mt-6">
+                    <span className="text-[9px] font-cinzel tracking-widest text-[#a09c98]/60 uppercase">
+                      {route.places.length} Attractions
+                    </span>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </section>

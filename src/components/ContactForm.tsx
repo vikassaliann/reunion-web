@@ -30,7 +30,17 @@ export default function ContactForm({
       description: formData.get("description") as string,
     };
 
-    const message = `Hello Reunion! I would like to inquire about your villas.
+    const isOceanCafe = whatsappNumber === "919972231289" || (data.preference && (data.preference.toLowerCase().includes("cafe") || data.preference.toLowerCase().includes("café")));
+
+    const message = isOceanCafe
+      ? `Hello Reunion Ocean Café! I would like to reserve my stay / table.
+
+Name: ${data.name}
+Phone: ${data.phone}
+Email: ${data.email}
+Date: ${data.checkin || "Not specified"}
+Time/Details: ${data.description || "None provided"}`
+      : `Hello Reunion! I would like to inquire about your villas.
 
 Name: ${data.name}
 Phone: ${data.phone}
