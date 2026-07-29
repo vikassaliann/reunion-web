@@ -100,7 +100,7 @@ const MAP_LOCATIONS = [
   { name: "Ocean Elite", x: 78, y: 78, link: "https://share.google/IctlTljnCt3FgqQfL", desc: "Padutonse Beachfront Sanctuary", image: "/properties/popular/elite.png" },
   { name: "Ocean Manor", x: 80, y: 90, link: "https://share.google/wrhEhrLlGy34G40By", desc: "Grand Coastal Manor", image: "/properties/popular/manoor.png" },
   { name: "Ocean Bliss", x: 79, y: 102, link: "https://share.google/ufUNLhBYyZ6jyZR2p", desc: "Cozy Beachfront Villa", image: "/properties/ocean-bliss/blissthumb.png" },
-  { name: "Ocean Daaffy", x: 76, y: 114, link: "https://share.google/l04jcrY103m0p0K3S", desc: "Private Seaside Sanctuary", image: "https://lh3.googleusercontent.com/aida-public/AB6AXuCg9v6vtXoIyayflvhPajyJtTh-NkPxkLm9VAgpWsg2saL2L1Sc_oxRiKVVtArW-X0tHnak0vp8H_GOWktnlA0SKoO3MqNZcd8bQZBw3Rq4BPAOnF0a_80qK_7ADVCUeaa_l9oodjKu1wYTCTWenGTrLgFJr1e_Uz1MTxvvI4Yv8Ke7HG5pAgYjNDCQlK5PZVzIA5a7lhaGmvif1nWg2XXZ1RDXqWlkmonUYPDr8pdAwqRucNDGHVvziD2fAtpbuzGdYxgQo7jKfRI" },
+  { name: "Ocean Daaffy", x: 76, y: 114, link: "https://share.google/l04jcrY103m0p0K3S", desc: "Private Seaside Sanctuary", image: "/properties/ocean-daaffy/daaffyhero.png" },
   { name: "Arya", x: 168, y: 120, link: "https://share.google/AHUQar1rgE6Zfcohh", desc: "Traditional Luxury Villa", image: "/properties/arya/aryathumb.png" },
   { name: "Marina Villa", x: 92, y: 126, link: "https://share.google/8LjWWnPGEZtwhXprX", desc: "Luxury Harbor Residency", image: "/properties/marina-villa/marinathumb.png" },
   { name: "Krshna", x: 176, y: 129, link: "https://share.google/xRpFTqWqRX5ShFqFk", desc: "Premium Heritage Residency", image: "/properties/krshna/krthumb.png" },
@@ -110,9 +110,9 @@ const MAP_LOCATIONS = [
   { name: "Ocean Hridayam", x: 160, y: 156, link: "https://share.google/yf0w6TtYw4QYGkq2u", desc: "Tranquil Garden Villa", image: "/properties/ocean-hridayam/hridthumb.png" },
   { name: "Reunion Ocean Café", x: 78, y: 192, link: "https://share.google/vsXAVG9Y8vshzClQG", desc: "Beachside Cafe, Mattu Beach", image: "/properties/ocean cafe/ocean1.png" },
   { name: "Ocean Givaah", x: 74, y: 210, link: "https://share.google/hP2F3unQNtIxL1KTh", desc: "Secluded Beachfront Villa", image: "/properties/popular/givaah.png" },
-  { name: "Villa", x: 76, y: 219, link: "https://share.google/8jFAzdHybtmkeZQwv", desc: "Classic Beachfront Villa", image: "https://lh3.googleusercontent.com/aida-public/AB6AXuDe_x1Na3zexjB9CXIgWbN-OZPgwoP8sD7CkYQFSCcZYL4O_NNuGFQREi6-Le5g_-EZT72T8nPwXEF_g6AXBxM0u4-WdG-GpuP6JikCorvxIgN7YupOe4OLatcmzdpKepjxAKXZcRDOVCkcFs4ihUb-6u_LrK4h1Uuw5OBQcgaswCneViT41Cj2s5br48qBSWBLd0-ywbbC9lwk9quxUY-wvk6TlUiInVxdpT35JZK-9pAUkfmii4sKze0G72lJFGeEPtNKAQ4hv1A" },
+  { name: "Reunion Villa", x: 76, y: 219, link: "https://share.google/8jFAzdHybtmkeZQwv", desc: "Classic Beachfront Villa", image: "/properties/villa/villahero.png" },
   { name: "Ocean Royal", x: 78, y: 240, link: "https://share.google/vqIEhqFKsJt9EitKO", desc: "Majestic Beachfront Estate", image: "/properties/popular/royal.png" },
-  { name: "Regal Villa", x: 75, y: 252, link: "https://maps.app.goo.gl/P3NuZSXE29bcFPT19", desc: "Majestic Kapu Residency", image: "https://lh3.googleusercontent.com/aida-public/AB6AXuAj8MYs5y7mUKBjWo3QMCQgQf7OCs5Yup4OLJrgpvK2ZB8NNEG_cSb0RIFOVByrksmny1f8VXUY7uAYLoZkgA5NE_IzsNB_WmFChDmNW6_BpkfoNFmrIg8IIROdCmuLtWYcMtDWU-4VxMKmhrXIW1KMuZUJ_1D3_998F0lUdhDnZoOtQ1MlFE8xzZBTzm_DeeNdSsnKZKI8DMKv1Hev4xwp81a7zHVPR9d_UFpIqJMmwzpRpWW4wauTO6flqvymik6HW0bh6-Dc0es" }
+  { name: "Regal Villa", x: 75, y: 252, link: "https://maps.app.goo.gl/P3NuZSXE29bcFPT19", desc: "Majestic Kapu Residency", image: "/properties/regal-villa/regalhero.png" }
 ];
 
 
@@ -123,6 +123,7 @@ export default function Home() {
   const [hoveredLoc, setHoveredLoc] = useState<number | null>(null);
   const [cafeFormOpen, setCafeFormOpen] = useState(false);
   const [expandedRoutes, setExpandedRoutes] = useState<Record<number, boolean>>({});
+  const [mobilePulsePins, setMobilePulsePins] = useState<number[]>([]);
 
   const toggleRoute = (idx: number) => {
     setExpandedRoutes((prev) => ({ ...prev, [idx]: !prev[idx] }));
@@ -148,6 +149,23 @@ export default function Home() {
     const interval = setInterval(() => {
       setActiveReview((prev) => (prev + 1) % REVIEWS.length);
     }, 4500);
+    return () => clearInterval(interval);
+  }, []);
+
+  // Mobile: auto-cycle 2 random property pins every 3s to show their preview cards
+  useEffect(() => {
+    const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+    if (!isMobile) return;
+
+    const pickTwo = () => {
+      const total = MAP_LOCATIONS.length;
+      const a = Math.floor(Math.random() * total);
+      let b = Math.floor(Math.random() * (total - 1));
+      if (b >= a) b++;
+      setMobilePulsePins([a, b]);
+    };
+    pickTwo();
+    const interval = setInterval(pickTwo, 3000);
     return () => clearInterval(interval);
   }, []);
 
@@ -806,61 +824,64 @@ Details: ${fd.get('cafe_desc') || 'None'}`;
                   <text x="94" y="187" fill="#C9A84C" fillOpacity="0.2" fontSize="5.5" letterSpacing="0.15em" className="font-cinzel select-none font-semibold">MATTU BEACH</text>
                   <text x="92" y="238" fill="#C9A84C" fillOpacity="0.2" fontSize="5.5" letterSpacing="0.15em" className="font-cinzel select-none font-semibold">KAPU BEACH</text>
 
-                  {/* Pulsing Location Markers */}
-                  {MAP_LOCATIONS.map((loc, i) => {
-                    const isActive = hoveredLoc === i;
-                    return (
-                      <g key={i} className="pointer-events-auto cursor-pointer">
-                        {/* Interactive hover target (invisible but large for easy hover) */}
-                        <circle 
-                          cx={loc.x} 
-                          cy={loc.y} 
-                          r="10" 
-                          fill="transparent"
-                          onMouseEnter={() => setHoveredLoc(i)}
-                          onMouseLeave={() => setHoveredLoc(null)}
-                          onClick={() => window.open(loc.link, "_blank")}
-                        />
-                        {/* Pulsing gold outer ring */}
-                        <circle 
-                          cx={loc.x} 
-                          cy={loc.y} 
-                          r={isActive ? "9" : "6"} 
-                          className="fill-[#C9A84C]/25 animate-ping" 
-                          style={{ transformOrigin: `${loc.x}px ${loc.y}px`, animationDuration: isActive ? "1.5s" : "3s" }}
-                        />
-                        {/* Solid Center Dot */}
-                        <circle 
-                          cx={loc.x} 
-                          cy={loc.y} 
-                          r={isActive ? "4" : "2.5"} 
-                          className="fill-[#C9A84C] stroke-black stroke-[1px] transition-all duration-300"
-                          onMouseEnter={() => setHoveredLoc(i)}
-                          onMouseLeave={() => setHoveredLoc(null)}
-                          onClick={() => window.open(loc.link, "_blank")}
-                        />
-                      </g>
-                    );
-                  })}
                 </svg>
 
+                {/* Pulsing Property Image Pins Overlay */}
+                {MAP_LOCATIONS.map((loc, i) => {
+                  const isActive = hoveredLoc === i;
+                  const isMobilePulse = mobilePulsePins.includes(i);
+                  const leftPercent = (loc.x / 300) * 100;
+                  const topPercent = (loc.y / 300) * 100;
+
+                  return (
+                    <div
+                      key={i}
+                      className="absolute z-20 -translate-x-1/2 -translate-y-1/2 cursor-pointer group/pin"
+                      style={{ left: `${leftPercent}%`, top: `${topPercent}%` }}
+                      onMouseEnter={() => setHoveredLoc(i)}
+                      onMouseLeave={() => setHoveredLoc(null)}
+                      onClick={() => window.open(loc.link, "_blank")}
+                    >
+                      {/* Pulsing Gold Glow Ring */}
+                      <div 
+                        className={`absolute -inset-1 rounded-full bg-[#C9A84C]/35 animate-ping pointer-events-none ${isActive || isMobilePulse ? 'scale-150' : 'scale-100'}`}
+                        style={{ animationDuration: isActive ? "1.5s" : isMobilePulse ? "1.8s" : "2.8s" }}
+                      />
+
+                      {/* Property Hero Image Pin Badge */}
+                      <div className={`relative w-7 h-7 sm:w-8 sm:h-8 rounded-full border-2 transition-all duration-300 overflow-hidden shadow-[0_0_10px_rgba(201,168,76,0.5)] ${
+                        isActive || isMobilePulse ? 'border-[#C9A84C] scale-125 z-30 shadow-[0_0_18px_rgba(201,168,76,0.9)]' : 'border-[#C9A84C]/80 group-hover/pin:scale-125 group-hover/pin:border-[#C9A84C]'
+                      }`}>
+                        <img
+                          src={loc.image}
+                          alt={loc.name}
+                          className="w-full h-full object-cover"
+                        />
+                        <div className="absolute inset-0 bg-black/20 group-hover/pin:bg-transparent transition-colors" />
+                      </div>
+
+                      {/* Pin Pointer Dot */}
+                      <div className="w-1.5 h-1.5 rounded-full bg-[#C9A84C] mx-auto -mt-0.5 border border-black shadow-sm" />
+                    </div>
+                  );
+                })}
+
                 {/* Top Title/Brand watermark */}
-                <div className="absolute top-6 left-6 z-10">
+                <div className="absolute top-4 left-4 sm:top-6 sm:left-6 z-10">
                   <span className="font-cinzel text-[8px] tracking-[0.4em] text-[#C9A84C]/60 uppercase block mb-1">Interactive Directory</span>
                   <span className="font-cinzel text-xs tracking-[0.2em] text-white uppercase">Reunion Udupi Map</span>
                 </div>
 
-                {/* Floating Preview Card Popup on Hover */}
+                {/* Desktop: Floating Preview Card on Hover */}
                 {hoveredLoc !== null && (
                   <div 
-                    className="absolute pointer-events-none z-30 transition-all duration-300 w-48 bg-[#090909]/95 border border-[#C9A84C]/35 rounded overflow-hidden shadow-2xl animate-fade-in-up"
+                    className="absolute pointer-events-none z-30 transition-all duration-300 w-48 bg-[#090909]/95 border border-[#C9A84C]/35 rounded overflow-hidden shadow-2xl animate-fade-in-up hidden md:block"
                     style={{
                       left: `${(MAP_LOCATIONS[hoveredLoc].x / 300) * 100}%`,
                       top: `${(MAP_LOCATIONS[hoveredLoc].y / 300) * 100}%`,
                       transform: 'translate(-50%, -108%)'
                     }}
                   >
-                    {/* Hero Image Preview */}
                     <div className="relative w-full h-24 bg-zinc-900 overflow-hidden">
                       <img 
                         src={MAP_LOCATIONS[hoveredLoc].image} 
@@ -869,7 +890,6 @@ Details: ${fd.get('cafe_desc') || 'None'}`;
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-[#090909] via-[#090909]/30 to-transparent" />
                     </div>
-                    {/* Property info */}
                     <div className="p-3">
                       <h4 className="font-cinzel text-[10px] tracking-wider text-[#C9A84C] font-semibold uppercase mb-0.5 truncate">
                         {MAP_LOCATIONS[hoveredLoc].name}
@@ -885,9 +905,49 @@ Details: ${fd.get('cafe_desc') || 'None'}`;
                   </div>
                 )}
 
+                {/* Mobile: Auto-cycling preview cards for 2 random pins */}
+                {mobilePulsePins.map((pinIdx) => {
+                  const loc = MAP_LOCATIONS[pinIdx];
+                  if (!loc) return null;
+                  const leftPct = (loc.x / 300) * 100;
+                  const topPct = (loc.y / 300) * 100;
+                  // Shift card to left/right to avoid being cut off at edges
+                  const xShift = leftPct < 30 ? '0%' : leftPct > 70 ? '-100%' : '-50%';
+                  return (
+                    <a
+                      key={`mobile-pulse-${pinIdx}`}
+                      href={loc.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="absolute z-40 w-36 bg-[#090909]/95 border border-[#C9A84C]/40 rounded overflow-hidden shadow-2xl block md:hidden animate-fade-in-up"
+                      style={{
+                        left: `${leftPct}%`,
+                        top: `${topPct}%`,
+                        transform: `translate(${xShift}, -110%)`
+                      }}
+                    >
+                      <div className="relative w-full h-16 bg-zinc-900 overflow-hidden">
+                        <img
+                          src={loc.image}
+                          alt={loc.name}
+                          className="w-full h-full object-cover"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-[#090909] via-transparent to-transparent" />
+                      </div>
+                      <div className="px-2 py-1.5">
+                        <h4 className="font-cinzel text-[8px] tracking-wider text-[#C9A84C] font-semibold uppercase truncate">
+                          {loc.name}
+                        </h4>
+                        <p className="text-[7px] text-[#a09c98] truncate">{loc.desc}</p>
+                      </div>
+                    </a>
+                  );
+                })}
+
                 {/* Stationary hint label in bottom-right */}
-                <div className="absolute bottom-6 right-6 z-10 bg-black/60 backdrop-blur-sm border border-[#C9A84C]/10 py-1.5 px-3 rounded">
-                  <span className="font-cinzel text-[7.5px] tracking-[0.2em] text-[#a09c98] uppercase">Hover marker to preview</span>
+                <div className="absolute bottom-4 right-4 sm:bottom-6 sm:right-6 z-10 bg-black/60 backdrop-blur-sm border border-[#C9A84C]/10 py-1.5 px-3 rounded">
+                  <span className="font-cinzel text-[7.5px] tracking-[0.2em] text-[#a09c98] uppercase hidden md:inline">Hover pin to preview</span>
+                  <span className="font-cinzel text-[7.5px] tracking-[0.2em] text-[#a09c98] uppercase md:hidden">Tap pin · Auto-preview</span>
                 </div>
               </div>
             </div>
