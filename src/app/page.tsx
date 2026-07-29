@@ -123,7 +123,7 @@ export default function Home() {
   const [hoveredLoc, setHoveredLoc] = useState<number | null>(null);
   const [cafeFormOpen, setCafeFormOpen] = useState(false);
   const [expandedRoutes, setExpandedRoutes] = useState<Record<number, boolean>>({});
-  const [mobilePulsePins, setMobilePulsePins] = useState<number[]>([]);
+  const [mobileActivePin, setMobileActivePin] = useState<number>(0);
 
   const toggleRoute = (idx: number) => {
     setExpandedRoutes((prev) => ({ ...prev, [idx]: !prev[idx] }));
@@ -152,20 +152,19 @@ export default function Home() {
     return () => clearInterval(interval);
   }, []);
 
-  // Mobile: auto-cycle 2 random property pins every 3s to show their preview cards
+  // Mobile: auto-cycle 1 property pin every 3s to show its preview card
   useEffect(() => {
     const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
     if (!isMobile) return;
 
-    const pickTwo = () => {
-      const total = MAP_LOCATIONS.length;
-      const a = Math.floor(Math.random() * total);
-      let b = Math.floor(Math.random() * (total - 1));
-      if (b >= a) b++;
-      setMobilePulsePins([a, b]);
-    };
-    pickTwo();
-    const interval = setInterval(pickTwo, 3000);
+    let current = 0;
+    const total = MAP_LOCATIONS.length;
+    setMobileActivePin(0);
+
+    const interval = setInterval(() => {
+      current = (current + 1) % total;
+      setMobileActivePin(current);
+    }, 3000);
     return () => clearInterval(interval);
   }, []);
 
@@ -778,8 +777,9 @@ Details: ${fd.get('cafe_desc') || 'None'}`;
             </div>
             {/* Interactive Black & Gold Coastal Udupi Map (Centered Square Layout) */}
             <div className="w-full md:w-1/2 flex items-center justify-center p-2 bg-[#080808]">
-              <div className="w-full max-w-[580px] aspect-square relative bg-[#070707] border border-[#C9A84C]/15 rounded-lg overflow-hidden select-none shadow-2xl">
-                {/* Background Map Grid & Vector Art */}
+              <div className="w-full max-w-[580px] aspect-square relative bg-[#070707] border border-[#C9A84C]/15 rounded-lg select-none shadow-2xl">
+                {/* Background Map Grid & Vector Art — clipped to container */}
+                <div className="absolute inset-0 overflow-hidden rounded-lg">
                 <svg 
                   viewBox="0 0 300 300" 
                   className="absolute inset-0 w-full h-full object-cover opacity-75 z-0 pointer-events-none"
@@ -825,11 +825,12 @@ Details: ${fd.get('cafe_desc') || 'None'}`;
                   <text x="92" y="238" fill="#C9A84C" fillOpacity="0.2" fontSize="5.5" letterSpacing="0.15em" className="font-cinzel select-none font-semibold">KAPU BEACH</text>
 
                 </svg>
+                </div>{/* end overflow-hidden wrapper */}
 
-                {/* Pulsing Property Image Pins Overlay */}
+                {/* Property Map Pins Overlay */}
                 {MAP_LOCATIONS.map((loc, i) => {
-                  const isActive = hoveredLoc === i;
-                  const isMobilePulse = mobilePulsePins.includes(i);
+                  const isHovered = hoveredLoc === i;
+                  const isMobileActive = mobileActivePin === i;
                   const leftPercent = (loc.x / 300) * 100;
                   const topPercent = (loc.y / 300) * 100;
 
@@ -842,91 +843,131 @@ Details: ${fd.get('cafe_desc') || 'None'}`;
                       onMouseLeave={() => setHoveredLoc(null)}
                       onClick={() => window.open(loc.link, "_blank")}
                     >
-                      {/* Pulsing Gold Glow Ring */}
-                      <div 
-                        className={`absolute -inset-1 rounded-full bg-[#C9A84C]/35 animate-ping pointer-events-none ${isActive || isMobilePulse ? 'scale-150' : 'scale-100'}`}
-                        style={{ animationDuration: isActive ? "1.5s" : isMobilePulse ? "1.8s" : "2.8s" }}
-                      />
-
-                      {/* Property Hero Image Pin Badge */}
-                      <div className={`relative w-7 h-7 sm:w-8 sm:h-8 rounded-full border-2 transition-all duration-300 overflow-hidden shadow-[0_0_10px_rgba(201,168,76,0.5)] ${
-                        isActive || isMobilePulse ? 'border-[#C9A84C] scale-125 z-30 shadow-[0_0_18px_rgba(201,168,76,0.9)]' : 'border-[#C9A84C]/80 group-hover/pin:scale-125 group-hover/pin:border-[#C9A84C]'
-                      }`}>
-                        <img
-                          src={loc.image}
-                          alt={loc.name}
-                          className="w-full h-full object-cover"
+                      {/* ── DESKTOP PIN (Image Badge with Gold Border) ── */}
+                      <div className="hidden md:block relative">
+                        {/* Pulsing Gold Glow Ring */}
+                        <div 
+                          className={`absolute -inset-1 rounded-full bg-[#C9A84C]/35 animate-ping pointer-events-none ${isHovered ? 'scale-150' : 'scale-100'}`}
+                          style={{ animationDuration: isHovered ? "1.5s" : "2.8s" }}
                         />
-                        <div className="absolute inset-0 bg-black/20 group-hover/pin:bg-transparent transition-colors" />
+
+                        {/* Property Hero Image Pin Badge */}
+                        <div className={`relative w-8 h-8 rounded-full border-2 transition-all duration-300 overflow-hidden shadow-[0_0_10px_rgba(201,168,76,0.5)] ${
+                          isHovered ? 'border-[#C9A84C] scale-125 z-30 shadow-[0_0_18px_rgba(201,168,76,0.9)]' : 'border-[#C9A84C]/80 group-hover/pin:scale-125 group-hover/pin:border-[#C9A84C]'
+                        }`}>
+                          <img
+                            src={loc.image}
+                            alt={loc.name}
+                            className="w-full h-full object-cover"
+                          />
+                          <div className="absolute inset-0 bg-black/20 group-hover/pin:bg-transparent transition-colors" />
+                        </div>
+
+                        {/* Pin Pointer Dot */}
+                        <div className="w-1.5 h-1.5 rounded-full bg-[#C9A84C] mx-auto -mt-0.5 border border-black shadow-sm" />
                       </div>
 
-                      {/* Pin Pointer Dot */}
-                      <div className="w-1.5 h-1.5 rounded-full bg-[#C9A84C] mx-auto -mt-0.5 border border-black shadow-sm" />
+                      {/* ── MOBILE PIN (Clean Pulsing Pin Dot without Image) ── */}
+                      <div className="block md:hidden relative flex items-center justify-center">
+                        {/* Pulsing Gold Aura Ring when active/pulsed */}
+                        <div 
+                          className={`absolute -inset-2.5 rounded-full bg-[#C9A84C]/50 animate-ping pointer-events-none ${isMobileActive ? 'opacity-100' : 'opacity-0'}`}
+                          style={{ animationDuration: "1.5s" }}
+                        />
+                        {/* Pulsing Pin Dot */}
+                        <div 
+                          className={`rounded-full border border-black transition-all duration-300 ${
+                            isMobileActive 
+                              ? 'w-4 h-4 bg-[#C9A84C] scale-125 shadow-[0_0_12px_#C9A84C]' 
+                              : 'w-2.5 h-2.5 bg-[#C9A84C]/80'
+                          }`}
+                        />
+                      </div>
                     </div>
                   );
                 })}
 
                 {/* Top Title/Brand watermark */}
-                <div className="absolute top-4 left-4 sm:top-6 sm:left-6 z-10">
+                <div className="absolute top-4 left-4 sm:top-6 sm:left-6 z-10 pointer-events-none">
                   <span className="font-cinzel text-[8px] tracking-[0.4em] text-[#C9A84C]/60 uppercase block mb-1">Interactive Directory</span>
                   <span className="font-cinzel text-xs tracking-[0.2em] text-white uppercase">Reunion Udupi Map</span>
                 </div>
 
                 {/* Desktop: Floating Preview Card on Hover */}
-                {hoveredLoc !== null && (
-                  <div 
-                    className="absolute pointer-events-none z-30 transition-all duration-300 w-48 bg-[#090909]/95 border border-[#C9A84C]/35 rounded overflow-hidden shadow-2xl animate-fade-in-up hidden md:block"
-                    style={{
-                      left: `${(MAP_LOCATIONS[hoveredLoc].x / 300) * 100}%`,
-                      top: `${(MAP_LOCATIONS[hoveredLoc].y / 300) * 100}%`,
-                      transform: 'translate(-50%, -108%)'
-                    }}
-                  >
-                    <div className="relative w-full h-24 bg-zinc-900 overflow-hidden">
-                      <img 
-                        src={MAP_LOCATIONS[hoveredLoc].image} 
-                        alt={MAP_LOCATIONS[hoveredLoc].name} 
-                        className="w-full h-full object-cover"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-[#090909] via-[#090909]/30 to-transparent" />
-                    </div>
-                    <div className="p-3">
-                      <h4 className="font-cinzel text-[10px] tracking-wider text-[#C9A84C] font-semibold uppercase mb-0.5 truncate">
-                        {MAP_LOCATIONS[hoveredLoc].name}
-                      </h4>
-                      <p className="text-[9px] text-[#a09c98] font-light truncate mb-2">
-                        {MAP_LOCATIONS[hoveredLoc].desc}
-                      </p>
-                      <div className="flex items-center justify-between border-t border-white/5 pt-1.5">
-                        <span className="text-[8px] text-white/30 uppercase tracking-widest">Udupi</span>
-                        <span className="text-[8px] text-[#C9A84C] uppercase tracking-wider font-semibold">Click to View ↗</span>
+                {hoveredLoc !== null && (() => {
+                  const loc = MAP_LOCATIONS[hoveredLoc];
+                  const xPct = (loc.x / 300) * 100;
+                  const yPct = (loc.y / 300) * 100;
+                  const nearBottom = loc.y > 180;
+                  const nearLeft = loc.x < 100;
+                  let transform = 'translate(-50%, -108%)';
+                  let left = `${xPct}%`;
+                  let top = `${yPct}%`;
+                  if (nearBottom && nearLeft) {
+                    transform = 'translate(10%, -60%)';
+                  } else if (nearBottom) {
+                    transform = 'translate(-110%, -60%)';
+                  }
+                  return (
+                    <div 
+                      className="absolute pointer-events-none z-30 transition-all duration-300 w-48 bg-[#090909]/95 border border-[#C9A84C]/35 rounded overflow-hidden shadow-2xl animate-fade-in-up hidden md:block"
+                      style={{ left, top, transform }}
+                    >
+                      <div className="relative w-full h-24 bg-zinc-900 overflow-hidden">
+                        <img 
+                          src={loc.image} 
+                          alt={loc.name} 
+                          className="w-full h-full object-cover"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-[#090909] via-[#090909]/30 to-transparent" />
+                      </div>
+                      <div className="p-3">
+                        <h4 className="font-cinzel text-[10px] tracking-wider text-[#C9A84C] font-semibold uppercase mb-0.5 truncate">
+                          {loc.name}
+                        </h4>
+                        <p className="text-[9px] text-[#a09c98] font-light truncate mb-2">
+                          {loc.desc}
+                        </p>
+                        <div className="flex items-center justify-between border-t border-white/5 pt-1.5">
+                          <span className="text-[8px] text-white/30 uppercase tracking-widest">Udupi</span>
+                          <span className="text-[8px] text-[#C9A84C] uppercase tracking-wider font-semibold">Click to View ↗</span>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                )}
+                  );
+                })()}
 
-                {/* Mobile: Auto-cycling preview cards for 2 random pins */}
-                {mobilePulsePins.map((pinIdx) => {
-                  const loc = MAP_LOCATIONS[pinIdx];
+                {/* Mobile: 1 Auto-cycling preview card synchronized with the pulsing active pin */}
+                {mobileActivePin !== null && (() => {
+                  const loc = MAP_LOCATIONS[mobileActivePin];
                   if (!loc) return null;
                   const leftPct = (loc.x / 300) * 100;
                   const topPct = (loc.y / 300) * 100;
-                  // Shift card to left/right to avoid being cut off at edges
-                  const xShift = leftPct < 30 ? '0%' : leftPct > 70 ? '-100%' : '-50%';
+                  const nearBottom = loc.y > 180;
+                  const nearLeft = loc.x < 100;
+                  let mobileTransform: string;
+                  if (nearBottom && nearLeft) {
+                    mobileTransform = 'translate(10%, -65%)';
+                  } else if (nearBottom) {
+                    mobileTransform = 'translate(-110%, -65%)';
+                  } else {
+                    const xShift = leftPct < 30 ? '0%' : leftPct > 70 ? '-100%' : '-50%';
+                    mobileTransform = `translate(${xShift}, -110%)`;
+                  }
                   return (
                     <a
-                      key={`mobile-pulse-${pinIdx}`}
+                      key={`mobile-pulse-${mobileActivePin}`}
                       href={loc.link}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="absolute z-40 w-36 bg-[#090909]/95 border border-[#C9A84C]/40 rounded overflow-hidden shadow-2xl block md:hidden animate-fade-in-up"
+                      className="absolute z-40 w-40 bg-[#090909]/95 border border-[#C9A84C]/45 rounded-lg overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.8)] block md:hidden animate-fade-in-up"
                       style={{
                         left: `${leftPct}%`,
                         top: `${topPct}%`,
-                        transform: `translate(${xShift}, -110%)`
+                        transform: mobileTransform
                       }}
                     >
-                      <div className="relative w-full h-16 bg-zinc-900 overflow-hidden">
+                      <div className="relative w-full h-20 bg-zinc-900 overflow-hidden">
                         <img
                           src={loc.image}
                           alt={loc.name}
@@ -934,15 +975,18 @@ Details: ${fd.get('cafe_desc') || 'None'}`;
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-[#090909] via-transparent to-transparent" />
                       </div>
-                      <div className="px-2 py-1.5">
-                        <h4 className="font-cinzel text-[8px] tracking-wider text-[#C9A84C] font-semibold uppercase truncate">
+                      <div className="p-2.5">
+                        <h4 className="font-cinzel text-[9px] tracking-wider text-[#C9A84C] font-semibold uppercase truncate">
                           {loc.name}
                         </h4>
-                        <p className="text-[7px] text-[#a09c98] truncate">{loc.desc}</p>
+                        <p className="text-[8px] text-[#a09c98] truncate mb-1">{loc.desc}</p>
+                        <div className="flex items-center justify-between border-t border-white/10 pt-1 mt-1">
+                          <span className="text-[7px] text-[#C9A84C] uppercase tracking-wider font-bold">Open Map ↗</span>
+                        </div>
                       </div>
                     </a>
                   );
-                })}
+                })()}
 
                 {/* Stationary hint label in bottom-right */}
                 <div className="absolute bottom-4 right-4 sm:bottom-6 sm:right-6 z-10 bg-black/60 backdrop-blur-sm border border-[#C9A84C]/10 py-1.5 px-3 rounded">
