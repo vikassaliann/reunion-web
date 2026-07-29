@@ -447,7 +447,7 @@ export default function PropertyDetailSection({ property, mapLink }: PropertyDet
 
             {/* Phone & Location Buttons */}
             <div className="pt-2 flex flex-wrap gap-3">
-              {/* Reserve Stay CTA */}
+              {/* Reserve Stay / Table CTA */}
               <button
                 onClick={scrollToForm}
                 className="inline-flex items-center gap-3 py-3.5 px-7 bg-[#C9A84C] text-black hover:bg-[#f0d78c] hover:border-transparent transition-all duration-500 font-cinzel text-[10px] tracking-[0.3em] uppercase rounded-sm font-semibold shadow-lg"
@@ -456,7 +456,7 @@ export default function PropertyDetailSection({ property, mapLink }: PropertyDet
                   <path d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16" />
                   <path d="M12 11h.01" />
                 </svg>
-                Reserve Your Stay
+                {property.id === "ocean-cafe" ? "Reserve Your Table" : "Reserve Your Stay"}
               </button>
 
               {/* Phone CTA */}
@@ -497,7 +497,9 @@ export default function PropertyDetailSection({ property, mapLink }: PropertyDet
                 <div className="space-y-6">
                   <div>
                     <span className="font-cinzel text-[8px] tracking-[0.4em] text-[#C9A84C]/60 block mb-2 uppercase">Inquire</span>
-                    <h3 className="font-cormorant text-2xl text-white font-light">Reserve Your Stay</h3>
+                    <h3 className="font-cormorant text-2xl text-white font-light">
+                      {property.id === "ocean-cafe" ? "Reserve Your Table" : "Reserve Your Stay"}
+                    </h3>
                     <div className="w-8 h-[1px] bg-[#C9A84C]/25 mt-4"></div>
                   </div>
                   <ContactForm
@@ -732,7 +734,9 @@ export default function PropertyDetailSection({ property, mapLink }: PropertyDet
             <div className="space-y-6">
               <div>
                 <span className="font-cinzel text-[8px] tracking-[0.4em] text-[#C9A84C]/60 block mb-2 uppercase">Inquire</span>
-                <h3 className="font-cormorant text-2xl text-white font-light">Reserve Your Stay</h3>
+                <h3 className="font-cormorant text-2xl text-white font-light">
+                  {property.id === "ocean-cafe" ? "Reserve Your Table" : "Reserve Your Stay"}
+                </h3>
                 <div className="w-8 h-[1px] bg-[#C9A84C]/25 mt-4"></div>
               </div>
               <ContactForm

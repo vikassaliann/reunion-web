@@ -33,7 +33,7 @@ export default function ContactForm({
     const isOceanCafe = whatsappNumber === "919972231289" || (data.preference && (data.preference.toLowerCase().includes("cafe") || data.preference.toLowerCase().includes("café")));
 
     const message = isOceanCafe
-      ? `Hello Reunion Ocean Café! I would like to reserve my stay / table.
+      ? `Hello Reunion Ocean Café! I would like to reserve a table.
 
 Name: ${data.name}
 Phone: ${data.phone}

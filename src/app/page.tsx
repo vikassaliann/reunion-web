@@ -122,6 +122,11 @@ export default function Home() {
   const [activeReview, setActiveReview] = useState(0);
   const [hoveredLoc, setHoveredLoc] = useState<number | null>(null);
   const [cafeFormOpen, setCafeFormOpen] = useState(false);
+  const [expandedRoutes, setExpandedRoutes] = useState<Record<number, boolean>>({});
+
+  const toggleRoute = (idx: number) => {
+    setExpandedRoutes((prev) => ({ ...prev, [idx]: !prev[idx] }));
+  };
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -402,7 +407,7 @@ export default function Home() {
               <span className="text-white/25 hidden sm:inline">|</span>
               <span>Mon - Sun: 9:30 AM – 10:00 PM</span>
               <span className="text-white/25 hidden sm:inline">|</span>
-              <span className="text-white">Live Music &amp; Fireplace</span>
+              <span className="text-white">Curated Music &amp; Fireplace</span>
             </div>
           </div>
 
@@ -504,7 +509,7 @@ export default function Home() {
                   <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
                     <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
                   </svg>
-                  Reserve Your Stay
+                  Reserve Your Table
                 </button>
                 <a
                   href="tel:+919972231289"
@@ -555,7 +560,7 @@ export default function Home() {
                 <div className="space-y-2 mb-8">
                   <span className="font-cinzel text-[9px] tracking-[0.45em] text-[#C9A84C] uppercase font-semibold">Reunion Ocean Café</span>
                   <h2 className="font-cormorant text-2xl sm:text-3xl font-light text-white leading-snug">
-                    Reserve Your <em className="text-[#C9A84C]">Stay</em>
+                    Reserve Your <em className="text-[#C9A84C]">Table</em>
                   </h2>
                   <div className="w-12 h-px bg-[#C9A84C]/30" />
                 </div>
@@ -564,7 +569,7 @@ export default function Home() {
                   onSubmit={(e) => {
                     e.preventDefault();
                     const fd = new FormData(e.currentTarget);
-                    const msg = `Hello Reunion Ocean Café! I would like to reserve.
+                    const msg = `Hello Reunion Ocean Café! I would like to reserve a table.
 
 Name: ${fd.get('cafe_name') || 'N/A'}
 Phone: ${fd.get('cafe_phone') || 'N/A'}
@@ -908,53 +913,83 @@ Details: ${fd.get('cafe_desc') || 'None'}`;
             </div>
 
             {/* Grid of Route Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {TOURIST_ROUTES.map((route, rIdx) => (
-                <div 
-                  key={rIdx} 
-                  className="bg-[#080808] border border-[#C9A84C]/10 hover:border-[#C9A84C]/35 rounded-lg p-6 flex flex-col justify-between transition-all duration-500 hover:shadow-[0_10px_30px_rgba(0,0,0,0.5)] group/card"
-                >
-                  <div className="space-y-6">
-                    {/* Card Header */}
-                    <div className="space-y-2">
-                      <span className="text-[9px] font-mono text-[#C9A84C]/60 tracking-wider">ROUTE 0{rIdx + 1}</span>
-                      <h3 className="font-cinzel text-xs tracking-[0.15em] text-white group-hover/card:text-[#C9A84C] transition-colors duration-300 uppercase font-semibold">
-                        {route.title}
-                      </h3>
-                      <div className="w-8 h-[1px] bg-[#C9A84C]/20 group-hover/card:w-16 transition-all duration-500"></div>
-                    </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+              {TOURIST_ROUTES.map((route, rIdx) => {
+                const isExpanded = !!expandedRoutes[rIdx];
+                return (
+                  <div 
+                    key={rIdx} 
+                    className="bg-[#080808] border border-[#C9A84C]/15 hover:border-[#C9A84C]/35 rounded-lg p-5 sm:p-6 flex flex-col justify-between transition-all duration-500 shadow-lg group/card"
+                  >
+                    <div>
+                      {/* Card Header (Clickable on mobile) */}
+                      <button
+                        onClick={() => toggleRoute(rIdx)}
+                        className="w-full text-left flex items-start justify-between gap-4 cursor-pointer md:cursor-default"
+                      >
+                        <div className="space-y-1.5 flex-1">
+                          <div className="flex items-center justify-between">
+                            <span className="text-[9px] font-mono text-[#C9A84C]/70 tracking-wider">ROUTE 0{rIdx + 1}</span>
+                            <span className="text-[8px] font-cinzel text-[#a09c98]/60 uppercase tracking-widest block md:hidden">
+                              {route.places.length} Places
+                            </span>
+                          </div>
+                          <h3 className="font-cinzel text-xs sm:text-[13px] tracking-[0.15em] text-white group-hover/card:text-[#C9A84C] transition-colors duration-300 uppercase font-semibold leading-snug">
+                            {route.title}
+                          </h3>
+                          <div className="w-8 h-[1px] bg-[#C9A84C]/25 group-hover/card:w-16 transition-all duration-500"></div>
+                        </div>
 
-                    {/* Places List */}
-                    <div className="space-y-2 max-h-[300px] overflow-y-auto pr-1 scrollbar-thin scrollbar-thumb-[#C9A84C]/10 scrollbar-track-transparent">
-                      {route.places.map((place, pIdx) => (
-                        <a
-                          key={pIdx}
-                          href={place.mapUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex items-start gap-2.5 py-1.5 px-2 rounded hover:bg-[#C9A84C]/5 transition-colors duration-200 group/item text-left"
-                        >
-                          <span className="text-[10px] text-[#C9A84C]/40 font-mono mt-0.5 w-4 shrink-0 text-right">{pIdx + 1}.</span>
-                          <span className="text-[12px] text-[#b0aba6] group-hover/item:text-white transition-colors duration-200 flex-1 leading-snug">
-                            {place.name}
-                          </span>
-                          <svg className="w-3 h-3 text-[#C9A84C] opacity-0 group-hover/item:opacity-100 group-hover/item:translate-x-0.5 group-hover/item:-translate-y-0.5 transition-all duration-300 shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                            <line x1="7" y1="17" x2="17" y2="7" />
-                            <polyline points="7 7 17 7 17 17" />
+                        {/* Chevron Icon — Mobile Only */}
+                        <div className="md:hidden shrink-0 mt-1 p-1 rounded border border-[#C9A84C]/20 text-[#C9A84C]">
+                          <svg
+                            className={`w-3.5 h-3.5 transition-transform duration-300 ${isExpanded ? "rotate-180" : ""}`}
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                          >
+                            <polyline points="6 9 12 15 18 9" />
                           </svg>
-                        </a>
-                      ))}
+                        </div>
+                      </button>
+
+                      {/* Places List — Collapsible on mobile, always visible on desktop */}
+                      <div
+                        className={`space-y-2 overflow-hidden transition-all duration-500 ease-in-out md:!max-h-[300px] md:!opacity-100 md:!mt-5 md:overflow-y-auto pr-1 scrollbar-thin scrollbar-thumb-[#C9A84C]/10 scrollbar-track-transparent ${
+                          isExpanded ? "max-h-[1000px] opacity-100 mt-4" : "max-h-0 opacity-0 md:opacity-100"
+                        }`}
+                      >
+                        {route.places.map((place, pIdx) => (
+                          <a
+                            key={pIdx}
+                            href={place.mapUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-start gap-2.5 py-1.5 px-2 rounded hover:bg-[#C9A84C]/10 transition-colors duration-200 group/item text-left"
+                          >
+                            <span className="text-[10px] text-[#C9A84C]/50 font-mono mt-0.5 w-4 shrink-0 text-right">{pIdx + 1}.</span>
+                            <span className="text-[12px] text-[#b0aba6] group-hover/item:text-white transition-colors duration-200 flex-1 leading-snug">
+                              {place.name}
+                            </span>
+                            <svg className="w-3 h-3 text-[#C9A84C] opacity-0 group-hover/item:opacity-100 group-hover/item:translate-x-0.5 group-hover/item:-translate-y-0.5 transition-all duration-300 shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                              <line x1="7" y1="17" x2="17" y2="7" />
+                              <polyline points="7 7 17 7 17 17" />
+                            </svg>
+                          </a>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Card Footer (Desktop Only) */}
+                    <div className="hidden md:block border-t border-white/5 pt-4 mt-6">
+                      <span className="text-[9px] font-cinzel tracking-widest text-[#a09c98]/60 uppercase">
+                        {route.places.length} Attractions
+                      </span>
                     </div>
                   </div>
-
-                  {/* Card Footer */}
-                  <div className="border-t border-white/5 pt-4 mt-6">
-                    <span className="text-[9px] font-cinzel tracking-widest text-[#a09c98]/60 uppercase">
-                      {route.places.length} Attractions
-                    </span>
-                  </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
         </section>
