@@ -73,6 +73,7 @@ const TEAM_MEMBERS = [
     name: "Mr. Sachin Rawat",
     role: "Chef",
     image: "/properties/team/eleven.jpeg",
+    objectPosition: "object-top",
   },
 ];
 
@@ -194,7 +195,7 @@ export default function AboutPage() {
                         src={member.image}
                         alt={member.name}
                         fill
-                        className="w-full h-full object-cover group-hover:scale-105 transition-all duration-700 ease-out"
+                        className={`w-full h-full object-cover group-hover:scale-105 transition-all duration-700 ease-out ${member.objectPosition || "object-center"}`}
                         sizes="(max-width: 640px) 50vw, (max-width: 768px) 33vw, 25vw"
                       />
                       {/* Gradient overlay */}
