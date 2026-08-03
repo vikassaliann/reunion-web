@@ -117,18 +117,6 @@ export default function Footer({ variant = "default" }: FooterProps) {
             <p className="font-body-md text-[11px] text-on-surface-variant/60 whitespace-nowrap">
               © 2024 Reunion. All Rights Reserved.
             </p>
-            <span className="text-[#C9A84C]/40 hidden sm:inline">•</span>
-            <p className="font-body-md text-[11px] text-on-surface-variant/60 whitespace-nowrap">
-              Designed by{" "}
-              <a
-                href="https://www.linkedin.com/in/vikas-salian-b8aa66372?utm_source=share_via&utm_content=profile&utm_medium=member_android"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-[#C9A84C] hover:underline font-semibold"
-              >
-                Vikas Salian
-              </a>
-            </p>
           </div>
         </div>
       </footer>
@@ -212,18 +200,6 @@ export default function Footer({ variant = "default" }: FooterProps) {
       <div className="mt-20 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto flex flex-col md:flex-row justify-between items-center pt-8 border-t border-antique-gold/10 gap-4">
         <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-4 text-center sm:text-left">
           <p className="text-on-surface-variant text-[10px] font-label-caps tracking-widest">© 2024 Reunion. All Rights Reserved.</p>
-          <span className="text-[#C9A84C]/40 hidden sm:inline">•</span>
-          <p className="text-on-surface-variant/80 text-[10px] font-label-caps tracking-widest">
-            Designed by{" "}
-            <a
-              href="https://www.linkedin.com/in/vikas-salian-b8aa66372?utm_source=share_via&utm_content=profile&utm_medium=member_android"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-[#C9A84C] hover:underline font-semibold"
-            >
-              Vikas Salian
-            </a>
-          </p>
         </div>
         <div className="flex gap-7 items-center">
           <a

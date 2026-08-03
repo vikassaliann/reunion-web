@@ -1,11 +1,80 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Image from "next/image";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import properties from "@/data/properties.json";
 
 const HERO_IMAGES = properties.map((p) => p.heroImage);
+
+const TEAM_MEMBERS = [
+  {
+    name: "Mrs. Kshama Kadamba",
+    role: "Managing Director & CEO",
+    image: "/properties/team/one .jpeg",
+  },
+  {
+    name: "Mr. Praveen Devadiga",
+    role: "Senior Manager",
+    image: "/properties/team/two.jpeg",
+  },
+  {
+    name: "Mr. Manpreet Singh",
+    role: "Operational Manager",
+    image: "/properties/team/three.jpeg",
+  },
+  {
+    name: "Mr. Nagaraj",
+    role: "Property Manager",
+    image: "/properties/team/four.jpeg",
+  },
+  {
+    name: "Mrs. Nayana Devadiga",
+    role: "Guest Experience Executive",
+    image: "/properties/team/five.jpeg",
+  },
+  {
+    name: "Mr. Ramesh",
+    role: "Front Desk Manager",
+    image: "/properties/team/six.jpeg",
+  },
+  {
+    name: "Mr. Sumith Naik",
+    role: "Sales and Marketing",
+    image: "/properties/team/twelve.jpeg",
+  },
+  {
+    name: "Ms. Mhombeni Jami",
+    role: "Guest Relations Executive",
+    image: "/properties/team/thirteen.jpeg",
+  },
+  {
+    name: "Mr. Samanth",
+    role: "Housekeeping Associate",
+    image: "/properties/team/seven.jpeg",
+  },
+  {
+    name: "Mr. Edward",
+    role: "Head Housekeeping",
+    image: "/properties/team/eight .jpeg",
+  },
+  {
+    name: "Mr. Wonchio Odyuo",
+    role: "Housekeeping Associate",
+    image: "/properties/team/nine.jpeg",
+  },
+  {
+    name: "Mr. Robin",
+    role: "Housekeeping Associate",
+    image: "/properties/team/ten.jpeg",
+  },
+  {
+    name: "Mr. Sachin Rawat",
+    role: "Chef",
+    image: "/properties/team/eleven.jpeg",
+  },
+];
 
 export default function AboutPage() {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -100,44 +169,49 @@ export default function AboutPage() {
               <div className="flex-1 h-px bg-[#C9A84C]/40" />
             </div>
 
-            {/* ── Our Team Section (Coming Soon) ── */}
-            <div className="text-center space-y-10" id="our-team">
+            {/* ── Our Team Section ── */}
+            <div className="text-center space-y-12" id="our-team">
               <div className="space-y-4">
                 <div className="inline-flex items-center gap-2 px-4 py-1.5 border border-[#C9A84C]/30 rounded-full bg-[#C9A84C]/10 text-[#C9A84C] font-cinzel text-[9px] tracking-[0.3em] uppercase">
-                  ✦ Coming Soon
+                  ✦ Reunion Team
                 </div>
                 <h2 className="font-cormorant text-3xl md:text-4xl font-light text-white">Our Team</h2>
-                <p className="text-[#a09c98] text-sm md:text-base max-w-xl mx-auto">
+                <p className="text-[#a09c98] text-sm md:text-base max-w-xl mx-auto leading-relaxed">
                   Meet the passionate visionaries, operational leaders, and hospitality experts powering Reunion across Coastal Karnataka.
                 </p>
               </div>
 
-              {/* Disabled / Placeholder Team Grid */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 opacity-40 select-none pointer-events-none filter grayscale">
-                {[
-                  { role: "Founder & Managing Director", desc: "Vision & Strategic Growth" },
-                  { role: "Head of Hospitality & Guest Ops", desc: "Operations & Quality Assurance" },
-                  { role: "Director of Revenue & Marketing", desc: "Digital & Revenue Optimization" },
-                ].map((member, i) => (
-                  <div key={i} className="p-8 border border-[#C9A84C]/20 rounded-sm bg-[#0e0e0e] space-y-4 text-center">
-                    <div className="w-20 h-20 rounded-full border border-[#C9A84C]/30 bg-black/50 mx-auto flex items-center justify-center text-[#C9A84C]/40 font-cinzel text-xl">
-                      ✦
+              {/* Active Team Grid */}
+              <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-8">
+                {TEAM_MEMBERS.map((member, i) => (
+                  <div
+                    key={i}
+                    className="group relative overflow-hidden bg-[#0e0e0e] border border-[#C9A84C]/15 hover:border-[#C9A84C]/40 transition-all duration-500 rounded-sm flex flex-col"
+                  >
+                    {/* Image Container */}
+                    <div className="relative w-full aspect-[4/5] overflow-hidden bg-neutral-900">
+                      <Image
+                        src={member.image}
+                        alt={member.name}
+                        fill
+                        className="w-full h-full object-cover group-hover:scale-105 transition-all duration-700 ease-out"
+                        sizes="(max-width: 640px) 50vw, (max-width: 768px) 33vw, 25vw"
+                      />
+                      {/* Gradient overlay */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/35 to-transparent opacity-85 group-hover:opacity-90 transition-opacity duration-500" />
                     </div>
-                    <div>
-                      <h3 className="font-cormorant text-xl text-white font-light">{member.role}</h3>
-                      <p className="font-cinzel text-[9px] tracking-[0.2em] text-[#C9A84C]/60 uppercase mt-1">{member.desc}</p>
+
+                    {/* Member Details */}
+                    <div className="p-3 sm:p-5 flex-1 flex flex-col justify-end text-left space-y-1 relative z-10 bg-[#0e0e0e] border-t border-[#C9A84C]/10">
+                      <h3 className="font-cormorant text-sm sm:text-xl text-white font-light group-hover:text-[#C9A84C] transition-colors duration-300">
+                        {member.name}
+                      </h3>
+                      <p className="font-cinzel text-[7px] sm:text-[9px] tracking-[0.1em] sm:tracking-[0.15em] text-[#C9A84C]/80 uppercase font-semibold">
+                        {member.role}
+                      </p>
                     </div>
                   </div>
                 ))}
-              </div>
-
-              <div className="p-6 border border-[#C9A84C]/15 rounded-sm bg-[#0d0d0d] max-w-md mx-auto">
-                <p className="font-cinzel text-[10px] tracking-[0.25em] text-[#C9A84C] uppercase">
-                  Team Profiles Under Update
-                </p>
-                <p className="text-xs text-[#a09c98] mt-1">
-                  We are expanding our leadership team. Full member profiles will be revealed soon.
-                </p>
               </div>
             </div>
           </div>
