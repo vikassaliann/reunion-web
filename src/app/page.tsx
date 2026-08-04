@@ -297,7 +297,7 @@ export default function Home() {
 
         {/* ── Featured Property ── */}
         <section className="reveal my-2">
-          <div className="flex flex-col md:flex-row w-full min-h-[600px] relative">
+          <div className="flex flex-col-reverse md:flex-row w-full min-h-[600px] relative">
             {/* Image Container with smooth cross-fade & Mobile Touch Swipe */}
             <div 
               className="w-full md:w-1/2 relative overflow-hidden h-[400px] md:h-auto group bg-obsidian-deep touch-pan-y select-none"
@@ -319,18 +319,15 @@ export default function Home() {
               {/* Gradient fade overlay for desktop */}
               <div className="absolute inset-0 bg-gradient-to-r from-[#080808]/70 via-transparent to-transparent z-20 pointer-events-none hidden md:block" />
 
-              {/* Mobile Overlay: Gold Property Name Animation with Black Fade Background */}
+              {/* Mobile Overlay: Gold Property Name & Location Animation with Black Fade Background */}
               <div className="absolute inset-x-0 bottom-0 z-30 p-5 sm:p-6 bg-gradient-to-t from-black/95 via-black/65 to-transparent flex flex-col justify-end md:hidden pointer-events-none">
                 <div key={`mobile-popular-name-${activeFeatured}`} className="animate-fade-in-up space-y-1">
-                  <span className="font-cinzel text-[9px] tracking-[0.3em] text-[#C9A84C]/90 uppercase block font-semibold">
-                    ✦ {FEATURED_PROPERTIES[activeFeatured].location}
-                  </span>
                   <h3 className="font-cormorant text-2xl sm:text-3xl font-light text-[#C9A84C] tracking-wide drop-shadow-[0_2px_10px_rgba(0,0,0,0.9)]">
                     {FEATURED_PROPERTIES[activeFeatured].name}
                   </h3>
-                  <p className="font-cinzel text-[9px] tracking-[0.15em] text-white/80 uppercase">
-                    {FEATURED_PROPERTIES[activeFeatured].tagline}
-                  </p>
+                  <span className="font-cinzel text-[9px] tracking-[0.25em] text-[#C9A84C]/90 uppercase block font-semibold">
+                    ✦ {FEATURED_PROPERTIES[activeFeatured].location}
+                  </span>
                 </div>
 
                 {/* Mobile Swipe Indicators & Dots */}
@@ -387,7 +384,7 @@ export default function Home() {
 
                 {/* Info and text with fade transition based on active state */}
                 <div className="space-y-4 min-h-[160px] flex flex-col justify-center">
-                  <p className="font-cinzel text-[10px] tracking-[0.2em] text-[#C9A84C] italic">
+                  <p className="font-cinzel text-[10px] tracking-[0.2em] text-[#C9A84C] italic hidden md:block">
                     {FEATURED_PROPERTIES[activeFeatured].location}
                   </p>
                   <h2 className="font-cormorant text-[clamp(1.8rem,3.5vw,2.8rem)] font-light text-white leading-tight">
