@@ -41,12 +41,12 @@ const TEAM_MEMBERS = [
   },
   {
     name: "Mr. Sumith Naik",
-    role: "Sales and Marketing",
+    role: "Sales and Marketing Manager",
     image: "/properties/team/twelve.jpeg",
   },
   {
     name: "Ms. Mhombeni Jami",
-    role: "Guest Relations Executive",
+    role: "Guest Relationship Executive",
     image: "/properties/team/thirteen.jpeg",
   },
   {
