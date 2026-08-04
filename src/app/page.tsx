@@ -898,12 +898,16 @@ Details: ${fd.get('cafe_desc') || 'None'}`;
                   const loc = MAP_LOCATIONS[hoveredLoc];
                   const xPct = (loc.x / 300) * 100;
                   const yPct = (loc.y / 300) * 100;
-                  const nearBottom = loc.y > 170;
+                  const veryBottom = loc.y > 220;
+                  const nearBottom = loc.y > 160;
                   const nearLeft = loc.x < 100;
                   let transform = 'translate(-50%, -108%)';
                   let left = `${xPct}%`;
                   let top = `${yPct}%`;
-                  if (nearBottom && nearLeft) {
+                  if (veryBottom) {
+                    top = `${((loc.y - 160) / 300) * 100}%`;
+                    transform = nearLeft ? 'translate(0%, 0%)' : 'translate(-100%, 0%)';
+                  } else if (nearBottom && nearLeft) {
                     transform = 'translate(15%, -105%)';
                   } else if (nearBottom) {
                     transform = 'translate(-105%, -105%)';
@@ -943,13 +947,19 @@ Details: ${fd.get('cafe_desc') || 'None'}`;
                   if (!loc) return null;
                   const leftPct = (loc.x / 300) * 100;
                   const topPct = (loc.y / 300) * 100;
-                  const nearBottom = loc.y > 170;
+                  const veryBottom = loc.y > 220;
+                  const nearBottom = loc.y > 160;
                   const nearLeft = loc.x < 100;
                   let mobileTransform: string;
-                  if (nearBottom && nearLeft) {
-                    mobileTransform = 'translate(15%, -105%)';
+                  let cardTop = `${topPct}%`;
+                  if (veryBottom) {
+                    // Pin is at the very bottom — place card well above the pin
+                    cardTop = `${((loc.y - 140) / 300) * 100}%`;
+                    mobileTransform = nearLeft ? 'translate(0%, 0%)' : 'translate(-100%, 0%)';
+                  } else if (nearBottom && nearLeft) {
+                    mobileTransform = 'translate(15%, -110%)';
                   } else if (nearBottom) {
-                    mobileTransform = 'translate(-105%, -105%)';
+                    mobileTransform = 'translate(-105%, -110%)';
                   } else {
                     const xShift = leftPct < 30 ? '0%' : leftPct > 70 ? '-100%' : '-50%';
                     mobileTransform = `translate(${xShift}, -108%)`;
@@ -963,7 +973,7 @@ Details: ${fd.get('cafe_desc') || 'None'}`;
                       className="absolute z-40 w-40 bg-[#090909]/95 border border-[#C9A84C]/45 rounded-lg overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.8)] block md:hidden animate-fade-in-up"
                       style={{
                         left: `${leftPct}%`,
-                        top: `${topPct}%`,
+                        top: cardTop,
                         transform: mobileTransform
                       }}
                     >
