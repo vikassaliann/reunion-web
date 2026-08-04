@@ -124,6 +124,30 @@ export default function Home() {
   const [cafeFormOpen, setCafeFormOpen] = useState(false);
   const [expandedRoutes, setExpandedRoutes] = useState<Record<number, boolean>>({});
   const [mobileActivePin, setMobileActivePin] = useState<number>(0);
+  const [touchStartX, setTouchStartX] = useState<number | null>(null);
+  const [touchEndX, setTouchEndX] = useState<number | null>(null);
+
+  const onFeaturedTouchStart = (e: React.TouchEvent) => {
+    setTouchEndX(null);
+    setTouchStartX(e.targetTouches[0].clientX);
+  };
+
+  const onFeaturedTouchMove = (e: React.TouchEvent) => {
+    setTouchEndX(e.targetTouches[0].clientX);
+  };
+
+  const onFeaturedTouchEnd = () => {
+    if (touchStartX === null || touchEndX === null) return;
+    const distance = touchStartX - touchEndX;
+    const minSwipeDistance = 40;
+    if (distance > minSwipeDistance) {
+      // Swiped left -> next property
+      setActiveFeatured((prev) => (prev + 1) % FEATURED_PROPERTIES.length);
+    } else if (distance < -minSwipeDistance) {
+      // Swiped right -> prev property
+      setActiveFeatured((prev) => (prev - 1 + FEATURED_PROPERTIES.length) % FEATURED_PROPERTIES.length);
+    }
+  };
 
   const toggleRoute = (idx: number) => {
     setExpandedRoutes((prev) => ({ ...prev, [idx]: !prev[idx] }));
@@ -273,9 +297,14 @@ export default function Home() {
 
         {/* ── Featured Property ── */}
         <section className="reveal my-2">
-          <div className="flex flex-col-reverse md:flex-row w-full min-h-[600px] relative">
-            {/* Image Container with smooth cross-fade */}
-            <div className="w-full md:w-1/2 relative overflow-hidden h-[380px] md:h-auto group bg-obsidian-deep">
+          <div className="flex flex-col md:flex-row w-full min-h-[600px] relative">
+            {/* Image Container with smooth cross-fade & Mobile Touch Swipe */}
+            <div 
+              className="w-full md:w-1/2 relative overflow-hidden h-[400px] md:h-auto group bg-obsidian-deep touch-pan-y select-none"
+              onTouchStart={onFeaturedTouchStart}
+              onTouchMove={onFeaturedTouchMove}
+              onTouchEnd={onFeaturedTouchEnd}
+            >
               {FEATURED_PROPERTIES.map((p, idx) => (
                 <img
                   key={p.id}
@@ -287,8 +316,39 @@ export default function Home() {
               ))}
               {/* Thin black aesthetic overlay layer */}
               <div className="absolute inset-0 bg-black/35 z-15 pointer-events-none" />
-              {/* Gradient fade overlay */}
-              <div className="absolute inset-0 bg-gradient-to-r from-[#080808]/70 via-transparent to-transparent z-20 pointer-events-none" />
+              {/* Gradient fade overlay for desktop */}
+              <div className="absolute inset-0 bg-gradient-to-r from-[#080808]/70 via-transparent to-transparent z-20 pointer-events-none hidden md:block" />
+
+              {/* Mobile Overlay: Gold Property Name Animation with Black Fade Background */}
+              <div className="absolute inset-x-0 bottom-0 z-30 p-5 sm:p-6 bg-gradient-to-t from-black/95 via-black/65 to-transparent flex flex-col justify-end md:hidden pointer-events-none">
+                <div key={`mobile-popular-name-${activeFeatured}`} className="animate-fade-in-up space-y-1">
+                  <span className="font-cinzel text-[9px] tracking-[0.3em] text-[#C9A84C]/90 uppercase block font-semibold">
+                    ✦ {FEATURED_PROPERTIES[activeFeatured].location}
+                  </span>
+                  <h3 className="font-cormorant text-2xl sm:text-3xl font-light text-[#C9A84C] tracking-wide drop-shadow-[0_2px_10px_rgba(0,0,0,0.9)]">
+                    {FEATURED_PROPERTIES[activeFeatured].name}
+                  </h3>
+                  <p className="font-cinzel text-[9px] tracking-[0.15em] text-white/80 uppercase">
+                    {FEATURED_PROPERTIES[activeFeatured].tagline}
+                  </p>
+                </div>
+
+                {/* Mobile Swipe Indicators & Dots */}
+                <div className="flex items-center justify-between pt-3 mt-3 border-t border-[#C9A84C]/25 text-[8px] font-cinzel text-[#C9A84C] tracking-widest uppercase">
+                  <span className="opacity-80">‹ Swipe</span>
+                  <div className="flex gap-1.5 items-center">
+                    {FEATURED_PROPERTIES.map((_, i) => (
+                      <span
+                        key={i}
+                        className={`h-1.5 rounded-full transition-all duration-300 ${
+                          i === activeFeatured ? "bg-[#C9A84C] w-4" : "bg-white/30 w-1.5"
+                        }`}
+                      />
+                    ))}
+                  </div>
+                  <span className="opacity-80">Swipe ›</span>
+                </div>
+              </div>
             </div>
 
             {/* Content Container */}
@@ -945,61 +1005,38 @@ Details: ${fd.get('cafe_desc') || 'None'}`;
                 {mobileActivePin !== null && (() => {
                   const loc = MAP_LOCATIONS[mobileActivePin];
                   if (!loc) return null;
-                  const leftPct = (loc.x / 300) * 100;
-                  const topPct = (loc.y / 300) * 100;
-                  const veryBottom = loc.y > 220;
-                  const nearBottom = loc.y > 160;
-                  const nearLeft = loc.x < 100;
-                  let mobileTransform: string;
-                  let cardTop = `${topPct}%`;
-                  if (veryBottom) {
-                    // Pin is at the very bottom — place card well above the pin
-                    cardTop = `${((loc.y - 140) / 300) * 100}%`;
-                    mobileTransform = nearLeft ? 'translate(0%, 0%)' : 'translate(-100%, 0%)';
-                  } else if (nearBottom && nearLeft) {
-                    mobileTransform = 'translate(15%, -110%)';
-                  } else if (nearBottom) {
-                    mobileTransform = 'translate(-105%, -110%)';
-                  } else {
-                    const xShift = leftPct < 30 ? '0%' : leftPct > 70 ? '-100%' : '-50%';
-                    mobileTransform = `translate(${xShift}, -108%)`;
-                  }
                   return (
                     <a
                       key={`mobile-pulse-${mobileActivePin}`}
                       href={loc.link}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="absolute z-40 w-40 bg-[#090909]/95 border border-[#C9A84C]/45 rounded-lg overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.8)] block md:hidden animate-fade-in-up"
-                      style={{
-                        left: `${leftPct}%`,
-                        top: cardTop,
-                        transform: mobileTransform
-                      }}
+                      className="absolute bottom-3 left-3 right-3 z-40 bg-[#090909]/95 border border-[#C9A84C]/50 rounded-lg overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.9)] flex items-center p-2.5 gap-3 block md:hidden animate-fade-in-up"
                     >
-                      <div className="relative w-full h-20 bg-zinc-900 overflow-hidden">
+                      <div className="relative w-16 h-16 rounded overflow-hidden flex-shrink-0 bg-zinc-900 border border-[#C9A84C]/20">
                         <img
                           src={loc.image}
                           alt={loc.name}
                           className="w-full h-full object-cover"
                         />
-                        <div className="absolute inset-0 bg-gradient-to-t from-[#090909] via-transparent to-transparent" />
+                        <div className="absolute inset-0 bg-gradient-to-t from-[#090909]/60 via-transparent to-transparent" />
                       </div>
-                      <div className="p-2.5">
-                        <h4 className="font-cinzel text-[9px] tracking-wider text-[#C9A84C] font-semibold uppercase truncate">
-                          {loc.name}
-                        </h4>
-                        <p className="text-[8px] text-[#a09c98] truncate mb-1">{loc.desc}</p>
-                        <div className="flex items-center justify-between border-t border-white/10 pt-1 mt-1">
-                          <span className="text-[7px] text-[#C9A84C] uppercase tracking-wider font-bold">Open Map ↗</span>
+                      <div className="flex-1 min-w-0 pr-1 space-y-0.5">
+                        <div className="flex items-center justify-between gap-1">
+                          <h4 className="font-cinzel text-[10px] tracking-wider text-[#C9A84C] font-semibold uppercase truncate">
+                            {loc.name}
+                          </h4>
+                          <span className="text-[7.5px] text-[#C9A84C] uppercase tracking-wider font-bold shrink-0 border-b border-[#C9A84C]/40">Open Map ↗</span>
                         </div>
+                        <p className="text-[8.5px] text-[#a09c98] truncate">{loc.desc}</p>
+                        <span className="font-cinzel text-[7px] tracking-[0.15em] text-white/40 uppercase block pt-0.5">✦ Tap to View Details</span>
                       </div>
                     </a>
                   );
                 })()}
 
-                {/* Stationary hint label in bottom-right */}
-                <div className="absolute bottom-4 right-4 sm:bottom-6 sm:right-6 z-10 bg-black/60 backdrop-blur-sm border border-[#C9A84C]/10 py-1.5 px-3 rounded">
+                {/* Stationary hint label */}
+                <div className="absolute top-4 right-4 md:top-auto md:bottom-4 md:right-4 sm:bottom-6 sm:right-6 z-10 bg-black/60 backdrop-blur-sm border border-[#C9A84C]/10 py-1.5 px-3 rounded">
                   <span className="font-cinzel text-[7.5px] tracking-[0.2em] text-[#a09c98] uppercase hidden md:inline">Hover pin to preview</span>
                   <span className="font-cinzel text-[7.5px] tracking-[0.2em] text-[#a09c98] uppercase md:hidden">Tap pin · Auto-preview</span>
                 </div>
