@@ -1002,38 +1002,56 @@ Details: ${fd.get('cafe_desc') || 'None'}`;
                 {mobileActivePin !== null && (() => {
                   const loc = MAP_LOCATIONS[mobileActivePin];
                   if (!loc) return null;
+                  const leftPct = (loc.x / 300) * 100;
+                  const topPct = (loc.y / 300) * 100;
+                  const isTopHalf = loc.y < 130;
+                  const isNearLeft = leftPct < 30;
+                  const isNearRight = leftPct > 70;
+
+                  let xShift = '-50%';
+                  if (isNearLeft) xShift = '0%';
+                  else if (isNearRight) xShift = '-100%';
+
+                  let yShift = isTopHalf ? '15%' : '-115%';
+
+                  let mobileTransform = `translate(${xShift}, ${yShift})`;
+
                   return (
                     <a
                       key={`mobile-pulse-${mobileActivePin}`}
                       href={loc.link}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="absolute bottom-3 left-3 right-3 z-40 bg-[#090909]/95 border border-[#C9A84C]/50 rounded-lg overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.9)] flex items-center p-2.5 gap-3 block md:hidden animate-fade-in-up"
+                      className="absolute z-40 w-40 bg-[#090909]/95 border border-[#C9A84C]/45 rounded-lg overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.8)] block md:hidden animate-fade-in-up"
+                      style={{
+                        left: `${leftPct}%`,
+                        top: `${topPct}%`,
+                        transform: mobileTransform
+                      }}
                     >
-                      <div className="relative w-16 h-16 rounded overflow-hidden flex-shrink-0 bg-zinc-900 border border-[#C9A84C]/20">
+                      <div className="relative w-full h-20 bg-zinc-900 overflow-hidden">
                         <img
                           src={loc.image}
                           alt={loc.name}
                           className="w-full h-full object-cover"
                         />
-                        <div className="absolute inset-0 bg-gradient-to-t from-[#090909]/60 via-transparent to-transparent" />
+                        <div className="absolute inset-0 bg-gradient-to-t from-[#090909] via-transparent to-transparent" />
                       </div>
-                      <div className="flex-1 min-w-0 pr-1 space-y-0.5">
-                        <div className="flex items-center justify-between gap-1">
-                          <h4 className="font-cinzel text-[10px] tracking-wider text-[#C9A84C] font-semibold uppercase truncate">
-                            {loc.name}
-                          </h4>
-                          <span className="text-[7.5px] text-[#C9A84C] uppercase tracking-wider font-bold shrink-0 border-b border-[#C9A84C]/40">Open Map ↗</span>
+                      <div className="p-2.5">
+                        <h4 className="font-cinzel text-[9px] tracking-wider text-[#C9A84C] font-semibold uppercase truncate">
+                          {loc.name}
+                        </h4>
+                        <p className="text-[8px] text-[#a09c98] truncate mb-1">{loc.desc}</p>
+                        <div className="flex items-center justify-between border-t border-white/10 pt-1 mt-1">
+                          <span className="text-[7px] text-[#C9A84C] uppercase tracking-wider font-bold">Open Map ↗</span>
                         </div>
-                        <p className="text-[8.5px] text-[#a09c98] truncate">{loc.desc}</p>
-                        <span className="font-cinzel text-[7px] tracking-[0.15em] text-white/40 uppercase block pt-0.5">✦ Tap to View Details</span>
                       </div>
                     </a>
                   );
                 })()}
 
-                {/* Stationary hint label */}
-                <div className="absolute top-4 right-4 md:top-auto md:bottom-4 md:right-4 sm:bottom-6 sm:right-6 z-10 bg-black/60 backdrop-blur-sm border border-[#C9A84C]/10 py-1.5 px-3 rounded">
+                {/* Stationary hint label in bottom-right */}
+                <div className="absolute bottom-4 right-4 sm:bottom-6 sm:right-6 z-10 bg-black/60 backdrop-blur-sm border border-[#C9A84C]/10 py-1.5 px-3 rounded">
                   <span className="font-cinzel text-[7.5px] tracking-[0.2em] text-[#a09c98] uppercase hidden md:inline">Hover pin to preview</span>
                   <span className="font-cinzel text-[7.5px] tracking-[0.2em] text-[#a09c98] uppercase md:hidden">Tap pin · Auto-preview</span>
                 </div>
