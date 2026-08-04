@@ -349,16 +349,27 @@ export default function Home() {
             </div>
 
             {/* Content Container */}
-            <div className="w-full md:w-1/2 bg-[#0e0e0e] flex flex-col justify-center px-6 sm:px-12 md:px-20 py-10 md:py-16 relative border-t md:border-t-0 md:border-l border-[#C9A84C]/10 min-h-[500px]">
-              {/* Vertical gold accent */}
+            <div className="w-full md:w-1/2 bg-[#0e0e0e] flex flex-col justify-center px-6 sm:px-12 md:px-20 pt-10 pb-6 md:py-16 relative border-t md:border-t-0 md:border-l border-[#C9A84C]/10 min-h-[500px]">
+              {/* Vertical gold accent — desktop only */}
               <div className="absolute left-0 top-1/2 -translate-y-1/2 w-[2px] h-24 bg-gradient-to-b from-transparent via-[#C9A84C] to-transparent hidden md:block" />
 
-               <div className="max-w-xl space-y-6">
-                <p className="font-cinzel text-[10px] tracking-[0.55em] text-[#C9A84C] uppercase">Popular Signature Estates</p>
+              {/* ── Mobile-only centered header (Ocean Café style) ── */}
+              <div className="flex flex-col items-center text-center mb-6 md:hidden">
+                <div className="gold-divider mb-5" />
+                <p className="font-cinzel text-[9px] tracking-[0.55em] text-[#C9A84C] uppercase mb-3">Popular Signature Estates</p>
+                <h2 className="font-cormorant text-[clamp(1.9rem,7vw,2.6rem)] font-light text-white leading-tight mb-1">
+                  Signature <em className="text-[#C9A84C] italic">Coastal Estates</em>
+                </h2>
+                <div className="gold-divider mt-5" />
+              </div>
 
-                {/* Switcher Tabs - Horizontally Scrollable on Mobile, no wrapping */}
+               <div className="max-w-xl space-y-6">
+                {/* Desktop label */}
+                <p className="font-cinzel text-[10px] tracking-[0.55em] text-[#C9A84C] uppercase hidden md:block">Popular Signature Estates</p>
+
+                {/* Switcher Tabs - Horizontally Scrollable on Mobile, centered; no wrapping */}
                 <div 
-                  className="flex flex-row overflow-x-auto whitespace-nowrap gap-x-6 border-b border-white/10 pb-4 w-full scroll-smooth snap-x px-2"
+                  className="flex flex-row overflow-x-auto whitespace-nowrap gap-x-6 border-b border-white/10 pb-4 w-full scroll-smooth snap-x justify-center md:justify-start px-2"
                   style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
                 >
                   {/* Webkit scrollbar hiding script inline helper */}
