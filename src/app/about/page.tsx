@@ -270,53 +270,63 @@ export default function AboutPage() {
                   );
                 })}
               </div>
-              {/* Mobile/Tablet Layout: Full-width cards in normal page flow */}
-              <div className="lg:hidden flex flex-col items-center px-4 w-full space-y-8">
-                {TEAM_MEMBERS.map((member, i) => {
-                  const isLastInCategory = i === TEAM_MEMBERS.length - 1 || TEAM_MEMBERS[i + 1]?.category !== member.category;
+              {/* Mobile/Tablet Layout: Category-grouped cards in normal page flow */}
+              <div className="lg:hidden flex flex-col items-center px-4 w-full space-y-12">
+                {CATEGORIES.map((cat, catIndex) => {
+                  const members = TEAM_MEMBERS.filter((m) => m.category === cat);
                   return (
-                    <div key={i} className="contents">
-                  <div
-                    className="w-full max-w-sm group relative overflow-hidden bg-[#0c0c0c] border border-[#C9A84C]/15 rounded-sm flex flex-col"
-                  >
-                    {/* Floating Category Tag (Highlighted bg) */}
-                    <div className="absolute top-4 left-4 z-20 bg-[#C9A84C] text-[#080808] px-3.5 py-1.5 rounded-sm font-cinzel text-[8.5px] tracking-[0.15em] font-bold uppercase shadow-[0_4px_15px_rgba(0,0,0,0.6)]">
-                      {member.category}
-                    </div>
+                    <div key={cat} className="w-full flex flex-col items-center space-y-8">
+                      {/* Category Heading — Ocean Cafe style */}
+                      <div className="text-center space-y-3">
+                        <div className="w-10 h-px bg-gradient-to-r from-transparent via-[#C9A84C] to-transparent mx-auto" />
+                        <p className="font-cinzel text-[10px] tracking-[0.5em] text-[#C9A84C] uppercase">
+                          {cat}
+                        </p>
+                        <div className="w-10 h-px bg-gradient-to-r from-transparent via-[#C9A84C] to-transparent mx-auto" />
+                      </div>
 
-                    {/* Image Container */}
-                    <div className="relative w-full aspect-[4/5] overflow-hidden bg-neutral-900">
-                      <Image
-                        src={member.image}
-                        alt={member.name}
-                        fill
-                        className={`w-full h-full object-cover group-hover:scale-[1.03] transition-all duration-700 ease-out ${member.objectPosition || "object-center"}`}
-                        sizes="(max-width: 640px) 100vw, 360px"
-                      />
-                      {/* Gradient overlay */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-transparent opacity-90" />
-                    </div>
+                      {/* Member Cards */}
+                      <div className="w-full flex flex-col items-center gap-6">
+                        {members.map((member, i) => (
+                          <div
+                            key={i}
+                            className="w-full max-w-xs group relative overflow-hidden bg-[#0c0c0c] border border-[#C9A84C]/15 rounded-sm flex flex-col"
+                          >
+                            {/* Image Container — slightly smaller */}
+                            <div className="relative w-full aspect-[3/4] overflow-hidden bg-neutral-900">
+                              <Image
+                                src={member.image}
+                                alt={member.name}
+                                fill
+                                className={`w-full h-full object-cover ${member.objectPosition || "object-center"}`}
+                                sizes="(max-width: 640px) 85vw, 320px"
+                              />
+                              {/* Gradient overlay */}
+                              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent opacity-85" />
+                            </div>
 
-                    {/* Member Details */}
-                    <div className="p-5 flex-shrink-0 text-left space-y-1.5 bg-[#0c0c0c] border-t border-[#C9A84C]/10">
-                      <h3 className="font-cormorant text-xl text-white font-light">
-                        {member.name}
-                      </h3>
-                      <p className="font-cinzel text-[9.5px] tracking-[0.1em] text-[#a09c98] uppercase leading-normal">
-                        {member.role}
-                      </p>
-                    </div>
-                  </div>
+                            {/* Member Details */}
+                            <div className="p-4 text-center space-y-1 bg-[#0c0c0c] border-t border-[#C9A84C]/10">
+                              <h3 className="font-cormorant text-lg text-white font-light">
+                                {member.name}
+                              </h3>
+                              <p className="font-cinzel text-[8px] tracking-[0.12em] text-[#a09c98] uppercase leading-normal">
+                                {member.role}
+                              </p>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
 
-                  {/* Gold divider after category */}
-                  {isLastInCategory && i !== TEAM_MEMBERS.length - 1 && (
-                    <div className="flex items-center gap-3 w-full max-w-sm mx-auto opacity-40">
-                      <div className="flex-1 h-px bg-gradient-to-r from-transparent via-[#C9A84C] to-transparent" />
-                      <span className="text-[#C9A84C] text-[10px]">✦</span>
-                      <div className="flex-1 h-px bg-gradient-to-r from-transparent via-[#C9A84C] to-transparent" />
+                      {/* Gold divider between categories */}
+                      {catIndex !== CATEGORIES.length - 1 && (
+                        <div className="flex items-center gap-3 w-full max-w-xs mx-auto pt-4 opacity-50">
+                          <div className="flex-1 h-px bg-gradient-to-r from-transparent via-[#C9A84C] to-transparent" />
+                          <span className="text-[#C9A84C] text-[10px]">✦</span>
+                          <div className="flex-1 h-px bg-gradient-to-r from-transparent via-[#C9A84C] to-transparent" />
+                        </div>
+                      )}
                     </div>
-                  )}
-                  </div>
                   );
                 })}
               </div>
