@@ -259,59 +259,66 @@ export default function AboutPage() {
                           </div>
                         ))}
                       </div>
+
+                      {/* Gold divider after category */}
+                      <div className="flex items-center gap-3 w-full max-w-md mx-auto pt-6 opacity-40">
+                        <div className="flex-1 h-px bg-gradient-to-r from-transparent via-[#C9A84C] to-transparent" />
+                        <span className="text-[#C9A84C] text-[10px]">✦</span>
+                        <div className="flex-1 h-px bg-gradient-to-r from-transparent via-[#C9A84C] to-transparent" />
+                      </div>
                     </div>
                   );
                 })}
               </div>
-              {/* Mobile/Tablet Layout: Scrollable Snapping Vertical Container */}
-              <div className="lg:hidden flex flex-col items-center px-4 w-full">
-                <div
-                  className="w-full max-w-sm h-[70vh] overflow-y-auto snap-y snap-mandatory hide-scrollbar space-y-6 px-3 py-2 border border-[#C9A84C]/10 rounded-sm bg-[#080808]/40 backdrop-blur-sm relative"
-                >
-                  {TEAM_MEMBERS.map((member, i) => (
-                    <div
-                      id={`team-member-mobile-${i}`}
-                      key={i}
-                      className="w-full h-[64vh] flex-shrink-0 snap-start snap-always group relative overflow-hidden bg-[#0c0c0c] border border-[#C9A84C]/15 rounded-sm flex flex-col"
-                    >
-                      {/* Floating Category Tag (Highlighted bg) */}
-                      <div className="absolute top-4 left-4 z-20 bg-[#C9A84C] text-[#080808] px-3.5 py-1.5 rounded-sm font-cinzel text-[8.5px] tracking-[0.15em] font-bold uppercase shadow-[0_4px_15px_rgba(0,0,0,0.6)]">
-                        {member.category}
-                      </div>
-
-                      {/* Image Container */}
-                      <div className="relative w-full flex-1 min-h-0 overflow-hidden bg-neutral-900">
-                        <Image
-                          src={member.image}
-                          alt={member.name}
-                          fill
-                          className={`w-full h-full object-cover group-hover:scale-[1.03] transition-all duration-700 ease-out ${member.objectPosition || "object-center"}`}
-                          sizes="(max-width: 640px) 100vw, 360px"
-                        />
-                        {/* Gradient overlay */}
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-transparent opacity-90" />
-                      </div>
-
-                      {/* Member Details: bottom of image name and role */}
-                      <div className="p-5 flex-shrink-0 text-left space-y-1.5 bg-[#0c0c0c] border-t border-[#C9A84C]/10">
-                        <h3 className="font-cormorant text-xl text-white font-light">
-                          {member.name}
-                        </h3>
-                        <p className="font-cinzel text-[9.5px] tracking-[0.1em] text-[#a09c98] uppercase leading-normal">
-                          {member.role}
-                        </p>
-                      </div>
+              {/* Mobile/Tablet Layout: Full-width cards in normal page flow */}
+              <div className="lg:hidden flex flex-col items-center px-4 w-full space-y-8">
+                {TEAM_MEMBERS.map((member, i) => {
+                  const isLastInCategory = i === TEAM_MEMBERS.length - 1 || TEAM_MEMBERS[i + 1]?.category !== member.category;
+                  return (
+                    <div key={i} className="contents">
+                  <div
+                    className="w-full max-w-sm group relative overflow-hidden bg-[#0c0c0c] border border-[#C9A84C]/15 rounded-sm flex flex-col"
+                  >
+                    {/* Floating Category Tag (Highlighted bg) */}
+                    <div className="absolute top-4 left-4 z-20 bg-[#C9A84C] text-[#080808] px-3.5 py-1.5 rounded-sm font-cinzel text-[8.5px] tracking-[0.15em] font-bold uppercase shadow-[0_4px_15px_rgba(0,0,0,0.6)]">
+                      {member.category}
                     </div>
-                  ))}
-                </div>
 
-                {/* Vertical Scroll Instruction Hint */}
-                <div className="mt-4 flex flex-col items-center gap-1 opacity-50 animate-bounce">
-                  <span className="font-cinzel text-[8px] tracking-[0.2em] text-[#C9A84C] uppercase">Scroll Down to view team</span>
-                  <svg className="w-3.5 h-3.5 text-[#C9A84C]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M19 13l-7 7-7-7" />
-                  </svg>
-                </div>
+                    {/* Image Container */}
+                    <div className="relative w-full aspect-[4/5] overflow-hidden bg-neutral-900">
+                      <Image
+                        src={member.image}
+                        alt={member.name}
+                        fill
+                        className={`w-full h-full object-cover group-hover:scale-[1.03] transition-all duration-700 ease-out ${member.objectPosition || "object-center"}`}
+                        sizes="(max-width: 640px) 100vw, 360px"
+                      />
+                      {/* Gradient overlay */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-transparent opacity-90" />
+                    </div>
+
+                    {/* Member Details */}
+                    <div className="p-5 flex-shrink-0 text-left space-y-1.5 bg-[#0c0c0c] border-t border-[#C9A84C]/10">
+                      <h3 className="font-cormorant text-xl text-white font-light">
+                        {member.name}
+                      </h3>
+                      <p className="font-cinzel text-[9.5px] tracking-[0.1em] text-[#a09c98] uppercase leading-normal">
+                        {member.role}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Gold divider after category */}
+                  {isLastInCategory && i !== TEAM_MEMBERS.length - 1 && (
+                    <div className="flex items-center gap-3 w-full max-w-sm mx-auto opacity-40">
+                      <div className="flex-1 h-px bg-gradient-to-r from-transparent via-[#C9A84C] to-transparent" />
+                      <span className="text-[#C9A84C] text-[10px]">✦</span>
+                      <div className="flex-1 h-px bg-gradient-to-r from-transparent via-[#C9A84C] to-transparent" />
+                    </div>
+                  )}
+                  </div>
+                  );
+                })}
               </div>
             </div>
           </div>
