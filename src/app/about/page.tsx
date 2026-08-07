@@ -8,72 +8,95 @@ import properties from "@/data/properties.json";
 
 const HERO_IMAGES = properties.map((p) => p.heroImage);
 
+const CATEGORIES = [
+  "Executive Leadership",
+  "Operations & Management",
+  "HR & Marketing",
+  "Guest Relations & Sales",
+  "Front Office Management",
+  "Culinary Team",
+  "Housekeeping & Facility Management",
+];
+
 const TEAM_MEMBERS = [
   {
     name: "Mrs. Kshama Kadamba",
     role: "Managing Director & CEO",
     image: "/properties/team/one .jpeg",
+    category: "Executive Leadership",
   },
   {
     name: "Mr. Praveen Devadiga",
     role: "Senior Manager",
     image: "/properties/team/two.jpeg",
+    category: "Operations & Management",
   },
   {
     name: "Mr. Manpreet Singh",
     role: "Operational Manager",
     image: "/properties/team/three.jpeg",
+    category: "Operations & Management",
   },
   {
     name: "Mr. Nagaraj",
     role: "Property Manager",
     image: "/properties/team/four.jpeg",
+    category: "Operations & Management",
+  },
+  {
+    name: "Mr. Sumith Naik",
+    role: "HR & Marketing Manager",
+    image: "/properties/team/twelve.jpeg",
+    category: "HR & Marketing",
   },
   {
     name: "Mrs. Nayana Devadiga",
-    role: "Guest Experience Executive",
+    role: "Sales and Guest Relationship Executive",
     image: "/properties/team/five.jpeg",
+    category: "Guest Relations & Sales",
+  },
+  {
+    name: "Ms. Mhombeni Jami",
+    role: "Guest Service Executive",
+    image: "/properties/team/thirteen.jpeg",
+    category: "Guest Relations & Sales",
   },
   {
     name: "Mr. Ramesh",
     role: "Front Desk Manager",
     image: "/properties/team/six.jpeg",
-  },
-  {
-    name: "Mr. Sumith Naik",
-    role: "Sales and Marketing Manager",
-    image: "/properties/team/twelve.jpeg",
-  },
-  {
-    name: "Ms. Mhombeni Jami",
-    role: "Guest Relationship Executive",
-    image: "/properties/team/thirteen.jpeg",
-  },
-  {
-    name: "Mr. Samanth",
-    role: "Housekeeping Associate",
-    image: "/properties/team/seven.jpeg",
-  },
-  {
-    name: "Mr. Edward",
-    role: "Head Housekeeping",
-    image: "/properties/team/eight .jpeg",
-  },
-  {
-    name: "Mr. Wonchio Odyuo",
-    role: "Housekeeping Associate",
-    image: "/properties/team/nine.jpeg",
-  },
-  {
-    name: "Mr. Robin",
-    role: "Housekeeping Associate",
-    image: "/properties/team/ten.jpeg",
+    category: "Front Office Management",
   },
   {
     name: "Mr. Sachin Rawat",
     role: "Chef",
     image: "/properties/team/eleven.jpeg",
     objectPosition: "object-top",
+    category: "Culinary Team",
+  },
+  {
+    name: "Mr. Edward",
+    role: "Head Housekeeping",
+    image: "/properties/team/eight .jpeg",
+    category: "Housekeeping & Facility Management",
+  },
+  {
+    name: "Mr. Samanth",
+    role: "Housekeeping Associate",
+    image: "/properties/team/seven.jpeg",
+    category: "Housekeeping & Facility Management",
+  },
+  {
+    name: "Mr. Wonchio Odyuo",
+    role: "Housekeeping Associate",
+    image: "/properties/team/nine.jpeg",
+    category: "Housekeeping & Facility Management",
+  },
+  {
+    name: "Mr. Robin",
+    role: "Housekeeping Associate",
+    image: "/properties/team/ten.jpeg",
+    category: "Housekeeping & Facility Management",
   },
 ];
 
@@ -182,37 +205,113 @@ export default function AboutPage() {
                 </p>
               </div>
 
-              {/* Active Team Grid */}
-              <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-8">
-                {TEAM_MEMBERS.map((member, i) => (
-                  <div
-                    key={i}
-                    className="group relative overflow-hidden bg-[#0e0e0e] border border-[#C9A84C]/15 hover:border-[#C9A84C]/40 transition-all duration-500 rounded-sm flex flex-col"
-                  >
-                    {/* Image Container */}
-                    <div className="relative w-full aspect-[4/5] overflow-hidden bg-neutral-900">
-                      <Image
-                        src={member.image}
-                        alt={member.name}
-                        fill
-                        className={`w-full h-full object-cover group-hover:scale-105 transition-all duration-700 ease-out ${member.objectPosition || "object-center"}`}
-                        sizes="(max-width: 640px) 50vw, (max-width: 768px) 33vw, 25vw"
-                      />
-                      {/* Gradient overlay */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/35 to-transparent opacity-85 group-hover:opacity-90 transition-opacity duration-500" />
-                    </div>
+              {/* Desktop Layout: Static Category-wise Grids */}
+              <div className="hidden lg:block space-y-24 max-w-7xl mx-auto px-6">
+                {CATEGORIES.map((cat) => {
+                  const members = TEAM_MEMBERS.filter((m) => m.category === cat);
+                  
+                  // Dynamically set grid columns and max-width based on members count
+                  let gridCols = "grid-cols-1 max-w-[320px]";
+                  if (members.length === 2) gridCols = "grid-cols-2 max-w-[680px]";
+                  if (members.length === 3) gridCols = "grid-cols-3 max-w-[1040px]";
+                  if (members.length >= 4) gridCols = "grid-cols-4 max-w-[1400px]";
 
-                    {/* Member Details */}
-                    <div className="p-3 sm:p-5 flex-1 flex flex-col justify-end text-left space-y-1 relative z-10 bg-[#0e0e0e] border-t border-[#C9A84C]/10">
-                      <h3 className="font-cormorant text-sm sm:text-xl text-white font-light group-hover:text-[#C9A84C] transition-colors duration-300">
-                        {member.name}
-                      </h3>
-                      <p className="font-cinzel text-[7px] sm:text-[9px] tracking-[0.1em] sm:tracking-[0.15em] text-[#C9A84C]/80 uppercase font-semibold">
-                        {member.role}
-                      </p>
+                  return (
+                    <div
+                      key={cat}
+                      id={`desktop-section-${cat.replace(/\s+/g, "-")}`}
+                      className="space-y-10 flex flex-col items-center scroll-mt-28"
+                    >
+                      {/* Highlighted Background Category Name */}
+                      <div className="inline-block bg-[#C9A84C] text-[#080808] px-8 py-3 rounded-sm font-cinzel text-xs tracking-[0.25em] font-bold uppercase shadow-[0_4px_25px_rgba(201,168,76,0.18)]">
+                        {cat}
+                      </div>
+
+                      {/* Members Grid */}
+                      <div className={`grid ${gridCols} gap-8 w-full mx-auto justify-center`}>
+                        {members.map((member, i) => (
+                          <div
+                            key={i}
+                            className="group relative overflow-hidden bg-[#0c0c0c] border border-[#C9A84C]/15 hover:border-[#C9A84C]/45 transition-all duration-500 rounded-sm flex flex-col w-full"
+                          >
+                            {/* Image Container */}
+                            <div className="relative w-full aspect-[4/5] overflow-hidden bg-neutral-900">
+                              <Image
+                                src={member.image}
+                                alt={member.name}
+                                fill
+                                className={`w-full h-full object-cover group-hover:scale-[1.03] transition-all duration-700 ease-out ${member.objectPosition || "object-center"}`}
+                                sizes="320px"
+                              />
+                              {/* Gradient overlay */}
+                              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/35 to-transparent opacity-85 group-hover:opacity-90 transition-opacity duration-500" />
+                            </div>
+
+                            {/* Member Details: bottom of image name and role */}
+                            <div className="p-5 flex-1 flex flex-col justify-end text-left space-y-1.5 bg-[#0c0c0c] border-t border-[#C9A84C]/10 z-10">
+                              <h3 className="font-cormorant text-xl text-white font-light group-hover:text-[#C9A84C] transition-colors duration-300">
+                                {member.name}
+                              </h3>
+                              <p className="font-cinzel text-[9px] tracking-[0.1em] text-[#a09c98] uppercase leading-normal">
+                                {member.role}
+                              </p>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  );
+                })}
+              </div>
+              {/* Mobile/Tablet Layout: Scrollable Snapping Vertical Container */}
+              <div className="lg:hidden flex flex-col items-center px-4 w-full">
+                <div
+                  className="w-full max-w-sm h-[70vh] overflow-y-auto snap-y snap-mandatory hide-scrollbar space-y-6 px-3 py-2 border border-[#C9A84C]/10 rounded-sm bg-[#080808]/40 backdrop-blur-sm relative"
+                >
+                  {TEAM_MEMBERS.map((member, i) => (
+                    <div
+                      id={`team-member-mobile-${i}`}
+                      key={i}
+                      className="w-full h-[64vh] flex-shrink-0 snap-start snap-always group relative overflow-hidden bg-[#0c0c0c] border border-[#C9A84C]/15 rounded-sm flex flex-col"
+                    >
+                      {/* Floating Category Tag (Highlighted bg) */}
+                      <div className="absolute top-4 left-4 z-20 bg-[#C9A84C] text-[#080808] px-3.5 py-1.5 rounded-sm font-cinzel text-[8.5px] tracking-[0.15em] font-bold uppercase shadow-[0_4px_15px_rgba(0,0,0,0.6)]">
+                        {member.category}
+                      </div>
+
+                      {/* Image Container */}
+                      <div className="relative w-full flex-1 min-h-0 overflow-hidden bg-neutral-900">
+                        <Image
+                          src={member.image}
+                          alt={member.name}
+                          fill
+                          className={`w-full h-full object-cover group-hover:scale-[1.03] transition-all duration-700 ease-out ${member.objectPosition || "object-center"}`}
+                          sizes="(max-width: 640px) 100vw, 360px"
+                        />
+                        {/* Gradient overlay */}
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-transparent opacity-90" />
+                      </div>
+
+                      {/* Member Details: bottom of image name and role */}
+                      <div className="p-5 flex-shrink-0 text-left space-y-1.5 bg-[#0c0c0c] border-t border-[#C9A84C]/10">
+                        <h3 className="font-cormorant text-xl text-white font-light">
+                          {member.name}
+                        </h3>
+                        <p className="font-cinzel text-[9.5px] tracking-[0.1em] text-[#a09c98] uppercase leading-normal">
+                          {member.role}
+                        </p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Vertical Scroll Instruction Hint */}
+                <div className="mt-4 flex flex-col items-center gap-1 opacity-50 animate-bounce">
+                  <span className="font-cinzel text-[8px] tracking-[0.2em] text-[#C9A84C] uppercase">Scroll Down to view team</span>
+                  <svg className="w-3.5 h-3.5 text-[#C9A84C]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M19 13l-7 7-7-7" />
+                  </svg>
+                </div>
               </div>
             </div>
           </div>

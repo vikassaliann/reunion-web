@@ -119,9 +119,9 @@ export default function Navbar() {
           <div className="flex items-center gap-3">
             <button
               onClick={() => openPartner()}
-              className="inline-flex lg:hidden items-center gap-1.5 px-3 py-1.5 border border-[#C9A84C] bg-[#C9A84C] text-[#080808] font-cinzel text-[8.5px] tracking-[0.25em] font-semibold uppercase rounded-sm"
+              className="inline-flex lg:hidden items-center gap-1.5 px-3 py-1.5 border border-[#C9A84C] bg-[#C9A84C] text-[#080808] font-cinzel text-[8.5px] tracking-[0.2em] font-semibold uppercase rounded-sm"
             >
-              Partner
+              Partner With Us
             </button>
 
             <button
