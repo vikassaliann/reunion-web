@@ -24,6 +24,20 @@ const TEAM_MEMBERS = [
     role: "Managing Director & CEO",
     image: "/properties/team/one .jpeg",
     category: "Executive Leadership",
+    description: `Visionary and tech-driven Managing Director with a strong foundation in Computer Science Engineering from MITE and seven years of high-impact experience in the software industry. Combines deep technical expertise with strategic executive leadership to drive innovation, solve complex challenges, and deliver sustainable business growth. Adept at navigating difficult situations, leading high-performing teams, and translating technology into meaningful business outcomes.
+
+Reunion Global Private Ltd. was founded in 2020, during the challenging period of the COVID-19 pandemic, with a clear vision to redefine tourism by prioritizing guest safety, trust, and exceptional travel experiences. The company was established with the intention of creating a safer and more reliable way for guests to explore destinations while ensuring that every journey is comfortable, memorable, and enriching.
+
+Reunion supports owners of beautiful homes, heritage properties, and hotels in managing, maintaining, and effectively utilizing their assets. Reunion steps in to restore, manage, and transform these properties into distinctive tourism destinations, enabling owners to generate sustainable income while preserving the character, heritage, and unique charm of their properties.
+At the same time, guests get the opportunity to experience authentic, comfortable, and memorable stays in distinctive properties that offer more than just accommodation—they offer a sense of place, culture, and connection.
+Through this approach, Reunion creates a win-win ecosystem that empowers property owners, delivers exceptional guest experiences, unlocks the potential of properties, and promotes sustainable and responsible tourism.`,
+  },
+  {
+    name: "Mr. Santhosh",
+    role: "Head Chef",
+    image: "/properties/team/oneafter.jpeg",
+    description: "30+ years of culinary experience, shaped by a distinguished career in reputed hotels, bringing expertise, precision, and a commitment to exceptional dining to Reunion.",
+    category: "Culinary Team",
   },
   {
     name: "Mr. Praveen Devadiga",
@@ -210,6 +224,62 @@ export default function AboutPage() {
                 {CATEGORIES.map((cat) => {
                   const members = TEAM_MEMBERS.filter((m) => m.category === cat);
                   
+                  if (cat === "Executive Leadership" && members.length === 1) {
+                    const ceo = members[0];
+                    return (
+                      <div
+                        key={cat}
+                        id={`desktop-section-${cat.replace(/\s+/g, "-")}`}
+                        className="space-y-10 flex flex-col items-center scroll-mt-28 max-w-5xl mx-auto"
+                      >
+                        {/* Highlighted Background Category Name */}
+                        <div className="inline-block bg-[#C9A84C] text-[#080808] px-8 py-3 rounded-sm font-cinzel text-xs tracking-[0.25em] font-bold uppercase shadow-[0_4px_25px_rgba(201,168,76,0.18)]">
+                          {cat}
+                        </div>
+
+                        {/* CEO Card & Details Layout */}
+                        <div className="flex flex-col lg:flex-row gap-10 items-stretch bg-[#0c0c0c] border border-[#C9A84C]/15 hover:border-[#C9A84C]/45 transition-all duration-500 p-8 rounded-sm w-full text-left">
+                          {/* Image Container */}
+                          <div className="relative w-full lg:w-[320px] aspect-[4/5] shrink-0 overflow-hidden bg-neutral-900 border border-[#C9A84C]/10">
+                            <Image
+                              src={ceo.image}
+                              alt={ceo.name}
+                              fill
+                              className="w-full h-full object-cover"
+                              sizes="320px"
+                              priority
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/35 to-transparent" />
+                          </div>
+
+                          {/* Details & Description */}
+                          <div className="flex-1 flex flex-col justify-center space-y-4">
+                            <div>
+                              <h3 className="font-cormorant text-3xl text-white font-light hover:text-[#C9A84C] transition-colors duration-300">
+                                {ceo.name}
+                              </h3>
+                              <p className="font-cinzel text-[10px] tracking-[0.15em] text-[#C9A84C] uppercase leading-normal mt-1">
+                                {ceo.role}
+                              </p>
+                            </div>
+                            {ceo.description && (
+                              <div className="whitespace-pre-line text-[#a09c98]/90 text-sm font-light leading-relaxed border-t border-[#C9A84C]/10 pt-4">
+                                {ceo.description}
+                              </div>
+                            )}
+                          </div>
+                        </div>
+
+                        {/* Gold divider after category */}
+                        <div className="flex items-center gap-3 w-full max-w-md mx-auto pt-6 opacity-40">
+                          <div className="flex-1 h-px bg-gradient-to-r from-transparent via-[#C9A84C] to-transparent" />
+                          <span className="text-[#C9A84C] text-[10px]">✦</span>
+                          <div className="flex-1 h-px bg-gradient-to-r from-transparent via-[#C9A84C] to-transparent" />
+                        </div>
+                      </div>
+                    );
+                  }
+
                   // Dynamically set grid columns and max-width based on members count
                   let gridCols = "grid-cols-1 max-w-[320px]";
                   if (members.length === 2) gridCols = "grid-cols-2 max-w-[680px]";
@@ -255,6 +325,11 @@ export default function AboutPage() {
                               <p className="font-cinzel text-[9px] tracking-[0.1em] text-[#a09c98] uppercase leading-normal">
                                 {member.role}
                               </p>
+                              {member.description && (
+                                <p className="text-[#a09c98]/80 text-xs font-light leading-relaxed mt-2 pt-2 border-t border-[#C9A84C]/10">
+                                  {member.description}
+                                </p>
+                              )}
                             </div>
                           </div>
                         ))}
@@ -313,6 +388,11 @@ export default function AboutPage() {
                               <p className="font-cinzel text-[8px] tracking-[0.12em] text-[#a09c98] uppercase leading-normal">
                                 {member.role}
                               </p>
+                              {member.description && (
+                                <p className="text-[#a09c98]/80 text-[11px] font-light leading-relaxed mt-2 pt-2 border-t border-[#C9A84C]/10 text-left sm:text-center">
+                                  {member.description}
+                                </p>
+                              )}
                             </div>
                           </div>
                         ))}
