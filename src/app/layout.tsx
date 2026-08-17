@@ -6,8 +6,26 @@ import { PartnerProvider } from '@/components/PartnerContext'
 import GoldScrollShimmer from '@/components/GoldScrollShimmer'
 
 export const metadata: Metadata = {
-  title: 'REUNION | Quiet Luxury Estates',
-  description: 'Reunion — A sanctuary for those who appreciate excellence without the noise. Timeless luxury estates across the globe.',
+  title: 'REUNION | Quiet Luxury Properties',
+  description: 'Creating Memories One Reunion at a time. Premium beach stays, coastal cafés, boutique hotels & city villas — curated for those who gather in style.',
+  icons: {
+    icon: '/icon.png',
+    apple: '/icon.png',
+  },
+  openGraph: {
+    title: 'REUNION | Quiet Luxury Properties',
+    description: 'Creating Memories One Reunion at a time. Premium beach stays, coastal cafés, boutique hotels & city villas — curated for those who gather in style.',
+    siteName: 'REUNION',
+    type: 'website',
+    images: [
+      {
+        url: '/icon.png',
+        width: 1080,
+        height: 1080,
+        alt: 'Reunion Logo',
+      },
+    ],
+  },
 }
 
 export default function RootLayout({
