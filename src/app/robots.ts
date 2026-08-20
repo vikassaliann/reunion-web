@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: '/',
       disallow: ['/api/'],
     },
-    sitemap: 'https://reunionglobal.in/sitemap.xml',
+    sitemap: 'https://www.reunionglobal.in/sitemap.xml',
   }
 }

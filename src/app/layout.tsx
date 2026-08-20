@@ -6,7 +6,7 @@ import { PartnerProvider } from '@/components/PartnerContext'
 import GoldScrollShimmer from '@/components/GoldScrollShimmer'
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://reunionglobal.in'),
+  metadataBase: new URL('https://www.reunionglobal.in'),
   title: 'REUNION | Quiet Luxury Properties',
   description: 'Creating Memories One Reunion at a time. Premium beach stays, coastal cafés, boutique hotels & city villas — curated for those who gather in style.',
   icons: {

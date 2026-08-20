@@ -2,7 +2,7 @@ import { MetadataRoute } from 'next'
 import properties from '@/data/properties.json'
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://reunionglobal.in'
+  const baseUrl = 'https://www.reunionglobal.in'
 
   const propertyUrls = properties.map((property) => ({
     url: `${baseUrl}/properties/${property.id}`,
