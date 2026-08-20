@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reunion Global — Developer Setup Guide</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+    
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: #f8f7f4;
+      color: #1a1a1a;
+      line-height: 1.7;
+      padding: 40px;
+    }
+
+    .page {
+      max-width: 700px;
+      margin: 0 auto;
+      background: white;
+      padding: 50px 48px;
+      border-radius: 4px;
+      box-shadow: 0 2px 20px rgba(0,0,0,0.06);
+    }
+
+    .header {
+      text-align: center;
+      padding-bottom: 32px;
+      border-bottom: 2px solid #C9A84C;
+      margin-bottom: 36px;
+    }
+
+    .header h1 {
+      font-size: 26px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      color: #C9A84C;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .header p {
+      font-size: 13px;
+      color: #888;
+      letter-spacing: 0.04em;
+    }
+
+    .section {
+      margin-bottom: 32px;
+    }
+
+    .section-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: #C9A84C;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-bottom: 16px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid #e8e4da;
+    }
+
+    .section-desc {
+      font-size: 13.5px;
+      color: #555;
+      margin-bottom: 20px;
+      line-height: 1.8;
+    }
+
+    .step {
+      display: flex;
+      gap: 14px;
+      margin-bottom: 18px;
+      align-items: flex-start;
+    }
+
+    .step-number {
+      flex-shrink: 0;
+      width: 28px;
+      height: 28px;
+      background: #C9A84C;
+      color: white;
+      font-size: 13px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      margin-top: 2px;
+    }
+
+    .step-content h3 {
+      font-size: 14px;
+      font-weight: 600;
+      color: #1a1a1a;
+      margin-bottom: 4px;
+    }
+
+    .step-content p {
+      font-size: 13px;
+      color: #555;
+    }
+
+    .command {
+      background: #1a1a1a;
+      color: #e8e4da;
+      padding: 10px 16px;
+      border-radius: 4px;
+      font-family: 'SF Mono', 'Fira Code', monospace;
+      font-size: 12.5px;
+      margin-top: 8px;
+      overflow-x: auto;
+      border-left: 3px solid #C9A84C;
+    }
+
+    .note {
+      background: #fdf8ec;
+      border: 1px solid #C9A84C40;
+      border-left: 3px solid #C9A84C;
+      padding: 14px 18px;
+      border-radius: 4px;
+      margin-top: 12px;
+      font-size: 13px;
+      color: #6b5e3a;
+    }
+
+    .note strong {
+      color: #C9A84C;
+    }
+
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 28px 0;
+      opacity: 0.5;
+    }
+
+    .divider span {
+      color: #C9A84C;
+      font-size: 10px;
+    }
+
+    .divider div {
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(to right, transparent, #C9A84C, transparent);
+    }
+
+    .repo-url {
+      text-align: center;
+      background: #f5f3ee;
+      padding: 14px;
+      border-radius: 4px;
+      font-family: monospace;
+      font-size: 13px;
+      color: #555;
+      margin-bottom: 20px;
+      word-break: break-all;
+    }
+
+    .deploy-box {
+      background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
+      color: #e8e4da;
+      padding: 20px 24px;
+      border-radius: 6px;
+      border: 1px solid #C9A84C30;
+      text-align: center;
+      margin-top: 8px;
+    }
+
+    .deploy-box h4 {
+      color: #C9A84C;
+      font-size: 13px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .deploy-box p {
+      font-size: 13px;
+      color: #aaa;
+      line-height: 1.6;
+    }
+
+    .deploy-box .arrow {
+      color: #C9A84C;
+      font-size: 18px;
+      margin: 8px 0;
+    }
+
+    .footer {
+      text-align: center;
+      padding-top: 28px;
+      border-top: 1px solid #e8e4da;
+      margin-top: 32px;
+      font-size: 11px;
+      color: #aaa;
+      letter-spacing: 0.06em;
+    }
+
+    @media print {
+      body { background: white; padding: 0; }
+      .page { box-shadow: none; padding: 30px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="header">
+      <h1>Reunion Global</h1>
+      <p>Developer Setup Guide — Website Collaboration</p>
+    </div>
+
+    <div class="repo-url">
+      GitHub Repository: https://github.com/vikassaliann/reunion-web.git
+    </div>
+
+    <!-- Prerequisites -->
+    <div class="section">
+      <div class="section-title">Step 1 — Prerequisites (Install Once)</div>
+
+      <div class="step">
+        <div class="step-number">1</div>
+        <div class="step-content">
+          <h3>Install Node.js (v18 or later)</h3>
+          <p>Download and install from the official website.</p>
+          <div class="command">https://nodejs.org</div>
+          <p style="margin-top: 6px; font-size: 12px; color: #888;">Verify: <code>node --version</code></p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-number">2</div>
+        <div class="step-content">
+          <h3>Install Git</h3>
+          <p>Download and install the version control system.</p>
+          <div class="command">https://git-scm.com</div>
+          <p style="margin-top: 6px; font-size: 12px; color: #888;">Verify: <code>git --version</code></p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-number">3</div>
+        <div class="step-content">
+          <h3>Install Visual Studio Code</h3>
+          <p>Recommended code editor for the project.</p>
+          <div class="command">https://code.visualstudio.com</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"><div></div><span>✦</span><div></div></div>
+
+    <!-- GitHub Access -->
+    <div class="section">
+      <div class="section-title">Step 2 — Getting GitHub Access</div>
+      <p class="section-desc">
+        The repository is <strong>public on GitHub</strong>. The repo owner will add you as a <strong>collaborator</strong> so you can push changes directly. Once you receive a collaboration invite on GitHub, <strong>accept it</strong> — then you're ready to go.
+      </p>
+    </div>
+
+    <div class="divider"><div></div><span>✦</span><div></div></div>
+
+    <!-- Clone & Setup -->
+    <div class="section">
+      <div class="section-title">Step 3 — Clone the Project (First Time Only)</div>
+      <p class="section-desc">
+        Open Terminal (Mac) or Command Prompt (Windows) and run these commands to download the project and install all dependencies:
+      </p>
+
+      <div class="step">
+        <div class="step-number">1</div>
+        <div class="step-content">
+          <h3>Clone the repository from GitHub</h3>
+          <div class="command">git clone https://github.com/vikassaliann/reunion-web.git</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-number">2</div>
+        <div class="step-content">
+          <h3>Go into the project folder</h3>
+          <div class="command">cd reunion-web</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-number">3</div>
+        <div class="step-content">
+          <h3>Install all dependencies</h3>
+          <div class="command">npm install</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-number">4</div>
+        <div class="step-content">
+          <h3>Start the development server</h3>
+          <div class="command">npm run dev</div>
+          <p style="margin-top: 6px;">Open <strong>http://localhost:3000</strong> in your browser to see the website.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"><div></div><span>✦</span><div></div></div>
+
+    <!-- Daily Workflow -->
+    <div class="section">
+      <div class="section-title">Step 4 — Making Changes & Pushing to GitHub</div>
+      <p class="section-desc">
+        Every time you want to make updates, follow this workflow. This pulls the latest code, lets you make edits, and pushes your changes back to GitHub.
+      </p>
+
+      <div class="step">
+        <div class="step-number">1</div>
+        <div class="step-content">
+          <h3>Pull the latest code from GitHub</h3>
+          <p>Always do this before making any changes to stay in sync.</p>
+          <div class="command">git pull origin main</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-number">2</div>
+        <div class="step-content">
+          <h3>Make your edits</h3>
+          <p>Open the project in VS Code, edit the files you need, and preview at localhost:3000.</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-number">3</div>
+        <div class="step-content">
+          <h3>Stage all your changes</h3>
+          <div class="command">git add .</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-number">4</div>
+        <div class="step-content">
+          <h3>Commit with a short message describing what you changed</h3>
+          <div class="command">git commit -m "updated about page team photos"</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-number">5</div>
+        <div class="step-content">
+          <h3>Push your changes to GitHub</h3>
+          <div class="command">git push origin main</div>
+        </div>
+      </div>
+
+      <div class="note">
+        <strong>That's it!</strong> Your changes are now on GitHub. The website will update automatically (see below).
+      </div>
+    </div>
+
+    <div class="divider"><div></div><span>✦</span><div></div></div>
+
+    <!-- Auto Deploy -->
+    <div class="section">
+      <div class="section-title">Automatic Deployment</div>
+
+      <div class="deploy-box">
+        <h4>🚀 Vercel Auto-Deploy</h4>
+        <p>The live website is connected to Vercel.</p>
+        <div class="arrow">↓</div>
+        <p>Every time you push to the <strong style="color: #C9A84C;">main</strong> branch on GitHub,<br>Vercel automatically builds and deploys the updated website.</p>
+        <div class="arrow">↓</div>
+        <p><strong style="color: #C9A84C;">No manual deployment needed. Just push and it's live.</strong></p>
+      </div>
+    </div>
+
+    <div class="footer">
+      Reunion Global — Developer Setup Guide
+    </div>
+  </div>
+</body>
+</html>
