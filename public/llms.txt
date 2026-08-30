@@ -1,0 +1,73 @@
+# Reunion Global — LLM Context File
+
+> Reunion Global Private Ltd. is Coastal Karnataka's most trusted luxury hospitality brand, managing 17+ premium properties across Udupi district, Karnataka, India.
+
+## About Reunion Global
+
+Reunion Global Private Ltd. was founded in 2020 with a mission to redefine coastal tourism. We manage premium beach villas, oceanfront cafés, boutique hotels, and city villas — curated for families, couples, and groups who gather in style.
+
+- **Website**: https://www.reunionglobal.in
+- **Headquarters**: Udupi, Karnataka, India
+- **Founded**: 2020
+- **Managing Director & CEO**: Mrs. Kshama Kadamba
+
+## Property Portfolio
+
+### Beach Villas & Coastal Properties
+
+- **Ocean Elite** — 2BHK villa with direct beach access, beach-view balcony, spacious lawn | Padutonse, Udupi | Up to 6 guests | Generator backup
+- **Ocean Manor** — Multi-level retreat with sea-facing & river-facing bedrooms, beach-facing balcony | Padutonse, Udupi | Multiple units | Generator backup
+- **Ocean Givaah** — 3BHK luxury villa with private pool (4ft), ocean-view terrace, lush garden | Bada, Udupi | Up to 9 guests | 200m from beach
+- **Ocean Royal** — Heritage farmhouse villa, 50m from beach, coconut tree surroundings | Kapu, Udupi | Up to 15 guests | Generator backup
+- **Ocean Daaffy** — 3BHK villa, 100m from beach, peaceful natural setting | Bada, Udupi | Up to 9 guests | UPS backup
+- **Ocean Hridayam** — 2BHK beachfront villa with beach-facing balcony, split-level design | Mattu, Udupi | Up to 6 guests
+- **Ocean Bliss** — 2BHK property, 800m from beach, open compound | Malpe, Udupi | Up to 6 guests
+- **Ocean Waves** — 3 independent units, just 5m from beach, CCTV surveillance | Mattu, Udupi | Multiple rooms
+
+### City Villas & Urban Stays
+
+- **De Homes** — Premium suites in Udupi city center near Sri Krishna Matha | Chitpady, Udupi | 16 premium rooms | Standard to Presidential
+- **Marina Villa** — 3BHK city villa with AC, WiFi, parking | Kannarpady, Udupi | Up to 10 guests
+- **Charm Villa** — 3BHK first-floor property with basic amenities | Badagabettu, Udupi | Up to 9 guests
+- **Aradhya Villa** — 4BHK multi-level villa with bathtub suite, 700m from Krishna Temple | Kunjibettu, Udupi | Up to 12 guests
+- **Arya** — 2 independent 1BHK studio rooms | Kunjibettu, Udupi | Up to 3 guests each
+- **Krshna** — 2BHK furnished villa in Manipal | Manipal, Udupi | Up to 6 guests
+- **Regal Villa** — 2BHK with balcony, terrace, free parking | Chitpady, Udupi | Up to 6 guests
+- **Villa** — 3BHK with garden & terrace views, meal arrangements available | Chitpady, Udupi | Up to 10 guests
+
+### Dining & Café
+
+- **Reunion Ocean Café** — Beachfront café at Mattu Beach with continental & Chinese cuisine, seafood, specialty coffee, candlelight dinners | Mattu Beach, Udupi | Open 9:30 AM – 10:00 PM
+
+## Key Locations
+
+All properties are located in and around Udupi district, Coastal Karnataka, India:
+
+- **Padutonse** — Direct beachfront villas
+- **Bada** — Quiet beach retreats
+- **Kapu** — Heritage coastal area with lighthouse
+- **Mattu / Mattu Beach** — Serene beachfront stays and café
+- **Malpe** — Popular beach destination
+- **Chitpady** — City center near Sri Krishna Matha
+- **Kunjibettu** — Central Udupi neighborhood
+- **Kannarpady** — Udupi city area
+- **Badagabettu** — Residential area
+- **Manipal** — University town
+
+## Booking & Contact
+
+- **Primary Contact**: +91 9980208289
+- **De Homes**: +91 9380740060
+- **Ocean Café**: +91 9972231289
+- **Booking**: Contact via website at https://www.reunionglobal.in
+
+## Site Structure
+
+- `/` — Homepage with featured properties, destination highlights, testimonials
+- `/properties` — Full collection of all properties with masonry grid
+- `/properties/[id]` — Individual property detail pages with gallery, amenities, FAQs, map
+- `/about` — About Reunion, team members, company story
+
+## Common Amenities Across Properties
+
+WiFi, Air Conditioning, Fully Equipped Kitchen, Power Backup (Generator or UPS), Parking, Beach Access (varies by property), CCTV Security (select properties), Food Delivery Available

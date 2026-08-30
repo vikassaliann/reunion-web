@@ -5,6 +5,23 @@ import Image from "next/image";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import properties from "@/data/properties.json";
+import Breadcrumbs from "@/components/Breadcrumbs";
+
+const BASE_URL = "https://www.reunionglobal.in";
+
+const aboutPageSchema = {
+  "@context": "https://schema.org",
+  "@type": "AboutPage",
+  name: "About Reunion Global",
+  description: "Coastal Karnataka's most trusted luxury hospitality brand managing 17+ premium beach villas, coastal cafés, boutique hotels, and city villas across Udupi district.",
+  url: `${BASE_URL}/about`,
+  publisher: {
+    "@type": "Organization",
+    name: "Reunion Global Private Ltd.",
+    url: BASE_URL,
+    logo: `${BASE_URL}/icon.png`,
+  },
+};
 
 const HERO_IMAGES = properties.map((p) => p.heroImage);
 
@@ -129,7 +146,17 @@ export default function AboutPage() {
       <div className="noise-overlay" />
       <Navbar />
 
+      {/* AboutPage JSON-LD Schema */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(aboutPageSchema) }}
+      />
+
       <main className="pt-20">
+        <Breadcrumbs items={[
+          { label: 'Home', href: '/' },
+          { label: 'About Reunion' },
+        ]} />
         {/* ── About Reunion — Hero with Slideshow ── */}
         <section className="relative min-h-[85vh] md:min-h-[90vh] flex items-center justify-center overflow-hidden" id="about-reunion">
           {/* Background Slideshow */}

@@ -197,6 +197,39 @@ export default function Home() {
       <Navbar />
 
       <main>
+        {/* RealEstateAgent & WebSite JSON-LD Schema */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@graph": [
+                {
+                  "@type": "WebSite",
+                  "name": "REUNION Global",
+                  "url": "https://www.reunionglobal.in",
+                  "description": "Premium beach stays, coastal cafés, boutique hotels & city villas across Coastal Karnataka."
+                },
+                {
+                  "@type": "RealEstateAgent",
+                  "name": "Reunion Global Private Ltd.",
+                  "url": "https://www.reunionglobal.in",
+                  "logo": "https://www.reunionglobal.in/icon.png",
+                  "image": "https://www.reunionglobal.in/icon.png",
+                  "telephone": "+91-9980208289",
+                  "address": {
+                    "@type": "PostalAddress",
+                    "addressLocality": "Udupi",
+                    "addressRegion": "Karnataka",
+                    "addressCountry": "IN"
+                  },
+                  "areaServed": "Coastal Karnataka, Udupi"
+                }
+              ]
+            })
+          }}
+        />
+
         {/* ── Hero Section ── */}
         <section className="relative w-full h-screen flex items-center justify-center overflow-hidden" id="hero">
           <div className="absolute inset-0 w-full h-full">
@@ -234,7 +267,7 @@ export default function Home() {
               className="text-[#c8c4c0]/80 text-base md:text-lg tracking-wide mb-12 max-w-xl mx-auto reveal"
               style={{ transitionDelay: '280ms' }}
             >
-              Premium beach stays, coastal cafés, boutique hotels &amp; city villas — curated for those who gather in style.
+              Premium beach stays, coastal cafés, boutique hotels &amp; city villas in Udupi, Karnataka — curated for those who gather in style.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 reveal" style={{ transitionDelay: '400ms' }}>
               <Link

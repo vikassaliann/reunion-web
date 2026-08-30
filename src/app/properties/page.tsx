@@ -2,18 +2,72 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import properties from "@/data/properties.json";
 import Link from "next/link";
+import Breadcrumbs from "@/components/Breadcrumbs";
+import type { Metadata } from "next";
 
-export const metadata = {
-  title: 'Our Residences | REUNION',
+const BASE_URL = "https://www.reunionglobal.in";
+
+export const metadata: Metadata = {
+  title: 'Our Residences | Beach Villas & Stays in Udupi | REUNION',
+  description: 'Browse REUNION\'s full portfolio of beach villas, city stays and a beachfront café across Udupi, Karnataka — from Malpe to Kapu and Mattu Beach. Compare properties and enquire directly.',
+  alternates: {
+    canonical: `${BASE_URL}/properties`,
+  },
+  openGraph: {
+    title: 'Our Residences | Beach Villas & Stays in Udupi | REUNION',
+    description: 'Browse REUNION\'s full portfolio of beach villas, city stays and a beachfront café across Udupi, Karnataka — from Malpe to Kapu and Mattu Beach. Compare properties and enquire directly.',
+    url: `${BASE_URL}/properties`,
+    siteName: 'REUNION',
+    type: 'website',
+    images: [{ url: '/icon.png', width: 1080, height: 1080, alt: 'Reunion Global — Luxury Properties Collection in Udupi' }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Our Residences | Beach Villas & Stays in Udupi | REUNION',
+    description: 'Browse REUNION\'s full portfolio of beach villas, city stays and a beachfront café across Udupi, Karnataka.',
+    images: ['/icon.png'],
+  },
 };
 
+// ItemList JSON-LD schema for property collection
+function getItemListSchema() {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: 'Reunion Global — Exclusive Properties',
+    description: 'Curated portfolio of luxury beach villas, coastal cafés, boutique hotels, and city villas across Udupi, Coastal Karnataka.',
+    numberOfItems: properties.length,
+    itemListElement: properties.map((prop, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      name: prop.name,
+      url: `${BASE_URL}/properties/${prop.id}`,
+      image: `${BASE_URL}${prop.heroImage}`,
+    })),
+  };
+}
+
 export default function PropertiesPage() {
+  const itemListSchema = getItemListSchema();
+
   return (
     <>
       <Navbar />
 
+      {/* ItemList JSON-LD Schema */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema) }}
+      />
+
       <section className="pt-40 pb-24 bg-[#060606] min-h-screen">
         <div className="max-w-[1400px] mx-auto px-4 md:px-8">
+          {/* Breadcrumbs */}
+          <Breadcrumbs items={[
+            { label: 'Home', href: '/' },
+            { label: 'Properties' },
+          ]} />
+
           {/* Header */}
           <div className="text-center mb-16">
             <span className="font-cinzel text-[10px] tracking-[0.5em] text-[#C9A84C] uppercase block mb-4">The Collection</span>
@@ -41,7 +95,8 @@ export default function PropertiesPage() {
                   <div className={`relative overflow-hidden aspect-[4/5] ${isTall ? 'sm:aspect-[3/5]' : 'sm:aspect-[4/5]'}`}>
                     <img
                       src={prop.heroImage}
-                      alt={prop.name}
+                      alt={`${prop.name} — Luxury ${prop.bedrooms > 0 ? prop.bedrooms + 'BHK ' : ''}Stay in ${prop.location}`}
+                      loading={index < 4 ? undefined : "lazy"}
                       className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                     />
 
@@ -70,7 +125,7 @@ export default function PropertiesPage() {
 
                       {/* View indicator */}
                       <div className="flex items-center gap-2 mt-3 opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-2 group-hover:translate-y-0">
-                        <span className="font-cinzel text-[8px] tracking-[0.25em] text-[#C9A84C] uppercase">Explore Property</span>
+                        <span className="font-cinzel text-[8px] tracking-[0.25em] text-[#C9A84C] uppercase">Explore {prop.name}</span>
                         <svg className="w-3 h-3 text-[#C9A84C]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                           <line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" />
                         </svg>
@@ -88,3 +143,4 @@ export default function PropertiesPage() {
     </>
   );
 }
+

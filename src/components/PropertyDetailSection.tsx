@@ -87,12 +87,12 @@ const PROPERTY_GUIDELINES: Record<string, { power: string; highlightDetail: stri
 };
 
 // Property FAQs — derived exclusively from each property's actual details
-interface FAQ {
+export interface FAQ {
   q: string;
   a: string;
 }
 
-const PROPERTY_FAQS: Record<string, FAQ[]> = {
+export const PROPERTY_FAQS: Record<string, FAQ[]> = {
   "ocean-elite": [
     { q: "How many bedrooms does Ocean Elite have?", a: "Ocean Elite is a 2-bedroom villa. One of the bedrooms has a beautiful beach view with a private balcony." },
     { q: "How close is Ocean Elite to the beach?", a: "The villa offers direct beach access — the spacious lawn leads straight to the beach." },
