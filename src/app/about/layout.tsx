@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 const BASE_URL = "https://www.reunionglobal.in";
 
 export const metadata: Metadata = {
-  title: 'About REUNION | Hospitality Management Company in Udupi',
+  title: 'REUNION - About Us | Hospitality Management Company in Udupi',
   description: 'REUNION is a hospitality management company in Udupi, Karnataka, trusted by 30+ property owners. Meet the team behind our beach villas, café and city stays.',
   alternates: {
     canonical: `${BASE_URL}/about`,

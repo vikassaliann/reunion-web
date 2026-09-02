@@ -8,8 +8,8 @@ import type { Metadata } from "next";
 const BASE_URL = "https://www.reunionglobal.in";
 
 export const metadata: Metadata = {
-  title: 'Our Residences | Beach Villas & Stays in Udupi | REUNION',
-  description: 'Browse REUNION\'s full portfolio of beach villas, city stays and a beachfront café across Udupi, Karnataka — from Malpe to Kapu and Mattu Beach. Compare properties and enquire directly.',
+  title: 'REUNION - Our Residences | Beach Villas & Stays in Udupi',
+  description: 'Browse REUNION\'s full portfolio of beach villas, city stays and a beachfront café across Udupi, Karnataka — from Malpe to Kapu and Mattu Beach.',
   alternates: {
     canonical: `${BASE_URL}/properties`,
   },
