@@ -151,24 +151,47 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
   };
 }
 
-// VacationRental / LodgingBusiness JSON-LD schema builder
+// VacationRental / LodgingBusiness / Restaurant JSON-LD schema builder
 function getPropertySchema(property: typeof properties[0]) {
   const isCafe = property.id === 'ocean-cafe';
   const isHotel = property.id === 'de-homes';
+  const mapUrl = MAP_LINKS[property.id];
+
+  const galleryImages = (property.gallery && property.gallery.length > 0)
+    ? property.gallery.map((img) => `${BASE_URL}${img}`)
+    : [`${BASE_URL}${property.heroImage}`];
+
+  // Ensure unique list of absolute image URLs
+  const allImages = Array.from(new Set([`${BASE_URL}${property.heroImage}`, ...galleryImages]));
 
   return {
     '@context': 'https://schema.org',
     '@type': isCafe ? 'Restaurant' : isHotel ? 'LodgingBusiness' : 'VacationRental',
+    identifier: `reunion-${property.id}`,
     name: `Reunion ${property.name}`,
     description: property.description,
     url: `${BASE_URL}/properties/${property.id}`,
-    image: `${BASE_URL}${property.heroImage}`,
+    ...(mapUrl ? { sameAs: [mapUrl], hasMap: mapUrl } : {}),
+    image: allImages,
     address: {
       '@type': 'PostalAddress',
-      addressLocality: property.location.split(',')[0]?.trim(),
+      streetAddress: `${property.name}, ${property.location}`,
+      addressLocality: property.location.split(',')[0]?.trim() || 'Udupi',
       addressRegion: 'Karnataka',
+      postalCode: '576101',
       addressCountry: 'IN',
     },
+    geo: {
+      '@type': 'GeoCoordinates',
+      latitude: 13.3409,
+      longitude: 74.7421,
+    },
+    containsPlace: {
+      '@type': 'Accommodation',
+      name: property.name,
+      numberOfBedrooms: property.bedrooms || 1,
+    },
+    priceRange: '₹₹₹',
     ...(property.bedrooms > 0 && !isCafe ? { numberOfRooms: property.bedrooms } : {}),
     amenityFeature: property.amenities.map((amenity) => ({
       '@type': 'LocationFeatureSpecification',
@@ -180,9 +203,9 @@ function getPropertySchema(property: typeof properties[0]) {
       name: 'Reunion Global Private Ltd.',
       url: BASE_URL,
     },
-    photo: property.gallery.slice(0, 5).map((img) => ({
+    photo: allImages.slice(0, 10).map((img) => ({
       '@type': 'ImageObject',
-      url: `${BASE_URL}${img}`,
+      url: img,
     })),
   };
 }

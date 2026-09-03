@@ -20,8 +20,8 @@ export const metadata: Metadata = {
   creator: 'Reunion Global Private Ltd.',
   publisher: 'Reunion Global Private Ltd.',
   icons: {
-    icon: '/icon.png',
-    apple: '/icon.png',
+    icon: '/logoo.png',
+    apple: '/logoo.png',
   },
   alternates: {
     canonical: 'https://www.reunionglobal.in',
@@ -38,7 +38,7 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: '/icon.png',
+        url: '/logoo.png',
         width: 1080,
         height: 1080,
         alt: 'Reunion Global — Quiet Luxury Properties in Coastal Karnataka',
@@ -49,7 +49,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'REUNION | Quiet Luxury Properties — Coastal Karnataka',
     description: 'Premium beach villas, coastal cafés & boutique hotels in Udupi, Karnataka — curated for those who gather in style.',
-    images: ['/icon.png'],
+    images: ['/logoo.png'],
   },
   verification: {
     google: process.env.NEXT_PUBLIC_GSC_VERIFICATION || undefined,
@@ -66,7 +66,7 @@ const organizationSchema = {
   name: 'Reunion Global Private Ltd.',
   alternateName: 'REUNION',
   url: 'https://www.reunionglobal.in',
-  logo: 'https://www.reunionglobal.in/icon.png',
+  logo: 'https://www.reunionglobal.in/logoo.png',
   description: 'Coastal Karnataka\'s most trusted luxury hospitality brand managing 17+ premium beach villas, coastal cafés, boutique hotels, and city villas across Udupi district.',
   foundingDate: '2020',
   founder: {

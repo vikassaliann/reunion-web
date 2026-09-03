@@ -14,13 +14,13 @@ export const metadata: Metadata = {
     url: `${BASE_URL}/about`,
     siteName: 'REUNION',
     type: 'website',
-    images: [{ url: '/icon.png', width: 1080, height: 1080, alt: 'About Reunion Global — Hospitality Management in Udupi' }],
+    images: [{ url: '/logoo.png', width: 1080, height: 1080, alt: 'About Reunion Global — Hospitality Management in Udupi' }],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'About REUNION | Hospitality Management Company in Udupi',
     description: 'REUNION is a hospitality management company in Udupi, Karnataka, trusted by 30+ property owners.',
-    images: ['/icon.png'],
+    images: ['/logoo.png'],
   },
 };
 

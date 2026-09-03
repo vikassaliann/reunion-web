@@ -214,8 +214,8 @@ export default function Home() {
                   "@type": "RealEstateAgent",
                   "name": "Reunion Global Private Ltd.",
                   "url": "https://www.reunionglobal.in",
-                  "logo": "https://www.reunionglobal.in/icon.png",
-                  "image": "https://www.reunionglobal.in/icon.png",
+                  "logo": "https://www.reunionglobal.in/logoo.png",
+                  "image": "https://www.reunionglobal.in/logoo.png",
                   "telephone": "+91-9980208289",
                   "address": {
                     "@type": "PostalAddress",

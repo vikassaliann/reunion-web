@@ -19,13 +19,13 @@ export const metadata: Metadata = {
     url: `${BASE_URL}/properties`,
     siteName: 'REUNION',
     type: 'website',
-    images: [{ url: '/icon.png', width: 1080, height: 1080, alt: 'Reunion Global — Luxury Properties Collection in Udupi' }],
+    images: [{ url: '/logoo.png', width: 1080, height: 1080, alt: 'Reunion Global — Luxury Properties Collection in Udupi' }],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Our Residences | Beach Villas & Stays in Udupi | REUNION',
     description: 'Browse REUNION\'s full portfolio of beach villas, city stays and a beachfront café across Udupi, Karnataka.',
-    images: ['/icon.png'],
+    images: ['/logoo.png'],
   },
 };
 

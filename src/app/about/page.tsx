@@ -19,7 +19,7 @@ const aboutPageSchema = {
     "@type": "Organization",
     name: "Reunion Global Private Ltd.",
     url: BASE_URL,
-    logo: `${BASE_URL}/icon.png`,
+    logo: `${BASE_URL}/logoo.png`,
   },
 };
 
