@@ -74,7 +74,7 @@ const PROPERTY_GUIDELINES: Record<string, { power: string; highlightDetail: stri
   "de-homes":       { power: "Central City Power Grid", highlightDetail: "Premium Suites (Standard to Presidential)" },
   "ocean-daaffy":   { power: "Reliable UPS Power Backup", highlightDetail: "Tranquil Natural Surroundings" },
   "ocean-hridayam": { power: "Reliable UPS Power Backup", highlightDetail: "Split-Level Family Layout" },
-  "ocean-bliss":    { power: "Reliable UPS Power Backup", highlightDetail: "Open Compound Estate" },
+  "ocean-bliss":    { power: "Reliable UPS Power Backup", highlightDetail: "Open Compound Villa" },
   "marina-villa":   { power: "Reliable UPS Power Backup", highlightDetail: "Fully Furnished Kitchen & AC" },
   "charm-villa":    { power: "Reliable UPS Power Backup", highlightDetail: "First Floor 3BHK Residence" },
   "aradhya-villa":  { power: "Central City Power Grid", highlightDetail: "4BHK with Bathtub & Closed Terrace" },

@@ -72,7 +72,7 @@ export default function PropertiesPage() {
           <div className="text-center mb-16">
             <span className="font-cinzel text-[10px] tracking-[0.5em] text-[#C9A84C] uppercase block mb-4">The Collection</span>
             <h1 className="font-cormorant text-[clamp(2.2rem,5vw,3.8rem)] font-light text-white leading-tight">
-              Exclusive <em className="text-[#C9A84C] italic">Estates</em>
+              Exclusive <em className="text-[#C9A84C] italic">Residences</em>
             </h1>
             <div className="w-16 h-[1px] bg-[#C9A84C]/40 mx-auto mt-8"></div>
             <p className="text-[#8a8682] text-sm max-w-md mx-auto mt-6 leading-relaxed">

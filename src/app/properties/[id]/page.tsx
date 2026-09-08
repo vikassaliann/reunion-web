@@ -8,75 +8,75 @@ import type { Metadata } from "next";
 
 const BASE_URL = "https://www.reunionglobal.in";
 
-// Standardized Titles & Meta Descriptions for All 17 Properties
+// Standardized Titles & Meta Descriptions for All 17 Properties (Property Name | Tagline without address)
 const AUDIT_PROPERTY_SEO: Record<string, { title: string; description: string }> = {
   "ocean-elite": {
-    title: "REUNION - Ocean Elite | 2BHK Beach Villa in Padutonse, Udupi",
-    description: "Reunion Ocean Elite is a 2-bedroom beach villa in Padutonse, Udupi, featuring direct beach access, private balcony, AC, WiFi & generator backup."
+    title: "REUNION - Ocean Elite | Luxury 2BHK Beachfront Villa with Direct Beach Access",
+    description: "Experience direct beach access, private sea-view balcony, spacious lawn, and premium amenities at Ocean Elite by Reunion."
   },
   "ocean-manor": {
-    title: "REUNION - Ocean Manor | Beach Villa in Padutonse, Udupi",
-    description: "Reunion Ocean Manor is a beach villa in Padutonse, Udupi, offering a 2BHK unit plus two independent 1BHK units near the beach."
+    title: "REUNION - Ocean Manor | Beachfront Villa & Independent Ocean Suites",
+    description: "Featuring sea-facing balconies, river views, and scenic rock-bed beach access for families and group stays."
   },
   "ocean-givaah": {
-    title: "REUNION - Ocean Givaah | 3BHK Beachside Villa in Bada, Udupi",
-    description: "Reunion Ocean Givaah is a luxurious 3-bedroom beachside villa in Bada, Udupi, with private pool and ocean view terrace for families and groups."
+    title: "REUNION - Ocean Givaah | Luxury 3BHK Villa with Private Pool & Ocean Terrace",
+    description: "Enjoy a private swimming pool, lush garden, and panoramic ocean-view terrace just 200 metres from the shore."
   },
   "ocean-royal": {
-    title: "REUNION - Ocean Royal | 3BHK Heritage Villa in Kapu, Udupi",
-    description: "Reunion Ocean Royal is a charming 3-bedroom heritage villa in Kapu, Udupi, blending traditional character with modern comfort near Kapu Beach."
+    title: "REUNION - Ocean Royal | Charming 3BHK Heritage Farmhouse Villa",
+    description: "Charming heritage coastal stay surrounded by lush coconut groves just 50 metres from the sea."
   },
   "de-homes": {
-    title: "REUNION - De Homes | Premium Suites in Chitpady, Udupi",
-    description: "Reunion De Homes offers premium suites in Chitpady, Udupi, combining comfort and convenience close to Udupi Sri Krishna Matha."
+    title: "REUNION - De Homes | Premium Luxury Suites & Presidential Suite",
+    description: "Boutique luxury suites offering Presidential Suite, balcony rooms, and modern executive comfort."
   },
   "ocean-daaffy": {
-    title: "REUNION - Ocean Daaffy | 3BHK Villa 100m from Beach, Udupi",
-    description: "Reunion Ocean Daaffy is a 3-bedroom villa in Bada, Udupi, located just 100 metres from a pristine beach for your whole group."
+    title: "REUNION - Ocean Daaffy | Peaceful 3BHK Coastal Villa Steps from the Shore",
+    description: "A serene 3-bedroom coastal retreat located just 100 metres from pristine sandy beaches."
   },
   "ocean-hridayam": {
-    title: "REUNION - Ocean Hridayam | 2BHK Beachfront Villa in Mattu, Udupi",
-    description: "Reunion Ocean Hridayam is a 2-bedroom beachfront villa in Mattu, Udupi, steps from Mattu Beach and Reunion's own Ocean Café."
+    title: "REUNION - Ocean Hridayam | Beachfront 2BHK Sanctuary with Ocean View Balcony",
+    description: "Step directly onto the sand from this 2-bedroom beachfront villa featuring a sea-facing balcony and equipped kitchen."
   },
   "ocean-bliss": {
-    title: "REUNION - Ocean Bliss | 2BHK Beach Villa in Malpe, Udupi",
-    description: "Reunion Ocean Bliss is a comfortable 2-bedroom villa in Malpe, Udupi, with everyday essentials covered close to Malpe Beach."
+    title: "REUNION - Ocean Bliss | Cozy 2BHK Coastal Villa & Open Compound Stay",
+    description: "A peaceful, open-compound retreat with everyday comforts located moments from coastal beaches."
   },
   "marina-villa": {
-    title: "REUNION - Marina Villa | 3BHK Stay in Kannarpady, Udupi",
-    description: "Reunion Marina Villa is a 3-bedroom property in Kannarpady, in the heart of Udupi city — a convenient base close to town."
+    title: "REUNION - Marina Villa | Premium 3BHK City Residence & Private Kitchen",
+    description: "Spacious 3-bedroom city property with modern AC bedrooms, private kitchen facility, and private parking."
   },
   "charm-villa": {
-    title: "REUNION - Charm Villa | 3BHK Villa in Badagabettu, Udupi",
-    description: "Reunion Charm Villa is a 3-bedroom property in Badagabettu, Udupi, with everyday amenities for a comfortable family stay."
+    title: "REUNION - Charm Villa | Private 3BHK Upper-Level Family Residence",
+    description: "Relaxed 3-bedroom stay featuring attached suites, balcony living, and essential modern amenities."
   },
   "aradhya-villa": {
-    title: "REUNION - Aradhya Villa | 4BHK Villa in Kunjibettu, Udupi",
-    description: "Reunion Aradhya Villa is a spacious 4-bedroom property in Kunjibettu, Udupi, thoughtfully designed for comfort and larger family groups."
+    title: "REUNION - Aradhya Villa | Grand 4BHK Villa with Bathtub Suite & Private Terrace",
+    description: "Multi-story luxury residence featuring a bathtub suite, closed event terrace, living balconies, and spacious dining."
   },
   "arya": {
-    title: "REUNION - Arya | Studio Rooms in Kunjibettu, Udupi",
-    description: "Reunion Arya offers studio rooms in Kunjibettu, Udupi, featuring two independent 1BHK units for smaller groups and travelers."
+    title: "REUNION - Arya | Executive Studio Rooms & Independent Suites",
+    description: "Independent 1BHK studio suites designed for couples, business travelers, and small family getaways."
   },
   "krshna": {
-    title: "REUNION - Krshna | 2BHK Villa in Manipal, Udupi",
-    description: "Reunion Krshna is a 2-bedroom villa in Manipal, near Udupi, with essential amenities close to Manipal colleges and hospitals."
+    title: "REUNION - Krshna | Fully Furnished 2BHK Residence & Private Kitchen",
+    description: "Modern 2-bedroom home equipped with a full kitchen, high-speed WiFi, and quiet neighborhood surroundings."
   },
   "ocean-waves": {
-    title: "REUNION - Ocean Waves | Beachside Villa in Mattu, Udupi",
-    description: "Reunion Ocean Waves is a beachside property in Mattu, Udupi, close to the sound of the sea for a soothing coastal stay."
+    title: "REUNION - Ocean Waves | Beachside Sanctuary 5 Meters from the Waves",
+    description: "Listen to the ocean from your balcony in this beachside villa featuring 3 independent private units."
   },
   "regal-villa": {
-    title: "REUNION - Regal Villa | Villa in Chitpady, Udupi",
-    description: "Reunion Regal Villa is a comfortable property in Chitpady, Udupi, featuring balcony access close to Udupi's main attractions."
+    title: "REUNION - Regal Villa | Elegant 2BHK Villa with Private Balcony & Terrace",
+    description: "Air-conditioned 2-bedroom villa featuring a spacious terrace, private balcony, and full kitchen."
   },
   "villa": {
-    title: "REUNION - Villa | Villa with Terrace & Garden in Chitpady, Udupi",
-    description: "Reunion Villa is a property in Chitpady, Udupi, Karnataka, featuring a terrace and garden for exploring Udupi and nearby beaches."
+    title: "REUNION - Villa | Private 3BHK Villa with Lush Garden & Sun Terrace",
+    description: "Charming 3-bedroom property featuring garden views, top-floor terrace, and custom meal arrangements."
   },
   "ocean-cafe": {
-    title: "REUNION - Ocean Café | Beachfront Café on Mattu Beach, Udupi",
-    description: "Reunion Ocean Café is a beachfront café on Mattu Beach, Udupi, featuring sunset views, fireplace lounge, and seafood menu."
+    title: "REUNION - Ocean Café | Premier Beachfront Dining & Sunset Lounge",
+    description: "Right on the shore featuring sunset views, fireplace lounge, seafood specialties, gourmet coffee, and candlelight dinners."
   }
 };
 
@@ -186,11 +186,13 @@ function getPropertySchema(property: typeof properties[0]) {
       latitude: 13.3409,
       longitude: 74.7421,
     },
-    containsPlace: {
-      '@type': 'Accommodation',
-      name: property.name,
-      numberOfBedrooms: property.bedrooms || 1,
-    },
+    ...(!isCafe && !isHotel ? {
+      containsPlace: {
+        '@type': 'Accommodation',
+        name: `Reunion ${property.name}`,
+        numberOfBedrooms: property.bedrooms || 1,
+      },
+    } : {}),
     priceRange: '₹₹₹',
     ...(property.bedrooms > 0 && !isCafe ? { numberOfRooms: property.bedrooms } : {}),
     amenityFeature: property.amenities.map((amenity) => ({

@@ -22,7 +22,7 @@ const FEATURED_PROPERTIES = [
   {
     id: "ocean-manor",
     name: "Ocean Manor",
-    tagline: "Sea & River Facing Estate",
+    tagline: "Sea & River Facing Villa",
     location: "Padutonse, Udupi",
     description: "A grand multi-level retreat with sea-facing and river-facing bedrooms, a huge beach-facing balcony, independent ground floor units, and lawn access to the beach through scenic rock beds.",
     heroImage: "/properties/popular/manoor.png",
@@ -62,16 +62,16 @@ const REVIEWS = [
     text: "An absolutely spectacular experience. The villa is meticulously maintained, pristine, and thoughtfully curated for the ultimate family retreat. Spaciously designed interiors combined with a tranquil, soothing ambience made us feel entirely at home. The host's seamless, warm, and responsive hospitality ensured a flawless stay.",
   },
   {
-    text: "A gorgeous beachfront sanctuary offering unparalleled peace and secluded, breathtaking views. The hospitality was exceptional—the hosts went completely above and beyond, addressing every detail with absolute care and speed. The private beach next to the estate was a paradise for the children, while we relaxed in the sheer elegance of the property.",
+    text: "A gorgeous beachfront sanctuary offering unparalleled peace and secluded, breathtaking views. The hospitality was exceptional—the hosts went completely above and beyond, addressing every detail with absolute care and speed. The private beach next to the property was a paradise for the children, while we relaxed in the sheer elegance of the property.",
   },
   {
-    text: "A truly wonderful stay from beginning to end. Check-in and check-out were effortless, and the estate itself is incredibly spacious, clean, and equipped with premium amenities. Nestled in a secure, quiet coastal neighborhood close to key local landmarks, the host checked on us regularly to ensure perfect comfort.",
+    text: "A truly wonderful stay from beginning to end. Check-in and check-out were effortless, and the property itself is incredibly spacious, clean, and equipped with premium amenities. Nestled in a secure, quiet coastal neighborhood close to key local landmarks, the host checked on us regularly to ensure perfect comfort.",
   },
   {
     text: "A phenomenal, memorable stay in a peaceful and secure location. The villa itself is immaculately clean with stunning balcony views overlooking the shoreline. The service team remained in constant touch to assist with local recommendations and dining options. With a pristine, crowd-free beach just steps away, it was an unforgettable getaway.",
   },
   {
-    text: "Exemplary service and seamless communication. The estate beautifully marries a rustic, heritage aesthetic with state-of-the-art modern amenities. Every corner was pristine, matching the photos perfectly. The thoughtful touches, from premium toiletries to a custom welcome basket, made us feel deeply valued.",
+    text: "Exemplary service and seamless communication. The property beautifully marries a rustic, heritage aesthetic with state-of-the-art modern amenities. Every corner was pristine, matching the photos perfectly. The thoughtful touches, from premium toiletries to a custom welcome basket, made us feel deeply valued.",
   }
 ];
 
@@ -96,26 +96,24 @@ const PROPERTY_MARQUEE_NAMES = [
 ];
 
 const MAP_LOCATIONS = [
-  { name: "Ocean Waves", x: 82, y: 66, link: "https://share.google/eqFYB1d1AuDbMxZsK", desc: "Seaside Gateway Villa", image: "/properties/ocean-waves/wavest.png" },
-  { name: "Ocean Elite", x: 78, y: 78, link: "https://share.google/IctlTljnCt3FgqQfL", desc: "Padutonse Beachfront Sanctuary", image: "/properties/popular/elite.png" },
-  { name: "Ocean Manor", x: 80, y: 90, link: "https://share.google/wrhEhrLlGy34G40By", desc: "Grand Coastal Manor", image: "/properties/popular/manoor.png" },
-  { name: "Ocean Bliss", x: 79, y: 102, link: "https://share.google/ufUNLhBYyZ6jyZR2p", desc: "Cozy Beachfront Villa", image: "/properties/ocean-bliss/blissthumb.png" },
-  { name: "Ocean Daaffy", x: 76, y: 114, link: "https://share.google/l04jcrY103m0p0K3S", desc: "Private Seaside Sanctuary", image: "/properties/ocean-daaffy/daaffyhero.png" },
-  { name: "Arya", x: 168, y: 120, link: "https://share.google/AHUQar1rgE6Zfcohh", desc: "Traditional Luxury Villa", image: "/properties/arya/aryathumb.png" },
+  { name: "Ocean Waves", x: 156, y: 150, link: "https://share.google/eqFYB1d1AuDbMxZsK", desc: "Beachside Sanctuary, Mattu", image: "/properties/ocean-waves/wavest.png" },
+  { name: "Ocean Elite", x: 62, y: 75, link: "https://share.google/IctlTljnCt3FgqQfL", desc: "Private Beachfront Villa", image: "/properties/ocean-elite/thumbelite.png" },
+  { name: "Ocean Manor", x: 64, y: 82, link: "https://share.google/wrhEhrLlGy34G40By", desc: "Sea & River View Villa", image: "/properties/popular/manoor.png" },
+  { name: "Ocean Bliss", x: 70, y: 110, link: "https://share.google/ufUNLhBYyZ6jyZR2p", desc: "Cozy Malpe Beach Villa", image: "/properties/ocean-bliss/blissthumb.png" },
+  { name: "Ocean Daaffy", x: 72, y: 200, link: "https://share.google/l04jcrY103m0p0K3S", desc: "Charming Coastal Villa", image: "/properties/ocean-daaffy/daaffyhero.png" },
+  { name: "Arya", x: 102, y: 130, link: "https://share.google/AHUQar1rgE6Zfcohh", desc: "Modern Studio Rooms", image: "/properties/arya/aryathumb.png" },
   { name: "Marina Villa", x: 92, y: 126, link: "https://share.google/8LjWWnPGEZtwhXprX", desc: "Luxury Harbor Residency", image: "/properties/marina-villa/marinathumb.png" },
   { name: "Krshna", x: 176, y: 129, link: "https://share.google/xRpFTqWqRX5ShFqFk", desc: "Premium Heritage Residency", image: "/properties/krshna/krthumb.png" },
   { name: "Charm Villa", x: 100, y: 135, link: "https://share.google/ceuamChqV0frGoZVf", desc: "Classic Heritage Villa", image: "/properties/charm-villa/charmthub.png" },
   { name: "De Homes", x: 190, y: 138, link: "https://share.google/AXOZTWONFB5kLZE0o", desc: "Bespoke Townhouse, Chitpady", image: "/properties/popular/dehome.png" },
-  { name: "Aradhya Villa", x: 104, y: 144, link: "https://share.google/f9lK85EZJh7fCNNTB", desc: "Elegant Coastal Estate", image: "/properties/aradhya-villa/arathumb.png" },
+  { name: "Aradhya Villa", x: 104, y: 144, link: "https://share.google/f9lK85EZJh7fCNNTB", desc: "Elegant Coastal Villa", image: "/properties/aradhya-villa/arathumb.png" },
   { name: "Ocean Hridayam", x: 160, y: 156, link: "https://share.google/yf0w6TtYw4QYGkq2u", desc: "Tranquil Garden Villa", image: "/properties/ocean-hridayam/hridthumb.png" },
   { name: "Reunion Ocean Café", x: 78, y: 192, link: "https://share.google/vsXAVG9Y8vshzClQG", desc: "Beachside Cafe, Mattu Beach", image: "/properties/ocean cafe/ocean1.png" },
   { name: "Ocean Givaah", x: 74, y: 210, link: "https://share.google/hP2F3unQNtIxL1KTh", desc: "Secluded Beachfront Villa", image: "/properties/popular/givaah.png" },
   { name: "Reunion Villa", x: 76, y: 219, link: "https://share.google/8jFAzdHybtmkeZQwv", desc: "Classic Beachfront Villa", image: "/properties/villa/villahero.png" },
-  { name: "Ocean Royal", x: 78, y: 240, link: "https://share.google/vqIEhqFKsJt9EitKO", desc: "Majestic Beachfront Estate", image: "/properties/popular/royal.png" },
+  { name: "Ocean Royal", x: 78, y: 240, link: "https://share.google/vqIEhqFKsJt9EitKO", desc: "Majestic Beachfront Villa", image: "/properties/popular/royal.png" },
   { name: "Regal Villa", x: 75, y: 252, link: "https://maps.app.goo.gl/P3NuZSXE29bcFPT19", desc: "Majestic Kapu Residency", image: "/properties/regal-villa/regalhero.png" }
 ];
-
-
 
 export default function Home() {
   const [activeFeatured, setActiveFeatured] = useState(0);
@@ -197,7 +195,7 @@ export default function Home() {
       <Navbar />
 
       <main>
-        {/* RealEstateAgent & WebSite JSON-LD Schema */}
+        {/* LodgingBusiness & WebSite JSON-LD Schema */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -211,7 +209,7 @@ export default function Home() {
                   "description": "Premium beach stays, coastal cafés, boutique hotels & city villas across Coastal Karnataka."
                 },
                 {
-                  "@type": "RealEstateAgent",
+                  "@type": "LodgingBusiness",
                   "name": "Reunion Global Private Ltd.",
                   "url": "https://www.reunionglobal.in",
                   "logo": "https://www.reunionglobal.in/logoo.png",
@@ -314,7 +312,7 @@ export default function Home() {
               className="text-[#a09c98] text-base md:text-lg leading-relaxed max-w-2xl mx-auto mb-16 reveal"
               style={{ transitionDelay: '300ms' }}
             >
-              From premium beach stays, vibrant coastal cafés, and boutique hotels to sophisticated city villas, our curated spaces are designed to bring people together in absolute comfort and elegance.
+              Dedicated to creating memories one reunion at a time — from premium beach stays, vibrant coastal cafés, and boutique hotels to sophisticated city villas across Udupi, Karnataka.
             </p>
             <div className="gold-divider reveal" style={{ transitionDelay: '400ms' }} />
 
@@ -389,16 +387,16 @@ export default function Home() {
               {/* ── Mobile-only centered header (Ocean Café style) ── */}
               <div className="flex flex-col items-center text-center mb-6 md:hidden">
                 <div className="gold-divider mb-5" />
-                <p className="font-cinzel text-[9px] tracking-[0.55em] text-[#C9A84C] uppercase mb-3">Popular Signature Estates</p>
+                <p className="font-cinzel text-[9px] tracking-[0.55em] text-[#C9A84C] uppercase mb-3">Popular Signature Properties</p>
                 <h2 className="font-cormorant text-[clamp(1.9rem,7vw,2.6rem)] font-light text-white leading-tight mb-1">
-                  Signature <em className="text-[#C9A84C] italic">Coastal Estates</em>
+                  Signature <em className="text-[#C9A84C] italic">Coastal Residences</em>
                 </h2>
                 <div className="gold-divider mt-5" />
               </div>
 
                <div className="max-w-xl space-y-6">
                 {/* Desktop label */}
-                <p className="font-cinzel text-[10px] tracking-[0.55em] text-[#C9A84C] uppercase hidden md:block">Popular Signature Estates</p>
+                <p className="font-cinzel text-[10px] tracking-[0.55em] text-[#C9A84C] uppercase hidden md:block">Popular Signature Properties</p>
 
                 {/* Switcher Tabs - Horizontally Scrollable on Mobile, centered; no wrapping */}
                 <div 

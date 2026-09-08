@@ -87,10 +87,10 @@ Inquiry Details: ${data.description || "None provided"}`;
           <label className={labelClass} htmlFor="email">EMAIL ADDRESS</label>
         </div>
 
-        {/* Preferred Estate */}
+        {/* Preferred Property */}
         <div className="relative group">
-          <textarea name="preference" defaultValue={defaultPreference} className={`${fieldClass} resize-none`} id="preference" placeholder="Preferred Estate" rows={1}></textarea>
-          <label className={labelClass} htmlFor="preference">PREFERRED ESTATE OR REGION</label>
+          <textarea name="preference" defaultValue={defaultPreference} className={`${fieldClass} resize-none`} id="preference" placeholder="Preferred Property" rows={1}></textarea>
+          <label className={labelClass} htmlFor="preference">PREFERRED PROPERTY OR REGION</label>
         </div>
 
         {/* Check-In & Check-Out */}
