@@ -1,4 +1,4 @@
-# Reunion Global — LLM Context File
+# Reunion Global — LLM Context & Agent Guide
 
 > Reunion Global Private Ltd. is Coastal Karnataka's most trusted luxury hospitality brand, managing 17+ premium properties across Udupi district, Karnataka, India.
 
@@ -6,68 +6,57 @@
 
 Reunion Global Private Ltd. was founded in 2020 with a mission to redefine coastal tourism. We manage premium beach villas, oceanfront cafés, boutique hotels, and city villas — curated for families, couples, and groups who gather in style.
 
-- **Website**: https://www.reunionglobal.in
-- **Headquarters**: Udupi, Karnataka, India
-- **Founded**: 2020
-- **Managing Director & CEO**: Mrs. Kshama Kadamba
+- [Website](https://www.reunionglobal.in): Primary portal for luxury stays and dining in Udupi.
+- [About Us](https://www.reunionglobal.in/about): Company overview, executive team led by Mrs. Kshama Kadamba, and hospitality story.
+- [All Stays & Residences](https://www.reunionglobal.in/properties): Complete listing of beach villas, city suites, and beachfront café.
 
 ## Property Portfolio
 
-### Beach Villas & Coastal Properties
+### Beach Villas & Coastal Stays
 
-- **Ocean Elite** — 2BHK villa with direct beach access, beach-view balcony, spacious lawn | Padutonse, Udupi | Up to 6 guests | Generator backup
-- **Ocean Manor** — Multi-level retreat with sea-facing & river-facing bedrooms, beach-facing balcony | Padutonse, Udupi | Multiple units | Generator backup
-- **Ocean Givaah** — 3BHK luxury villa with private pool (4ft), ocean-view terrace, lush garden | Bada, Udupi | Up to 9 guests | 200m from beach
-- **Ocean Royal** — Heritage farmhouse villa, 50m from beach, coconut tree surroundings | Kapu, Udupi | Up to 15 guests | Generator backup
-- **Ocean Daaffy** — 3BHK villa, 100m from beach, peaceful natural setting | Bada, Udupi | Up to 9 guests | UPS backup
-- **Ocean Hridayam** — 2BHK beachfront villa with beach-facing balcony, split-level design | Mattu, Udupi | Up to 6 guests
-- **Ocean Bliss** — 2BHK property, 800m from beach, open compound | Malpe, Udupi | Up to 6 guests
-- **Ocean Waves** — 3 independent units, just 5m from beach, CCTV surveillance | Mattu, Udupi | Multiple rooms
+- [REUNION Ocean Elite](https://www.reunionglobal.in/properties/ocean-elite): Luxury 2BHK beach villa with direct beach access, private sea-view balcony, and spacious lawn in Hoode, Udupi.
+- [REUNION Ocean Manor](https://www.reunionglobal.in/properties/ocean-manor): Beachfront villa stay with sea-facing & river-facing bedrooms, beach balcony, and rock-bed beach access in Hoode, Udupi.
+- [REUNION Ocean Givaah](https://www.reunionglobal.in/properties/ocean-givaah): Luxury 3BHK pool villa with 4ft private swimming pool, ocean-view terrace, and lush garden in Uchila, Udupi.
+- [REUNION Ocean Royal](https://www.reunionglobal.in/properties/ocean-royal): Heritage villa stay surrounded by coconut groves just 50 meters from the sea in Kapu, Udupi.
+- [REUNION Ocean Daaffy](https://www.reunionglobal.in/properties/ocean-daaffy): Luxury beach villa located 100 meters from pristine shorelines in Uchila, Udupi.
+- [REUNION Ocean Hridayam](https://www.reunionglobal.in/properties/ocean-hridayam): Beachfront 2BHK villa with split-level family layout and sea-view balcony in Mattu, Udupi.
+- [REUNION Ocean Bliss](https://www.reunionglobal.in/properties/ocean-bliss): Peaceful 2BHK coastal villa with open compound near Malpe Beach, Udupi.
+- [REUNION Ocean Waves](https://www.reunionglobal.in/properties/ocean-waves): Beachfront villa stay with 3 independent units just 5 meters from Mattu Beach, Udupi.
 
 ### City Villas & Urban Stays
 
-- **De Homes** — Premium suites in Udupi city center near Sri Krishna Matha | Chitpady, Udupi | 16 premium rooms | Standard to Presidential
-- **Marina Villa** — 3BHK city villa with AC, WiFi, parking | Kannarpady, Udupi | Up to 10 guests
-- **Charm Villa** — 3BHK first-floor property with basic amenities | Badagabettu, Udupi | Up to 9 guests
-- **Aradhya Villa** — 4BHK multi-level villa with bathtub suite, 700m from Krishna Temple | Kunjibettu, Udupi | Up to 12 guests
-- **Arya** — 2 independent 1BHK studio rooms | Kunjibettu, Udupi | Up to 3 guests each
-- **Krshna** — 2BHK furnished villa in Manipal | Manipal, Udupi | Up to 6 guests
-- **Regal Villa** — 2BHK with balcony, terrace, free parking | Chitpady, Udupi | Up to 6 guests
-- **Villa** — 3BHK with garden & terrace views, meal arrangements available | Chitpady, Udupi | Up to 10 guests
+- [REUNION De Homes](https://www.reunionglobal.in/properties/de-homes): Premium suites property offering 16 luxury rooms near Sri Krishna Matha in Chitpady, Udupi.
+- [REUNION Marina Villa](https://www.reunionglobal.in/properties/marina-villa): Luxury 3BHK villa with modern AC bedrooms and private kitchen in Kannarpady, Udupi City.
+- [REUNION Charm Villa](https://www.reunionglobal.in/properties/charm-villa): Luxury private 3BHK upper-level residence in Badagabettu, Udupi.
+- [REUNION Aradhya Villa](https://www.reunionglobal.in/properties/aradhya-villa): Luxury 4BHK multi-level villa with bathtub suite and closed event terrace in Kunjibettu, Udupi.
+- [REUNION Arya Studio Stays](https://www.reunionglobal.in/properties/arya): Luxury studio apartments offering independent 1BHK suites in Kunjibettu, Udupi.
+- [REUNION Krshna](https://www.reunionglobal.in/properties/krshna): Premium 2BHK stay with fully equipped kitchen in Manipal, Udupi.
+- [REUNION Regal Villa](https://www.reunionglobal.in/properties/regal-villa): Luxury private 2BHK villa with spacious terrace and private balcony in Chitpady, Udupi.
+- [REUNION Villa](https://www.reunionglobal.in/properties/villa): Luxury private 3BHK villa with garden views and custom meal options in Chitpady, Udupi.
 
-### Dining & Café
+### Dining & Coastal Café
 
-- **Reunion Ocean Café** — Beachfront café at Mattu Beach with continental & Chinese cuisine, seafood, specialty coffee, candlelight dinners | Mattu Beach, Udupi | Open 9:30 AM – 10:00 PM
+- [REUNION Ocean Café](https://www.reunionglobal.in/properties/ocean-cafe): Premier beachfront café at Mattu Beach serving continental, seafood, specialty coffee, and romantic candlelight dinners.
 
-## Key Locations
+## Key Locations & Destinations
 
-All properties are located in and around Udupi district, Coastal Karnataka, India:
+All properties are situated in Udupi district, Coastal Karnataka, India:
 
-- **Padutonse** — Direct beachfront villas
-- **Bada** — Quiet beach retreats
-- **Kapu** — Heritage coastal area with lighthouse
-- **Mattu / Mattu Beach** — Serene beachfront stays and café
-- **Malpe** — Popular beach destination
-- **Chitpady** — City center near Sri Krishna Matha
-- **Kunjibettu** — Central Udupi neighborhood
-- **Kannarpady** — Udupi city area
-- **Badagabettu** — Residential area
-- **Manipal** — University town
+- **Hoode / Padutonse**: Direct beachfront villas with private beach access.
+- **Uchila / Bada**: Peaceful coastal retreats and luxury pool villas.
+- **Kapu**: Heritage beach area near the historic Kapu Lighthouse.
+- **Mattu Beach**: Serene beachfront stays and beachfront dining.
+- **Malpe**: Popular beach destination near Malpe Sea Walk and St. Mary's Island.
+- **Udupi City / Chitpady / Kunjibettu**: Central stays near Sri Krishna Matha and city landmarks.
+- **Manipal**: University campus town and healthcare center.
 
-## Booking & Contact
+## Booking & Contact Details
 
-- **Primary Contact**: +91 9980208289
-- **De Homes**: +91 9380740060
-- **Ocean Café**: +91 9972231289
-- **Booking**: Contact via website at https://www.reunionglobal.in
+- **Main Reservations**: +91 9980208289
+- **De Homes Front Desk**: +91 9380740060
+- **Ocean Café Reservations**: +91 9972231289
+- **Official Website**: [https://www.reunionglobal.in](https://www.reunionglobal.in)
 
-## Site Structure
+## Common Amenities Across Stays
 
-- `/` — Homepage with featured properties, destination highlights, testimonials
-- `/properties` — Full collection of all properties with masonry grid
-- `/properties/[id]` — Individual property detail pages with gallery, amenities, FAQs, map
-- `/about` — About Reunion, team members, company story
-
-## Common Amenities Across Properties
-
-WiFi, Air Conditioning, Fully Equipped Kitchen, Power Backup (Generator or UPS), Parking, Beach Access (varies by property), CCTV Security (select properties), Food Delivery Available
+High-Speed WiFi, Air Conditioning, Fully Equipped Kitchens, Power Backup (Generator or UPS), Free Private Parking, Direct Beach Access (select properties), CCTV Security, and Food Delivery Service.

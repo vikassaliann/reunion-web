@@ -337,7 +337,7 @@ export default function PropertyDetailSection({ property, mapLink }: PropertyDet
             {property.location}
           </span>
           <h2 className="font-cormorant text-3xl md:text-4xl lg:text-[2.8rem] font-light text-white leading-tight">
-            {property.name}
+            REUNION {property.name}
           </h2>
           <div className="w-12 h-[1px] bg-[#C9A84C]/30 mt-2"></div>
         </div>
@@ -356,7 +356,7 @@ export default function PropertyDetailSection({ property, mapLink }: PropertyDet
               >
                 <img
                   src={src}
-                  alt={`${property.name} gallery image ${index + 1}`}
+                  alt={`REUNION ${property.name} — Luxury Stay in ${property.location} - Photo ${index + 1}`}
                   className={`w-full h-full transition-transform duration-700 hover:scale-105 ${
                     src.includes("ocean cafe") && (src.includes("ocean6") || src.includes("ocean7") || src.includes("ocean8") || src.includes("ocean9"))
                       ? "object-contain bg-black/40"
@@ -400,6 +400,9 @@ export default function PropertyDetailSection({ property, mapLink }: PropertyDet
             {/* Description Block */}
             <div className="space-y-4">
               <h3 className="font-cormorant text-2xl font-light text-[#C9A84C] italic">The Property Overview</h3>
+              <p className="text-white font-medium text-base md:text-[17px] leading-relaxed mb-2">
+                REUNION {property.name} is a luxury property and beach stay located in {property.location}, Udupi district.
+              </p>
               <p className="text-[#9a9590] text-sm md:text-[15px] leading-[1.85]">
                 {property.description}
               </p>
