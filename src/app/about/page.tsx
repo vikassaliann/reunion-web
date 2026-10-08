@@ -13,7 +13,8 @@ const aboutPageSchema = {
   "@context": "https://schema.org",
   "@type": "AboutPage",
   name: "About Reunion Global",
-  description: "Coastal Karnataka's most trusted luxury hospitality brand managing 17+ premium beach villas, coastal cafés, boutique hotels, and city villas across Udupi district.",
+  description:
+    "Reunion Global — managing 17+ premium beach villas, coastal cafés, boutique hotels, and city villas across Udupi district.",
   url: `${BASE_URL}/about`,
   publisher: {
     "@type": "Organization",
@@ -39,7 +40,7 @@ const TEAM_MEMBERS = [
   {
     name: "Mrs. Kshama Kadamba",
     role: "Managing Director & CEO",
-    image: "/properties/team/one .jpeg",
+    image: "/team/ceo.jpg",
     category: "Executive Leadership",
     description: `Visionary and tech-driven Managing Director with a strong foundation in Computer Science Engineering from MITE and seven years of high-impact experience in the software industry. Combines deep technical expertise with strategic executive leadership to drive innovation, solve complex challenges, and deliver sustainable business growth. Adept at navigating difficult situations, leading high-performing teams, and translating technology into meaningful business outcomes.
 
@@ -53,7 +54,8 @@ Through this approach, Reunion creates a win-win ecosystem that empowers propert
     name: "Mr. Santhosh",
     role: "Head Chef",
     image: "/properties/team/oneafter.jpeg",
-    description: "30+ years of culinary experience, shaped by a distinguished career in reputed hotels, bringing expertise, precision, and a commitment to exceptional dining to Reunion.",
+    description:
+      "30+ years of culinary experience, shaped by a distinguished career in reputed hotels, bringing expertise, precision, and a commitment to exceptional dining to Reunion.",
     category: "Culinary Team",
   },
   {
@@ -131,6 +133,40 @@ Through this approach, Reunion creates a win-win ecosystem that empowers propert
   },
 ];
 
+const CEO_BIO_BREAK =
+  "Reunion supports owners of beautiful homes, heritage properties, and hotels in managing, maintaining, and effectively utilizing their assets.";
+
+function CeoDescription({ text }: { text: string }) {
+  const [expanded, setExpanded] = useState(false);
+  const breakAt = text.indexOf(CEO_BIO_BREAK);
+  const canCollapse =
+    breakAt !== -1 && breakAt + CEO_BIO_BREAK.length < text.length;
+  const preview = canCollapse
+    ? text.slice(0, breakAt + CEO_BIO_BREAK.length).trimEnd()
+    : text;
+  const rest = canCollapse
+    ? text.slice(breakAt + CEO_BIO_BREAK.length).trimStart()
+    : "";
+
+  return (
+    <div>
+      <div className="whitespace-pre-line text-white/60 font-futura text-sm font-light leading-[1.9] tracking-wide">
+        {expanded || !canCollapse ? text : preview}
+        {!expanded && canCollapse && rest ? "…" : null}
+      </div>
+      {canCollapse && (
+        <button
+          type="button"
+          onClick={() => setExpanded((v) => !v)}
+          className="mt-4 font-futura text-[10px] tracking-[0.3em] uppercase text-[#C9A84C]"
+        >
+          {expanded ? "View less" : "View more"}
+        </button>
+      )}
+    </div>
+  );
+}
+
 export default function AboutPage() {
   const [currentSlide, setCurrentSlide] = useState(0);
 
@@ -142,301 +178,136 @@ export default function AboutPage() {
   }, []);
 
   return (
-    <div className="bg-[#080808] text-on-surface antialiased overflow-x-hidden selection:bg-antique-gold selection:text-obsidian-deep min-h-screen">
-      <div className="noise-overlay" />
+    <div className="bg-[#080808] text-white antialiased overflow-x-hidden selection:bg-[#C9A84C] selection:text-black min-h-screen">
       <Navbar />
 
-      {/* AboutPage JSON-LD Schema */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(aboutPageSchema) }}
       />
 
       <main className="pt-20">
-        <Breadcrumbs items={[
-          { label: 'Home', href: '/' },
-          { label: 'About Reunion' },
-        ]} />
-        {/* ── About Reunion — Hero with Slideshow ── */}
-        <section className="relative min-h-[85vh] md:min-h-[90vh] flex items-center justify-center overflow-hidden" id="about-reunion">
-          {/* Background Slideshow */}
+        <Breadcrumbs
+          items={[{ label: "Home", href: "/" }, { label: "Our Story" }]}
+        />
+
+        {/* Hero */}
+        <section className="relative min-h-[70vh] md:min-h-[78vh] flex items-end pb-16 md:pb-24 overflow-hidden">
           {HERO_IMAGES.map((src, idx) => (
             <img
               key={src}
               src={src}
-              alt={`Reunion property ${idx + 1}`}
-              className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ease-in-out ${
+              alt=""
+              className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${
                 idx === currentSlide ? "opacity-100" : "opacity-0"
               }`}
             />
           ))}
-          {/* Black fade overlay */}
-          <div className="absolute inset-0 bg-black/70 z-10" />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#080808] via-transparent to-[#080808]/40 z-10" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#080808] via-[#080808]/60 to-[#080808]/50" />
 
-          {/* Foreground Content */}
-          <div className="relative z-20 max-w-4xl mx-auto text-center px-6 md:px-20 py-20 space-y-8">
-            <div className="flex items-center justify-center gap-4">
-              <div className="h-px w-12 bg-[#C9A84C]" />
-              <p className="font-cinzel text-[11px] tracking-[0.55em] text-[#C9A84C] uppercase">About Reunion</p>
-              <div className="h-px w-12 bg-[#C9A84C]" />
-            </div>
-
-            {/* Cinematic REUNION branding */}
-            <h1
-              className="font-cinzel text-[clamp(3rem,10vw,7rem)] font-bold tracking-[0.15em] leading-none"
-              style={{
-                background: "linear-gradient(180deg, #C9A84C 0%, #f0d78c 40%, #C9A84C 80%, #a08530 100%)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-                backgroundClip: "text",
-                textShadow: "none",
-                filter: "drop-shadow(0 4px 30px rgba(201,168,76,0.3))",
-              }}
-            >
+          <div className="relative z-10 w-full max-w-4xl mx-auto px-6 text-center space-y-6">
+            <p className="font-futura text-[10px] tracking-[0.45em] text-[#C9A84C] uppercase">
+              Our Story
+            </p>
+            <h1 className="font-futura text-4xl md:text-6xl lg:text-7xl font-light tracking-[0.22em] uppercase">
               REUNION
             </h1>
-
-            <h2 className="font-cormorant text-[clamp(1.5rem,4vw,2.8rem)] font-light text-white leading-tight">
-              Coastal Karnataka&apos;s<br />
-              <em className="text-[#C9A84C] italic">Most Trusted Brand</em>
-            </h2>
-
-            <p className="text-[#c8c4c0]/85 text-base sm:text-lg md:text-xl font-light leading-relaxed max-w-3xl mx-auto">
-              Every stay deserves to be memorable. At Reunion, we redefine hospitality through thoughtful management, strategic marketing, and operational excellence—creating exceptional guest experiences and helping hospitality businesses reach their full potential.
+            <p className="text-white/55 text-sm md:text-base font-futura font-light leading-relaxed max-w-2xl mx-auto tracking-wide">
+              Every stay deserves to be memorable. At Reunion, we redefine hospitality
+              through thoughtful management, strategic marketing, and operational
+              excellence—creating exceptional guest experiences and helping hospitality
+              businesses reach their full potential.
             </p>
-
-            <div className="w-16 h-px bg-[#C9A84C]/40 mx-auto" />
           </div>
         </section>
 
-        {/* ── About Reunion — Content Section ── */}
-        <section className="relative py-20 px-6 md:px-20 bg-[#060606]">
-          <div className="max-w-5xl mx-auto space-y-16">
-            {/* Trust & Portfolio */}
-            <div className="max-w-3xl mx-auto text-center space-y-6">
-              <p className="font-cinzel text-[10px] tracking-[0.45em] text-[#C9A84C] uppercase">Why Reunion</p>
-              <h2 className="font-cormorant text-3xl md:text-4xl text-white font-light leading-snug">
-                Trusted by <em className="text-[#C9A84C]">30+ Property Owners</em>
+        {/* Our Team */}
+        <section className="relative py-20 md:py-28 px-5 md:px-10 lg:px-16" id="our-team">
+          <div className="max-w-6xl mx-auto">
+            <div className="text-center mb-16 md:mb-20 space-y-4">
+              <h2 className="font-futura text-3xl md:text-4xl font-light uppercase tracking-[0.2em]">
+                Our Team
               </h2>
-              <p className="text-[#a09c98] text-sm md:text-base leading-relaxed">
-                More than 30+ property owners place their trust in Reunion. From premium beach villas and oceanfront cafés to luxury city hotels and boutique homestays — we deliver the best customer hospitality, ensuring every guest experience is truly unforgettable.
-              </p>
-              <p className="text-[#a09c98] text-sm md:text-base leading-relaxed">
-                Our curated portfolio spans the entire Coastal Karnataka landscape — secluded beach retreats, vibrant seaside cafés, premium suites, and elegant city villas — all managed with unmatched dedication and operational excellence.
+              <p className="text-white/45 font-futura text-sm max-w-lg mx-auto font-light leading-relaxed tracking-wide">
+                Meet the people powering Reunion.
               </p>
             </div>
 
-            {/* Divider */}
-            <div className="flex items-center gap-3 opacity-30">
-              <div className="flex-1 h-px bg-[#C9A84C]/40" />
-              <span className="text-[#C9A84C] text-[10px]">✦</span>
-              <div className="flex-1 h-px bg-[#C9A84C]/40" />
-            </div>
+            <div className="space-y-20 md:space-y-24">
+              {CATEGORIES.map((cat) => {
+                const members = TEAM_MEMBERS.filter((m) => m.category === cat);
+                if (members.length === 0) return null;
 
-            {/* ── Our Team Section ── */}
-            <div className="text-center space-y-12" id="our-team">
-              <div className="space-y-4">
-                <div className="inline-flex items-center gap-2 px-4 py-1.5 border border-[#C9A84C]/30 rounded-full bg-[#C9A84C]/10 text-[#C9A84C] font-cinzel text-[9px] tracking-[0.3em] uppercase">
-                  ✦ Reunion Team
-                </div>
-                <h2 className="font-cormorant text-3xl md:text-4xl font-light text-white">Our Team</h2>
-                <p className="text-[#a09c98] text-sm md:text-base max-w-xl mx-auto leading-relaxed">
-                  Meet the passionate visionaries, operational leaders, and hospitality experts powering Reunion across Coastal Karnataka.
-                </p>
-              </div>
-
-              {/* Desktop Layout: Static Category-wise Grids */}
-              <div className="hidden lg:block space-y-24 max-w-7xl mx-auto px-6">
-                {CATEGORIES.map((cat) => {
-                  const members = TEAM_MEMBERS.filter((m) => m.category === cat);
-                  
-                  if (cat === "Executive Leadership" && members.length === 1) {
-                    const ceo = members[0];
-                    return (
-                      <div
-                        key={cat}
-                        id={`desktop-section-${cat.replace(/\s+/g, "-")}`}
-                        className="space-y-10 flex flex-col items-center scroll-mt-28 max-w-5xl mx-auto"
-                      >
-                        {/* Highlighted Background Category Name */}
-                        <div className="inline-block bg-[#C9A84C] text-[#080808] px-8 py-3 rounded-sm font-cinzel text-xs tracking-[0.25em] font-bold uppercase shadow-[0_4px_25px_rgba(201,168,76,0.18)]">
-                          {cat}
-                        </div>
-
-                        {/* CEO Card & Details Layout */}
-                        <div className="flex flex-col lg:flex-row gap-10 items-stretch bg-[#0c0c0c] border border-[#C9A84C]/15 hover:border-[#C9A84C]/45 transition-all duration-500 p-8 rounded-sm w-full text-left">
-                          {/* Image Container */}
-                          <div className="relative w-full lg:w-[320px] aspect-[4/5] shrink-0 overflow-hidden bg-neutral-900 border border-[#C9A84C]/10">
-                            <Image
-                              src={ceo.image}
-                              alt={ceo.name}
-                              fill
-                              className="w-full h-full object-cover"
-                              sizes="320px"
-                              priority
-                            />
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/35 to-transparent" />
-                          </div>
-
-                          {/* Details & Description */}
-                          <div className="flex-1 flex flex-col justify-center space-y-4">
-                            <div>
-                              <h3 className="font-cormorant text-3xl text-white font-light hover:text-[#C9A84C] transition-colors duration-300">
-                                {ceo.name}
-                              </h3>
-                              <p className="font-cinzel text-[10px] tracking-[0.15em] text-[#C9A84C] uppercase leading-normal mt-1">
-                                {ceo.role}
-                              </p>
-                            </div>
-                            {ceo.description && (
-                              <div className="whitespace-pre-line text-[#a09c98]/90 text-sm font-light leading-relaxed border-t border-[#C9A84C]/10 pt-4">
-                                {ceo.description}
-                              </div>
-                            )}
-                          </div>
-                        </div>
-
-                        {/* Gold divider after category */}
-                        <div className="flex items-center gap-3 w-full max-w-md mx-auto pt-6 opacity-40">
-                          <div className="flex-1 h-px bg-gradient-to-r from-transparent via-[#C9A84C] to-transparent" />
-                          <span className="text-[#C9A84C] text-[10px]">✦</span>
-                          <div className="flex-1 h-px bg-gradient-to-r from-transparent via-[#C9A84C] to-transparent" />
-                        </div>
-                      </div>
-                    );
-                  }
-
-                  // Dynamically set grid columns and max-width based on members count
-                  let gridCols = "grid-cols-1 max-w-[320px]";
-                  if (members.length === 2) gridCols = "grid-cols-2 max-w-[680px]";
-                  if (members.length === 3) gridCols = "grid-cols-3 max-w-[1040px]";
-                  if (members.length >= 4) gridCols = "grid-cols-4 max-w-[1400px]";
-
+                if (cat === "Executive Leadership" && members.length === 1) {
+                  const ceo = members[0];
                   return (
-                    <div
-                      key={cat}
-                      id={`desktop-section-${cat.replace(/\s+/g, "-")}`}
-                      className="space-y-10 flex flex-col items-center scroll-mt-28"
-                    >
-                      {/* Highlighted Background Category Name */}
-                      <div className="inline-block bg-[#C9A84C] text-[#080808] px-8 py-3 rounded-sm font-cinzel text-xs tracking-[0.25em] font-bold uppercase shadow-[0_4px_25px_rgba(201,168,76,0.18)]">
+                    <div key={cat} className="space-y-8">
+                      <p className="font-futura text-[10px] tracking-[0.35em] text-[#C9A84C] uppercase text-center">
                         {cat}
-                      </div>
-
-                      {/* Members Grid */}
-                      <div className={`grid ${gridCols} gap-8 w-full mx-auto justify-center`}>
-                        {members.map((member, i) => (
-                          <div
-                            key={i}
-                            className="group relative overflow-hidden bg-[#0c0c0c] border border-[#C9A84C]/15 hover:border-[#C9A84C]/45 transition-all duration-500 rounded-sm flex flex-col w-full"
-                          >
-                            {/* Image Container */}
-                            <div className="relative w-full aspect-[4/5] overflow-hidden bg-neutral-900">
-                              <Image
-                                src={member.image}
-                                alt={member.name}
-                                fill
-                                className={`w-full h-full object-cover group-hover:scale-[1.03] transition-all duration-700 ease-out ${member.objectPosition || "object-center"}`}
-                                sizes="320px"
-                              />
-                              {/* Gradient overlay */}
-                              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/35 to-transparent opacity-85 group-hover:opacity-90 transition-opacity duration-500" />
-                            </div>
-
-                            {/* Member Details: bottom of image name and role */}
-                            <div className="p-5 flex-1 flex flex-col justify-end text-left space-y-1.5 bg-[#0c0c0c] border-t border-[#C9A84C]/10 z-10">
-                              <h3 className="font-cormorant text-xl text-white font-light group-hover:text-[#C9A84C] transition-colors duration-300">
-                                {member.name}
-                              </h3>
-                              <p className="font-cinzel text-[9px] tracking-[0.1em] text-[#a09c98] uppercase leading-normal">
-                                {member.role}
-                              </p>
-                              {member.description && (
-                                <p className="text-[#a09c98]/80 text-xs font-light leading-relaxed mt-2 pt-2 border-t border-[#C9A84C]/10">
-                                  {member.description}
-                                </p>
-                              )}
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-
-                      {/* Gold divider after category */}
-                      <div className="flex items-center gap-3 w-full max-w-md mx-auto pt-6 opacity-40">
-                        <div className="flex-1 h-px bg-gradient-to-r from-transparent via-[#C9A84C] to-transparent" />
-                        <span className="text-[#C9A84C] text-[10px]">✦</span>
-                        <div className="flex-1 h-px bg-gradient-to-r from-transparent via-[#C9A84C] to-transparent" />
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-              {/* Mobile/Tablet Layout: Category-grouped cards in normal page flow */}
-              <div className="lg:hidden flex flex-col items-center px-4 w-full space-y-12">
-                {CATEGORIES.map((cat, catIndex) => {
-                  const members = TEAM_MEMBERS.filter((m) => m.category === cat);
-                  return (
-                    <div key={cat} className="w-full flex flex-col items-center space-y-8">
-                      {/* Category Heading — Ocean Cafe style */}
-                      <div className="text-center space-y-3">
-                        <div className="w-10 h-px bg-gradient-to-r from-transparent via-[#C9A84C] to-transparent mx-auto" />
-                        <p className="font-cinzel text-[10px] tracking-[0.5em] text-[#C9A84C] uppercase">
-                          {cat}
-                        </p>
-                        <div className="w-10 h-px bg-gradient-to-r from-transparent via-[#C9A84C] to-transparent mx-auto" />
-                      </div>
-
-                      {/* Member Cards */}
-                      <div className="w-full flex flex-col items-center gap-6">
-                        {members.map((member, i) => (
-                          <div
-                            key={i}
-                            className="w-full max-w-xs group relative overflow-hidden bg-[#0c0c0c] border border-[#C9A84C]/15 rounded-sm flex flex-col"
-                          >
-                            {/* Image Container — slightly smaller */}
-                            <div className="relative w-full aspect-[3/4] overflow-hidden bg-neutral-900">
-                              <Image
-                                src={member.image}
-                                alt={member.name}
-                                fill
-                                className={`w-full h-full object-cover ${member.objectPosition || "object-center"}`}
-                                sizes="(max-width: 640px) 85vw, 320px"
-                              />
-                              {/* Gradient overlay */}
-                              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent opacity-85" />
-                            </div>
-
-                            {/* Member Details */}
-                            <div className="p-4 text-center space-y-1 bg-[#0c0c0c] border-t border-[#C9A84C]/10">
-                              <h3 className="font-cormorant text-lg text-white font-light">
-                                {member.name}
-                              </h3>
-                              <p className="font-cinzel text-[8px] tracking-[0.12em] text-[#a09c98] uppercase leading-normal">
-                                {member.role}
-                              </p>
-                              {member.description && (
-                                <p className="text-[#a09c98]/80 text-[11px] font-light leading-relaxed mt-2 pt-2 border-t border-[#C9A84C]/10 text-left sm:text-center">
-                                  {member.description}
-                                </p>
-                              )}
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-
-                      {/* Gold divider between categories */}
-                      {catIndex !== CATEGORIES.length - 1 && (
-                        <div className="flex items-center gap-3 w-full max-w-xs mx-auto pt-4 opacity-50">
-                          <div className="flex-1 h-px bg-gradient-to-r from-transparent via-[#C9A84C] to-transparent" />
-                          <span className="text-[#C9A84C] text-[10px]">✦</span>
-                          <div className="flex-1 h-px bg-gradient-to-r from-transparent via-[#C9A84C] to-transparent" />
+                      </p>
+                      <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-start">
+                        <div className="md:col-span-5 relative aspect-[4/5] w-full max-w-md mx-auto md:mx-0 overflow-hidden">
+                          <Image
+                            src={ceo.image}
+                            alt={ceo.name}
+                            fill
+                            className="object-cover object-top"
+                            sizes="(max-width: 768px) 100vw, 40vw"
+                            priority
+                          />
                         </div>
-                      )}
+                        <div className="md:col-span-7 space-y-5 md:pt-4">
+                          <div>
+                            <h3 className="font-futura text-2xl md:text-3xl font-light tracking-widest uppercase">
+                              {ceo.name}
+                            </h3>
+                            <p className="font-futura text-[10px] tracking-[0.3em] text-white/45 uppercase mt-2">
+                              {ceo.role}
+                            </p>
+                          </div>
+                          {ceo.description && (
+                            <CeoDescription text={ceo.description} />
+                          )}
+                        </div>
+                      </div>
                     </div>
                   );
-                })}
-              </div>
+                }
+
+                return (
+                  <div key={cat} className="space-y-8">
+                    <p className="font-futura text-[10px] tracking-[0.35em] text-[#C9A84C] uppercase text-center">
+                      {cat}
+                    </p>
+                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-5 gap-y-10 md:gap-x-8 md:gap-y-12">
+                      {members.map((member) => (
+                        <div key={member.name} className="flex flex-col">
+                          <div className="relative w-full aspect-[4/5] overflow-hidden mb-4">
+                            <Image
+                              src={member.image}
+                              alt={member.name}
+                              fill
+                              className={`object-cover ${member.objectPosition || "object-center"}`}
+                              sizes="(max-width: 768px) 50vw, 25vw"
+                            />
+                          </div>
+                          <h3 className="font-futura text-sm md:text-base text-white font-light tracking-widest uppercase">
+                            {member.name}
+                          </h3>
+                          <p className="font-futura text-[9px] tracking-[0.18em] text-white/40 uppercase mt-1.5">
+                            {member.role}
+                          </p>
+                          {member.description && (
+                            <p className="text-white/50 text-xs font-futura font-light leading-relaxed mt-3">
+                              {member.description}
+                            </p>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                );
+              })}
             </div>
           </div>
         </section>

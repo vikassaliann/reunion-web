@@ -2,15 +2,19 @@ import type { Metadata } from "next";
 
 const BASE_URL = "https://www.reunionglobal.in";
 
+const PAGE_TITLE = 'REUNION | About — Hospitality in Coastal Karnataka';
+const PAGE_DESCRIPTION =
+  'REUNION is a hospitality management company in Udupi, Karnataka, trusted by 30+ property owners. Meet the team behind our beach villas, café and city stays.';
+
 export const metadata: Metadata = {
-  title: 'REUNION - About Us | Hospitality Management Company in Udupi',
-  description: 'REUNION is a hospitality management company in Udupi, Karnataka, trusted by 30+ property owners. Meet the team behind our beach villas, café and city stays.',
+  title: { absolute: PAGE_TITLE },
+  description: PAGE_DESCRIPTION,
   alternates: {
     canonical: `${BASE_URL}/about`,
   },
   openGraph: {
-    title: 'About REUNION | Hospitality Management Company in Udupi',
-    description: 'REUNION is a hospitality management company in Udupi, Karnataka, trusted by 30+ property owners. Meet the team behind our beach villas, café and city stays.',
+    title: PAGE_TITLE,
+    description: PAGE_DESCRIPTION,
     url: `${BASE_URL}/about`,
     siteName: 'REUNION',
     type: 'website',
@@ -18,8 +22,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'About REUNION | Hospitality Management Company in Udupi',
-    description: 'REUNION is a hospitality management company in Udupi, Karnataka, trusted by 30+ property owners.',
+    title: PAGE_TITLE,
+    description: PAGE_DESCRIPTION,
     images: ['/logoo.png'],
   },
 };

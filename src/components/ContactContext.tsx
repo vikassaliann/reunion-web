@@ -244,44 +244,7 @@ export function ContactProvider({ children }: { children: ReactNode }) {
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
-    // Disable right-click context menu
-    const handleContextMenu = (e: MouseEvent) => {
-      e.preventDefault();
-    };
-
-    // Disable inspecting keyboard shortcuts
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "F12" || e.keyCode === 123) {
-        e.preventDefault();
-        return;
-      }
-
-      const isMac = typeof window !== "undefined" && navigator.platform.toUpperCase().indexOf("MAC") >= 0;
-      const modifierKey = isMac ? e.metaKey : e.ctrlKey;
-
-      if (modifierKey && e.shiftKey && (e.key === "I" || e.key === "i" || e.key === "J" || e.key === "j" || e.key === "C" || e.key === "c")) {
-        e.preventDefault();
-        return;
-      }
-
-      if (isMac && modifierKey && e.altKey && (e.key === "I" || e.key === "i" || e.key === "J" || e.key === "j" || e.key === "C" || e.key === "c")) {
-        e.preventDefault();
-        return;
-      }
-
-      if (modifierKey && (e.key === "U" || e.key === "u")) {
-        e.preventDefault();
-        return;
-      }
-    };
-
-    document.addEventListener("contextmenu", handleContextMenu);
-    document.addEventListener("keydown", handleKeyDown);
-
-    return () => {
-      document.removeEventListener("contextmenu", handleContextMenu);
-      document.removeEventListener("keydown", handleKeyDown);
-    };
+    // Inspect mode unlocked for development
   }, []);
 
   return (

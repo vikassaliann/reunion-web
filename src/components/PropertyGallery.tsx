@@ -22,13 +22,13 @@ export default function PropertyGallery({ images }: PropertyGalleryProps) {
            <h2 className="font-headline-lg text-headline-lg text-on-surface">The Gallery</h2>
         </div>
         <div className="flex gap-4">
-           <button onClick={prev} className="p-3.5 border border-antique-gold/30 text-primary hover:bg-antique-gold hover:text-obsidian-deep transition-all flex items-center justify-center">
+           <button onClick={prev} className="p-3.5 border border-antique-gold/30 text-primary bg-transparent hover:bg-[#C9A84C]/10 transition-all flex items-center justify-center">
              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="square" strokeLinejoin="miter">
                <line x1="19" y1="12" x2="5" y2="12"/>
                <polyline points="12 19 5 12 12 5"/>
              </svg>
            </button>
-           <button onClick={next} className="p-3.5 border border-antique-gold/30 text-primary hover:bg-antique-gold hover:text-obsidian-deep transition-all flex items-center justify-center">
+           <button onClick={next} className="p-3.5 border border-antique-gold/30 text-primary bg-transparent hover:bg-[#C9A84C]/10 transition-all flex items-center justify-center">
              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="square" strokeLinejoin="miter">
                <line x1="5" y1="12" x2="19" y2="12"/>
                <polyline points="12 5 19 12 12 19"/>

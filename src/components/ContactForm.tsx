@@ -1,19 +1,27 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import properties from "@/data/properties.json";
 
 interface ContactFormProps {
   defaultPreference?: string;
   whatsappNumber?: string; // override WhatsApp number per property
   instagramHandle?: string; // optional secondary Instagram handle (e.g. De Homes)
+  propertyDropdown?: boolean;
 }
 
 export default function ContactForm({
   defaultPreference = "",
   whatsappNumber = "919980208289",
   instagramHandle,
+  propertyDropdown = false,
 }: ContactFormProps) {
   const [status, setStatus] = useState("Submit Inquiry");
+  const [preference, setPreference] = useState(defaultPreference);
+
+  useEffect(() => {
+    setPreference(defaultPreference);
+  }, [defaultPreference]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -60,68 +68,104 @@ Inquiry Details: ${data.description || "None provided"}`;
   };
 
   const fieldClass =
-    "w-full bg-transparent border-0 border-b border-white/10 py-2 sm:py-3.5 focus:ring-0 focus:border-antique-gold transition-colors peer placeholder-transparent text-sm sm:text-base";
+    "w-full bg-transparent border-0 border-b border-white/10 py-2.5 sm:py-3.5 focus:ring-0 focus:border-[#C9A84C] transition-colors peer placeholder-transparent text-sm sm:text-base font-cormorant tracking-wide";
   const labelClass =
-    "absolute left-0 top-2 sm:top-3.5 font-label-caps text-[9px] sm:text-label-caps text-on-surface-variant/60 transition-all peer-focus:-top-5 peer-focus:text-[8px] peer-focus:text-antique-gold peer-[:not(:placeholder-shown)]:-top-5 peer-[:not(:placeholder-shown)]:text-[8px] peer-[:not(:placeholder-shown)]:text-antique-gold pointer-events-none";
+    "absolute left-0 top-2.5 sm:top-3.5 font-cinzel text-[8px] tracking-[0.3em] text-white/40 uppercase transition-all peer-focus:-top-5 peer-focus:text-[#C9A84C] peer-[:not(:placeholder-shown)]:-top-5 peer-[:not(:placeholder-shown)]:text-[#C9A84C] pointer-events-none";
 
   return (
-    <div className="w-full max-w-[480px]">
-      <p className="font-label-caps text-[9px] sm:text-label-caps text-primary tracking-[0.3em] uppercase mb-2 sm:mb-4">INQUIRIES</p>
-      <h2 className="font-display-xl text-[24px] sm:text-headline-lg-mobile md:text-headline-lg text-on-surface mb-6 sm:mb-8 leading-tight">Connect<br />With Us</h2>
+    <div className="w-full max-w-[480px] mx-auto">
+      <p className="font-cinzel text-[9px] tracking-[0.45em] text-[#C9A84C] uppercase mb-3">Inquiries</p>
+      <h2 className="font-cormorant italic text-3xl sm:text-4xl text-white font-light leading-tight mb-6 sm:mb-8">
+        Connect<br />With Us
+      </h2>
       <form className="space-y-6 sm:space-y-8" onSubmit={handleSubmit}>
-        {/* Full Name */}
         <div className="relative group">
           <input name="name" className={fieldClass} id="name" placeholder="Full Name" required type="text" />
-          <label className={labelClass} htmlFor="name">FULL NAME</label>
+          <label className={labelClass} htmlFor="name">Full Name</label>
         </div>
 
-        {/* Phone */}
         <div className="relative group">
           <input name="phone" className={fieldClass} id="phone" placeholder="Phone Number" required type="tel" />
-          <label className={labelClass} htmlFor="phone">PHONE NUMBER</label>
+          <label className={labelClass} htmlFor="phone">Phone Number</label>
         </div>
 
-        {/* Email */}
         <div className="relative group">
           <input name="email" className={fieldClass} id="email" placeholder="Email Address" required type="email" />
-          <label className={labelClass} htmlFor="email">EMAIL ADDRESS</label>
+          <label className={labelClass} htmlFor="email">Email Address</label>
         </div>
 
-        {/* Preferred Property */}
         <div className="relative group">
-          <textarea name="preference" defaultValue={defaultPreference} className={`${fieldClass} resize-none`} id="preference" placeholder="Preferred Property" rows={1}></textarea>
-          <label className={labelClass} htmlFor="preference">PREFERRED PROPERTY OR REGION</label>
+          {propertyDropdown ? (
+            <>
+              <label
+                className="block font-cinzel text-[8px] tracking-[0.3em] text-[#C9A84C]/70 uppercase mb-1.5"
+                htmlFor="preference"
+              >
+                Preferred Property
+              </label>
+              <select
+                name="preference"
+                id="preference"
+                required
+                value={preference}
+                onChange={(e) => setPreference(e.target.value)}
+                className="w-full bg-transparent border-0 border-b border-white/10 py-2.5 sm:py-3.5 focus:ring-0 focus:border-[#C9A84C] transition-colors text-sm sm:text-base text-white font-cormorant [color-scheme:dark]"
+              >
+                <option value="" className="bg-[#0f0e0e] text-white/50">
+                  Select a property
+                </option>
+                {properties.map((prop) => (
+                  <option key={prop.id} value={prop.name} className="bg-[#0f0e0e] text-white">
+                    {prop.name} — {prop.location}
+                  </option>
+                ))}
+              </select>
+            </>
+          ) : (
+            <>
+              <textarea
+                name="preference"
+                defaultValue={defaultPreference}
+                className={`${fieldClass} resize-none`}
+                id="preference"
+                placeholder="Preferred Property"
+                rows={1}
+              />
+              <label className={labelClass} htmlFor="preference">Preferred Property or Region</label>
+            </>
+          )}
         </div>
 
-        {/* Check-In & Check-Out */}
         <div className="grid grid-cols-2 gap-4">
           <div className="relative group">
+            <label className="block font-cinzel text-[8px] tracking-[0.3em] text-[#C9A84C]/70 uppercase mb-1" htmlFor="checkin">
+              Check-in
+            </label>
             <input
               name="checkin"
               type="date"
-              className="w-full bg-transparent border-0 border-b border-white/10 py-2 sm:py-3.5 focus:ring-0 focus:border-antique-gold transition-colors text-sm sm:text-base text-on-surface-variant/80 focus:text-white [color-scheme:dark]"
+              className="w-full bg-transparent border-0 border-b border-white/10 py-2.5 focus:ring-0 focus:border-[#C9A84C] transition-colors text-sm text-white/80 font-cormorant [color-scheme:dark]"
               id="checkin"
             />
-            <label className="block font-label-caps text-[8px] tracking-[0.3em] text-on-surface-variant/50 uppercase mb-1" htmlFor="checkin">CHECK-IN</label>
           </div>
           <div className="relative group">
+            <label className="block font-cinzel text-[8px] tracking-[0.3em] text-[#C9A84C]/70 uppercase mb-1" htmlFor="checkout">
+              Check-out
+            </label>
             <input
               name="checkout"
               type="date"
-              className="w-full bg-transparent border-0 border-b border-white/10 py-2 sm:py-3.5 focus:ring-0 focus:border-antique-gold transition-colors text-sm sm:text-base text-on-surface-variant/80 focus:text-white [color-scheme:dark]"
+              className="w-full bg-transparent border-0 border-b border-white/10 py-2.5 focus:ring-0 focus:border-[#C9A84C] transition-colors text-sm text-white/80 font-cormorant [color-scheme:dark]"
               id="checkout"
             />
-            <label className="block font-label-caps text-[8px] tracking-[0.3em] text-on-surface-variant/50 uppercase mb-1" htmlFor="checkout">CHECK-OUT</label>
           </div>
         </div>
 
-        {/* Message */}
         <div className="relative group">
           <textarea name="description" className={`${fieldClass} resize-none`} id="description" placeholder="Inquiry Details" rows={2}></textarea>
-          <label className={labelClass} htmlFor="description">MESSAGE / DESCRIPTION OF STAY</label>
+          <label className={labelClass} htmlFor="description">Message / Description of Stay</label>
         </div>
 
-        {/* Instagram handle (De Homes specific) */}
         {instagramHandle && (
           <p className="font-cinzel text-[9px] tracking-[0.3em] text-[#C9A84C]/60 uppercase">
             Also find us on Instagram:{" "}
@@ -137,7 +181,7 @@ Inquiry Details: ${data.description || "None provided"}`;
         )}
 
         <button
-          className="w-full py-4 sm:py-5 border border-antique-gold text-primary font-label-caps text-[10px] tracking-[0.3em] hover:bg-antique-gold hover:text-surface-dim transition-all duration-500 uppercase gold-shimmer bg-transparent font-bold"
+          className="w-full py-4 border border-[#C9A84C] bg-transparent text-[#C9A84C] font-cinzel text-[10px] tracking-[0.3em] uppercase hover:bg-[#C9A84C]/10 transition-all duration-300"
           type="submit"
         >
           {status}

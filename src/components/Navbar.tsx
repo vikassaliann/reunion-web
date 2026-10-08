@@ -1,212 +1,386 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import Link from "next/link";
 import Logo from "./Logo";
-import { useContact } from "./ContactContext";
 import { usePartner } from "./PartnerContext";
+import { useEnquiry } from "./EnquiryContext";
 
-const NAV_LINKS = [
-  { href: "/properties", label: "Properties" },
-  { href: "/#dining", label: "Café" },
-  { href: "/#experiences", label: "Experiences" },
-  { href: "/about", label: "About Us" },
+/* ─── Types ─── */
+interface DropdownItem {
+  label: string;
+  desc: string;
+  href: string;
+  highlight?: boolean;
+  isPartner?: boolean;
+}
+
+interface NavItemData {
+  label: string;
+  href: string;
+  dropdown?: DropdownItem[];
+}
+
+/* ─── Nav menu data ─── */
+const NAV_ITEMS: NavItemData[] = [
+  {
+    label: "STAYS",
+    href: "/properties",
+    dropdown: [
+      { label: "Beach Villas", desc: "", href: "/properties/category/beach-villas" },
+      { label: "City Stays", desc: "", href: "/properties/category/city-stays" },
+      { label: "View All Stays →", desc: "", href: "/properties", highlight: true },
+    ],
+  },
+  {
+    label: "EXPERIENCES",
+    href: "/experiences",
+    dropdown: [
+      { label: "Coastal Experiences", desc: "", href: "/experiences" },
+      { label: "Candlelight Dinner", desc: "", href: "/experiences/candlelight-dinner" },
+    ],
+  },
+  {
+    label: "WELLNESS & SPA",
+    href: "/wellness",
+  },
+  {
+    label: "DINING",
+    href: "/dining",
+  },
+  {
+    label: "EVENTS & WEDDINGS",
+    href: "/events",
+  },
+  {
+    label: "BLOGS",
+    href: "/blogs",
+  },
+  {
+    label: "OUR STORY",
+    href: "/about",
+  },
 ];
 
+// DropdownItem interface defined above NAV_ITEMS
+
+function NavDropdown({ items, onClose, openPartner }: { items: DropdownItem[]; onClose: () => void; openPartner: () => void }) {
+  return (
+    <div
+      className="absolute top-full left-1/2 -translate-x-1/2 mt-1 pt-1 z-50 min-w-[200px]"
+      style={{ willChange: "transform, opacity" }}
+    >
+      <div className="bg-black/80 backdrop-blur-lg overflow-hidden py-3 rounded-md border border-white/5">
+        {items.map((item) => {
+          if (item.isPartner) {
+            return (
+              <button
+                key={item.label}
+                onClick={() => { onClose(); openPartner(); }}
+                className={`w-full text-left px-5 py-2 group/item flex items-center gap-3 hover:bg-white/10 transition-colors duration-150`}
+              >
+                <span className="font-futura text-[10px] tracking-[0.2em] text-[#C9A84C] uppercase font-medium group-hover/item:text-white transition-colors">
+                  {item.label}
+                </span>
+              </button>
+            );
+          }
+          return (
+            <Link
+              key={item.label}
+              href={item.href}
+              onClick={onClose}
+              className={`block px-5 py-2 group/item hover:bg-white/10 transition-colors duration-150`}
+            >
+              <span className={`font-futura text-[10px] tracking-[0.2em] uppercase font-medium transition-colors ${item.highlight ? "text-[#C9A84C]" : "text-white/70 group-hover/item:text-white"}`}>
+                {item.label}
+              </span>
+            </Link>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+function NavItem({
+  item,
+  openPartner,
+}: {
+  item: NavItemData;
+  openPartner: () => void;
+}) {
+  const [open, setOpen] = useState(false);
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const handleMouseEnter = () => {
+    if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    setOpen(true);
+  };
+
+  const handleMouseLeave = () => {
+    timeoutRef.current = setTimeout(() => setOpen(false), 80);
+  };
+
+  const hasDropdown = Boolean(item.dropdown?.length);
+
+  return (
+    <div
+      className="relative"
+      onMouseEnter={hasDropdown ? handleMouseEnter : undefined}
+      onMouseLeave={hasDropdown ? handleMouseLeave : undefined}
+    >
+      <Link
+        href={item.href}
+        className={`font-futura text-[11.5px] tracking-[0.14em] font-medium uppercase whitespace-nowrap transition-colors duration-200 pb-1 ${
+          hasDropdown && open ? "text-[#C9A84C]" : "text-[#e5e2e1] hover:text-[#C9A84C]"
+        }`}
+      >
+        {item.label}
+      </Link>
+
+      {hasDropdown && (
+        <div
+          style={{
+            opacity: open ? 1 : 0,
+            transform: open ? "translateY(0px)" : "translateY(-6px)",
+            pointerEvents: open ? "auto" : "none",
+            transition: "opacity 0.18s cubic-bezier(0.4,0,0.2,1), transform 0.18s cubic-bezier(0.4,0,0.2,1)",
+            willChange: "opacity, transform",
+          }}
+        >
+          <NavDropdown
+            items={item.dropdown!}
+            onClose={() => setOpen(false)}
+            openPartner={openPartner}
+          />
+        </div>
+      )}
+    </div>
+  );
+}
+
 export default function Navbar() {
-  const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const { open: openContact } = useContact();
+  const [scrolled, setScrolled] = useState(false);
+  const [mobileExpanded, setMobileExpanded] = useState<string | null>(null);
   const { open: openPartner } = usePartner();
+  const { open: openEnquiry } = useEnquiry();
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 60);
+    const handleScroll = () => setScrolled(window.scrollY > 30);
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Lock body scroll when mobile menu is open
   useEffect(() => {
-    if (mobileOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
+    document.body.style.overflow = mobileOpen ? "hidden" : "";
     return () => { document.body.style.overflow = ""; };
   }, [mobileOpen]);
 
-  const closeMobile = () => {
-    setMobileOpen(false);
-  };
+  const closeMobile = () => setMobileOpen(false);
 
   return (
     <>
-      <nav
-        className={`fixed top-0 w-full z-50 transition-all duration-500 ease-in-out ${
+      <header
+        className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 ${
           scrolled
-            ? "bg-[#080808]/98 border-b border-[#C9A84C]/15 shadow-[0_4px_40px_rgba(0,0,0,0.6)]"
-            : "bg-[#080808]/80 border-b border-[#C9A84C]/10"
+            ? "bg-black/70 backdrop-blur-md shadow-2xl"
+            : "bg-transparent"
         }`}
-        style={{ backdropFilter: "blur(16px)", WebkitBackdropFilter: "blur(16px)" }}
       >
-        {/* ── Desktop ── */}
-        <div className="hidden lg:flex items-center justify-between w-full px-10 xl:px-14 h-[72px]">
+        {/* ── Desktop Nav ── */}
+        <div className="hidden lg:flex items-center justify-between w-full px-6 xl:px-12 h-[80px]">
+
+          {/* Logo Left */}
           <Link href="/" className="flex items-center gap-3 group flex-shrink-0">
-            <Logo className="h-14 w-14 transition-opacity duration-300 group-hover:opacity-75" />
-            <div className="flex flex-col leading-none">
-              <span
-                className="font-cinzel text-[13px] tracking-[0.45em] font-medium"
-                style={{
-                  background: "linear-gradient(90deg, #C9A84C 0%, #f0d78c 50%, #C9A84C 100%)",
-                  WebkitBackgroundClip: "text",
-                  WebkitTextFillColor: "transparent",
-                  backgroundClip: "text",
-                }}
-              >
+            <Logo className="h-10 w-10 transition-transform duration-300 group-hover:scale-105" />
+            <div>
+              <span className="font-futura text-[16px] tracking-[0.35em] font-bold text-[#C9A84C] uppercase leading-none block">
                 REUNION
+              </span>
+              <span className="font-futura text-[7px] tracking-[0.25em] text-white/60 uppercase block mt-1">
+                Creating Memories, One Reunion at a Time
               </span>
             </div>
           </Link>
 
-          <div className="flex items-center gap-8 xl:gap-12">
-            {NAV_LINKS.map(({ href, label }) => (
-              <Link
-                key={label}
-                href={href}
-                className="relative font-cinzel text-[10px] tracking-[0.35em] text-[#a09c98] uppercase hover:text-[#C9A84C] transition-colors duration-300 group/link"
-              >
-                {label}
-                <span className="absolute -bottom-1 left-0 w-0 h-px bg-[#C9A84C] transition-all duration-400 group-hover/link:w-full" />
-              </Link>
+          {/* Center Nav Links */}
+          <nav className="flex items-center gap-6 xl:gap-8 flex-shrink-0">
+            {NAV_ITEMS.map((item) => (
+              <NavItem key={item.label} item={item} openPartner={openPartner} />
             ))}
-          </div>
+          </nav>
 
-          {/* Desktop Actions: Partner with us & Contact Us */}
-          <div className="flex items-center gap-3.5 flex-shrink-0">
+          {/* Right CTA */}
+          <div className="flex items-center gap-4 flex-shrink-0">
+            <Link
+              href="/contact"
+              className="font-futura text-[10.5px] tracking-[0.2em] text-white/80 hover:text-[#C9A84C] uppercase transition-colors"
+            >
+              CONTACT
+            </Link>
             <button
               onClick={() => openPartner()}
-              className="inline-flex items-center gap-2 px-5 py-2 border border-[#C9A84C] font-cinzel text-[9.5px] tracking-[0.3em] text-[#080808] bg-[#C9A84C] uppercase font-semibold hover:bg-[#f0d78c] hover:border-[#f0d78c] transition-all duration-300 gold-shimmer rounded-sm"
+              className="px-6 py-2.5 border border-[#C9A84C] bg-transparent text-[#C9A84C] font-futura text-[10.5px] tracking-[0.2em] font-bold uppercase hover:bg-[#C9A84C]/10 transition-all duration-200"
             >
               Partner With Us
-            </button>
-            <button
-              onClick={() => openContact()}
-              className="inline-flex items-center gap-2 px-5 py-2 border border-[#C9A84C]/60 font-cinzel text-[9.5px] tracking-[0.3em] text-[#C9A84C] uppercase hover:bg-[#C9A84C] hover:text-[#080808] hover:border-[#C9A84C] transition-all duration-300 rounded-sm"
-            >
-              Contact Us
             </button>
           </div>
         </div>
 
-        {/* ── Mobile/Tablet Bar ── */}
-        <div className="flex lg:hidden items-center justify-between w-full px-5 h-[60px]">
-          <Link href="/" className="flex items-center gap-2.5 group" onClick={closeMobile}>
-            <Logo className="h-10 w-10" />
-            <span
-              className="font-cinzel text-[11px] tracking-[0.4em] font-medium"
-              style={{
-                background: "linear-gradient(90deg, #C9A84C, #f0d78c, #C9A84C)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-                backgroundClip: "text",
-              }}
-            >
+        {/* ── Mobile Bar ── */}
+        <div className="flex lg:hidden items-center justify-between w-full px-5 h-[70px] bg-transparent">
+          {/* Left — REUNION text in gold (no logo image) */}
+          <Link href="/" onClick={closeMobile}>
+            <span className="font-futura text-xl tracking-[0.25em] font-bold text-[#C9A84C] uppercase">
               REUNION
             </span>
           </Link>
 
-          {/* Mobile Actions & Hamburger */}
-          <div className="flex items-center gap-3">
-            <button
-              onClick={() => openPartner()}
-              className="inline-flex lg:hidden items-center gap-1.5 px-3 py-1.5 border border-[#C9A84C] bg-[#C9A84C] text-[#080808] font-cinzel text-[8.5px] tracking-[0.2em] font-semibold uppercase rounded-sm"
-            >
-              Partner With Us
-            </button>
-
-            <button
-              className="relative w-9 h-9 flex flex-col items-center justify-center gap-[5px] flex-shrink-0"
-              onClick={() => setMobileOpen(!mobileOpen)}
-              aria-label="Toggle menu"
-            >
-              <span className={`block h-px bg-[#C9A84C] transition-all duration-400 ease-in-out origin-center ${mobileOpen ? "w-5 rotate-45 translate-y-[6px]" : "w-5"}`} />
-              <span className={`block h-px bg-[#C9A84C] transition-all duration-300 ease-in-out ${mobileOpen ? "w-0 opacity-0" : "w-4 opacity-80"}`} />
-              <span className={`block h-px bg-[#C9A84C] transition-all duration-400 ease-in-out origin-center ${mobileOpen ? "w-5 -rotate-45 -translate-y-[6px]" : "w-5"}`} />
-            </button>
-          </div>
+          {/* Right — Square 3-bar hamburger icon in gold */}
+          <button
+            className="w-10 h-10 flex flex-col items-center justify-center gap-[5px] bg-transparent"
+            onClick={() => setMobileOpen(!mobileOpen)}
+            aria-label="Toggle menu"
+          >
+            <span className={`block w-6 h-[2px] bg-[#C9A84C] rounded-none transition-all duration-300 ${mobileOpen ? "rotate-45 translate-y-[7px]" : ""}`} />
+            <span className={`block w-6 h-[2px] bg-[#C9A84C] rounded-none transition-all duration-300 ${mobileOpen ? "opacity-0" : ""}`} />
+            <span className={`block w-6 h-[2px] bg-[#C9A84C] rounded-none transition-all duration-300 ${mobileOpen ? "-rotate-45 -translate-y-[7px]" : ""}`} />
+          </button>
         </div>
-      </nav>
+      </header>
 
-      {/* ── Full-Screen Mobile Menu Overlay ── */}
+      {/* ── Mobile Menu Overlay ── */}
       <div
-        className={`fixed inset-0 z-40 lg:hidden transition-all duration-500 ease-in-out ${mobileOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`}
-        style={{ backdropFilter: "blur(24px)", WebkitBackdropFilter: "blur(24px)", background: "rgba(6,6,6,0.97)" }}
+        className={`fixed inset-0 z-40 lg:hidden transition-all duration-300 ${
+          mobileOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+        }`}
+        style={{ background: "#050505" }}
       >
-        {/* Ambient glow */}
-        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[400px] h-[400px] rounded-full pointer-events-none"
-          style={{ background: "radial-gradient(circle, rgba(201,168,76,0.06) 0%, transparent 70%)" }} />
-
-        {/* Top bar */}
-        <div className="flex items-center justify-between px-5 h-[60px] border-b border-[#C9A84C]/10">
-          <Link href="/" onClick={closeMobile} className="flex items-center gap-2.5">
-            <Logo className="h-10 w-10" />
-            <span className="font-cinzel text-[11px] tracking-[0.4em] font-medium"
-              style={{ background: "linear-gradient(90deg, #C9A84C, #f0d78c, #C9A84C)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
+        <div className="flex items-center justify-between px-5 h-[70px] border-b border-[#C9A84C]/20 bg-[#0a0a0a]">
+          <Link href="/" onClick={closeMobile}>
+            <span className="font-futura text-xl tracking-[0.25em] font-bold text-[#C9A84C] uppercase">
               REUNION
             </span>
           </Link>
-          <button onClick={closeMobile} className="w-9 h-9 flex items-center justify-center text-[#C9A84C] hover:opacity-70 transition-opacity" aria-label="Close menu">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="square">
-              <line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" />
-            </svg>
+          <button
+            onClick={closeMobile}
+            className="w-10 h-10 text-[#C9A84C] text-2xl flex items-center justify-center bg-transparent"
+            aria-label="Close menu"
+          >
+            ✕
           </button>
         </div>
 
-        {/* Nav Links */}
-        <nav className="flex flex-col justify-center h-[calc(100%-60px)] px-8 pb-12">
-          <div className="space-y-0 mb-8">
-            {NAV_LINKS.map(({ href, label }, i) => (
-              <Link key={label} href={href} onClick={closeMobile}
-                className="group flex items-center justify-between border-b border-[#C9A84C]/8 py-5"
-                style={{
-                  transitionDelay: mobileOpen ? `${i * 60}ms` : "0ms",
-                  opacity: mobileOpen ? 1 : 0,
-                  transform: mobileOpen ? "translateY(0)" : "translateY(12px)",
-                  transition: "opacity 0.4s ease, transform 0.4s ease",
-                }}
-              >
-                <span className="font-cinzel text-[11px] tracking-[0.5em] text-[#a09c98] uppercase group-hover:text-[#C9A84C] transition-colors duration-300">{label}</span>
-                <svg className="w-3.5 h-3.5 text-[#C9A84C]/30 group-hover:text-[#C9A84C] group-hover:translate-x-1 transition-all duration-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                  <line x1="5" y1="12" x2="19" y2="12" /><polyline points="13 6 19 12 13 18" />
-                </svg>
-              </Link>
-            ))}
-          </div>
+        <nav className="overflow-y-auto h-[calc(100%-60px)] px-6 py-6">
+          {NAV_ITEMS.map(({ label, href, dropdown }) => (
+            <div key={label} className="border-b border-white/5">
+              {dropdown?.length ? (
+                <>
+                  <button
+                    className="w-full flex items-center justify-between py-4 text-left"
+                    onClick={() => setMobileExpanded(mobileExpanded === label ? null : label)}
+                  >
+                    <span className="font-futura text-sm tracking-[0.2em] text-[#e5e2e1] uppercase">{label}</span>
+                    <span className={`text-[#C9A84C] transition-transform duration-200 ${mobileExpanded === label ? "rotate-180" : ""}`}>
+                      ▾
+                    </span>
+                  </button>
+                  {mobileExpanded === label && (
+                    <div className="pb-3 pl-3 space-y-1">
+                      {dropdown.map((sub) =>
+                        sub.isPartner ? (
+                          <button
+                            key={sub.label}
+                            onClick={() => { closeMobile(); openPartner(); }}
+                            className="block w-full text-left py-2 font-futura text-[11px] tracking-[0.15em] text-[#C9A84C] uppercase"
+                          >
+                            {sub.label}
+                          </button>
+                        ) : (
+                          <Link
+                            key={sub.label}
+                            href={sub.href}
+                            onClick={closeMobile}
+                            className={`block py-2 font-futura text-[11px] tracking-[0.15em] uppercase ${sub.highlight ? "text-[#C9A84C]" : "text-white/60"}`}
+                          >
+                            {sub.label}
+                          </Link>
+                        )
+                      )}
+                    </div>
+                  )}
+                </>
+              ) : (
+                <Link
+                  href={href}
+                  onClick={closeMobile}
+                  className="block w-full py-4 font-futura text-sm tracking-[0.2em] text-[#e5e2e1] uppercase"
+                >
+                  {label}
+                </Link>
+              )}
+            </div>
+          ))}
 
-          <div className="space-y-3">
+          <div className="mt-8 space-y-3 pb-20">
+            <button
+              onClick={() => { closeMobile(); openEnquiry(); }}
+              className="w-full py-4 border border-[#C9A84C] bg-transparent text-[#C9A84C] font-futura text-[11px] tracking-[0.2em] uppercase font-bold hover:bg-[#C9A84C]/10"
+            >
+              Book Now
+            </button>
             <button
               onClick={() => { closeMobile(); openPartner(); }}
-              className="w-full inline-flex items-center justify-center gap-3 py-3.5 border border-[#C9A84C] bg-[#C9A84C] font-cinzel text-[10px] tracking-[0.35em] text-[#080808] font-bold uppercase transition-all duration-400 gold-shimmer rounded-sm"
-              style={{ opacity: mobileOpen ? 1 : 0, transform: mobileOpen ? "translateY(0)" : "translateY(12px)", transition: "opacity 0.4s ease 0.22s, transform 0.4s ease 0.22s" }}
+              className="w-full py-4 border border-[#C9A84C]/40 bg-transparent text-[#C9A84C] font-futura text-[11px] tracking-[0.2em] uppercase hover:bg-[#C9A84C]/10"
             >
               Partner With Us
             </button>
-
-            <button
-              onClick={() => { closeMobile(); openContact(); }}
-              className="w-full inline-flex items-center justify-center gap-3 py-3.5 border border-[#C9A84C]/60 font-cinzel text-[10px] tracking-[0.35em] text-[#C9A84C] uppercase hover:bg-[#C9A84C] hover:text-[#080808] transition-all duration-400 rounded-sm"
-              style={{ opacity: mobileOpen ? 1 : 0, transform: mobileOpen ? "translateY(0)" : "translateY(12px)", transition: "opacity 0.4s ease 0.28s, transform 0.4s ease 0.28s" }}
+            <Link
+              href="/contact"
+              onClick={closeMobile}
+              className="block w-full py-4 text-center border border-white/15 text-white/70 font-futura text-[11px] tracking-[0.2em] uppercase"
             >
               Contact Us
-            </button>
-          </div>
-
-          <div className="mt-8 flex items-center gap-3 opacity-30">
-            <div className="flex-1 h-px bg-[#C9A84C]/40" />
-            <span className="text-[#C9A84C] text-[10px]">✦</span>
-            <div className="flex-1 h-px bg-[#C9A84C]/40" />
+            </Link>
           </div>
         </nav>
+      </div>
+
+      {/* ── Mobile Fixed Bottom Sticky Bar ── */}
+      <div
+        className="fixed bottom-0 left-0 right-0 z-50 lg:hidden grid grid-cols-3 h-14 shadow-2xl border-t border-[#C9A84C]/25 bg-[#080808]/95 backdrop-blur-md"
+        style={{ paddingBottom: "env(safe-area-inset-bottom, 0px)" }}
+      >
+        <Link
+          href="/properties"
+          className="flex flex-col items-center justify-center gap-0.5 bg-transparent text-[#C9A84C] font-futura text-[8px] sm:text-[9px] tracking-[0.12em] font-semibold uppercase hover:bg-[#C9A84C]/10 transition-colors border-r border-[#C9A84C]/20 px-1"
+        >
+          <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+          </svg>
+          Explore Stays
+        </Link>
+        <button
+          onClick={() => openEnquiry()}
+          className="flex flex-col items-center justify-center gap-0.5 bg-transparent text-[#C9A84C] font-futura text-[8px] sm:text-[9px] tracking-[0.12em] font-bold uppercase hover:bg-[#C9A84C]/10 transition-colors border-r border-[#C9A84C]/20 px-1"
+        >
+          <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+          </svg>
+          Book Now
+        </button>
+        <button
+          onClick={() => openPartner()}
+          className="flex flex-col items-center justify-center gap-0.5 bg-transparent text-[#C9A84C] font-futura text-[8px] sm:text-[9px] tracking-[0.12em] font-bold uppercase hover:bg-[#C9A84C]/10 transition-colors px-1"
+        >
+          <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
+            <polyline points="9 22 9 12 15 12 15 22" />
+          </svg>
+          Partner With Us
+        </button>
       </div>
     </>
   );

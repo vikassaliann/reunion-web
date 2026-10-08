@@ -77,6 +77,10 @@ const AUDIT_PROPERTY_SEO: Record<string, { title: string; description: string }>
   "ocean-cafe": {
     title: "REUNION Ocean Café | Beachfront Café at Mattu Beach, Udupi",
     description: "Right on the shore at Mattu Beach featuring sunset views, fireplace lounge, fresh seafood specialties, gourmet coffee, and candlelight dinners in Udupi."
+  },
+  "reunion-seren": {
+    title: "REUNION Serene | Private Nature Stay near Shivamogga",
+    description: "Private Malnad holiday home near Shivamogga with a year-round outdoor pool, 4 bedrooms for up to 8 guests, terrace, garden, Wi-Fi, and parking."
   }
 };
 
@@ -98,26 +102,29 @@ const PROPERTY_GEO: Record<string, { lat: number; lng: number }> = {
   "regal-villa":    { lat: 13.3360, lng: 74.7460 },
   "villa":          { lat: 13.3360, lng: 74.7460 },
   "ocean-cafe":     { lat: 13.2850, lng: 74.7150 },
+  "reunion-seren":  { lat: 13.9299, lng: 75.5681 },
 };
 
 const MAP_LINKS: Record<string, string> = {
-  "ocean-waves": "https://share.google/eqFYB1d1AuDbMxZsK",
-  "ocean-elite": "https://share.google/IctlTljnCt3FgqQfL",
-  "ocean-manor": "https://share.google/wrhEhrLlGy34G40By",
-  "ocean-bliss": "https://share.google/ufUNLhBYyZ6jyZR2p",
-  "ocean-daaffy": "https://share.google/l04jcrY103m0p0K3S",
-  "arya": "https://share.google/AHUQar1rgE6Zfcohh",
-  "marina-villa": "https://share.google/8LjWWnPGEZtwhXprX",
-  "krshna": "https://share.google/xRpFTqWqRX5ShFqFk",
-  "charm-villa": "https://share.google/ceuamChqV0frGoZVf",
+  "aradhya-villa": "https://maps.app.goo.gl/h5PDhRjDrsTdj5dR8",
+  "arya": "https://maps.app.goo.gl/bgDyEDBV22TvRQeLA",
+  "charm-villa": "https://maps.app.goo.gl/AuEK46JEGCC1ygA78",
+  "krshna": "https://maps.app.goo.gl/hXcpqtsWGWkXSxHh7",
+  "marina-villa": "https://maps.app.goo.gl/X5jrFW2phFrZDRgg8",
+  "ocean-bliss": "https://maps.app.goo.gl/y27fBpfybGmGsvwH7",
+  "ocean-cafe": "https://maps.app.goo.gl/r4RPLhfcNUP4ECd18",
+  "ocean-daaffy": "https://maps.app.goo.gl/RN5CDoGUvA2sbm7j7",
+  "ocean-elite": "https://maps.app.goo.gl/i4qS8YbVEtMqgRFF7",
+  "ocean-givaah": "https://maps.app.goo.gl/4Zau2oTbTh95BmxL6",
+  "ocean-hridayam": "https://maps.app.goo.gl/18cbsHn53VKXr5oa9",
+  "ocean-manor": "https://maps.app.goo.gl/QDo2c3Fy8mufX5s77",
+  "ocean-royal": "https://maps.app.goo.gl/R4LzcKq8bcPPS3ub6",
+  "ocean-waves": "https://maps.app.goo.gl/DHikkppGEugCp3V19",
+  "reunion-seren": "https://maps.app.goo.gl/LaQVdsY9a3BPDYf19",
+  "villa": "https://maps.app.goo.gl/SJaK4GjhNkq9FKA29",
+  // Not in the new list — keep existing
   "de-homes": "https://share.google/AXOZTWONFB5kLZE0o",
-  "aradhya-villa": "https://share.google/f9lK85EZJh7fCNNTB",
-  "ocean-hridayam": "https://share.google/yf0w6TtYw4QYGkq2u",
-  "ocean-cafe": "https://share.google/vsXAVG9Y8vshzClQG",
-  "ocean-givaah": "https://share.google/hP2F3unQNtIxL1KTh",
-  "villa": "https://share.google/8jFAzdHybtmkeZQwv",
-  "ocean-royal": "https://share.google/vqIEhqFKsJt9EitKO",
-  "regal-villa": "https://maps.app.goo.gl/P3NuZSXE29bcFPT19"
+  "regal-villa": "https://maps.app.goo.gl/P3NuZSXE29bcFPT19",
 };
 
 export async function generateStaticParams() {
@@ -141,6 +148,11 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
   const propertyTitle = auditSeo?.title || `REUNION ${property.name} | Luxury Stay in ${property.location}`;
   const propertyDescription = auditSeo?.description || property.description.substring(0, 155) + '...';
   const heroImageUrl = `${BASE_URL}${property.heroImage}`;
+  // Ocean Café public page is /dining — keep property URL but canonical to dining
+  const canonicalUrl =
+    property.id === "ocean-cafe"
+      ? `${BASE_URL}/dining`
+      : `${BASE_URL}/properties/${property.id}`;
 
   return {
     title: {
@@ -148,12 +160,12 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
     },
     description: propertyDescription,
     alternates: {
-      canonical: `${BASE_URL}/properties/${property.id}`,
+      canonical: canonicalUrl,
     },
     openGraph: {
       title: propertyTitle,
       description: propertyDescription,
-      url: `${BASE_URL}/properties/${property.id}`,
+      url: canonicalUrl,
       siteName: 'REUNION',
       type: 'website',
       images: [
@@ -338,7 +350,7 @@ function getPropertySchema(property: typeof properties[0]) {
       validFrom: '2026-01-01',
       url: `${BASE_URL}/properties/${property.id}`,
     },
-    checkinTime: '14:00',
+    checkinTime: property.id === 'reunion-seren' ? '13:00' : '14:00',
     checkoutTime: '11:00',
     priceRange: '₹₹₹',
     ...(property.bedrooms > 0 ? { numberOfRooms: property.bedrooms } : {}),
@@ -434,27 +446,24 @@ export default async function PropertyPage({ params }: { params: Promise<{ id: s
       )}
       
       <main className="pt-20">
-        {/* Breadcrumbs */}
         <Breadcrumbs items={[
           { label: 'Home', href: '/' },
           { label: 'Properties', href: '/properties' },
           { label: fullTitleHeading },
         ]} />
 
-        {/* Hero Section */}
         <section className="relative w-full h-[85vh] md:h-screen flex items-end pb-margin-mobile md:pb-margin-desktop">
           <div className="absolute inset-0 w-full h-full">
             <img alt={`${fullTitleHeading} exterior with beach view in ${property.location}`} className="w-full h-full object-cover" src={property.heroImage} />
             <div className="absolute inset-0 bg-gradient-to-t from-obsidian-deep via-obsidian-deep/40 to-transparent"></div>
           </div>
           <div className="relative z-10 w-full max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop text-center">
-            <h1 className="font-display-xl text-headline-lg-mobile md:text-display-xl text-on-surface mb-4">{fullTitleHeading}</h1>
+            <h1 className="font-display-xl text-headline-lg-mobile md:text-display-xl text-on-surface mb-4 uppercase tracking-widest">{fullTitleHeading}</h1>
             <p className="font-label-caps text-label-caps text-antique-gold tracking-[0.3em] mb-8">{property.location}</p>
             <div className="w-px h-16 bg-antique-gold/50 mx-auto"></div>
           </div>
         </section>
 
-        {/* Unified Details, Carousel, Map Button & Sidebar Contact Form */}
         <PropertyDetailSection property={property} mapLink={MAP_LINKS[id]} />
       </main>
 

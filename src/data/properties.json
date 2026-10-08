@@ -20,7 +20,7 @@
     "heroImage": "/properties/ocean-elite/thumbelite.png",
     "gallery": [
       "/properties/ocean-elite/IMG-20240424-WA0059.jpg.jpeg",
-      "/properties/ocean-elite/IMG-20240424-WA0070.jpg (1).jpeg",
+      "/properties/ocean-elite/elite-gallery-0070.jpeg",
       "/properties/ocean-elite/IMG-20240424-WA0071.jpg.jpeg",
       "/properties/ocean-elite/IMG-20240424-WA0086.jpg.jpeg",
       "/properties/ocean-elite/IMG-20240424-WA0087.jpg.jpeg",
@@ -54,8 +54,9 @@
       "Generator Backup",
       "Independent Ground Floor Units"
     ],
-    "heroImage": "/properties/ocean-manor/manor.png",
+    "heroImage": "/properties/ocean-manor/herooo.png",
     "gallery": [
+      "/properties/ocean-manor/herooo.png",
       "/properties/ocean-manor/IMG-20240330-WA0005.jpg.jpeg",
       "/properties/ocean-manor/IMG-20240330-WA0010.jpg.jpeg",
       "/properties/ocean-manor/IMG-20240330-WA0014.jpg.jpeg",
@@ -526,6 +527,39 @@
     "videoUrl": ""
   },
   {
+    "id": "reunion-seren",
+    "name": "Reunion Serene",
+    "location": "Shivamogga, Karnataka",
+    "description": "Reunion Serene Villa is a private nature-stay and holiday home located in the Malnad region of Karnataka, near Shivamogga (Shimoga). Approximately 7.7 km from the Shivamogga city center, the villa accommodates up to 8 guests across 4 separate bedrooms. Guests enjoy a private outdoor swimming pool (year-round), free Wi-Fi and parking, a terrace, garden, and family rooms, plus washing machine access.",
+    "price": "Contact for pricing",
+    "bedrooms": 4,
+    "acreage": "N/A",
+    "sqft": "N/A",
+    "completion": "N/A",
+    "amenities": [
+      "Private Outdoor Swimming Pool (Year-Round)",
+      "Up to 8 Guests · 4 Bedrooms",
+      "Free Wi-Fi & Parking",
+      "Terrace, Garden & Family Rooms",
+      "Washing Machine"
+    ],
+    "heroImage": "/properties/reunion-seren/hero.png",
+    "gallery": [
+      "/properties/reunion-seren/hero.png",
+      "/properties/reunion-seren/seren1.jpeg",
+      "/properties/reunion-seren/seren2.jpeg",
+      "/properties/reunion-seren/seren3.jpeg",
+      "/properties/reunion-seren/seren4.jpeg",
+      "/properties/reunion-seren/seren5.jpeg",
+      "/properties/reunion-seren/seren6.jpeg",
+      "/properties/reunion-seren/seren7.jpeg",
+      "/properties/reunion-seren/seren8.jpeg",
+      "/properties/reunion-seren/seren9.jpeg",
+      "/properties/reunion-seren/seren10.jpeg"
+    ],
+    "videoUrl": ""
+  },
+  {
     "id": "ocean-cafe",
     "name": "Reunion Ocean Café",
     "location": "Mattu Beach, Udupi",
@@ -540,19 +574,17 @@
       "Fresh Seafood & Continental Cuisine",
       "Specialty Coffee & Signature Mocktails",
       "Romantic Candlelight Dinner",
-      "Beach Birthday Celebrations & Small Private Events"
+      "Beach Birthday Celebrations & Private Events"
     ],
-    "heroImage": "/properties/ocean cafe/ocean4.png",
+    "heroImage": "/properties/ocean cafe/herooc.png",
+    "videoUrl": "/properties/ocean cafe/cafevd.mp4",
     "gallery": [
-      "/properties/ocean cafe/ocean1.png",
-      "/properties/ocean cafe/ocean2.png",
-      "/properties/ocean cafe/ocean3.png",
-      "/properties/ocean cafe/ocean4.png",
-      "/properties/ocean cafe/ocean5.jpeg",
-      "/properties/ocean cafe/ocean8.webp",
-      "/properties/ocean cafe/ocean7.webp",
-      "/properties/ocean cafe/ocean6.webp",
-      "/properties/ocean cafe/ocean9.webp"
+      "/properties/ocean cafe/oc4.png",
+      "/properties/ocean cafe/oc2.png",
+      "/properties/ocean cafe/oc3.png",
+      "/properties/ocean cafe/oc5.png",
+      "/properties/ocean cafe/oc1.png",
+      "/properties/ocean cafe/oc6.png"
     ],
     "videoUrl": ""
   }

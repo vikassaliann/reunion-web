@@ -57,7 +57,7 @@ export default function NotFound() {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link
               href="/"
-              className="group inline-flex items-center gap-3 px-8 py-3.5 bg-[#C9A84C] text-[#080808] font-cinzel text-[11px] tracking-[0.2em] uppercase hover:bg-[#d4b85a] transition-all duration-300"
+              className="group inline-flex items-center gap-3 px-8 py-3.5 border border-[#C9A84C] bg-transparent text-[#C9A84C] font-cinzel text-[11px] tracking-[0.2em] uppercase hover:bg-[#C9A84C]/10 transition-all duration-300"
             >
               <svg className="w-4 h-4 transition-transform group-hover:-translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
                 <line x1="19" y1="12" x2="5" y2="12" />

@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useState } from "react";
 import ContactForm from "@/components/ContactForm";
 
 interface Property {
@@ -43,6 +43,7 @@ const PROPERTY_PHONES: Record<string, string> = {
   "villa":          "+91 9980208289",
   "ocean-royal":    "+91 9980208289",
   "regal-villa":    "+91 9980208289",
+  "reunion-seren":  "+91 9980208289",
 };
 
 // Guest/Room capacity info per property
@@ -63,6 +64,7 @@ const GUEST_INFO: Record<string, string[]> = {
   "regal-villa":    ["Up to 6 Guests"],
   "villa":          ["Up to 10 Guests"],
   "de-homes":       ["16 Premium Rooms"],
+  "reunion-seren":  ["4 Bedrooms", "Up to 8 Guests"],
 };
 
 // Property Guidelines & Facilities per property
@@ -84,6 +86,7 @@ const PROPERTY_GUIDELINES: Record<string, { power: string; highlightDetail: stri
   "regal-villa":    { power: "Balcony & Terrace Access", highlightDetail: "Free Private Parking & WiFi" },
   "villa":          { power: "3 Bedrooms (2 AC + 1 Non-AC)", highlightDetail: "Meals Arranged on Request" },
   "ocean-cafe":     { power: "Fireplace & Live Music (Select Days)", highlightDetail: "Open Daily: 9:30 AM – 10:00 PM" },
+  "reunion-seren":  { power: "Standard Grid Power", highlightDetail: "Private Outdoor Pool · Terrace & Garden" },
 };
 
 // Property FAQs — derived exclusively from each property's actual details
@@ -214,6 +217,12 @@ export const PROPERTY_FAQS: Record<string, FAQ[]> = {
     { q: "Does Ocean Café have live music?", a: "Yes, the cozy lounge features a fireplace and live musical performances on select occasions." },
     { q: "What is the ambiance like at Ocean Café?", a: "Guests can relax in breezy outdoor seating areas facing the rolling waves or unwind in a cozy indoor lounge, with stunning sunset vistas over the Arabian Sea." },
   ],
+  "reunion-seren": [
+    { q: "Where is Reunion Serene located?", a: "Reunion Serene Villa is a private nature-stay in the Malnad region of Karnataka, near Shivamogga (Shimoga), approximately 7.7 km from the Shivamogga city center." },
+    { q: "How many guests can Reunion Serene accommodate?", a: "The villa accommodates up to 8 guests across 4 separate bedrooms." },
+    { q: "Does Reunion Serene have a swimming pool?", a: "Yes, the property features a private outdoor swimming pool available year-round." },
+    { q: "What amenities are available at Reunion Serene?", a: "Guests enjoy free Wi-Fi and parking, a terrace, garden, family rooms, and washing machine access, along with the private outdoor pool." },
+  ],
 };
 
 // Nearby Tourist Places — 4 route groups with accurate Google Maps search URLs
@@ -226,6 +235,22 @@ export interface RouteGroup {
   title: string;
   places: TouristPlace[];
 }
+
+export const SERENE_TOURIST_ROUTES: RouteGroup[] = [
+  {
+    title: "Shivamogga & Malnad Highlights",
+    places: [
+      { name: "Jog Falls", mapUrl: "https://www.google.com/maps/search/?api=1&query=Jog+Falls+Karnataka" },
+      { name: "Sakrebailu Elephant Camp", mapUrl: "https://www.google.com/maps/search/?api=1&query=Sakrebailu+Elephant+Camp+Shivamogga" },
+      { name: "Tyavarekoppa Lion & Tiger Safari", mapUrl: "https://www.google.com/maps/search/?api=1&query=Tyavarekoppa+Lion+Safari+Shivamogga" },
+      { name: "Gajanur Dam", mapUrl: "https://www.google.com/maps/search/?api=1&query=Gajanur+Dam+Shivamogga" },
+      { name: "Mandagadde Bird Sanctuary", mapUrl: "https://www.google.com/maps/search/?api=1&query=Mandagadde+Bird+Sanctuary+Shivamogga" },
+      { name: "Agumbe Rainforest", mapUrl: "https://www.google.com/maps/search/?api=1&query=Agumbe+Karnataka" },
+      { name: "Koodli Sangama", mapUrl: "https://www.google.com/maps/search/?api=1&query=Koodli+Sangama+Shivamogga" },
+      { name: "Sacred Heart Cathedral", mapUrl: "https://www.google.com/maps/search/?api=1&query=Sacred+Heart+Cathedral+Shivamogga" },
+    ],
+  },
+];
 
 export const TOURIST_ROUTES: RouteGroup[] = [
   {
@@ -282,33 +307,26 @@ export const TOURIST_ROUTES: RouteGroup[] = [
 ];
 
 export default function PropertyDetailSection({ property, mapLink }: PropertyDetailSectionProps) {
-  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const [selectedImageIdx, setSelectedImageIdx] = useState(0);
+  const [lightboxOpen, setLightboxOpen] = useState(false);
   const [touristOpen, setTouristOpen] = useState(false);
   const [expandedRoutes, setExpandedRoutes] = useState<Record<number, boolean>>({});
   const [faqOpen, setFaqOpen] = useState(false);
   const [expandedFaqs, setExpandedFaqs] = useState<Record<number, boolean>>({});
 
-  const scrollToForm = () => {
-    const isMobile = window.innerWidth < 1024;
-    const targetId = isMobile ? "reserve-form-container-mobile" : "reserve-form-container";
-    const el = document.getElementById(targetId);
-    if (el) {
-      el.scrollIntoView({ behavior: "smooth", block: "center" });
-    }
-  };
-
   const images = property.gallery && property.gallery.length > 0 ? property.gallery : [property.heroImage];
+  const gridSlots = images.slice(0, 5);
+  const extraPhotoCount = Math.max(0, images.length - 5);
 
-  const scroll = (direction: "left" | "right") => {
-    if (scrollContainerRef.current) {
-      const container = scrollContainerRef.current;
-      const scrollAmount = container.clientWidth * 0.75;
-      container.scrollBy({
-        left: direction === "left" ? -scrollAmount : scrollAmount,
-        behavior: "smooth",
-      });
-    }
+  const openLightbox = (idx: number) => {
+    setSelectedImageIdx(idx);
+    setLightboxOpen(true);
   };
+
+  const lightboxPrev = () =>
+    setSelectedImageIdx((prev) => (prev - 1 + images.length) % images.length);
+  const lightboxNext = () =>
+    setSelectedImageIdx((prev) => (prev + 1) % images.length);
 
   const toggleRoute = (idx: number) => {
     setExpandedRoutes((prev) => ({ ...prev, [idx]: !prev[idx] }));
@@ -327,432 +345,316 @@ export default function PropertyDetailSection({ property, mapLink }: PropertyDet
     : property.amenities;
 
   const guestInfo = GUEST_INFO[property.id];
+  const hasCapacityTags = property.bedrooms > 0 || Boolean(guestInfo?.length);
 
   return (
-    <section className="bg-[#060606] w-full border-t border-[#C9A84C]/10">
-      <div className="w-full px-6 sm:px-12 md:px-16 lg:px-20 py-16 space-y-12">
-        {/* Property Title Block */}
-        <div className="space-y-4">
-          <span className="font-cinzel text-[9px] tracking-[0.4em] text-[#C9A84C]/70 uppercase block">
-            {property.location}
-          </span>
-          <h2 className="font-cormorant text-3xl md:text-4xl lg:text-[2.8rem] font-light text-white leading-tight">
-            REUNION {property.name}
-          </h2>
-          <div className="w-12 h-[1px] bg-[#C9A84C]/30 mt-2"></div>
-        </div>
+    <section className="bg-[#060606] w-full">
+      <div className="w-full max-w-[1400px] mx-auto px-5 sm:px-10 lg:px-12 pt-8 md:pt-10 pb-24">
 
-        {/* Scrollable Gallery Carousel */}
-        <div className="relative group w-full">
-          <div
-            ref={scrollContainerRef}
-            className="flex gap-4 overflow-x-auto snap-x snap-mandatory scroll-smooth pb-4 scrollbar-thin scrollbar-thumb-[#C9A84C]/25 scrollbar-track-transparent"
-            style={{ scrollbarWidth: "thin" }}
-          >
-            {images.map((src, index) => (
-              <div
-                key={index}
-                className="flex-none w-[85%] md:w-[65%] lg:w-[55%] aspect-[16/10] snap-center rounded-lg overflow-hidden border border-[#C9A84C]/15 relative bg-[#070707] shadow-lg group-hover:border-[#C9A84C]/30 transition-all duration-500"
+        {hasCapacityTags && (
+          <div className="flex flex-wrap gap-2 justify-center md:justify-end mb-8 md:mb-10 pt-8 md:pt-10">
+            {property.bedrooms > 0 && (
+              <span className="font-futura text-[10px] tracking-[0.2em] uppercase text-white/90 border border-white/15 bg-white/[0.03] px-4 py-2">
+                {property.bedrooms} Bedroom{property.bedrooms > 1 ? "s" : ""}
+              </span>
+            )}
+            {guestInfo?.map((line, i) => (
+              <span
+                key={i}
+                className="font-futura text-[10px] tracking-[0.2em] uppercase text-white/90 border border-white/15 bg-white/[0.03] px-4 py-2"
               >
-                <img
-                  src={src}
-                  alt={`REUNION ${property.name} — Luxury Stay in ${property.location} - Photo ${index + 1}`}
-                  className={`w-full h-full transition-transform duration-700 hover:scale-105 ${
-                    src.includes("ocean cafe") && (src.includes("ocean6") || src.includes("ocean7") || src.includes("ocean8") || src.includes("ocean9"))
-                      ? "object-contain bg-black/40"
-                      : "object-cover"
-                  }`}
-                />
-                <div className="absolute bottom-4 right-4 bg-black/60 backdrop-blur-md border border-white/10 px-2.5 py-1 text-[9px] tracking-widest font-mono text-white/95 rounded">
-                  {index + 1} / {images.length}
-                </div>
-              </div>
+                {line}
+              </span>
             ))}
           </div>
+        )}
 
-          {/* Carousel Navigation Arrows */}
-          {images.length > 1 && (
+        {/* Bento gallery */}
+        <div
+          className={
+            hasCapacityTags ? "mb-14 md:mb-16" : "mb-14 md:mb-16 pt-8 md:pt-10"
+          }
+        >
+          {images.length === 1 ? (
+            <button
+              type="button"
+              onClick={() => openLightbox(0)}
+              className="w-full aspect-[16/10] md:aspect-[21/9] rounded-xl overflow-hidden bg-[#0a0a0a] ring-1 ring-white/10"
+            >
+              <img
+                src={images[0]}
+                alt={`${property.name} — photo 1`}
+                className="w-full h-full object-cover hover:scale-[1.02] transition-transform duration-700"
+              />
+            </button>
+          ) : (
             <>
-              <button
-                onClick={() => scroll("left")}
-                className="absolute left-2 top-1/2 -translate-y-1/2 z-20 w-9 h-9 flex items-center justify-center rounded-full border border-[#C9A84C]/30 bg-black/75 text-[#C9A84C] hover:bg-[#C9A84C] hover:text-black hover:border-transparent transition-all duration-300 opacity-0 group-hover:opacity-100 shadow-lg"
-              >
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                  <polyline points="15 18 9 12 15 6" />
-                </svg>
-              </button>
-              <button
-                onClick={() => scroll("right")}
-                className="absolute right-2 top-1/2 -translate-y-1/2 z-20 w-9 h-9 flex items-center justify-center rounded-full border border-[#C9A84C]/30 bg-black/75 text-[#C9A84C] hover:bg-[#C9A84C] hover:text-black hover:border-transparent transition-all duration-300 opacity-0 group-hover:opacity-100 shadow-lg"
-              >
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                  <polyline points="9 18 15 12 9 6" />
-                </svg>
-              </button>
+              <div className="hidden md:grid grid-cols-4 grid-rows-2 gap-2.5 h-[min(68vh,640px)] rounded-xl overflow-hidden">
+                {gridSlots.map((src, i) => (
+                  <button
+                    key={src + i}
+                    type="button"
+                    onClick={() => openLightbox(i)}
+                    className={`relative overflow-hidden bg-[#0a0a0a] group ring-1 ring-white/5 ${
+                      i === 0 ? "col-span-2 row-span-2" : ""
+                    }`}
+                  >
+                    <img
+                      src={src}
+                      alt={`${property.name} — photo ${i + 1}`}
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+                    />
+                    {i === 4 && extraPhotoCount > 0 && (
+                      <span className="absolute inset-0 bg-black/55 flex items-center justify-center font-futura text-sm tracking-[0.25em] uppercase text-white">
+                        +{extraPhotoCount} photos
+                      </span>
+                    )}
+                  </button>
+                ))}
+              </div>
+
+              <div className="md:hidden space-y-3">
+                <button
+                  type="button"
+                  onClick={() => openLightbox(selectedImageIdx)}
+                  className="w-full aspect-[4/3] rounded-lg overflow-hidden bg-[#0a0a0a] ring-1 ring-white/10"
+                >
+                  <img
+                    src={images[selectedImageIdx]}
+                    alt={`${property.name} — photo ${selectedImageIdx + 1}`}
+                    className="w-full h-full object-cover"
+                  />
+                </button>
+                <div className="flex gap-2 overflow-x-auto pb-1 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+                  {images.map((src, i) => (
+                    <button
+                      key={src + i}
+                      type="button"
+                      onClick={() => setSelectedImageIdx(i)}
+                      className={`flex-none w-20 h-20 rounded-md overflow-hidden ring-2 transition-all ${
+                        selectedImageIdx === i ? "ring-[#C9A84C]" : "ring-transparent opacity-60"
+                      }`}
+                    >
+                      <img src={src} alt="" className="w-full h-full object-cover" />
+                    </button>
+                  ))}
+                </div>
+              </div>
             </>
+          )}
+
+          {images.length > 1 && (
+            <button
+              type="button"
+              onClick={() => openLightbox(0)}
+              className="mt-4 hidden md:inline-flex items-center gap-2 font-futura text-[10px] tracking-[0.3em] uppercase text-white/50 hover:text-[#C9A84C] transition-colors"
+            >
+              View all {images.length} photos
+            </button>
           )}
         </div>
 
-        {/* Info & Enquiry Split Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 pt-8 border-t border-[#C9A84C]/10 items-start">
-          {/* Left Column — Description, Highlights & Location Details */}
-          <div className="lg:col-span-7 xl:col-span-8 space-y-10">
-            {/* Description Block */}
-            <div className="space-y-4">
-              <h3 className="font-cormorant text-2xl font-light text-[#C9A84C] italic">The Property Overview</h3>
-              <p className="text-white font-medium text-base md:text-[17px] leading-relaxed mb-2">
-                REUNION {property.name} is a luxury property and beach stay located in {property.location}, Udupi district.
+        {lightboxOpen && (
+          <div
+            className="fixed inset-0 z-[9999] bg-black/95 flex flex-col"
+            role="dialog"
+            aria-modal="true"
+            aria-label={`${property.name} photo gallery`}
+          >
+            <div className="flex items-center justify-between px-5 py-4 border-b border-white/10">
+              <p className="font-futura text-[10px] tracking-[0.3em] text-white/60 uppercase">
+                {selectedImageIdx + 1} / {images.length}
               </p>
-              <p className="text-[#9a9590] text-sm md:text-[15px] leading-[1.85]">
+              <button
+                type="button"
+                onClick={() => setLightboxOpen(false)}
+                className="font-futura text-[10px] tracking-[0.3em] uppercase text-white/70 hover:text-white px-3 py-2"
+              >
+                Close
+              </button>
+            </div>
+            <div className="relative flex-1 flex items-center justify-center px-4 md:px-16 py-6">
+              <button
+                type="button"
+                onClick={lightboxPrev}
+                className="absolute left-3 md:left-8 top-1/2 -translate-y-1/2 w-11 h-11 border border-white/20 text-white/80 hover:border-[#C9A84C] hover:text-[#C9A84C] transition-colors"
+                aria-label="Previous photo"
+              >
+                ‹
+              </button>
+              <img
+                src={images[selectedImageIdx]}
+                alt={`${property.name} — photo ${selectedImageIdx + 1}`}
+                className="max-h-[min(75vh,900px)] max-w-full object-contain"
+              />
+              <button
+                type="button"
+                onClick={lightboxNext}
+                className="absolute right-3 md:right-8 top-1/2 -translate-y-1/2 w-11 h-11 border border-white/20 text-white/80 hover:border-[#C9A84C] hover:text-[#C9A84C] transition-colors"
+                aria-label="Next photo"
+              >
+                ›
+              </button>
+            </div>
+            <div className="px-5 pb-6 flex gap-2 overflow-x-auto justify-center [&::-webkit-scrollbar]:hidden">
+              {images.map((src, i) => (
+                <button
+                  key={src + i}
+                  type="button"
+                  onClick={() => setSelectedImageIdx(i)}
+                  className={`flex-none w-14 h-14 rounded overflow-hidden ring-2 ${
+                    selectedImageIdx === i ? "ring-[#C9A84C]" : "ring-transparent opacity-50"
+                  }`}
+                >
+                  <img src={src} alt="" className="w-full h-full object-cover" />
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Info & enquiry — mobile: guidelines → form → call/map; desktop: form sticky right */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-x-24 lg:gap-y-16 items-start">
+
+          {/* Block 1 — Overview through Guidelines */}
+          <div className="lg:col-span-7 space-y-12 sm:space-y-16">
+            <div className="space-y-6">
+              <h3 className="font-futura text-[11px] tracking-[0.3em] text-white/40 uppercase">Overview</h3>
+              <p className="text-white/80 font-futura text-[15px] md:text-base leading-[2] font-light tracking-wide">
                 {property.description}
               </p>
             </div>
 
-            {/* Highlights (Bedrooms + Amenities) */}
-            <div className="space-y-4">
-              <h4 className="font-cinzel text-xs sm:text-sm tracking-[0.35em] text-[#C9A84C] uppercase font-semibold">
-                Property Highlights
-              </h4>
-              
-              {/* Guest / Room Info Rectangle (Placed directly under Property Highlights heading) */}
-              {guestInfo && (
-                <div className="inline-flex items-center gap-3 py-2.5 px-5 border border-[#C9A84C]/40 text-[#C9A84C] font-cinzel text-[9px] tracking-[0.25em] uppercase rounded-sm bg-[#080808] max-w-fit">
-                  <svg className="w-4 h-4 shrink-0 text-[#C9A84C]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
-                    <circle cx="9" cy="7" r="4" />
-                    <path d="M23 21v-2a4 4 0 00-3-3.87" />
-                    <path d="M16 3.13a4 4 0 010 7.75" />
-                  </svg>
-                  <div className="flex flex-col gap-0.5">
-                    {guestInfo.map((line, i) => (
-                      <span key={i} className={i === 0 ? "text-white font-semibold text-[10px]" : "text-[#C9A84C]/80 text-[8.5px]"}>
-                        {line}
-                      </span>
-                    ))}
+            <div className="space-y-6">
+              <h3 className="font-futura text-[11px] tracking-[0.3em] text-white/40 uppercase">Amenities & Details</h3>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-4 gap-x-8">
+                {highlights.map((item, i) => (
+                  <div key={i} className="flex items-center gap-4 group/item">
+                    <span className="w-1.5 h-1.5 bg-[#C9A84C] rounded-full shrink-0"></span>
+                    <span className="font-futura text-sm text-white/70 group-hover/item:text-white transition-colors duration-300 font-light tracking-wide">
+                      {item}
+                    </span>
                   </div>
-                </div>
-              )}
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-3">
-                {highlights.map((item, i) => {
-                  const isOliveHall = item.includes("Olive Mini Banquet Hall");
-                  return (
-                    <div key={i} className={`flex items-center gap-3 group/item ${isOliveHall ? "sm:col-span-2" : ""}`}>
-                      <span className={`w-1.5 h-1.5 rounded-full shrink-0 group-hover/item:scale-150 transition-transform ${isOliveHall ? "bg-[#C9A84C] scale-125" : "bg-[#C9A84C]/60"}`} />
-                      <span className={`text-[13px] transition-colors duration-300 ${isOliveHall ? "text-[#C9A84C] font-semibold" : "text-[#b0aba6] group-hover/item:text-white"}`}>
-                        {item}
-                      </span>
-                    </div>
-                  );
-                })}
+                ))}
               </div>
             </div>
 
-            {/* Phone & Location Buttons */}
-            <div className="pt-2 flex flex-wrap gap-3">
-              {/* Reserve Stay / Table CTA */}
-              <button
-                onClick={scrollToForm}
-                className="inline-flex items-center gap-3 py-3.5 px-7 bg-[#C9A84C] text-black hover:bg-[#f0d78c] hover:border-transparent transition-all duration-500 font-cinzel text-[10px] tracking-[0.3em] uppercase rounded-sm font-semibold shadow-lg"
-              >
-                <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16" />
-                  <path d="M12 11h.01" />
-                </svg>
-                {property.id === "ocean-cafe" ? "Reserve Your Table" : "Reserve Your Stay"}
-              </button>
+            {property.id !== "ocean-cafe" && (
+              <div className="space-y-6">
+                <h3 className="font-futura text-[11px] tracking-[0.3em] text-white/40 uppercase">Guidelines</h3>
+                <div className="space-y-4 font-futura text-sm tracking-wide font-light text-white/60">
+                  <div className="flex items-start gap-4">
+                    <span className="uppercase text-[#C9A84C] w-32 shrink-0 text-[11px] tracking-[0.2em] mt-0.5">Power</span>
+                    <span className="text-white/90">{PROPERTY_GUIDELINES[property.id]?.power || "Reliable Power Backup"}</span>
+                  </div>
+                  <div className="flex items-start gap-4">
+                    <span className="uppercase text-[#C9A84C] w-32 shrink-0 text-[11px] tracking-[0.2em] mt-0.5">Detail</span>
+                    <span className="text-white/90">{PROPERTY_GUIDELINES[property.id]?.highlightDetail || "Curated Comfort & Convenience"}</span>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
 
-              {/* Phone CTA */}
+          {/* Enquiry form — after guidelines on mobile; sticky right on desktop */}
+          <div className="lg:col-span-5 lg:row-span-2 w-full">
+            <div id="reserve-form-container" className="lg:sticky lg:top-24 py-2 lg:py-0">
+              <div className="space-y-8 sm:space-y-10">
+                <div>
+                  <span className="font-cinzel text-[9px] tracking-[0.4em] text-[#C9A84C] block mb-3 uppercase">Inquire</span>
+                  <h3 className="font-cormorant italic text-3xl md:text-4xl text-white font-light leading-snug">
+                    {property.id === "ocean-cafe" ? "Reserve Table" : "Reserve Stay"}
+                  </h3>
+                </div>
+                <ContactForm
+                  defaultPreference={property.name}
+                  whatsappNumber={PROPERTY_PHONES[property.id] ? PROPERTY_PHONES[property.id].replace(/[^\d]/g, "") : "919980208289"}
+                  instagramHandle={
+                    property.id === "de-homes"
+                      ? "@de_homes_reunion"
+                      : property.id === "ocean-cafe"
+                      ? "@reunionteam19"
+                      : undefined
+                  }
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* Block 2 — Call / Map, then tourist & FAQ */}
+          <div className="lg:col-span-7 space-y-12 sm:space-y-16">
+            <div className="flex flex-col sm:flex-row gap-4">
               {PROPERTY_PHONES[property.id] && (
                 <a
                   href={`tel:${PROPERTY_PHONES[property.id].replace(/[^+\d]/g, "")}`}
-                  className="inline-flex items-center gap-3 py-3.5 px-7 border border-[#C9A84C]/45 text-[#C9A84C] hover:text-black hover:bg-[#C9A84C] hover:border-transparent transition-all duration-500 font-cinzel text-[10px] tracking-[0.3em] uppercase rounded-sm bg-transparent"
+                  className="inline-flex items-center justify-center px-8 py-4 border border-[#C9A84C]/40 bg-transparent text-[#C9A84C] hover:bg-[#C9A84C]/10 transition-all duration-300 font-futura text-[10px] tracking-[0.3em] uppercase"
                 >
-                  <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.5 9.5a19.79 19.79 0 01-3-8.59A2 2 0 012.48 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 8.86a16 16 0 006.29 6.29l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" />
-                  </svg>
-                  {PROPERTY_PHONES[property.id]}
+                  Call Us
                 </a>
               )}
-              {/* Map CTA */}
               {mapLink && (
                 <a
                   href={mapLink}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-3 py-3.5 px-7 border border-[#C9A84C]/45 text-[#C9A84C] hover:text-black hover:bg-[#C9A84C] hover:border-transparent transition-all duration-500 font-cinzel text-[9px] tracking-[0.3em] uppercase rounded-sm bg-transparent"
+                  className="inline-flex items-center justify-center px-8 py-4 border border-white/20 bg-transparent text-white hover:border-[#C9A84C] hover:text-[#C9A84C] transition-all duration-300 font-futura text-[10px] tracking-[0.3em] uppercase"
                 >
-                  <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path d="M12 2a8 8 0 00-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 00-8-8z" />
-                    <circle cx="12" cy="10" r="3" />
-                  </svg>
-                  View Location on Map
-                  <svg className="w-2.5 h-2.5 opacity-60" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <line x1="7" y1="17" x2="17" y2="7" /><polyline points="7 7 17 7 17 17" />
-                  </svg>
+                  Map
                 </a>
               )}
             </div>
 
-            {/* ═══ MOBILE ONLY: Enquiry Form (shown first on mobile before guidelines, hidden on desktop) ═══ */}
-            <div id="reserve-form-container-mobile" className="block lg:hidden">
-              <div className="bg-[#070707] border border-[#C9A84C]/15 rounded-lg p-4 sm:p-8 shadow-xl max-w-[440px] w-full mx-auto">
-                <div className="space-y-6">
-                  <div>
-                    <span className="font-cinzel text-[8px] tracking-[0.4em] text-[#C9A84C]/60 block mb-2 uppercase">Inquire</span>
-                    <h3 className="font-cormorant text-2xl text-white font-light">
-                      {property.id === "ocean-cafe" ? "Reserve Your Table" : "Reserve Your Stay"}
-                    </h3>
-                    <div className="w-8 h-[1px] bg-[#C9A84C]/25 mt-4"></div>
-                  </div>
-                  <ContactForm
-                    defaultPreference={property.name}
-                    whatsappNumber={PROPERTY_PHONES[property.id] ? PROPERTY_PHONES[property.id].replace(/[^\d]/g, "") : "919980208289"}
-                    instagramHandle={
-                      property.id === "de-homes" 
-                        ? "@de_homes_reunion" 
-                        : property.id === "ocean-cafe" 
-                        ? "@reunionteam19" 
-                        : undefined
-                    }
-                  />
-                </div>
-              </div>
-            </div>
-
-            {/* Property Guidelines Box (Hidden for Ocean Cafe) */}
-            {property.id !== "ocean-cafe" && (
-              <div className="bg-[#080808] border border-[#C9A84C]/15 rounded-lg p-5 space-y-4">
-                <h4 className="font-cinzel text-[9.5px] tracking-[0.3em] text-[#C9A84C] font-semibold uppercase flex items-center gap-2">
-                  <svg className="w-3.5 h-3.5 text-[#C9A84C]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-                  </svg>
-                  Property Guidelines & Facilities
-                </h4>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-y-3 gap-x-8 text-xs">
-                  <div className="flex items-center gap-3">
-                    <span className="text-[#a09c98] shrink-0">Power Backup:</span>
-                    <span className="text-white font-medium">
-                      {PROPERTY_GUIDELINES[property.id]?.power || "Reliable Power Backup"}
-                    </span>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <span className="text-[#a09c98] shrink-0">Property Detail:</span>
-                    <span className="text-white font-medium">
-                      {PROPERTY_GUIDELINES[property.id]?.highlightDetail || "Curated Comfort & Convenience"}
-                    </span>
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {/* ═══ Nearby Tourist Places — Expandable Section ═══ */}
-            <div className="pt-6 border-t border-[#C9A84C]/10">
+            <div className="space-y-4 pt-6 border-t border-white/10">
               <button
                 onClick={() => setTouristOpen(!touristOpen)}
-                className="w-full flex items-center justify-between py-4 px-5 bg-[#080808] border border-[#C9A84C]/15 rounded-lg hover:border-[#C9A84C]/30 transition-all duration-300 group/tourist"
+                className="w-full flex items-center justify-between py-5 border-b border-white/10 group"
               >
-                <div className="flex items-center gap-3">
-                  <svg className="w-4 h-4 text-[#C9A84C]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" />
-                    <circle cx="12" cy="10" r="3" />
-                  </svg>
-                  <span className="font-cinzel text-[10px] tracking-[0.3em] text-[#C9A84C] uppercase font-semibold">
-                    Nearby Tourist Places
-                  </span>
-                </div>
-                <svg
-                  className={`w-4 h-4 text-[#C9A84C] transition-transform duration-300 ${touristOpen ? "rotate-180" : ""}`}
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                >
-                  <polyline points="6 9 12 15 18 9" />
-                </svg>
+                <span className="font-futura text-[11px] tracking-[0.3em] text-white/70 group-hover:text-white uppercase transition-colors">
+                  Nearby Tourist Places
+                </span>
+                <span className="text-[#C9A84C] text-xl leading-none">{touristOpen ? "−" : "+"}</span>
               </button>
-
-              {/* Expanded Content */}
-              <div
-                className={`overflow-hidden transition-all duration-500 ease-in-out ${
-                  touristOpen ? "max-h-[3000px] opacity-100 mt-3" : "max-h-0 opacity-0"
-                }`}
-              >
-                <div className="space-y-2">
-                  {TOURIST_ROUTES.map((route, rIdx) => (
-                    <div key={rIdx} className="bg-[#080808] border border-[#C9A84C]/10 rounded-lg overflow-hidden">
-                      {/* Route Header */}
-                      <button
-                        onClick={() => toggleRoute(rIdx)}
-                        className="w-full flex items-center justify-between py-3.5 px-5 hover:bg-[#0d0d0d] transition-colors duration-200"
-                      >
-                        <div className="flex items-center gap-2.5">
-                          <span className="w-2 h-2 rounded-full bg-[#C9A84C]/60 shrink-0" />
-                          <span className="font-cinzel text-[9px] tracking-[0.2em] text-white/90 uppercase">
-                            {route.title}
-                          </span>
-                          <span className="text-[8px] text-[#C9A84C]/50 font-mono">
-                            ({route.places.length} places)
-                          </span>
-                        </div>
-                        <svg
-                          className={`w-3.5 h-3.5 text-[#C9A84C]/60 transition-transform duration-300 ${
-                            expandedRoutes[rIdx] ? "rotate-180" : ""
-                          }`}
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="2"
-                        >
-                          <polyline points="6 9 12 15 18 9" />
-                        </svg>
-                      </button>
-
-                      {/* Route Places */}
-                      <div
-                        className={`overflow-hidden transition-all duration-400 ease-in-out ${
-                          expandedRoutes[rIdx] ? "max-h-[1000px] opacity-100" : "max-h-0 opacity-0"
-                        }`}
-                      >
-                        <div className="px-5 pb-4 space-y-1.5 border-t border-[#C9A84C]/5">
-                          {route.places.map((place, pIdx) => (
-                            <a
-                              key={pIdx}
-                              href={place.mapUrl}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="flex items-center gap-3 py-2 px-3 rounded-md hover:bg-[#C9A84C]/5 transition-colors duration-200 group/place"
-                            >
-                              <span className="text-[10px] text-[#C9A84C]/40 font-mono w-5 shrink-0 text-right">
-                                {pIdx + 1}.
-                              </span>
-                              <span className="text-[12px] text-[#b0aba6] group-hover/place:text-[#C9A84C] transition-colors duration-200 flex-1">
-                                {place.name}
-                              </span>
-                              <svg
-                                className="w-3 h-3 text-[#C9A84C]/0 group-hover/place:text-[#C9A84C]/70 transition-all duration-200 shrink-0"
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                stroke="currentColor"
-                                strokeWidth="2"
-                              >
-                                <line x1="7" y1="17" x2="17" y2="7" />
-                                <polyline points="7 7 17 7 17 17" />
-                              </svg>
-                            </a>
-                          ))}
-                        </div>
+              <div className={`overflow-hidden transition-all duration-500 ${touristOpen ? "max-h-[3000px] opacity-100" : "max-h-0 opacity-0"}`}>
+                <div className="py-6 space-y-8">
+                  {(property.id === "reunion-seren" ? SERENE_TOURIST_ROUTES : TOURIST_ROUTES).map((route, rIdx) => (
+                    <div key={rIdx} className="space-y-4">
+                      <h4 className="font-futura text-[10px] tracking-widest text-[#C9A84C] uppercase">{route.title}</h4>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        {route.places.map((place, pIdx) => (
+                          <a key={pIdx} href={place.mapUrl} target="_blank" rel="noopener noreferrer" className="font-futura text-[13px] font-light tracking-wide text-white/70 hover:text-white transition-colors flex items-center gap-3">
+                            <span className="w-1 h-1 bg-white/20 rounded-full"></span>
+                            {place.name}
+                          </a>
+                        ))}
                       </div>
                     </div>
                   ))}
                 </div>
               </div>
-            </div>
 
-            {/* ═══ Frequently Asked Questions — Expandable Section ═══ */}
-            {PROPERTY_FAQS[property.id] && PROPERTY_FAQS[property.id].length > 0 && (
-              <div className="pt-6 border-t border-[#C9A84C]/10">
-                <button
-                  onClick={() => setFaqOpen(!faqOpen)}
-                  className="w-full flex items-center justify-between py-4 px-5 bg-[#080808] border border-[#C9A84C]/15 rounded-lg hover:border-[#C9A84C]/30 transition-all duration-300 group/faq"
-                >
-                  <div className="flex items-center gap-3">
-                    <svg className="w-4 h-4 text-[#C9A84C]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <circle cx="12" cy="12" r="10" />
-                      <path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3" />
-                      <line x1="12" y1="17" x2="12.01" y2="17" />
-                    </svg>
-                    <span className="font-cinzel text-[10px] tracking-[0.3em] text-[#C9A84C] uppercase font-semibold">
+              {PROPERTY_FAQS[property.id] && PROPERTY_FAQS[property.id].length > 0 && (
+                <>
+                  <button
+                    onClick={() => setFaqOpen(!faqOpen)}
+                    className="w-full flex items-center justify-between py-5 border-b border-white/10 group"
+                  >
+                    <span className="font-futura text-[11px] tracking-[0.3em] text-white/70 group-hover:text-white uppercase transition-colors">
                       Frequently Asked Questions
                     </span>
-                  </div>
-                  <svg
-                    className={`w-4 h-4 text-[#C9A84C] transition-transform duration-300 ${faqOpen ? "rotate-180" : ""}`}
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                  >
-                    <polyline points="6 9 12 15 18 9" />
-                  </svg>
-                </button>
-
-                {/* Expanded Content */}
-                <div
-                  className={`overflow-hidden transition-all duration-500 ease-in-out ${
-                    faqOpen ? "max-h-[5000px] opacity-100 mt-3" : "max-h-0 opacity-0"
-                  }`}
-                >
-                  <div className="space-y-2">
-                    {PROPERTY_FAQS[property.id].map((faq, fIdx) => (
-                      <div key={fIdx} className="bg-[#080808] border border-[#C9A84C]/10 rounded-lg overflow-hidden">
-                        {/* Question */}
-                        <button
-                          onClick={() => toggleFaq(fIdx)}
-                          className="w-full flex items-center justify-between py-3.5 px-5 hover:bg-[#0d0d0d] transition-colors duration-200 text-left"
-                        >
-                          <div className="flex items-center gap-3 flex-1 min-w-0">
-                            <span className="text-[10px] text-[#C9A84C]/50 font-mono w-5 shrink-0 text-right">
-                              {fIdx + 1}.
-                            </span>
-                            <span className="font-cinzel text-[9px] tracking-[0.15em] text-white/90 uppercase">
-                              {faq.q}
-                            </span>
-                          </div>
-                          <svg
-                            className={`w-3.5 h-3.5 text-[#C9A84C]/60 transition-transform duration-300 shrink-0 ml-3 ${
-                              expandedFaqs[fIdx] ? "rotate-180" : ""
-                            }`}
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                          >
-                            <polyline points="6 9 12 15 18 9" />
-                          </svg>
-                        </button>
-
-                        {/* Answer */}
-                        <div
-                          className={`overflow-hidden transition-all duration-400 ease-in-out ${
-                            expandedFaqs[fIdx] ? "max-h-[500px] opacity-100" : "max-h-0 opacity-0"
-                          }`}
-                        >
-                          <div className="px-5 pb-4 border-t border-[#C9A84C]/5">
-                            <p className="text-[13px] leading-relaxed text-[#b0aba6] pt-3 pl-3 sm:pl-8">
-                              {faq.a}
-                            </p>
-                          </div>
+                    <span className="text-[#C9A84C] text-xl leading-none">{faqOpen ? "−" : "+"}</span>
+                  </button>
+                  <div className={`overflow-hidden transition-all duration-500 ${faqOpen ? "max-h-[5000px] opacity-100" : "max-h-0 opacity-0"}`}>
+                    <div className="py-6 space-y-6">
+                      {PROPERTY_FAQS[property.id].map((faq, fIdx) => (
+                        <div key={fIdx} className="space-y-2">
+                          <p className="font-futura text-[13px] text-white tracking-wide uppercase">{faq.q}</p>
+                          <p className="font-futura text-[13px] font-light text-white/60 leading-relaxed">{faq.a}</p>
                         </div>
-                      </div>
-                    ))}
+                      ))}
+                    </div>
                   </div>
-                </div>
-              </div>
-            )}
-          </div>
-
-          {/* Right Column — Enquiry Form (Desktop only — hidden on mobile since it's shown above) */}
-          <div id="reserve-form-container" className="hidden lg:block lg:col-span-5 xl:col-span-4 lg:sticky lg:top-24 bg-[#070707] border border-[#C9A84C]/15 rounded-lg p-4 sm:p-8 shadow-xl max-w-[440px] lg:max-w-none w-full mx-auto">
-            <div className="space-y-6">
-              <div>
-                <span className="font-cinzel text-[8px] tracking-[0.4em] text-[#C9A84C]/60 block mb-2 uppercase">Inquire</span>
-                <h3 className="font-cormorant text-2xl text-white font-light">
-                  {property.id === "ocean-cafe" ? "Reserve Your Table" : "Reserve Your Stay"}
-                </h3>
-                <div className="w-8 h-[1px] bg-[#C9A84C]/25 mt-4"></div>
-              </div>
-              <ContactForm
-                defaultPreference={property.name}
-                whatsappNumber={PROPERTY_PHONES[property.id] ? PROPERTY_PHONES[property.id].replace(/[^\d]/g, "") : "919980208289"}
-                instagramHandle={
-                  property.id === "de-homes" 
-                    ? "@de_homes_reunion" 
-                    : property.id === "ocean-cafe" 
-                    ? "@reunionteam19" 
-                    : undefined
-                }
-              />
+                </>
+              )}
             </div>
           </div>
         </div>

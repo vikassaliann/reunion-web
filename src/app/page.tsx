@@ -4,1208 +4,845 @@ import { useEffect, useState } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ContactForm from "@/components/ContactForm";
-import PropertyCarousel from "@/components/PropertyCarousel";
-import Stats from "@/components/Stats";
 import Link from "next/link";
-import { TOURIST_ROUTES } from "@/components/PropertyDetailSection";
+import properties from "@/data/properties.json";
+import { MandalaRing, MandalaLotus } from "@/components/wellness/WellnessMandala";
 
-const FEATURED_PROPERTIES = [
+/* ── Hero slideshow images ── */
+const HERO_SLIDES = [
+  { src: "/properties/ocean-manor/herooo.png", alt: "Ocean Manor — Sea & River Facing Beachfront Villa" },
+  { src: "/properties/ocean-royal/royalthumb.png", alt: "Ocean Royal — Heritage Farmhouse by the Sea" },
+  { src: "/properties/reunion-seren/hero.png", alt: "Reunion Serene — Private Nature Stay near Shivamogga" },
+  { src: "/properties/krshna/krthumb.png", alt: "Krshna Residency — Premium Heritage Villa" },
+  { src: "/properties/charm-villa/charmthub.png", alt: "Charm Villa — Classic Heritage Residency" },
+];
+
+const STAY_CATEGORIES = [
   {
-    id: "ocean-elite",
-    name: "Ocean Elite",
-    tagline: "Direct Beach Access Villa",
-    location: "Padutonse, Udupi",
-    description: "A charming 2-bedroom villa with direct beach access, a spacious lawn leading to the shore, and a private beach-view balcony. Fully equipped kitchen, AC, WiFi, and generator backup.",
-    heroImage: "/properties/popular/elite.png",
-    link: "/properties/ocean-elite"
+    title: "Beach Villas",
+    desc: "Wake up to the sound of the waves.",
+    img: "/properties/popular/elite.png",
+    href: "/properties?cat=beach",
   },
   {
-    id: "ocean-manor",
-    name: "Ocean Manor",
-    tagline: "Sea & River Facing Villa",
-    location: "Padutonse, Udupi",
-    description: "A grand multi-level retreat with sea-facing and river-facing bedrooms, a huge beach-facing balcony, independent ground floor units, and lawn access to the beach through scenic rock beds.",
-    heroImage: "/properties/popular/manoor.png",
-    link: "/properties/ocean-manor"
+    title: "Private Pool Villas",
+    desc: "Your own space, your own time.",
+    img: "/properties/popular/givaah.png",
+    href: "/properties?cat=pool",
   },
   {
-    id: "ocean-givaah",
-    name: "Ocean Givaah",
-    tagline: "Private Pool Beachside Retreat",
-    location: "Bada, Udupi",
-    description: "A luxurious 3BHK beachside villa with a private pool, lush garden, and ocean-view terrace. Just 200 meters from the beach with modern amenities and generator backup.",
-    heroImage: "/properties/popular/givaah.png",
-    link: "/properties/ocean-givaah"
+    title: "Premium Suites",
+    desc: "Comfort, style and coastal charm.",
+    img: "/properties/de-homes/dehomesthumb.png",
+    href: "/properties?cat=city",
   },
   {
-    id: "ocean-royal",
-    name: "Ocean Royal",
-    tagline: "Heritage Farmhouse by the Sea",
-    location: "Kapu, Udupi",
-    description: "A heritage 3-bedroom villa just 50 meters from the beach, surrounded by coconut trees and lush greenery. Farmhouse charm with modern essentials and generator backup.",
-    heroImage: "/properties/popular/royal.png",
-    link: "/properties/ocean-royal"
+    title: "Heritage Farmhouses",
+    desc: "Rustic beauty meets coastal living.",
+    img: "/properties/popular/royal.png",
+    href: "/properties?cat=heritage",
   },
   {
-    id: "de-homes",
-    name: "De Homes",
-    tagline: "Premium City Center Suites",
-    location: "Chitpady, Udupi",
-    description: "Premium suites in the heart of Udupi city, steps from Sri Krishna Matha. Multiple room categories from Standard to Presidential Suite, blending comfort, privacy, and modern living.",
-    heroImage: "/properties/popular/dehome.png",
-    link: "/properties/de-homes"
-  }
+    title: "Ocean Café",
+    desc: "Dining right on Mattu Beach.",
+    img: "/properties/ocean cafe/ocean1.png",
+    href: "/properties/ocean-cafe",
+  },
 ];
 
 const REVIEWS = [
   {
-    text: "An absolutely spectacular experience. The villa is meticulously maintained, pristine, and thoughtfully curated for the ultimate family retreat. Spaciously designed interiors combined with a tranquil, soothing ambience made us feel entirely at home. The host's seamless, warm, and responsive hospitality ensured a flawless stay.",
+    quote: "An absolutely spectacular experience. The villa is meticulously maintained, pristine, and thoughtfully curated for the ultimate family retreat.",
+    author: "Rohan & Family",
+    stayedAt: "Ocean Elite",
   },
   {
-    text: "A gorgeous beachfront sanctuary offering unparalleled peace and secluded, breathtaking views. The hospitality was exceptional—the hosts went completely above and beyond, addressing every detail with absolute care and speed. The private beach next to the property was a paradise for the children, while we relaxed in the sheer elegance of the property.",
+    quote: "A gorgeous beachfront sanctuary offering unparalleled peace and secluded, breathtaking views. The hospitality was exceptional from start to finish.",
+    author: "Priya Sharma",
+    stayedAt: "Ocean Manor",
   },
   {
-    text: "A truly wonderful stay from beginning to end. Check-in and check-out were effortless, and the property itself is incredibly spacious, clean, and equipped with premium amenities. Nestled in a secure, quiet coastal neighborhood close to key local landmarks, the host checked on us regularly to ensure perfect comfort.",
+    quote: "Check-in and check-out were effortless, and the property itself is incredibly spacious, clean, and equipped with premium luxury amenities.",
+    author: "Vikramaditya Hegde",
+    stayedAt: "Ocean Givaah",
   },
   {
-    text: "A phenomenal, memorable stay in a peaceful and secure location. The villa itself is immaculately clean with stunning balcony views overlooking the shoreline. The service team remained in constant touch to assist with local recommendations and dining options. With a pristine, crowd-free beach just steps away, it was an unforgettable getaway.",
+    quote: "A phenomenal stay in a peaceful and secure location. The villa is immaculately clean with stunning balcony views overlooking the shoreline.",
+    author: "Ananya Rao",
+    stayedAt: "Ocean Royal",
   },
   {
-    text: "Exemplary service and seamless communication. The property beautifully marries a rustic, heritage aesthetic with state-of-the-art modern amenities. Every corner was pristine, matching the photos perfectly. The thoughtful touches, from premium toiletries to a custom welcome basket, made us feel deeply valued.",
-  }
-];
-
-const PROPERTY_MARQUEE_NAMES = [
-  "Reunion Ocean Elite",
-  "Reunion Ocean Manor",
-  "Reunion Ocean Givaah",
-  "Reunion Ocean Royal",
-  "Reunion De Homes",
-  "Reunion Ocean Daaffy",
-  "Reunion Ocean Hridayam",
-  "Reunion Ocean Bliss",
-  "Reunion Marina Villa",
-  "Reunion Charm Villa",
-  "Reunion Aradhya Villa",
-  "Reunion Arya",
-  "Reunion Krshna",
-  "Reunion Ocean Waves",
-  "Reunion Regal Villa",
-  "Reunion Villa",
-  "Reunion Ocean Cafe"
+    quote: "Exemplary service and seamless communication. The property beautifully marries a rustic, heritage aesthetic with state-of-the-art modern amenities.",
+    author: "Siddharth Verma",
+    stayedAt: "De Homes",
+  },
 ];
 
 const MAP_LOCATIONS = [
-  { name: "Ocean Waves", x: 156, y: 150, link: "https://share.google/eqFYB1d1AuDbMxZsK", desc: "Beachside Sanctuary, Mattu", image: "/properties/ocean-waves/wavest.png" },
-  { name: "Ocean Elite", x: 62, y: 75, link: "https://share.google/IctlTljnCt3FgqQfL", desc: "Private Beachfront Villa", image: "/properties/ocean-elite/thumbelite.png" },
-  { name: "Ocean Manor", x: 64, y: 82, link: "https://share.google/wrhEhrLlGy34G40By", desc: "Sea & River View Villa", image: "/properties/popular/manoor.png" },
-  { name: "Ocean Bliss", x: 70, y: 110, link: "https://share.google/ufUNLhBYyZ6jyZR2p", desc: "Cozy Malpe Beach Villa", image: "/properties/ocean-bliss/blissthumb.png" },
-  { name: "Ocean Daaffy", x: 72, y: 200, link: "https://share.google/l04jcrY103m0p0K3S", desc: "Charming Coastal Villa", image: "/properties/ocean-daaffy/daaffyhero.png" },
-  { name: "Arya", x: 102, y: 130, link: "https://share.google/AHUQar1rgE6Zfcohh", desc: "Modern Studio Rooms", image: "/properties/arya/aryathumb.png" },
-  { name: "Marina Villa", x: 92, y: 126, link: "https://share.google/8LjWWnPGEZtwhXprX", desc: "Luxury Harbor Residency", image: "/properties/marina-villa/marinathumb.png" },
-  { name: "Krshna", x: 176, y: 129, link: "https://share.google/xRpFTqWqRX5ShFqFk", desc: "Premium Heritage Residency", image: "/properties/krshna/krthumb.png" },
-  { name: "Charm Villa", x: 100, y: 135, link: "https://share.google/ceuamChqV0frGoZVf", desc: "Classic Heritage Villa", image: "/properties/charm-villa/charmthub.png" },
-  { name: "De Homes", x: 190, y: 138, link: "https://share.google/AXOZTWONFB5kLZE0o", desc: "Bespoke Townhouse, Chitpady", image: "/properties/popular/dehome.png" },
-  { name: "Aradhya Villa", x: 104, y: 144, link: "https://share.google/f9lK85EZJh7fCNNTB", desc: "Elegant Coastal Villa", image: "/properties/aradhya-villa/arathumb.png" },
-  { name: "Ocean Hridayam", x: 160, y: 156, link: "https://share.google/yf0w6TtYw4QYGkq2u", desc: "Tranquil Garden Villa", image: "/properties/ocean-hridayam/hridthumb.png" },
-  { name: "Reunion Ocean Café", x: 78, y: 192, link: "https://share.google/vsXAVG9Y8vshzClQG", desc: "Beachside Cafe, Mattu Beach", image: "/properties/ocean cafe/ocean1.png" },
-  { name: "Ocean Givaah", x: 74, y: 210, link: "https://share.google/hP2F3unQNtIxL1KTh", desc: "Secluded Beachfront Villa", image: "/properties/popular/givaah.png" },
-  { name: "Reunion Villa", x: 76, y: 219, link: "https://share.google/8jFAzdHybtmkeZQwv", desc: "Classic Beachfront Villa", image: "/properties/villa/villahero.png" },
-  { name: "Ocean Royal", x: 78, y: 240, link: "https://share.google/vqIEhqFKsJt9EitKO", desc: "Majestic Beachfront Villa", image: "/properties/popular/royal.png" },
-  { name: "Regal Villa", x: 75, y: 252, link: "https://maps.app.goo.gl/P3NuZSXE29bcFPT19", desc: "Majestic Kapu Residency", image: "/properties/regal-villa/regalhero.png" }
+  { name: "Ocean Waves", link: "https://maps.app.goo.gl/DHikkppGEugCp3V19", desc: "Beachside Sanctuary, Mattu", image: "/properties/ocean-waves/wavest.png" },
+  { name: "Ocean Elite", link: "https://maps.app.goo.gl/i4qS8YbVEtMqgRFF7", desc: "Private Beachfront Villa", image: "/properties/popular/elite.png" },
+  { name: "Ocean Manor", link: "https://maps.app.goo.gl/QDo2c3Fy8mufX5s77", desc: "Sea & River View Villa", image: "/properties/ocean-manor/herooo.png" },
+  { name: "Ocean Bliss", link: "https://maps.app.goo.gl/y27fBpfybGmGsvwH7", desc: "Cozy Malpe Beach Villa", image: "/properties/ocean-bliss/blissthumb.png" },
+  { name: "Ocean Daaffy", link: "https://maps.app.goo.gl/RN5CDoGUvA2sbm7j7", desc: "Charming Coastal Villa", image: "/properties/ocean-daaffy/daaffyhero.png" },
+  { name: "Arya", link: "https://maps.app.goo.gl/bgDyEDBV22TvRQeLA", desc: "Modern Studio Rooms", image: "/properties/arya/aryathumb.png" },
+  { name: "Marina Villa", link: "https://maps.app.goo.gl/X5jrFW2phFrZDRgg8", desc: "Luxury Harbor Residency", image: "/properties/marina-villa/marinathumb.png" },
+  { name: "Krshna", link: "https://maps.app.goo.gl/hXcpqtsWGWkXSxHh7", desc: "Premium Heritage Residency", image: "/properties/krshna/krthumb.png" },
+  { name: "Charm Villa", link: "https://maps.app.goo.gl/AuEK46JEGCC1ygA78", desc: "Classic Heritage Villa", image: "/properties/charm-villa/charmthub.png" },
+  { name: "De Homes", link: "https://share.google/AXOZTWONFB5kLZE0o", desc: "Bespoke Townhouse, Chitpady", image: "/properties/popular/dehome.png" },
+  { name: "Aradhya Villa", link: "https://maps.app.goo.gl/h5PDhRjDrsTdj5dR8", desc: "Elegant Coastal Villa", image: "/properties/aradhya-villa/arathumb.png" },
+  { name: "Ocean Hridayam", link: "https://maps.app.goo.gl/18cbsHn53VKXr5oa9", desc: "Tranquil Garden Villa", image: "/properties/ocean-hridayam/hridthumb.png" },
+  { name: "Reunion Ocean Café", link: "https://maps.app.goo.gl/r4RPLhfcNUP4ECd18", desc: "Beachside Cafe, Mattu Beach", image: "/properties/ocean cafe/ocean1.png" },
+  { name: "Ocean Givaah", link: "https://maps.app.goo.gl/4Zau2oTbTh95BmxL6", desc: "Secluded Beachfront Villa", image: "/properties/popular/givaah.png" },
+  { name: "Reunion Villa", link: "https://maps.app.goo.gl/SJaK4GjhNkq9FKA29", desc: "Classic Beachfront Villa", image: "/properties/villa/villahero.png" },
+  { name: "Ocean Royal", link: "https://maps.app.goo.gl/R4LzcKq8bcPPS3ub6", desc: "Majestic Beachfront Villa", image: "/properties/popular/royal.png" },
+  { name: "Regal Villa", link: "https://maps.app.goo.gl/P3NuZSXE29bcFPT19", desc: "Majestic Kapu Residency", image: "/properties/regal-villa/regalhero.png" },
+  { name: "Reunion Serene", link: "https://maps.app.goo.gl/LaQVdsY9a3BPDYf19", desc: "Malnad Nature Stay, Shivamogga", image: "/properties/reunion-seren/hero.png" },
 ];
 
+const CAROUSEL_ORDER = [
+  "ocean-elite",
+  "ocean-manor",
+  "ocean-givaah",
+  "ocean-royal",
+  "reunion-seren",
+  "krshna",
+  "de-homes",
+  "ocean-daaffy",
+  "ocean-hridayam",
+  "ocean-bliss",
+  "marina-villa",
+  "charm-villa",
+  "aradhya-villa",
+  "arya",
+  "ocean-waves",
+  "regal-villa",
+  "villa",
+  "ocean-cafe",
+];
+
+const carouselProperties = [...properties].sort((a, b) => {
+  const ai = CAROUSEL_ORDER.indexOf(a.id);
+  const bi = CAROUSEL_ORDER.indexOf(b.id);
+  return (ai === -1 ? 999 : ai) - (bi === -1 ? 999 : bi);
+});
+
 export default function Home() {
-  const [activeFeatured, setActiveFeatured] = useState(0);
-  const [activeReview, setActiveReview] = useState(0);
-  const [hoveredLoc, setHoveredLoc] = useState<number | null>(null);
-  const [cafeFormOpen, setCafeFormOpen] = useState(false);
-  const [expandedRoutes, setExpandedRoutes] = useState<Record<number, boolean>>({});
-  const [mobileActivePin, setMobileActivePin] = useState<number>(0);
-  const [touchStartX, setTouchStartX] = useState<number | null>(null);
-  const [touchEndX, setTouchEndX] = useState<number | null>(null);
+  const [currentSlide, setCurrentSlide] = useState(0);
 
-  const onFeaturedTouchStart = (e: React.TouchEvent) => {
-    setTouchEndX(null);
-    setTouchStartX(e.targetTouches[0].clientX);
-  };
+  const [showMoreSignature, setShowMoreSignature] = useState(false);
 
-  const onFeaturedTouchMove = (e: React.TouchEvent) => {
-    setTouchEndX(e.targetTouches[0].clientX);
-  };
-
-  const onFeaturedTouchEnd = () => {
-    if (touchStartX === null || touchEndX === null) return;
-    const distance = touchStartX - touchEndX;
-    const minSwipeDistance = 40;
-    if (distance > minSwipeDistance) {
-      // Swiped left -> next property
-      setActiveFeatured((prev) => (prev + 1) % FEATURED_PROPERTIES.length);
-    } else if (distance < -minSwipeDistance) {
-      // Swiped right -> prev property
-      setActiveFeatured((prev) => (prev - 1 + FEATURED_PROPERTIES.length) % FEATURED_PROPERTIES.length);
-    }
-  };
-
-  const toggleRoute = (idx: number) => {
-    setExpandedRoutes((prev) => ({ ...prev, [idx]: !prev[idx] }));
-  };
-
+  /* Hero auto-advance */
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("active");
-            observer.unobserve(entry.target);
-          }
-        });
-      },
+    const t = setInterval(() => setCurrentSlide((p) => (p + 1) % HERO_SLIDES.length), 5000);
+    return () => clearInterval(t);
+  }, []);
+
+
+
+
+
+  /* Scroll reveal */
+  useEffect(() => {
+    const obs = new IntersectionObserver(
+      (entries) => entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("active"); obs.unobserve(e.target); } }),
       { threshold: 0.1, rootMargin: "0px 0px -40px 0px" }
     );
-    document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
-    return () => observer.disconnect();
-  }, []);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setActiveReview((prev) => (prev + 1) % REVIEWS.length);
-    }, 4500);
-    return () => clearInterval(interval);
-  }, []);
-
-  // Mobile: auto-cycle 1 property pin every 3s to show its preview card
-  useEffect(() => {
-    const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
-    if (!isMobile) return;
-
-    let current = 0;
-    const total = MAP_LOCATIONS.length;
-    setMobileActivePin(0);
-
-    const interval = setInterval(() => {
-      current = (current + 1) % total;
-      setMobileActivePin(current);
-    }, 3000);
-    return () => clearInterval(interval);
+    document.querySelectorAll(".reveal").forEach((el) => obs.observe(el));
+    return () => obs.disconnect();
   }, []);
 
   return (
-    <div className="bg-[#080808] text-[#e5e2e1] antialiased overflow-x-hidden selection:bg-[#C9A84C] selection:text-[#080808]">
+    <div className="bg-[#080808] text-white antialiased overflow-x-hidden selection:bg-[#C9A84C] selection:text-[#080808]">
       <Navbar />
 
       <main>
-        {/* LodgingBusiness & WebSite JSON-LD Schema */}
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@graph": [
-                {
-                  "@type": "WebSite",
-                  "name": "REUNION Global",
-                  "url": "https://www.reunionglobal.in",
-                  "description": "Premium beach stays, coastal cafés, boutique hotels & city villas across Coastal Karnataka."
-                },
-                {
-                  "@type": "LodgingBusiness",
-                  "name": "Reunion Global Private Ltd.",
-                  "url": "https://www.reunionglobal.in",
-                  "logo": "https://www.reunionglobal.in/logoo.png",
-                  "image": "https://www.reunionglobal.in/logoo.png",
-                  "telephone": "+91-9980208289",
-                  "address": {
-                    "@type": "PostalAddress",
-                    "addressLocality": "Udupi",
-                    "addressRegion": "Karnataka",
-                    "addressCountry": "IN"
-                  },
-                  "areaServed": "Coastal Karnataka, Udupi"
-                }
-              ]
-            })
-          }}
-        />
-
-        {/* ── Hero Section ── */}
-        <section className="relative w-full h-screen flex items-center justify-center overflow-hidden" id="hero">
-          <div className="absolute inset-0 w-full h-full">
-            <video
-              autoPlay
-              loop
-              muted
-              playsInline
-              className="absolute inset-0 w-full h-full object-cover"
-              src="/properties/homeslide/slidevid.mp4"
-            />
-            {/* Dark vignette overlay */}
-            <div className="absolute inset-0" style={{ background: 'radial-gradient(ellipse at center, rgba(8,8,8,0.35) 0%, rgba(8,8,8,0.72) 100%)', zIndex: 4 }} />
-            {/* Top fade */}
-            <div className="absolute inset-0 bg-gradient-to-b from-[#080808]/80 via-transparent to-[#080808]" style={{ zIndex: 5 }} />
+        {/* ══════════════════════════════════════════════════════════
+            HERO — Full-page sliding background
+        ══════════════════════════════════════════════════════════ */}
+        <section className="relative w-full min-h-[100svh] flex items-end pb-0 overflow-hidden" id="hero">
+          {/* Slideshow */}
+          <div className="absolute inset-0 w-full h-full z-0">
+            {HERO_SLIDES.map((slide, idx) => (
+              <img
+                key={slide.src}
+                src={slide.src}
+                alt={slide.alt}
+                className="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ease-in-out"
+                style={{ opacity: currentSlide === idx ? 1 : 0 }}
+              />
+            ))}
           </div>
 
-          <div className="relative text-center px-6 md:px-20 max-w-5xl mx-auto" style={{ zIndex: 10 }}>
-            {/* Eyebrow line */}
-            <div className="flex items-center justify-center gap-4 mb-8 reveal">
-              <div className="h-px w-12 bg-[#C9A84C]" />
-              <p className="font-cinzel text-[11px] tracking-[0.55em] text-[#C9A84C] uppercase">Reunion</p>
-              <div className="h-px w-12 bg-[#C9A84C]" />
-            </div>
-            <h1
-              className="font-cinzel font-normal text-[clamp(2.4rem,7vw,6rem)] text-white leading-[1.08] tracking-[0.02em] mb-8 reveal"
-              style={{ transitionDelay: '150ms', textShadow: '0 2px 40px rgba(0,0,0,0.6)' }}
-            >
-              Creating Memories<br />
-              <span className="bg-gradient-to-r from-[#C9A84C] via-[#f0d78c] to-[#C9A84C] bg-clip-text text-transparent">
-                One Reunion at a time
+          {/* Gradient overlays */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent z-[1] pointer-events-none" />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/40 to-transparent z-[1] pointer-events-none" />
+          <MandalaRing
+            className="pointer-events-none absolute -right-24 -bottom-16 w-[280px] h-[280px] sm:w-[380px] sm:h-[380px] z-[2] opacity-70"
+            opacity={0.1}
+          />
+
+          {/* Hero text — mobile: no CTAs, sit lower; desktop keeps buttons */}
+          <div className="relative z-10 w-full max-w-7xl mx-auto page-pad pb-28 sm:pb-32 md:pb-36">
+            <div className="max-w-2xl space-y-3 sm:space-y-4">
+              <span className="font-cinzel text-[9px] sm:text-[10px] tracking-[0.45em] text-[#C9A84C] uppercase block drop-shadow">
+                Reunion Global
               </span>
-            </h1>
-            <p
-              className="text-[#c8c4c0]/80 text-base md:text-lg tracking-wide mb-12 max-w-xl mx-auto reveal"
-              style={{ transitionDelay: '280ms' }}
-            >
-              Premium beach stays, coastal cafés, boutique hotels &amp; city villas in Udupi, Karnataka — curated for those who gather in style.
-            </p>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 reveal" style={{ transitionDelay: '400ms' }}>
-              <Link
-                href="/properties"
-                className="inline-flex items-center gap-3 px-10 py-4 bg-[#C9A84C] text-[#080808] font-cinzel text-[11px] tracking-[0.3em] uppercase font-medium hover:bg-[#f0d78c] transition-all duration-300 gold-shimmer"
-              >
-                Explore Properties
-              </Link>
-              <Link
-                href="/about"
-                className="inline-flex items-center gap-3 px-10 py-4 border border-[#C9A84C]/50 text-[#C9A84C] font-cinzel text-[11px] tracking-[0.3em] uppercase hover:border-[#C9A84C] hover:bg-[#C9A84C]/10 transition-all duration-300"
-              >
-                Our Story
-              </Link>
-            </div>
+              <h1 className="font-futura font-light text-[2.5rem] sm:text-6xl md:text-7xl text-white leading-[1.05] tracking-wide uppercase drop-shadow-md">
+                REUNION
+              </h1>
+              <p className="font-cormorant italic text-lg sm:text-2xl text-white/90 font-light tracking-wide leading-snug drop-shadow">
+                Creating Memories, One Reunion at a Time
+              </p>
+              <p className="font-futura text-[9px] sm:text-[11px] tracking-[0.22em] sm:tracking-[0.35em] text-white/65 uppercase leading-relaxed pt-1">
+                STAY · RELAX · EXPLORE · CELEBRATE · RECONNECT
+              </p>
 
-            {/* Scroll cue */}
-            <div className="absolute bottom-[-120px] left-1/2 -translate-x-1/2 flex flex-col items-center gap-2">
-              <div className="h-12 w-px bg-gradient-to-b from-[#C9A84C]/60 to-transparent scroll-indicator" />
-              <p className="font-cinzel text-[9px] tracking-[0.4em] text-[#C9A84C]/60 uppercase">Scroll</p>
-            </div>
-          </div>
-        </section>
-
-        {/* ── About Section ── */}
-        <section className="relative py-40 px-6 md:px-20 overflow-hidden" id="about">
-          {/* Floating orbs */}
-          <div className="gold-orb gold-orb-1" />
-          <div className="gold-orb gold-orb-2" />
-
-          <div className="max-w-4xl mx-auto text-center relative z-10">
-            <div className="gold-divider mb-10 reveal" />
-            <p className="font-cinzel text-[10px] tracking-[0.6em] text-[#C9A84C] uppercase mb-6 reveal" style={{ transitionDelay: '100ms' }}>
-              The Art of Reunion
-            </p>
-            <h2
-              className="font-cormorant text-[clamp(2.2rem,5vw,4rem)] font-light text-white leading-tight mb-10 reveal"
-              style={{ transitionDelay: '200ms' }}
-            >
-              Where Every Gathering Becomes<br />
-              <em className="text-[#C9A84C]">an Unforgettable Story</em>
-            </h2>
-            <p
-              className="text-[#a09c98] text-base md:text-lg leading-relaxed max-w-2xl mx-auto mb-16 reveal"
-              style={{ transitionDelay: '300ms' }}
-            >
-              Dedicated to creating memories one reunion at a time — from premium beach stays, vibrant coastal cafés, and boutique hotels to sophisticated city villas across Udupi, Karnataka.
-            </p>
-            <div className="gold-divider reveal" style={{ transitionDelay: '400ms' }} />
-
-            {/* Stats row */}
-            <div className="mt-20 reveal" style={{ transitionDelay: '300ms' }}>
-              <Stats />
-            </div>
-          </div>
-        </section>
-
-        {/* ── Properties Carousel ── */}
-        <PropertyCarousel />
-
-        {/* ── Featured Property ── */}
-        <section className="reveal my-2">
-          <div className="flex flex-col-reverse md:flex-row w-full min-h-[600px] relative">
-            {/* Image Container with smooth cross-fade & Mobile Touch Swipe */}
-            <div 
-              className="w-full md:w-1/2 relative overflow-hidden h-[400px] md:h-auto group bg-obsidian-deep touch-pan-y select-none"
-              onTouchStart={onFeaturedTouchStart}
-              onTouchMove={onFeaturedTouchMove}
-              onTouchEnd={onFeaturedTouchEnd}
-            >
-              {FEATURED_PROPERTIES.map((p, idx) => (
-                <img
-                  key={p.id}
-                  alt={p.name}
-                  className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ease-in-out ${idx === activeFeatured ? "opacity-100 z-10" : "opacity-0 pointer-events-none z-0"
-                    }`}
-                  src={p.heroImage}
-                />
-              ))}
-              {/* Thin black aesthetic overlay layer */}
-              <div className="absolute inset-0 bg-black/35 z-15 pointer-events-none" />
-              {/* Gradient fade overlay for desktop */}
-              <div className="absolute inset-0 bg-gradient-to-r from-[#080808]/70 via-transparent to-transparent z-20 pointer-events-none hidden md:block" />
-
-              {/* Mobile Overlay: Gold Property Name & Location Animation with Black Fade Background */}
-              <div className="absolute inset-x-0 bottom-0 z-30 p-5 sm:p-6 bg-gradient-to-t from-black/95 via-black/65 to-transparent flex flex-col justify-end md:hidden pointer-events-none">
-                <div key={`mobile-popular-name-${activeFeatured}`} className="animate-fade-in-up space-y-1">
-                  <h3 className="font-cormorant text-2xl sm:text-3xl font-light text-[#C9A84C] tracking-wide drop-shadow-[0_2px_10px_rgba(0,0,0,0.9)]">
-                    {FEATURED_PROPERTIES[activeFeatured].name}
-                  </h3>
-                  <span className="font-cinzel text-[9px] tracking-[0.25em] text-[#C9A84C]/90 uppercase block font-semibold">
-                    ✦ {FEATURED_PROPERTIES[activeFeatured].location}
-                  </span>
-                </div>
-
-                {/* Mobile Swipe Indicators & Dots */}
-                <div className="flex items-center justify-between pt-3 mt-3 border-t border-[#C9A84C]/25 text-[8px] font-cinzel text-[#C9A84C] tracking-widest uppercase">
-                  <span className="opacity-80">‹ Swipe</span>
-                  <div className="flex gap-1.5 items-center">
-                    {FEATURED_PROPERTIES.map((_, i) => (
-                      <span
-                        key={i}
-                        className={`h-1.5 rounded-full transition-all duration-300 ${
-                          i === activeFeatured ? "bg-[#C9A84C] w-4" : "bg-white/30 w-1.5"
-                        }`}
-                      />
-                    ))}
-                  </div>
-                  <span className="opacity-80">Swipe ›</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Content Container */}
-            <div className="w-full md:w-1/2 bg-[#0e0e0e] flex flex-col justify-center px-6 sm:px-12 md:px-20 pt-10 pb-6 md:py-16 relative border-t md:border-t-0 md:border-l border-[#C9A84C]/10 min-h-[500px]">
-              {/* Vertical gold accent — desktop only */}
-              <div className="absolute left-0 top-1/2 -translate-y-1/2 w-[2px] h-24 bg-gradient-to-b from-transparent via-[#C9A84C] to-transparent hidden md:block" />
-
-              {/* ── Mobile-only centered header (Ocean Café style) ── */}
-              <div className="flex flex-col items-center text-center mb-6 md:hidden">
-                <div className="gold-divider mb-5" />
-                <p className="font-cinzel text-[9px] tracking-[0.55em] text-[#C9A84C] uppercase mb-3">Popular Signature Properties</p>
-                <h2 className="font-cormorant text-[clamp(1.9rem,7vw,2.6rem)] font-light text-white leading-tight mb-1">
-                  Signature <em className="text-[#C9A84C] italic">Coastal Residences</em>
-                </h2>
-                <div className="gold-divider mt-5" />
-              </div>
-
-               <div className="max-w-xl space-y-6">
-                {/* Desktop label */}
-                <p className="font-cinzel text-[10px] tracking-[0.55em] text-[#C9A84C] uppercase hidden md:block">Popular Signature Properties</p>
-
-                {/* Switcher Tabs - Horizontally Scrollable on Mobile, centered; no wrapping */}
-                <div 
-                  className="flex flex-row overflow-x-auto whitespace-nowrap gap-x-6 border-b border-white/10 pb-4 w-full scroll-smooth snap-x justify-center md:justify-start px-2"
-                  style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
-                >
-                  {/* Webkit scrollbar hiding script inline helper */}
-                  <style dangerouslySetInnerHTML={{__html: `
-                    div::-webkit-scrollbar { display: none; }
-                  `}} />
-                  {FEATURED_PROPERTIES.map((p, idx) => (
-                    <button
-                      key={p.id}
-                      onClick={() => setActiveFeatured(idx)}
-                      className={`font-cinzel text-[11px] tracking-[0.2em] uppercase transition-all duration-300 relative py-1 flex-none snap-start origin-left ${idx === activeFeatured
-                        ? "text-[#C9A84C] font-semibold scale-[1.03]"
-                        : "text-[#a09c98]/60 hover:text-[#a09c98]"
-                        }`}
-                    >
-                      {p.name}
-                      {idx === activeFeatured && (
-                        <span className="absolute bottom-0 left-0 w-full h-0.5 bg-[#C9A84C] transition-all duration-300" />
-                      )}
-                    </button>
-                  ))}
-                </div>
-
-                {/* Info and text with fade transition based on active state */}
-                <div className="space-y-4 min-h-[160px] flex flex-col justify-center">
-                  <p className="font-cinzel text-[10px] tracking-[0.2em] text-[#C9A84C] italic hidden md:block">
-                    {FEATURED_PROPERTIES[activeFeatured].location}
-                  </p>
-                  <h2 className="font-cormorant text-[clamp(1.8rem,3.5vw,2.8rem)] font-light text-white leading-tight">
-                    {FEATURED_PROPERTIES[activeFeatured].tagline}
-                  </h2>
-                  <p className="text-[#a09c98] text-sm md:text-base leading-relaxed">
-                    {FEATURED_PROPERTIES[activeFeatured].description}
-                  </p>
-                </div>
-
+              <div className="hidden md:flex pt-5 sm:pt-6 flex-wrap items-center gap-3 sm:gap-4">
                 <Link
-                  href={FEATURED_PROPERTIES[activeFeatured].link}
-                  className="hidden md:inline-flex items-center gap-3 font-cinzel text-[10px] tracking-[0.4em] text-[#C9A84C] uppercase border-b border-[#C9A84C]/40 pb-1 hover:border-[#C9A84C] transition-colors group/link pt-4"
+                  href="/properties"
+                  className="group inline-flex items-center justify-center gap-2 sm:gap-3 px-6 sm:px-8 py-3 sm:py-3.5 rounded-full border border-[#C9A84C] bg-transparent backdrop-blur-md text-[#C9A84C] font-futura text-[10px] sm:text-[11px] tracking-[0.25em] uppercase hover:bg-[#C9A84C]/10 transition-all duration-500"
                 >
-                  Explore Villa Details
-                  <svg className="w-4 h-4 transition-transform group-hover/link:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                    <line x1="5" y1="12" x2="19" y2="12" /><polyline points="13 6 19 12 13 18" />
+                  EXPLORE STAYS
+                  <svg className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
                   </svg>
+                </Link>
+                <Link
+                  href="/contact"
+                  className="inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-3.5 rounded-full border border-white/30 bg-white/5 backdrop-blur-md text-white font-futura text-[10px] sm:text-[11px] tracking-[0.25em] uppercase hover:border-[#C9A84C] hover:text-[#C9A84C] hover:bg-[#C9A84C]/10 transition-all duration-500"
+                >
+                  CONTACT
                 </Link>
               </div>
             </div>
           </div>
 
-          {/* Mobile/Tablet explore button below the image */}
-          <div className="flex md:hidden justify-center py-8 bg-[#090909] border-b border-[#C9A84C]/15">
-            <Link
-              href={FEATURED_PROPERTIES[activeFeatured].link}
-              className="inline-flex items-center gap-3 font-cinzel text-[10px] tracking-[0.4em] text-[#C9A84C] uppercase border-b border-[#C9A84C]/40 pb-1 hover:border-[#C9A84C] transition-colors group/link"
-            >
-              Explore Villa Details
-              <svg className="w-4 h-4 transition-transform group-hover/link:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                <line x1="5" y1="12" x2="19" y2="12" /><polyline points="13 6 19 12 13 18" />
-              </svg>
-            </Link>
+          {/* Slide dots — above sticky bar on mobile */}
+          <div className="absolute bottom-[4.75rem] sm:bottom-10 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2 lg:bottom-10">
+            {HERO_SLIDES.map((_, idx) => (
+              <button
+                key={idx}
+                onClick={() => setCurrentSlide(idx)}
+                className={`h-[2px] rounded-full transition-all duration-500 ${currentSlide === idx ? "w-8 bg-[#C9A84C]" : "w-3 bg-white/25"}`}
+                aria-label={`Go to slide ${idx + 1}`}
+              />
+            ))}
           </div>
         </section>
 
-        {/* ── Experiences Section ── */}
-        <section className="relative py-40 px-6 md:px-20 bg-[#0a0a0a] overflow-hidden" id="experiences">
-          <div className="gold-orb gold-orb-1" style={{ opacity: 0.5 }} />
-          <div className="max-w-6xl mx-auto relative z-10">
-            {/* Header */}
-            <div className="text-center mb-24 reveal">
-              <div className="gold-divider mb-10" />
-              <p className="font-cinzel text-[10px] tracking-[0.55em] text-[#C9A84C] uppercase mb-5">The Lifestyle</p>
-              <h2 className="font-cormorant text-[clamp(2rem,4.5vw,3.5rem)] font-light text-white">
-                Curation Beyond Compare
-              </h2>
-            </div>
-            {/* Grid */}
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-6 md:gap-10 reveal" style={{ transitionDelay: '200ms' }}>
-              {[
-                { icon: 'beach_access', label: 'Coastal Retreats', desc: 'Premium beach stays situated directly on quiet shorelines.' },
-                { icon: 'local_cafe', label: 'Beachside Cafés', desc: 'Artisanal brews and local seafood menus by the ocean.' },
-                { icon: 'domain', label: 'City Villas', desc: 'Sophisticated sanctuaries in prime urban neighborhoods.' },
-                { icon: 'shield', label: 'Absolute Discretion', desc: 'Secluded spaces designed for complete peace and privacy.' },
-                { icon: 'groups', label: 'Group Reunions', desc: 'Tailored layouts and hospitality services for gatherings.' },
-                { icon: 'room_service', label: 'Bespoke Service', desc: 'Personalized butler services and dedicated hosts tailored to your stay.' },
-              ].map(({ icon, label, desc }) => (
-                <div key={label} className="text-center group cursor-default">
-                  <div className="w-20 h-20 mx-auto border border-[#C9A84C]/25 flex items-center justify-center mb-5 experience-icon">
-                    <span className="material-symbols-outlined text-3xl" style={{ fontVariationSettings: "'FILL' 0" }}>{icon}</span>
-                  </div>
-                  <h3 className="font-cinzel text-[11px] tracking-[0.25em] text-white uppercase mb-2">{label}</h3>
-                  <p className="text-[#7a7672] text-sm leading-relaxed">{desc}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* ── Reunion Ocean Café Section ── */}
-        <section className="relative bg-[#060606] overflow-hidden" id="dining">
-          {/* Ambient orb */}
-          <div className="gold-orb gold-orb-2" style={{ opacity: 0.4 }} />
-
-          {/* ── Header ── */}
-          <div className="max-w-4xl mx-auto text-center px-6 md:px-20 pt-24 pb-12 relative z-10 reveal">
-            <div className="gold-divider mb-8" />
-            <p className="font-cinzel text-[10px] tracking-[0.6em] text-[#C9A84C] uppercase mb-4">
-              Reunion Ocean Café
-            </p>
-            <h2 className="font-cormorant text-[clamp(2.2rem,4.5vw,3.5rem)] font-light text-white leading-tight mb-6">
-              Where the Ocean Meets<br />
-              <em className="text-[#C9A84C]">Every Sip & Bite</em>
-            </h2>
-            <p className="text-[#a09c98] text-sm md:text-base leading-relaxed max-w-2xl mx-auto mb-8">
-              Located right by Mattu Beach in Udupi, Reunion Ocean Cafe is a highly-rated beachside sanctuary celebrated for its stunning sunset views, cozy fireplace setup, and budget-friendly menu. Enjoy continental and Chinese delicacies, fresh seafood, specialty coffee, and refreshing mocktails—perfect for romantic candlelight dinners and group gatherings.
-            </p>
-
-            {/* Compact, aesthetic info line */}
-            <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-[#C9A84C] font-cinzel text-[9px] tracking-[0.25em] uppercase border-t border-[#C9A84C]/15 pt-6">
-              <span>Mattu Beach, Kapu Road</span>
-              <span className="text-white/25 hidden sm:inline">|</span>
-              <span>Mon - Sun: 9:30 AM – 10:00 PM</span>
-              <span className="text-white/25 hidden sm:inline">|</span>
-              <span className="text-white">Curated Music &amp; Fireplace</span>
-            </div>
-          </div>
-
-          {/* ── Photo Mosaic Grid ── */}
-          <div className="grid grid-cols-2 md:grid-cols-12 grid-rows-auto md:grid-rows-2 h-auto md:h-[820px] w-full gap-1 reveal" style={{ transitionDelay: '200ms' }}>
-
-            {/* Large hero café shot */}
-            <div className="col-span-2 md:col-span-5 md:row-span-2 relative group overflow-hidden h-[300px] md:h-auto">
-              <img
-                alt="Reunion Ocean Café — Seaside Solitude"
-                className="w-full h-full object-cover"
-                src="/properties/ocean cafe/ocean1.png"
-              />
-              {/* Thin black overlay that disappears on hover */}
-              <div className="absolute inset-0 bg-black/55 group-hover:bg-black/10 transition-all duration-500 z-15" />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#060606]/80 via-transparent to-transparent z-10" />
-              <div className="absolute bottom-0 left-0 p-8 z-20">
-                <p className="font-cinzel text-[9px] tracking-[0.45em] text-[#C9A84C] uppercase mb-2">Seaside Solitude</p>
-                <p className="font-cormorant text-xl font-light text-white italic">Peaceful oceanfront tables facing the waves</p>
-              </div>
-            </div>
-
-            {/* Top-right: Signature brew */}
-            <div className="col-span-1 md:col-span-4 md:row-span-1 relative group overflow-hidden h-[200px] md:h-auto">
-              <img
-                alt="Reunion Ocean Café — Morning Sanctuary"
-                className="w-full h-full object-cover"
-                src="/properties/ocean cafe/ocean4.png"
-              />
-              <div className="absolute inset-0 bg-black/55 group-hover:bg-black/10 transition-all duration-500 z-15" />
-              <div className="absolute bottom-0 left-0 p-5 z-20">
-                <p className="font-cinzel text-[8px] tracking-[0.4em] text-[#C9A84C] uppercase mb-1">Morning Sanctuary</p>
-                <p className="font-cormorant text-base font-light text-white/80 italic">Breezy outdoor lounge under thatched roofs</p>
-              </div>
-            </div>
-
-            {/* Top-right corner: Coastal dish */}
-            <div className="col-span-1 md:col-span-3 md:row-span-1 relative group overflow-hidden h-[200px] md:h-auto">
-              <img
-                alt="Reunion Ocean Café — Coastal Gastronomy"
-                className="w-full h-full object-cover"
-                src="/properties/ocean cafe/ocean3.png"
-              />
-              <div className="absolute inset-0 bg-black/55 group-hover:bg-black/10 transition-all duration-500 z-15" />
-              <div className="absolute bottom-0 left-0 p-5 z-20">
-                <p className="font-cinzel text-[8px] tracking-[0.4em] text-[#C9A84C] uppercase mb-1">Coastal Gastronomy</p>
-                <p className="font-cormorant text-base font-light text-white/80 italic">Fresh local delicacies & classic dishes</p>
-              </div>
-            </div>
-
-            {/* Bottom-right: Café interior */}
-            <div className="col-span-1 md:col-span-4 md:row-span-1 relative group overflow-hidden h-[200px] md:h-auto">
-              <img
-                alt="Reunion Ocean Café — Rustic Heritage"
-                className="w-full h-full object-cover"
-                src="/properties/ocean cafe/ocean5.jpeg"
-              />
-              <div className="absolute inset-0 bg-black/55 group-hover:bg-black/10 transition-all duration-500 z-15" />
-              <div className="absolute bottom-0 left-0 p-5 z-20">
-                <p className="font-cinzel text-[8px] tracking-[0.4em] text-[#C9A84C] uppercase mb-1">Rustic Heritage</p>
-                <p className="font-cormorant text-base font-light text-white/80 italic">Warm, welcoming architecture & lighting</p>
-              </div>
-            </div>
-
-            {/* Bottom-right corner: Sunset drinks */}
-            <div className="col-span-1 md:col-span-3 md:row-span-1 relative group overflow-hidden h-[200px] md:h-auto">
-              <img
-                alt="Reunion Ocean Café — Sunset Solace"
-                className="w-full h-full object-cover"
-                src="/properties/ocean cafe/ocean2.png"
-              />
-              <div className="absolute inset-0 bg-black/55 group-hover:bg-black/10 transition-all duration-500 z-15" />
-              <div className="absolute bottom-0 left-0 p-5 z-20">
-                <p className="font-cinzel text-[8px] tracking-[0.4em] text-[#C9A84C] uppercase mb-1">Sunset Solace</p>
-                <p className="font-cormorant text-base font-light text-white/80 italic">Signature drinks by the evening shoreline</p>
-              </div>
-            </div>
-          </div>
-
-          {/* ── Café CTA Row ── */}
-          <div className="max-w-5xl mx-auto px-6 md:px-20 py-16 reveal" style={{ transitionDelay: '300ms' }}>
-            <div className="flex flex-col gap-10 border-t border-[#C9A84C]/15 pt-10">
-              {/* Menu highlights — horizontal on desktop, grid on mobile */}
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-x-6 gap-y-3">
-                {['Fresh Seafood & Continental Cuisine', 'Specialty Coffee & Signature Mocktails', 'Romantic Candlelight Dinner', 'Beach Birthday Celebrations & Private Events'].map((item) => (
-                  <div key={item} className="flex items-start gap-2">
-                    <div className="w-1 h-1 rounded-full bg-[#C9A84C] mt-1.5 shrink-0" />
-                    <span className="font-cinzel text-[9px] sm:text-[10px] tracking-[0.2em] text-[#a09c98] uppercase leading-snug">{item}</span>
-                  </div>
-                ))}
-              </div>
-
-              {/* CTA buttons row */}
-              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4">
-                <button
-                  onClick={() => setCafeFormOpen(true)}
-                  className="inline-flex items-center justify-center gap-3 px-6 sm:px-8 py-3 bg-[#C9A84C] border border-[#C9A84C] font-cinzel text-[10px] tracking-[0.3em] text-[#080808] uppercase hover:bg-transparent hover:text-[#C9A84C] transition-all duration-300 whitespace-nowrap font-bold shadow-lg"
-                >
-                  <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
-                  </svg>
-                  Reserve Your Table
-                </button>
-                <a
-                  href="tel:+919972231289"
-                  className="inline-flex items-center justify-center gap-3 px-6 sm:px-8 py-3 border border-[#C9A84C]/50 font-cinzel text-[10px] tracking-[0.3em] text-[#C9A84C] uppercase hover:bg-[#C9A84C] hover:text-[#080808] hover:border-[#C9A84C] transition-all duration-300 whitespace-nowrap"
-                >
-                  <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                    <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.5 9.5a19.79 19.79 0 01-3-8.59A2 2 0 012.48 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 8.86a16 16 0 006.29 6.29l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" />
-                  </svg>
-                  +91 9972231289
-                </a>
-                <a
-                  href="https://share.google/vsXAVG9Y8vshzClQG"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-3 px-6 sm:px-8 py-3 border border-[#C9A84C]/50 font-cinzel text-[10px] tracking-[0.3em] text-[#C9A84C] uppercase hover:bg-[#C9A84C] hover:text-[#080808] hover:border-[#C9A84C] transition-all duration-300 whitespace-nowrap"
-                >
-                  Get Directions
-                  <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                    <line x1="5" y1="12" x2="19" y2="12" /><polyline points="13 6 19 12 13 18" />
-                  </svg>
-                </a>
-              </div>
-            </div>
-          </div>
-
-          {/* ── Ocean Café Reservation Form Modal ── */}
-          {cafeFormOpen && (
-            <div
-              className="fixed inset-0 z-[9999] flex items-center justify-center p-4 sm:p-6"
-              style={{ background: 'rgba(6,6,6,0.88)', backdropFilter: 'blur(20px)', WebkitBackdropFilter: 'blur(20px)' }}
-              onClick={() => setCafeFormOpen(false)}
-            >
-              <div
-                onClick={(e) => e.stopPropagation()}
-                className="relative w-full max-w-md bg-[#0f0e0e] border border-[#C9A84C]/25 rounded-sm p-6 sm:p-8 shadow-[0_16px_60px_rgba(0,0,0,0.8)] overflow-y-auto max-h-[90vh]"
-              >
-                {/* Close */}
-                <button
-                  onClick={() => setCafeFormOpen(false)}
-                  className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full border border-[#C9A84C]/40 text-[#C9A84C] hover:bg-[#C9A84C]/20 transition-all"
-                >
-                  <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-                    <line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" />
-                  </svg>
-                </button>
-
-                {/* Header */}
-                <div className="space-y-2 mb-8">
-                  <span className="font-cinzel text-[9px] tracking-[0.45em] text-[#C9A84C] uppercase font-semibold">Reunion Ocean Café</span>
-                  <h2 className="font-cormorant text-2xl sm:text-3xl font-light text-white leading-snug">
-                    Reserve Your <em className="text-[#C9A84C]">Table</em>
-                  </h2>
-                  <div className="w-12 h-px bg-[#C9A84C]/30" />
-                </div>
-
-                <form
-                  onSubmit={(e) => {
-                    e.preventDefault();
-                    const fd = new FormData(e.currentTarget);
-                    const msg = `Hello Reunion Ocean Café! I would like to reserve a table.
-
-Name: ${fd.get('cafe_name') || 'N/A'}
-Phone: ${fd.get('cafe_phone') || 'N/A'}
-Date: ${fd.get('cafe_date') || 'Not specified'}
-Time: ${fd.get('cafe_time') || 'Not specified'}
-Guests: ${fd.get('cafe_guests') || 'Not specified'}
-Details: ${fd.get('cafe_desc') || 'None'}`;
-                    window.open(`https://wa.me/919972231289?text=${encodeURIComponent(msg)}`, '_blank');
-                    setCafeFormOpen(false);
-                  }}
-                  className="space-y-5"
-                >
-                  {/* Name */}
-                  <div>
-                    <label className="block font-cinzel text-[9px] tracking-[0.2em] text-[#C9A84C]/80 uppercase mb-1.5">
-                      Your Name <span className="text-red-400">*</span>
-                    </label>
-                    <input
-                      name="cafe_name"
-                      required
-                      type="text"
-                      placeholder="Full Name"
-                      className="w-full bg-[#161515] border border-white/10 rounded-sm px-3.5 py-2.5 text-sm text-white placeholder-white/20 focus:outline-none focus:border-[#C9A84C] transition-colors"
-                    />
-                  </div>
-
-                  {/* Phone */}
-                  <div>
-                    <label className="block font-cinzel text-[9px] tracking-[0.2em] text-[#C9A84C]/80 uppercase mb-1.5">
-                      Phone Number <span className="text-red-400">*</span>
-                    </label>
-                    <input
-                      name="cafe_phone"
-                      required
-                      type="tel"
-                      placeholder="98765 43210"
-                      className="w-full bg-[#161515] border border-white/10 rounded-sm px-3.5 py-2.5 text-sm text-white placeholder-white/20 focus:outline-none focus:border-[#C9A84C] transition-colors"
-                    />
-                  </div>
-
-                  {/* Date & Time */}
-                  <div className="grid grid-cols-2 gap-4">
-                    <div>
-                      <label className="block font-cinzel text-[9px] tracking-[0.2em] text-[#C9A84C]/80 uppercase mb-1.5">Date</label>
-                      <input
-                        name="cafe_date"
-                        type="date"
-                        className="w-full bg-[#161515] border border-white/10 rounded-sm px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-[#C9A84C] transition-colors [color-scheme:dark]"
-                      />
-                    </div>
-                    <div>
-                      <label className="block font-cinzel text-[9px] tracking-[0.2em] text-[#C9A84C]/80 uppercase mb-1.5">Time</label>
-                      <input
-                        name="cafe_time"
-                        type="time"
-                        className="w-full bg-[#161515] border border-white/10 rounded-sm px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-[#C9A84C] transition-colors [color-scheme:dark]"
-                      />
-                    </div>
-                  </div>
-
-                  {/* Guests */}
-                  <div>
-                    <label className="block font-cinzel text-[9px] tracking-[0.2em] text-[#C9A84C]/80 uppercase mb-1.5">Number of Guests</label>
-                    <select
-                      name="cafe_guests"
-                      defaultValue=""
-                      className="w-full bg-[#161515] border border-white/10 rounded-sm px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-[#C9A84C] transition-colors"
-                    >
-                      <option value="" disabled>Select</option>
-                      <option value="1-2">1 – 2</option>
-                      <option value="3-5">3 – 5</option>
-                      <option value="6-10">6 – 10</option>
-                      <option value="10+">10+</option>
-                    </select>
-                  </div>
-
-                  {/* Description */}
-                  <div>
-                    <label className="block font-cinzel text-[9px] tracking-[0.2em] text-[#C9A84C]/80 uppercase mb-1.5">Special Requests / Description</label>
-                    <textarea
-                      name="cafe_desc"
-                      rows={3}
-                      placeholder="E.g. candlelight dinner, birthday setup, dietary needs..."
-                      className="w-full bg-[#161515] border border-white/10 rounded-sm px-3.5 py-2.5 text-sm text-white placeholder-white/20 focus:outline-none focus:border-[#C9A84C] transition-colors resize-none"
-                    />
-                  </div>
-
-                  <button
-                    type="submit"
-                    className="w-full py-4 bg-[#C9A84C] text-black font-cinzel text-[10px] tracking-[0.3em] uppercase font-bold hover:bg-[#f0d78c] transition-colors"
-                  >
-                    Send to WhatsApp
-                  </button>
-                </form>
-              </div>
-            </div>
-          )}
-        </section>
-
-        {/* ── Guest Testimonials Slideshow ── */}
-        <section className="relative py-36 px-6 md:px-20 bg-[#0b0b0b] overflow-hidden reveal" id="reviews">
-          {/* Floating background orb */}
-          <div className="gold-orb gold-orb-2 opacity-50" />
-
-          <div className="max-w-4xl mx-auto text-center relative z-10">
-            {/* Premium Header */}
-            <div className="mb-14">
-              <p className="font-cinzel text-[10px] tracking-[0.55em] text-[#C9A84C] uppercase mb-4">Guest Chronicles</p>
-              <h2 className="font-cormorant text-[clamp(2rem,4.5vw,3rem)] font-light text-white italic">
-                Whispers of Satisfaction
-              </h2>
-              <div className="gold-divider mt-6" />
-            </div>
-
-            {/* Quote container with decorative borders and fade-in animation */}
-            <div className="relative px-6 md:px-16 py-8 min-h-[220px] flex flex-col justify-center items-center">
-              {/* Vertical Gold Accents flanking the quote */}
-              <div className="absolute left-0 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-[#C9A84C]/25 to-transparent hidden md:block" />
-              <div className="absolute right-0 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-[#C9A84C]/25 to-transparent hidden md:block" />
-
-              <span className="quote-mark text-[#C9A84C]/10 select-none">"</span>
-
-              {/* Active review content with fadeInUp animation keyed by active index */}
-              <div key={activeReview} className="animate-fade-in-up space-y-6">
-                {/* 5 Gold Stars Rating */}
-                <div className="flex justify-center gap-1.5 text-[#C9A84C] text-sm">
-                  {Array.from({ length: 5 }).map((_, i) => (
-                    <span key={i} className="select-none">✦</span>
-                  ))}
-                </div>
-
-                <p className="font-cormorant text-[clamp(1.2rem,2.4vw,1.85rem)] font-light text-white/90 leading-relaxed italic max-w-3xl mx-auto">
-                  {REVIEWS[activeReview].text}
+        {/* ══════════════════════════════════════════════════════════
+            REUNION DESCRIPTION — Light cream
+        ══════════════════════════════════════════════════════════ */}
+        <section className="relative bg-[#f5f0e8] section-y page-pad overflow-hidden" id="about-intro">
+          <MandalaRing
+            className="pointer-events-none absolute -left-28 top-10 w-[320px] h-[320px] opacity-80"
+            opacity={0.09}
+          />
+          <div className="relative z-10 max-w-7xl mx-auto">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 md:gap-14 lg:gap-16 items-center">
+              {/* Left: Text */}
+              <div className="space-y-5 sm:space-y-6 reveal text-center lg:text-left">
+                <MandalaLotus className="w-9 h-9 mx-auto lg:mx-0 opacity-50" />
+                <span className="font-cinzel text-[9px] sm:text-[10px] tracking-[0.4em] text-[#B8963E] uppercase block">
+                  Welcome to Reunion
+                </span>
+                <h2 className="font-futura text-2xl sm:text-3xl md:text-4xl text-[#1a1410] font-light leading-[1.2] uppercase tracking-wide">
+                  More than a stay.<br />
+                  <span className="text-[#B8963E]">A place to reconnect.</span>
+                </h2>
+                <p className="text-stone-600 text-sm leading-relaxed font-futura font-light tracking-wide max-w-md mx-auto lg:mx-0">
+                  Discover private villas, premium stays, wellness, dining and coastal experiences designed for meaningful moments together.
                 </p>
-              </div>
-            </div>
-
-            {/* Navigation Dots & Page indicator */}
-            <div className="flex justify-center items-center gap-3.5 mt-10">
-              {REVIEWS.map((_, idx) => (
-                <button
-                  key={idx}
-                  onClick={() => setActiveReview(idx)}
-                  className={`h-1.5 rounded-full transition-all duration-500 ${idx === activeReview ? "w-8 bg-[#C9A84C]" : "w-1.5 bg-[#C9A84C]/25 hover:bg-[#C9A84C]/50"
-                    }`}
-                  aria-label={`Go to slide ${idx + 1}`}
-                />
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* ── Properties Scrolling Marquee ── */}
-        <section className="py-5 md:py-10 bg-black border-y border-[#C9A84C]/20 overflow-hidden relative z-10">
-          <div className="flex">
-            {/* First Track */}
-            <div className="marquee-track shrink-0">
-              {PROPERTY_MARQUEE_NAMES.map((name, i) => (
-                <span key={`t1-${i}`} className="font-cinzel text-[11px] tracking-[0.38em] text-white font-medium uppercase whitespace-nowrap flex items-center gap-6">
-                  {name}
-                  <span className="text-[#C9A84C] text-[13px] drop-shadow-[0_0_4px_rgba(201,168,76,0.4)]">✦</span>
-                </span>
-              ))}
-            </div>
-            {/* Duplicated Track for Seamless Loop */}
-            <div className="marquee-track shrink-0">
-              {PROPERTY_MARQUEE_NAMES.map((name, i) => (
-                <span key={`t2-${i}`} className="font-cinzel text-[11px] tracking-[0.38em] text-white font-medium uppercase whitespace-nowrap flex items-center gap-6">
-                  {name}
-                  <span className="text-[#C9A84C] text-[13px] drop-shadow-[0_0_4px_rgba(201,168,76,0.4)]">✦</span>
-                </span>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* ── Contact Section ── */}
-        <section className="reveal" id="reserve">
-          <div className="flex flex-col md:flex-row min-h-[560px]">
-            {/* Form */}
-            <div className="w-full md:w-1/2 p-8 md:p-14 flex items-center bg-[#090909] justify-center relative overflow-hidden">
-              <div className="gold-orb gold-orb-1" style={{ opacity: 0.4 }} />
-              <div className="relative z-10 w-full max-w-md">
-                <p className="font-cinzel text-[10px] tracking-[0.55em] text-[#C9A84C] uppercase mb-3">Get in Touch</p>
-                <h2 className="font-cormorant text-[clamp(1.8rem,3vw,2.6rem)] font-light text-white mb-6">Begin Your<br /><em className="text-[#C9A84C]">Reunion</em></h2>
-                <ContactForm />
-              </div>
-            </div>
-            {/* Interactive Black & Gold Coastal Udupi Map (Centered Square Layout) */}
-            {/* Interactive Black & Gold Coastal Udupi Map (Centered Square Layout) */}
-            <div className="w-full md:w-1/2 flex items-center justify-center p-2 bg-[#080808] relative">
-              <div className="w-full max-w-[580px] aspect-square relative bg-[#070707] border border-[#C9A84C]/15 rounded-lg select-none shadow-2xl">
-                {/* Background Map Grid & Vector Art — clipped to container */}
-                <div className="absolute inset-0 overflow-hidden rounded-lg">
-                <svg 
-                  viewBox="0 0 300 300" 
-                  className="absolute inset-0 w-full h-full object-cover opacity-75 z-0 pointer-events-none"
+                <Link
+                  href="/about"
+                  className="inline-flex items-center gap-2 font-futura text-[11px] tracking-[0.25em] text-[#B8963E] uppercase border-b border-[#B8963E]/40 pb-1 hover:border-[#B8963E] transition-all"
                 >
-                  {/* Lat/Long Grid Lines */}
-                  <line x1="0" y1="75" x2="300" y2="75" stroke="#C9A84C" strokeWidth="0.5" strokeOpacity="0.08" />
-                  <line x1="0" y1="150" x2="300" y2="150" stroke="#C9A84C" strokeWidth="0.5" strokeOpacity="0.08" />
-                  <line x1="0" y1="225" x2="300" y2="225" stroke="#C9A84C" strokeWidth="0.5" strokeOpacity="0.08" />
-                  <line x1="100" y1="0" x2="100" y2="300" stroke="#C9A84C" strokeWidth="0.5" strokeOpacity="0.08" />
-                  <line x1="200" y1="0" x2="200" y2="300" stroke="#C9A84C" strokeWidth="0.5" strokeOpacity="0.08" />
+                  OUR STORY
+                  <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                  </svg>
+                </Link>
+              </div>
 
-                  {/* Coastline Path */}
-                  <path 
-                    d="M 85,0 Q 98,75 78,150 T 82,225 T 72,300" 
-                    fill="none" 
-                    stroke="#C9A84C" 
-                    strokeWidth="1.8" 
-                    strokeOpacity="0.45" 
+              {/* Right: Image with overlaid quote */}
+              <div className="relative reveal">
+                <div className="relative overflow-hidden aspect-[4/3] rounded-sm shadow-xl">
+                  <img
+                    src="/properties/popular/elite.png"
+                    alt="Reunion coastal experience"
+                    className="w-full h-full object-cover"
                   />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent flex items-end p-5 sm:p-8">
+                    <div>
+                      <p className="font-cormorant italic text-2xl sm:text-3xl md:text-4xl text-white/95 font-light tracking-wide leading-[1.15]">
+                        Good People.<br />Brighter Places.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
 
-                  {/* National Highway 66 (Inland) */}
-                  <path 
-                    d="M 230,0 C 242,75 212,150 238,225 C 248,260 228,300 232,300" 
-                    fill="none" 
-                    stroke="#C9A84C" 
-                    strokeWidth="0.8" 
-                    strokeDasharray="4 4" 
-                    strokeOpacity="0.25" 
-                  />
 
-                  {/* Local Connection Roads */}
-                  <path d="M 232,72 Q 160,75 90,77" fill="none" stroke="#C9A84C" strokeWidth="0.6" strokeOpacity="0.15" />
-                  <path d="M 226,130 Q 155,134 94,136" fill="none" stroke="#C9A84C" strokeWidth="0.6" strokeOpacity="0.15" />
-                  <path d="M 234,195 Q 165,192 80,192" fill="none" stroke="#C9A84C" strokeWidth="0.6" strokeOpacity="0.15" />
-                  <path d="M 236,245 Q 160,245 77,245" fill="none" stroke="#C9A84C" strokeWidth="0.6" strokeOpacity="0.15" />
 
-                  {/* Geographical Labels */}
-                  <text x="25" y="125" fill="#C9A84C" fillOpacity="0.15" fontSize="7" letterSpacing="0.4em" transform="rotate(-90 25 125)" className="font-cinzel select-none font-bold">ARABIAN SEA</text>
-                  <text x="245" y="70" fill="#C9A84C" fillOpacity="0.15" fontSize="6" letterSpacing="0.2em" transform="rotate(90 245 70)" className="font-cinzel select-none">NH 66</text>
-                  <text x="96" y="83" fill="#C9A84C" fillOpacity="0.2" fontSize="5.5" letterSpacing="0.15em" className="font-cinzel select-none font-semibold">BENGRE</text>
-                  <text x="110" y="130" fill="#C9A84C" fillOpacity="0.2" fontSize="5.5" letterSpacing="0.15em" className="font-cinzel select-none font-semibold">MALPE</text>
-                  <text x="94" y="187" fill="#C9A84C" fillOpacity="0.2" fontSize="5.5" letterSpacing="0.15em" className="font-cinzel select-none font-semibold">MATTU BEACH</text>
-                  <text x="92" y="238" fill="#C9A84C" fillOpacity="0.2" fontSize="5.5" letterSpacing="0.15em" className="font-cinzel select-none font-semibold">KAPU BEACH</text>
-
+        {/* ══════════════════════════════════════════════════════════
+            PROPERTY CAROUSEL — Elegant horizontal scroll
+        ══════════════════════════════════════════════════════════ */}
+        <section className="relative bg-[#080808] py-20 md:py-28 overflow-hidden" id="properties">
+          <MandalaRing
+            className="pointer-events-none absolute -right-20 top-8 w-[300px] h-[300px] opacity-60"
+            opacity={0.07}
+          />
+          <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 mb-12 reveal">
+            <div className="flex items-end justify-between">
+              <div className="space-y-3">
+                <span className="font-cinzel text-[9px] sm:text-[10px] tracking-[0.4em] text-[#C9A84C] uppercase block">Our Collection</span>
+                <h2 className="font-futura text-2xl sm:text-3xl text-white font-light uppercase tracking-[0.25em]">
+                  Stays & Residences
+                </h2>
+              </div>
+              <Link
+                href="/properties"
+                className="hidden md:inline-flex items-center gap-2 font-futura text-[10px] tracking-[0.2em] text-[#C9A84C] uppercase border-b border-[#C9A84C]/40 pb-1 hover:border-[#C9A84C] transition-all whitespace-nowrap"
+              >
+                VIEW ALL
+                <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
                 </svg>
-                </div>{/* end overflow-hidden wrapper */}
+              </Link>
+            </div>
+          </div>
 
-                {/* Property Map Pins Overlay */}
-                {MAP_LOCATIONS.map((loc, i) => {
-                  const isHovered = hoveredLoc === i;
-                  const isMobileActive = mobileActivePin === i;
-                  const leftPercent = (loc.x / 300) * 100;
-                  const topPercent = (loc.y / 300) * 100;
-
-                  return (
-                    <div
-                      key={i}
-                      className="absolute z-20 -translate-x-1/2 -translate-y-1/2 cursor-pointer group/pin"
-                      style={{ left: `${leftPercent}%`, top: `${topPercent}%` }}
-                      onMouseEnter={() => setHoveredLoc(i)}
-                      onMouseLeave={() => setHoveredLoc(null)}
-                      onClick={() => window.open(loc.link, "_blank")}
-                    >
-                      {/* ── DESKTOP PIN (Image Badge with Gold Border) ── */}
-                      <div className="hidden md:block relative">
-                        {/* Pulsing Gold Glow Ring */}
-                        <div 
-                          className={`absolute -inset-1 rounded-full bg-[#C9A84C]/35 animate-ping pointer-events-none ${isHovered ? 'scale-150' : 'scale-100'}`}
-                          style={{ animationDuration: isHovered ? "1.5s" : "2.8s" }}
-                        />
-
-                        {/* Property Hero Image Pin Badge */}
-                        <div className={`relative w-8 h-8 rounded-full border-2 transition-all duration-300 overflow-hidden shadow-[0_0_10px_rgba(201,168,76,0.5)] ${
-                          isHovered ? 'border-[#C9A84C] scale-125 z-30 shadow-[0_0_18px_rgba(201,168,76,0.9)]' : 'border-[#C9A84C]/80 group-hover/pin:scale-125 group-hover/pin:border-[#C9A84C]'
-                        }`}>
-                          <img
-                            src={loc.image}
-                            alt={loc.name}
-                            className="w-full h-full object-cover"
-                          />
-                          <div className="absolute inset-0 bg-black/20 group-hover/pin:bg-transparent transition-colors" />
-                        </div>
-
-                        {/* Pin Pointer Dot */}
-                        <div className="w-1.5 h-1.5 rounded-full bg-[#C9A84C] mx-auto -mt-0.5 border border-black shadow-sm" />
-                      </div>
-
-                      {/* ── MOBILE PIN (Clean Pulsing Pin Dot without Image) ── */}
-                      <div className="block md:hidden relative flex items-center justify-center">
-                        {/* Pulsing Gold Aura Ring when active/pulsed */}
-                        <div 
-                          className={`absolute -inset-2.5 rounded-full bg-[#C9A84C]/50 animate-ping pointer-events-none ${isMobileActive ? 'opacity-100' : 'opacity-0'}`}
-                          style={{ animationDuration: "1.5s" }}
-                        />
-                        {/* Pulsing Pin Dot */}
-                        <div 
-                          className={`rounded-full border border-black transition-all duration-300 ${
-                            isMobileActive 
-                              ? 'w-4 h-4 bg-[#C9A84C] scale-125 shadow-[0_0_12px_#C9A84C]' 
-                              : 'w-2.5 h-2.5 bg-[#C9A84C]/80'
-                          }`}
-                        />
-                      </div>
-                    </div>
-                  );
-                })}
-
-                {/* Top Title/Brand watermark */}
-                <div className="absolute top-4 left-4 sm:top-6 sm:left-6 z-10 pointer-events-none">
-                  <span className="font-cinzel text-[8px] tracking-[0.4em] text-[#C9A84C]/60 uppercase block mb-1">Interactive Directory</span>
-                  <span className="font-cinzel text-xs tracking-[0.2em] text-white uppercase">Reunion Udupi Map</span>
-                </div>
-
-                {/* Desktop: Floating Preview Card on Hover */}
-                {hoveredLoc !== null && (() => {
-                  const loc = MAP_LOCATIONS[hoveredLoc];
-                  const xPct = (loc.x / 300) * 100;
-                  const yPct = (loc.y / 300) * 100;
-                  const veryBottom = loc.y > 220;
-                  const nearBottom = loc.y > 160;
-                  const nearLeft = loc.x < 100;
-                  let transform = 'translate(-50%, -108%)';
-                  let left = `${xPct}%`;
-                  let top = `${yPct}%`;
-                  if (veryBottom) {
-                    top = `${((loc.y - 160) / 300) * 100}%`;
-                    transform = nearLeft ? 'translate(0%, 0%)' : 'translate(-100%, 0%)';
-                  } else if (nearBottom && nearLeft) {
-                    transform = 'translate(15%, -105%)';
-                  } else if (nearBottom) {
-                    transform = 'translate(-105%, -105%)';
-                  }
-                  return (
-                    <div 
-                      className="absolute pointer-events-none z-30 transition-all duration-300 w-48 bg-[#090909]/95 border border-[#C9A84C]/35 rounded overflow-hidden shadow-2xl animate-fade-in-up hidden md:block"
-                      style={{ left, top, transform }}
-                    >
-                      <div className="relative w-full h-24 bg-zinc-900 overflow-hidden">
-                        <img 
-                          src={loc.image} 
-                          alt={loc.name} 
-                          className="w-full h-full object-cover"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-[#090909] via-[#090909]/30 to-transparent" />
-                      </div>
-                      <div className="p-3">
-                        <h4 className="font-cinzel text-[10px] tracking-wider text-[#C9A84C] font-semibold uppercase mb-0.5 truncate">
-                          {loc.name}
-                        </h4>
-                        <p className="text-[9px] text-[#a09c98] font-light truncate mb-2">
-                          {loc.desc}
-                        </p>
-                        <div className="flex items-center justify-between border-t border-white/5 pt-1.5">
-                          <span className="text-[8px] text-white/30 uppercase tracking-widest">Udupi</span>
-                          <span className="text-[8px] text-[#C9A84C] uppercase tracking-wider font-semibold">Click to View ↗</span>
-                        </div>
-                      </div>
-                    </div>
-                  );
-                })()}
-
-
-
-                {/* Stationary hint label in bottom-right */}
-                <div className="absolute bottom-4 right-4 sm:bottom-6 sm:right-6 z-10 bg-black/60 backdrop-blur-sm border border-[#C9A84C]/10 py-1.5 px-3 rounded">
-                  <span className="font-cinzel text-[7.5px] tracking-[0.2em] text-[#a09c98] uppercase hidden md:inline">Hover pin to preview</span>
-                  <span className="font-cinzel text-[7.5px] tracking-[0.2em] text-[#a09c98] uppercase md:hidden">Tap pin · Auto-preview</span>
-                </div>
-              </div>{/* end aspect-square map container */}
-
-              {/* Mobile: Popup card — rendered OUTSIDE the aspect-square so it is never clipped */}
-              {mobileActivePin !== null && (() => {
-                const loc = MAP_LOCATIONS[mobileActivePin];
-                if (!loc) return null;
-                const leftPct = (loc.x / 300) * 100;
-                const topPct  = (loc.y / 300) * 100;
-
-                const isTopHalf  = loc.y < 130;
-                const isNearLeft = loc.x < 100;
-                const isNearRight = (loc.x / 300) * 100 > 70;
-
-                let xShift = '-50%';
-                if (isNearLeft)  xShift = '4%';
-                else if (isNearRight) xShift = '-104%';
-
-                const yShift = isTopHalf ? '15%' : '-115%';
-
-                return (
-                  <a
-                    key={`mobile-pulse-${mobileActivePin}`}
-                    href={loc.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="absolute z-50 w-40 bg-[#090909]/95 border border-[#C9A84C]/45 rounded-lg overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.8)] block md:hidden animate-fade-in-up"
-                    style={{
-                      left: `${leftPct}%`,
-                      top:  `${topPct}%`,
-                      transform: `translate(${xShift}, ${yShift})`,
-                    }}
-                  >
-                    <div className="relative w-full h-20 bg-zinc-900 overflow-hidden">
+          <div className="relative">
+            <div
+              className="flex gap-6 overflow-x-auto no-scrollbar pl-6 md:pl-12 pr-6 pb-6 cursor-grab select-none scroll-smooth"
+              id="propTrack"
+              onMouseDown={(e) => {
+                const el = e.currentTarget;
+                el.dataset.dragging = "true";
+                el.dataset.startX = String(e.pageX - el.offsetLeft);
+                el.dataset.scrollLeft = String(el.scrollLeft);
+                el.style.cursor = "grabbing";
+              }}
+              onMouseMove={(e) => {
+                const el = e.currentTarget;
+                if (el.dataset.dragging !== "true") return;
+                e.preventDefault();
+                const x = e.pageX - el.offsetLeft;
+                const walk = (x - Number(el.dataset.startX)) * 1.5;
+                el.scrollLeft = Number(el.dataset.scrollLeft) - walk;
+              }}
+              onMouseUp={(e) => { e.currentTarget.dataset.dragging = "false"; e.currentTarget.style.cursor = "grab"; }}
+              onMouseLeave={(e) => { e.currentTarget.dataset.dragging = "false"; e.currentTarget.style.cursor = "grab"; }}
+            >
+              {carouselProperties.map((prop) => (
+                <div
+                  key={prop.id}
+                  className="flex-none w-[85vw] sm:w-[45vw] lg:w-[31vw] min-w-[300px] group"
+                >
+                  <Link href={`/properties/${prop.id}`} className="block">
+                    <div className="relative aspect-[3/4] overflow-hidden bg-white/5">
                       <img
-                        src={loc.image}
-                        alt={loc.name}
+                        src={prop.heroImage}
+                        alt={prop.name}
+                        loading="lazy"
                         className="w-full h-full object-cover"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-[#090909] via-transparent to-transparent" />
+                      {/* Grain overlay on hover */}
+                      <div
+                        className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none mix-blend-overlay"
+                        style={{
+                          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.4'/%3E%3C/svg%3E")`,
+                          backgroundSize: "128px 128px",
+                        }}
+                      />
+                      <div className="absolute inset-0 bg-black/15 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
                     </div>
-                    <div className="p-2.5">
-                      <h4 className="font-cinzel text-[9px] tracking-wider text-[#C9A84C] font-semibold uppercase truncate">
-                        {loc.name}
-                      </h4>
-                      <p className="text-[8px] text-[#a09c98] truncate mb-1">{loc.desc}</p>
-                      <div className="flex items-center justify-between border-t border-white/10 pt-1 mt-1">
-                        <span className="text-[7px] text-[#C9A84C] uppercase tracking-wider font-bold">Open Map ↗</span>
-                      </div>
+                    <div className="pt-4 pb-2">
+                      <h3 className="font-futura text-[13px] sm:text-[14px] text-white uppercase tracking-[0.2em] font-medium group-hover:text-[#C9A84C] transition-colors leading-tight">
+                        {prop.name.toUpperCase().startsWith("REUNION ") ? prop.name.toUpperCase() : `REUNION ${prop.name.toUpperCase()}`}
+                      </h3>
+                      <p className="font-futura text-[10px] text-white/40 uppercase tracking-[0.2em] mt-1.5">{prop.location}</p>
                     </div>
-                  </a>
-                );
-              })()}
-            </div>{/* end map half wrapper */}
+                  </Link>
+                </div>
+              ))}
+            </div>
+
+            {/* Left arrow */}
+            <button
+              onClick={() => {
+                const el = document.getElementById("propTrack");
+                if (el) el.scrollBy({ left: -(el.offsetWidth * 0.33), behavior: "smooth" });
+              }}
+              className="absolute left-2 md:left-4 top-[38%] -translate-y-1/2 z-10 w-11 h-11 flex items-center justify-center text-white/60 hover:text-[#C9A84C] transition-colors duration-300"
+              aria-label="Scroll left"
+            >
+              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+              </svg>
+            </button>
+
+            {/* Right arrow */}
+            <button
+              onClick={() => {
+                const el = document.getElementById("propTrack");
+                if (el) el.scrollBy({ left: el.offsetWidth * 0.33, behavior: "smooth" });
+              }}
+              className="absolute right-2 md:right-4 top-[38%] -translate-y-1/2 z-10 w-11 h-11 flex items-center justify-center text-white/60 hover:text-[#C9A84C] transition-colors duration-300"
+              aria-label="Scroll right"
+            >
+              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
           </div>
         </section>
 
-        {/* ═══ Nearby Tourist Places Section (Aesthetic General Section) ═══ */}
-        <section className="py-24 bg-[#060606] border-t border-[#C9A84C]/10 relative overflow-hidden">
-          {/* Subtle background glow */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full pointer-events-none" style={{ background: 'radial-gradient(circle, rgba(201,168,76,0.03) 0%, transparent 70%)' }} />
-          
-          <div className="max-w-[1400px] mx-auto px-6 md:px-8 relative z-10">
-            {/* Header */}
-            <div className="text-center mb-16">
-              <span className="font-cinzel text-[10px] tracking-[0.5em] text-[#C9A84C] uppercase block mb-4">Explore Udupi</span>
-              <h2 className="font-cormorant text-[clamp(2.2rem,4.5vw,3.5rem)] font-light text-white leading-tight">
-                Nearby <em className="text-[#C9A84C] italic">Tourist Places</em>
+        {/* ══════════════════════════════════════════════════════════
+            POPULAR SIGNATURE PROPERTIES — Alternating B&W
+        ══════════════════════════════════════════════════════════ */}
+        <section className="relative bg-[#080808] py-24 md:py-32 px-4 md:px-10 overflow-hidden" id="signature">
+          <MandalaRing
+            className="pointer-events-none absolute left-[-12%] bottom-20 w-[360px] h-[360px] opacity-50"
+            opacity={0.06}
+          />
+          <div className="relative z-10 mx-auto">
+            <div className="text-center max-w-2xl mx-auto mb-20 reveal">
+              <MandalaLotus className="w-9 h-9 mx-auto mb-4 opacity-50" />
+              <span className="font-cinzel text-[10px] tracking-[0.4em] text-[#C9A84C] uppercase block mb-3">Popular Stays</span>
+              <h2 className="font-futura text-3xl sm:text-4xl text-white font-light uppercase tracking-wider">
+                Signature Properties
               </h2>
-              <div className="w-16 h-[1px] bg-[#C9A84C]/40 mx-auto mt-6"></div>
-              <p className="text-[#8a8682] text-sm max-w-xl mx-auto mt-6 leading-relaxed">
-                Discover the best local attractions, historic temples, golden beaches, and scenic view points around Udupi.
-              </p>
             </div>
 
-            {/* Grid of Route Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
-              {TOURIST_ROUTES.map((route, rIdx) => {
-                const isExpanded = !!expandedRoutes[rIdx];
-                return (
-                  <div 
-                    key={rIdx} 
-                    className="bg-[#080808] border border-[#C9A84C]/15 hover:border-[#C9A84C]/35 rounded-lg p-5 sm:p-6 flex flex-col justify-between transition-all duration-500 shadow-lg group/card"
+            <div className="space-y-24 md:space-y-32">
+              {/* Ocean Elite — Image Right */}
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center reveal">
+                <div className="space-y-6 order-2 lg:order-1 lg:col-span-5">
+                  <span className="font-futura text-[10px] tracking-[0.4em] text-[#C9A84C] uppercase block">Padutonse, Udupi</span>
+                  <h3 className="font-futura text-3xl sm:text-4xl text-white font-light uppercase tracking-wider leading-tight">
+                    Reunion<br />Ocean Elite
+                  </h3>
+                  <p className="text-white/40 text-sm leading-relaxed font-futura font-light tracking-wide max-w-md">
+                    A charming 2-bedroom beachfront villa with direct beach access, a spacious lawn opening onto golden sands, and a private sea-view balcony for unforgettable sunsets.
+                  </p>
+                  <Link
+                    href="/properties/ocean-elite"
+                    className="inline-flex items-center gap-2 font-futura text-[11px] tracking-[0.25em] text-[#C9A84C] uppercase border-b border-[#C9A84C]/40 pb-1 hover:border-[#C9A84C] transition-all"
                   >
-                    <div>
-                      {/* Card Header (Clickable on mobile) */}
-                      <button
-                        onClick={() => toggleRoute(rIdx)}
-                        className="w-full text-left flex items-start justify-between gap-4 cursor-pointer md:cursor-default"
-                      >
-                        <div className="space-y-1.5 flex-1">
-                          <div className="flex items-center justify-between">
-                            <span className="text-[9px] font-mono text-[#C9A84C]/70 tracking-wider">ROUTE 0{rIdx + 1}</span>
-                            <span className="text-[8px] font-cinzel text-[#a09c98]/60 uppercase tracking-widest block md:hidden">
-                              {route.places.length} Places
-                            </span>
-                          </div>
-                          <h3 className="font-cinzel text-xs sm:text-[13px] tracking-[0.15em] text-white group-hover/card:text-[#C9A84C] transition-colors duration-300 uppercase font-semibold leading-snug">
-                            {route.title}
-                          </h3>
-                          <div className="w-8 h-[1px] bg-[#C9A84C]/25 group-hover/card:w-16 transition-all duration-500"></div>
-                        </div>
+                    EXPLORE
+                    <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                    </svg>
+                  </Link>
+                </div>
+                <div className="order-1 lg:order-2 lg:col-span-7">
+                  <div className="aspect-[4/3] w-full overflow-hidden">
+                    <img
+                      src="/properties/ocean-elite/thumbelite.png"
+                      alt="Reunion Ocean Elite"
+                      className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
+                    />
+                  </div>
+                </div>
+              </div>
 
-                        {/* Chevron Icon — Mobile Only */}
-                        <div className="md:hidden shrink-0 mt-1 p-1 rounded border border-[#C9A84C]/20 text-[#C9A84C]">
-                          <svg
-                            className={`w-3.5 h-3.5 transition-transform duration-300 ${isExpanded ? "rotate-180" : ""}`}
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                          >
-                            <polyline points="6 9 12 15 18 9" />
-                          </svg>
-                        </div>
-                      </button>
+              {/* Ocean Manor — Image Left */}
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center reveal">
+                <div className="lg:col-span-7">
+                  <div className="aspect-[4/3] w-full overflow-hidden">
+                    <img
+                      src="/properties/ocean-manor/herooo.png"
+                      alt="Reunion Ocean Manor"
+                      className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
+                    />
+                  </div>
+                </div>
+                <div className="space-y-6 lg:col-span-5">
+                  <span className="font-futura text-[10px] tracking-[0.4em] text-[#C9A84C] uppercase block">Padutonse, Udupi</span>
+                  <h3 className="font-futura text-3xl sm:text-4xl text-white font-light uppercase tracking-wider leading-tight">
+                    Reunion<br />Ocean Manor
+                  </h3>
+                  <p className="text-white/40 text-sm leading-relaxed font-futura font-light tracking-wide max-w-md">
+                    A sea-and-river facing villa with panoramic balconies, scenic rock-bed beach access, and spacious living across multiple floors for the perfect family reunion.
+                  </p>
+                  <Link
+                    href="/properties/ocean-manor"
+                    className="inline-flex items-center gap-2 font-futura text-[11px] tracking-[0.25em] text-[#C9A84C] uppercase border-b border-[#C9A84C]/40 pb-1 hover:border-[#C9A84C] transition-all"
+                  >
+                    EXPLORE
+                    <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                    </svg>
+                  </Link>
+                </div>
+              </div>
 
-                      {/* Places List — Collapsible on mobile, always visible on desktop */}
-                      <div
-                        className={`space-y-2 overflow-hidden transition-all duration-500 ease-in-out md:!max-h-[300px] md:!opacity-100 md:!mt-5 md:overflow-y-auto pr-1 scrollbar-thin scrollbar-thumb-[#C9A84C]/10 scrollbar-track-transparent ${
-                          isExpanded ? "max-h-[1000px] opacity-100 mt-4" : "max-h-0 opacity-0 md:opacity-100"
-                        }`}
-                      >
-                        {route.places.map((place, pIdx) => (
-                          <a
-                            key={pIdx}
-                            href={place.mapUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="flex items-start gap-2.5 py-1.5 px-2 rounded hover:bg-[#C9A84C]/10 transition-colors duration-200 group/item text-left"
-                          >
-                            <span className="text-[10px] text-[#C9A84C]/50 font-mono mt-0.5 w-4 shrink-0 text-right">{pIdx + 1}.</span>
-                            <span className="text-[12px] text-[#b0aba6] group-hover/item:text-white transition-colors duration-200 flex-1 leading-snug">
-                              {place.name}
-                            </span>
-                            <svg className="w-3 h-3 text-[#C9A84C] opacity-0 group-hover/item:opacity-100 group-hover/item:translate-x-0.5 group-hover/item:-translate-y-0.5 transition-all duration-300 shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                              <line x1="7" y1="17" x2="17" y2="7" />
-                              <polyline points="7 7 17 7 17 17" />
-                            </svg>
-                          </a>
-                        ))}
+              {/* Ocean Givaah — Image Right */}
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center reveal">
+                <div className="space-y-6 order-2 lg:order-1 lg:col-span-5">
+                  <span className="font-futura text-[10px] tracking-[0.4em] text-[#C9A84C] uppercase block">Bada, Udupi</span>
+                  <h3 className="font-futura text-3xl sm:text-4xl text-white font-light uppercase tracking-wider leading-tight">
+                    Reunion<br />Ocean Givaah
+                  </h3>
+                  <p className="text-white/40 text-sm leading-relaxed font-futura font-light tracking-wide max-w-md">
+                    A luxurious 3BHK beachside retreat with a private pool, lush gardens, and a sun-drenched terrace overlooking the Arabian Sea — just 200 metres from the shore.
+                  </p>
+                  <Link
+                    href="/properties/ocean-givaah"
+                    className="inline-flex items-center gap-2 font-futura text-[11px] tracking-[0.25em] text-[#C9A84C] uppercase border-b border-[#C9A84C]/40 pb-1 hover:border-[#C9A84C] transition-all"
+                  >
+                    EXPLORE
+                    <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                    </svg>
+                  </Link>
+                </div>
+                <div className="order-1 lg:order-2 lg:col-span-7">
+                  <div className="aspect-[4/3] w-full overflow-hidden">
+                    <img
+                      src="/properties/ocean-givaah/givaahthumb.png"
+                      alt="Reunion Ocean Givaah"
+                      className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* View More toggle */}
+              <div className="flex justify-center pt-8">
+                <button
+                  onClick={() => setShowMoreSignature(!showMoreSignature)}
+                  className="inline-flex items-center gap-2 font-futura text-[11px] tracking-[0.25em] text-white/50 uppercase hover:text-[#C9A84C] transition-colors duration-300"
+                >
+                  {showMoreSignature ? "SHOW LESS" : "VIEW MORE"}
+                  <svg
+                    className={`w-3.5 h-3.5 transition-transform duration-300 ${showMoreSignature ? "rotate-180" : ""}`}
+                    fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
+              </div>
+
+              {/* Expandable — Ocean Royal & De Homes */}
+              {showMoreSignature && (
+                <div className="space-y-24 md:space-y-32 pt-20" style={{ animation: "fadeInUp 0.6s ease-out" }}>
+                  {/* Ocean Royal — Image Left */}
+                  <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
+                    <div className="lg:col-span-7">
+                      <div className="aspect-[4/3] w-full overflow-hidden">
+                        <img
+                          src="/properties/ocean-royal/royalthumb.png"
+                          alt="Reunion Ocean Royal"
+                          className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
+                        />
                       </div>
                     </div>
-
-                    {/* Card Footer (Desktop Only) */}
-                    <div className="hidden md:block border-t border-white/5 pt-4 mt-6">
-                      <span className="text-[9px] font-cinzel tracking-widest text-[#a09c98]/60 uppercase">
-                        {route.places.length} Attractions
-                      </span>
+                    <div className="space-y-6 lg:col-span-5">
+                      <span className="font-futura text-[10px] tracking-[0.4em] text-[#C9A84C] uppercase block">Kapu, Udupi</span>
+                      <h3 className="font-futura text-3xl sm:text-4xl text-white font-light uppercase tracking-wider leading-tight">
+                        Reunion<br />Ocean Royal
+                      </h3>
+                      <p className="text-white/40 text-sm leading-relaxed font-futura font-light tracking-wide max-w-md">
+                        A heritage farmhouse villa just 50 metres from the sea, surrounded by coconut groves — where rustic coastal charm meets modern comfort near Kapu Lighthouse.
+                      </p>
+                      <Link
+                        href="/properties/ocean-royal"
+                        className="inline-flex items-center gap-2 font-futura text-[11px] tracking-[0.25em] text-[#C9A84C] uppercase border-b border-[#C9A84C]/40 pb-1 hover:border-[#C9A84C] transition-all"
+                      >
+                        EXPLORE
+                        <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                        </svg>
+                      </Link>
                     </div>
                   </div>
-                );
-              })}
+
+                  {/* De Homes — Image Right */}
+                  <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
+                    <div className="space-y-6 order-2 lg:order-1 lg:col-span-5">
+                      <span className="font-futura text-[10px] tracking-[0.4em] text-[#C9A84C] uppercase block">Chitpady, Udupi</span>
+                      <h3 className="font-futura text-3xl sm:text-4xl text-white font-light uppercase tracking-wider leading-tight">
+                        Reunion<br />De Homes
+                      </h3>
+                      <p className="text-white/40 text-sm leading-relaxed font-futura font-light tracking-wide max-w-md">
+                        Premium suites in the heart of Udupi city, steps from the sacred Sri Krishna Matha — offering luxury, privacy, and modern living from standard rooms to a presidential suite.
+                      </p>
+                      <Link
+                        href="/properties/de-homes"
+                        className="inline-flex items-center gap-2 font-futura text-[11px] tracking-[0.25em] text-[#C9A84C] uppercase border-b border-[#C9A84C]/40 pb-1 hover:border-[#C9A84C] transition-all"
+                      >
+                        EXPLORE
+                        <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                        </svg>
+                      </Link>
+                    </div>
+                    <div className="order-1 lg:order-2 lg:col-span-7">
+                      <div className="aspect-[4/3] w-full overflow-hidden">
+                        <img
+                          src="/properties/de-homes/dehomesthumb.png"
+                          alt="Reunion De Homes"
+                          className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Reunion Serene — Image Left */}
+                  <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
+                    <div className="lg:col-span-7">
+                      <div className="aspect-[4/3] w-full overflow-hidden">
+                        <img
+                          src="/properties/reunion-seren/hero.png"
+                          alt="Reunion Serene"
+                          className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
+                        />
+                      </div>
+                    </div>
+                    <div className="space-y-6 lg:col-span-5">
+                      <span className="font-futura text-[10px] tracking-[0.4em] text-[#C9A84C] uppercase block">Shivamogga, Karnataka</span>
+                      <h3 className="font-futura text-3xl sm:text-4xl text-white font-light uppercase tracking-wider leading-tight">
+                        Reunion<br />Serene
+                      </h3>
+                      <p className="text-white/40 text-sm leading-relaxed font-futura font-light tracking-wide max-w-md">
+                        A private Malnad nature-stay near Shivamogga with a year-round outdoor pool, 4 bedrooms for up to 8 guests, terrace, garden, free Wi-Fi and parking.
+                      </p>
+                      <Link
+                        href="/properties/reunion-seren"
+                        className="inline-flex items-center gap-2 font-futura text-[11px] tracking-[0.25em] text-[#C9A84C] uppercase border-b border-[#C9A84C]/40 pb-1 hover:border-[#C9A84C] transition-all"
+                      >
+                        EXPLORE
+                        <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                        </svg>
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </section>
+
+        {/* ══════════════════════════════════════════════════════════
+            FEATURED EXPERIENCES & CANDLELIGHT DINNER — Scattered Gallery
+        ══════════════════════════════════════════════════════════ */}
+        <section className="bg-[#f5f0e8] section-y-tight page-pad relative overflow-hidden">
+          <MandalaRing
+            className="pointer-events-none absolute right-[-15%] top-0 w-[340px] h-[340px]"
+            opacity={0.08}
+          />
+          <div className="relative z-10 max-w-7xl mx-auto">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 sm:gap-16 lg:gap-24">
+
+              {/* ── Left Column: Experiences ── */}
+              <div className="reveal">
+                <div className="space-y-3 mb-8 sm:mb-10">
+                  <span className="font-cinzel text-[9px] sm:text-[10px] tracking-[0.4em] text-[#B8963E] uppercase block">CURATED MOMENTS</span>
+                  <h2 className="font-futura text-xl sm:text-2xl md:text-4xl text-[#1a1410] font-light uppercase tracking-[0.15em] sm:tracking-[0.2em] leading-tight">
+                    Experiences
+                  </h2>
+                  <p className="font-futura text-stone-600 text-xs sm:text-sm leading-relaxed font-light tracking-wide max-w-md">
+                    Immerse in private beachside dining, backwater kayaking, coastal wellness, and handcrafted cultural moments across Udupi.
+                  </p>
+                </div>
+
+                {/* Scattered Gallery — Experiences */}
+                <div className="relative w-full h-[240px] xs:h-[280px] sm:h-[350px] lg:h-[420px] max-w-lg mx-auto lg:max-w-none">
+                  {/* Image 1 — large, top-left, slight tilt */}
+                  <div
+                    className="absolute shadow-2xl hover:z-30 transition-all duration-500 hover:scale-105"
+                    style={{ top: "0%", left: "0%", width: "48%", transform: "rotate(-3deg)", zIndex: 5 }}
+                  >
+                    <img src="/properties/experiances/exp1.png" alt="Experience" className="w-full aspect-[4/3] object-cover rounded-sm" />
+                  </div>
+
+                  {/* Image 2 — medium, top-right, opposite tilt */}
+                  <div
+                    className="absolute shadow-2xl hover:z-30 transition-all duration-500 hover:scale-105"
+                    style={{ top: "5%", right: "2%", width: "40%", transform: "rotate(4deg)", zIndex: 8 }}
+                  >
+                    <img src="/properties/experiances/exp2.png" alt="Experience" className="w-full aspect-[3/4] object-cover rounded-sm" />
+                  </div>
+
+                  {/* Image 3 — small, mid-center, overlapping */}
+                  <div
+                    className="absolute shadow-2xl hover:z-30 transition-all duration-500 hover:scale-105"
+                    style={{ top: "38%", left: "28%", width: "32%", transform: "rotate(-1.5deg)", zIndex: 12 }}
+                  >
+                    <img src="/properties/experiances/exp4.png" alt="Experience" className="w-full aspect-[4/3] object-cover rounded-sm" />
+                  </div>
+
+                  {/* Image 4 — bottom-left, tilted */}
+                  <div
+                    className="absolute shadow-2xl hover:z-30 transition-all duration-500 hover:scale-105"
+                    style={{ bottom: "0%", left: "3%", width: "36%", transform: "rotate(2.5deg)", zIndex: 6 }}
+                  >
+                    <img src="/properties/experiances/exp7.png" alt="Experience" className="w-full aspect-square object-cover rounded-sm" />
+                  </div>
+
+                  {/* Image 5 — bottom-right, slight tilt */}
+                  <div
+                    className="absolute shadow-2xl hover:z-30 transition-all duration-500 hover:scale-105"
+                    style={{ bottom: "4%", right: "0%", width: "38%", transform: "rotate(-2deg)", zIndex: 10 }}
+                  >
+                    <img src="/properties/experiances/exp9.png" alt="Experience" className="w-full aspect-[4/3] object-cover rounded-sm" />
+                  </div>
+                </div>
+
+                {/* Explore More */}
+                <div className="pt-8">
+                  <Link
+                    href="/experiences"
+                    className="inline-flex items-center gap-2 px-4 py-2 border border-[#B8963E] bg-transparent text-[#B8963E] font-futura text-[9.5px] tracking-[0.2em] font-semibold uppercase hover:bg-[#B8963E]/10 transition-all duration-300"
+                  >
+                    EXPLORE MORE
+                    <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                    </svg>
+                  </Link>
+                </div>
+              </div>
+
+              {/* ── Right Column: Candlelight Dinner ── */}
+              <div className="reveal">
+                <div className="space-y-3 mb-10">
+                  <span className="font-futura text-[10px] tracking-[0.4em] text-[#B8963E] uppercase block">ROMANTIC SPECIAL</span>
+                  <h2 className="font-futura text-2xl sm:text-4xl text-[#1a1410] font-light uppercase tracking-[0.2em] leading-tight">
+                    Candlelight Dinner<br />at Reunion
+                  </h2>
+                  <p className="font-futura text-stone-600 text-xs sm:text-sm leading-relaxed font-light tracking-wide max-w-md">
+                    Intimate beachside dining under starry coastal skies with private setups, handcrafted menus, and romantic seaside ambiance.
+                  </p>
+                </div>
+
+                {/* Scattered Gallery — Candlelight Dinner */}
+                <div className="relative w-full h-[240px] sm:h-[350px] lg:h-[420px] max-w-lg mx-auto lg:max-w-none">
+                  {/* Image 1 — Top Left */}
+                  <div
+                    className="absolute shadow-2xl hover:z-40 transition-all duration-500 hover:scale-105"
+                    style={{ top: "2%", left: "2%", width: "52%", transform: "rotate(-3deg)", zIndex: 10 }}
+                  >
+                    <img src="/properties/experiances/exp12.png" alt="Candlelight dinner" className="w-full h-auto rounded-sm" />
+                  </div>
+
+                  {/* Image 2 — Top Right */}
+                  <div
+                    className="absolute shadow-2xl hover:z-40 transition-all duration-500 hover:scale-105"
+                    style={{ top: "15%", right: "0%", width: "48%", transform: "rotate(4deg)", zIndex: 20 }}
+                  >
+                    <img src="/properties/experiances/exp13.png" alt="Candlelight dinner" className="w-full h-auto rounded-sm" />
+                  </div>
+
+                  {/* Image 3 — Bottom Center Overlap */}
+                  <div
+                    className="absolute shadow-2xl hover:z-40 transition-all duration-500 hover:scale-105"
+                    style={{ bottom: "2%", left: "15%", width: "60%", transform: "rotate(-1deg)", zIndex: 30 }}
+                  >
+                    <img src="/properties/experiances/exp14.png" alt="Candlelight dinner" className="w-full h-auto rounded-sm" />
+                  </div>
+                </div>
+
+                {/* Explore More */}
+                <div className="pt-8">
+                  <Link
+                    href="/experiences/candlelight-dinner"
+                    className="inline-flex items-center gap-2 px-4 py-2 border border-[#B8963E] bg-transparent text-[#B8963E] font-futura text-[9.5px] tracking-[0.2em] font-semibold uppercase hover:bg-[#B8963E]/10 transition-all duration-300"
+                  >
+                    EXPLORE MORE
+                    <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                    </svg>
+                  </Link>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </section>
+
+        {/* ══════════════════════════════════════════════════════════
+            PROPERTY LOGOS CAROUSEL
+        ══════════════════════════════════════════════════════════ */}
+        <section className="bg-[#080808] mt-0 py-5 sm:py-6 border-y border-white/10 relative overflow-hidden" id="property-logos">
+          <div className="relative max-w-[95vw] mx-auto flex items-center px-10 sm:px-12">
+            {/* Left arrow */}
+            <button
+              onClick={() => {
+                const el = document.getElementById("logoTrack");
+                if (el) el.scrollBy({ left: -(el.offsetWidth * 0.5), behavior: "smooth" });
+              }}
+              className="absolute left-0 z-10 w-10 h-10 flex items-center justify-center text-white/50 hover:text-[#C9A84C] transition-colors bg-[#080808]"
+              aria-label="Scroll left"
+            >
+              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+              </svg>
+            </button>
+
+            {/* Logo Track */}
+            <div
+              id="logoTrack"
+              className="flex gap-16 md:gap-24 overflow-x-auto no-scrollbar items-center select-none py-4 scroll-smooth"
+            >
+              {[
+                { name: "Ocean Elite", id: "ocean-elite", style: { fontFamily: "Times New Roman, serif", fontStyle: "italic", fontSize: "1.3rem" } },
+                { name: "Ocean Manor", id: "ocean-manor", style: { fontFamily: "Helvetica, sans-serif", fontWeight: 700, letterSpacing: "0.2em", textTransform: "uppercase", fontSize: "0.9rem" } },
+                { name: "Ocean Givaah", id: "ocean-givaah", style: { fontFamily: "Georgia, serif", fontVariant: "small-caps", fontSize: "1.4rem", letterSpacing: "0.05em" } },
+                { name: "Ocean Royal", id: "ocean-royal", style: { fontFamily: "Courier New, monospace", letterSpacing: "0.1em", fontSize: "1.1rem" } },
+                { name: "Reunion Serene", id: "reunion-seren", style: { fontFamily: "Hoefler Text, serif", fontStyle: "italic", fontSize: "1.4rem" } },
+                { name: "Krshna", id: "krshna", style: { fontFamily: "Optima, sans-serif", textTransform: "uppercase", letterSpacing: "0.4em", fontSize: "0.9rem" } },
+                { name: "De Homes", id: "de-homes", style: { fontFamily: "Arial, sans-serif", fontWeight: 900, textTransform: "uppercase", letterSpacing: "-0.02em", fontSize: "1.2rem" } },
+                { name: "Ocean Daaffy", id: "ocean-daaffy", style: { fontFamily: "Palatino, serif", letterSpacing: "0.08em", fontSize: "1.3rem" } },
+                { name: "Ocean Hridayam", id: "ocean-hridayam", style: { fontFamily: "Verdana, sans-serif", fontWeight: 300, textTransform: "uppercase", letterSpacing: "0.3em", fontSize: "0.75rem" } },
+                { name: "Ocean Bliss", id: "ocean-bliss", style: { fontFamily: "Garamond, serif", fontStyle: "italic", textTransform: "lowercase", fontSize: "1.5rem" } },
+                { name: "Marina Villa", id: "marina-villa", style: { fontFamily: "Impact, sans-serif", textTransform: "uppercase", letterSpacing: "0.05em", fontSize: "1.2rem", fontWeight: 400 } },
+                { name: "Charm Villa", id: "charm-villa", style: { fontFamily: "Baskerville, serif", fontSize: "1.3rem" } },
+                { name: "Aradhya Villa", id: "aradhya-villa", style: { fontFamily: "Futura, sans-serif", fontWeight: 500, letterSpacing: "0.15em", textTransform: "uppercase", fontSize: "0.85rem" } },
+                { name: "Arya", id: "arya", style: { fontFamily: "Didot, serif", fontSize: "1.6rem", fontStyle: "italic" } },
+                { name: "Ocean Waves", id: "ocean-waves", style: { fontFamily: "Century Gothic, sans-serif", fontWeight: 700, textTransform: "lowercase", letterSpacing: "-0.05em", fontSize: "1.2rem" } },
+                { name: "Regal Villa", id: "regal-villa", style: { fontFamily: "Bodoni MT, serif", textTransform: "uppercase", fontSize: "1.1rem", letterSpacing: "0.1em" } },
+                { name: "Villa", id: "villa", style: { fontFamily: "Rockwell, serif", fontWeight: "bold", fontSize: "1.2rem" } },
+                { name: "Reunion Ocean Café", id: "ocean-cafe", style: { fontFamily: "Tahoma, sans-serif", textTransform: "uppercase", letterSpacing: "0.2em", fontSize: "0.8rem" } },
+              ].map((prop, idx) => (
+                <Link
+                  key={idx}
+                  href={`/properties/${prop.id}`}
+                  className="whitespace-nowrap text-white/70 hover:text-[#C9A84C] transition-colors duration-500"
+                  style={prop.style as any}
+                >
+                  {prop.name}
+                </Link>
+              ))}
+            </div>
+
+            {/* Right arrow */}
+            <button
+              onClick={() => {
+                const el = document.getElementById("logoTrack");
+                if (el) el.scrollBy({ left: el.offsetWidth * 0.5, behavior: "smooth" });
+              }}
+              className="absolute right-0 z-10 w-10 h-10 flex items-center justify-center text-white/50 hover:text-[#C9A84C] transition-colors bg-[#080808]"
+              aria-label="Scroll right"
+            >
+              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
+          </div>
+        </section>
+
+
       </main>
 
-      <Footer />
+      <div className="relative z-10">
+        <Footer />
+      </div>
     </div>
   );
 }

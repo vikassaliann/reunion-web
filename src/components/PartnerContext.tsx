@@ -155,7 +155,7 @@ function PartnerOverlayUI({ isOpen, onClose }: { isOpen: boolean; onClose: () =>
             </p>
             <button
               onClick={onClose}
-              className="mt-4 px-8 py-3 bg-[#C9A84C] text-black font-cinzel text-[10px] tracking-[0.3em] uppercase hover:bg-[#f0d78c] transition-colors"
+              className="mt-4 px-8 py-3 border border-[#C9A84C] bg-transparent text-[#C9A84C] font-cinzel text-[10px] tracking-[0.3em] uppercase hover:bg-[#C9A84C]/10 transition-colors"
             >
               Close
             </button>
@@ -344,7 +344,7 @@ function PartnerOverlayUI({ isOpen, onClose }: { isOpen: boolean; onClose: () =>
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full py-4 bg-[#C9A84C] text-black font-cinzel text-[11px] tracking-[0.3em] font-semibold uppercase hover:bg-[#f0d78c] transition-all duration-300 gold-shimmer rounded-sm disabled:opacity-50"
+                className="w-full py-4 border border-[#C9A84C] bg-transparent text-[#C9A84C] font-cinzel text-[11px] tracking-[0.3em] font-semibold uppercase hover:bg-[#C9A84C]/10 transition-all duration-300 rounded-sm disabled:opacity-50"
               >
                 {isSubmitting ? "Sending..." : "Send a Request"}
               </button>
