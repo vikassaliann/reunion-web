@@ -70,7 +70,7 @@ export default async function BlogPostPage({
           <div className="absolute inset-0 bg-gradient-to-t from-[#0a0908] via-[#0a0908]/50 to-black/30" />
           <div className="relative z-10 w-full max-w-5xl mx-auto px-5 md:px-10 pb-10">
             <p className="font-futura text-[10px] tracking-[0.4em] text-[#C9A84C] uppercase mb-3">
-              {post.category} · {post.readTime}
+              {post.category}
             </p>
             <h1 className="font-futura text-3xl sm:text-4xl md:text-[2.75rem] font-light tracking-[0.08em] uppercase leading-tight max-w-3xl">
               {post.title}
@@ -162,7 +162,7 @@ export default async function BlogPostPage({
                   <section key={section.heading} className="relative pb-16 last:pb-0">
                     <span className="absolute -left-[calc(2rem+5px)] md:-left-[calc(3rem+5px)] top-1 w-2.5 h-2.5 rounded-full bg-[#C9A84C] ring-4 ring-[#0a0908]" />
                     <span className="font-futura text-[10px] tracking-[0.35em] text-[#C9A84C] uppercase">
-                      Step {String(i + 1).padStart(2, "0")}
+                      {section.places?.length ? `Route ${i + 1}` : `Part ${i + 1}`}
                     </span>
                     <h2 className="mt-3 font-futura text-xl md:text-2xl text-white font-light uppercase tracking-[0.1em] leading-snug mb-6">
                       {section.heading}
@@ -195,9 +195,38 @@ export default async function BlogPostPage({
                       </div>
                     )}
 
-                    <p className="whitespace-pre-line font-futura text-sm text-white/50 font-light leading-[2] tracking-wide max-w-2xl">
-                      {section.body}
-                    </p>
+                    {section.body && (
+                      <p className="whitespace-pre-line font-futura text-sm text-white/50 font-light leading-[2] tracking-wide max-w-2xl mb-8">
+                        {section.body}
+                      </p>
+                    )}
+
+                    {section.places && section.places.length > 0 && (
+                      <ul className="space-y-6 max-w-2xl">
+                        {section.places.map((place) => (
+                          <li
+                            key={place.name}
+                            className="border-b border-white/10 pb-6 last:border-0 last:pb-0"
+                          >
+                            <h3 className="font-futura text-[13px] md:text-sm text-white tracking-[0.12em] uppercase mb-2">
+                              {place.name}
+                            </h3>
+                            <p className="font-futura text-sm text-white/50 font-light leading-[1.9] tracking-wide mb-3">
+                              {place.description}
+                            </p>
+                            <a
+                              href={place.mapUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="inline-flex items-center gap-2 font-futura text-[10px] tracking-[0.28em] uppercase text-[#C9A84C] hover:text-white transition-colors"
+                            >
+                              View on Map
+                              <span aria-hidden>→</span>
+                            </a>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
                   </section>
                 ))}
               </div>

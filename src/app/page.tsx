@@ -173,9 +173,9 @@ export default function Home() {
             ))}
           </div>
 
-          {/* Gradient overlays */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent z-[1] pointer-events-none" />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/40 to-transparent z-[1] pointer-events-none" />
+          {/* Gradient overlays — lighter so slideshow stays brighter */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/12 to-transparent z-[1] pointer-events-none" />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/25 to-transparent z-[1] pointer-events-none" />
           <MandalaRing
             className="pointer-events-none absolute -right-24 -bottom-16 w-[280px] h-[280px] sm:w-[380px] sm:h-[380px] z-[2] opacity-70"
             opacity={0.1}

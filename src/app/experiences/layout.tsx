@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 
 const BASE_URL = "https://www.reunionglobal.in";
-const PAGE_TITLE = "REUNION | Experiences — Coastal Celebrations in Udupi";
+const PAGE_TITLE = "REUNION | Experiences at Reunion — Coastal Celebrations in Udupi";
 const PAGE_DESCRIPTION =
-  "Discover REUNION coastal experiences in Udupi — curated celebrations, cultural moments, and unforgettable gatherings by the Arabian Sea.";
+  "Discover experiences at REUNION in Udupi — coastal celebrations, cultural moments, candlelight dinners and curated gatherings by the Arabian Sea.";
 
 export const metadata: Metadata = {
   title: { absolute: PAGE_TITLE },

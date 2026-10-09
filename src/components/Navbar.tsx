@@ -231,9 +231,14 @@ export default function Navbar() {
 
         {/* ── Mobile Bar ── */}
         <div className="flex lg:hidden items-center justify-between w-full px-5 h-[70px] bg-transparent">
-          {/* Left — REUNION text in gold (no logo image) */}
-          <Link href="/" onClick={closeMobile}>
-            <span className="font-futura text-xl tracking-[0.25em] font-bold text-[#C9A84C] uppercase">
+          {/* Left — logo + REUNION */}
+          <Link
+            href="/"
+            onClick={closeMobile}
+            className="flex items-center gap-2.5 min-w-0"
+          >
+            <Logo className="h-11 w-11 sm:h-12 sm:w-12 shrink-0" />
+            <span className="font-futura text-[1.35rem] sm:text-2xl tracking-[0.22em] font-bold text-[#C9A84C] uppercase leading-none">
               REUNION
             </span>
           </Link>
@@ -259,8 +264,13 @@ export default function Navbar() {
         style={{ background: "#050505" }}
       >
         <div className="flex items-center justify-between px-5 h-[70px] border-b border-[#C9A84C]/20 bg-[#0a0a0a]">
-          <Link href="/" onClick={closeMobile}>
-            <span className="font-futura text-xl tracking-[0.25em] font-bold text-[#C9A84C] uppercase">
+          <Link
+            href="/"
+            onClick={closeMobile}
+            className="flex items-center gap-2.5 min-w-0"
+          >
+            <Logo className="h-11 w-11 sm:h-12 sm:w-12 shrink-0" />
+            <span className="font-futura text-[1.35rem] sm:text-2xl tracking-[0.22em] font-bold text-[#C9A84C] uppercase leading-none">
               REUNION
             </span>
           </Link>

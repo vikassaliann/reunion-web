@@ -8,9 +8,9 @@ import FilterDropdown from "@/components/FilterDropdown";
 
 const BASE_URL = "https://www.reunionglobal.in";
 
-const PAGE_TITLE = 'REUNION | Residences — Beach Villas & City Stays in Udupi';
+const PAGE_TITLE = 'REUNION | All Stays — Beach Villas & City Villas in Udupi';
 const PAGE_DESCRIPTION =
-  "Browse REUNION's full portfolio of beach villas, city stays, premium suites and a beachfront café across Udupi, Karnataka — from Malpe to Kapu and Mattu Beach.";
+  "Browse all stays at REUNION in Udupi — luxury beach villas, city villas, premium suites and coastal homes near Malpe, Kapu, Mattu and Udupi city.";
 
 export const metadata: Metadata = {
   title: { absolute: PAGE_TITLE },
@@ -70,10 +70,10 @@ export default function PropertiesPage() {
         <div className="absolute top-0 left-0 right-0 h-[80vh] z-0 pointer-events-none">
           <img 
             src="/properties/ocean-royal/royalthumb.png" 
-            className="w-full h-full object-cover brightness-[0.45] grayscale-[20%]" 
+            className="w-full h-full object-cover brightness-[0.62] grayscale-[10%]" 
             alt="Ocean Royal" 
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-[#060606]/30 via-transparent to-[#060606]" />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#060606]/15 via-transparent to-[#060606]/75" />
         </div>
 
         <div className="relative z-10 mx-auto">

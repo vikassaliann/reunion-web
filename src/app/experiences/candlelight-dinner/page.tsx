@@ -50,7 +50,7 @@ export default function CandlelightDinnerPage() {
       <section className="relative min-h-[88svh] sm:min-h-screen flex items-end overflow-hidden">
         <img
           src="/properties/experiances/exp12.png"
-          alt=""
+          alt="Reunion candlelight dinner setup on Mattu Beach, Udupi"
           className="absolute inset-0 w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-[#080808] via-[#080808]/70 to-black/40" />
@@ -69,14 +69,14 @@ export default function CandlelightDinnerPage() {
           />
           <MandalaLotus className="w-9 h-9 mt-8 mb-5 opacity-55" />
           <p className="font-cinzel text-[9px] sm:text-[10px] tracking-[0.45em] text-[#C9A84C] uppercase mb-4">
-            Exclusive Reunion Special
+            Reunion Candlelight Dinner · Mattu Beach, Udupi
           </p>
           <h1 className="font-cormorant italic text-4xl sm:text-6xl md:text-7xl font-light text-white leading-[1.08] max-w-3xl">
-            Candlelight dinner
+            Candlelight dinner in Udupi
             <span className="block text-[#C9A84C]">by the sea</span>
           </h1>
           <p className="mt-5 max-w-lg font-futura text-sm text-white/55 font-light leading-relaxed tracking-wide">
-            Intimate beachside evenings for anniversaries, proposals, birthdays, or quiet private nights on Udupi’s shore.
+            Book a private Reunion candle light dinner on Mattu Beach — intimate beachside evenings for anniversaries, proposals, birthdays, or quiet nights on Udupi’s shore.
           </p>
           <button
             type="button"
@@ -97,13 +97,13 @@ export default function CandlelightDinnerPage() {
         <div className="relative z-10 max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
           <div className="lg:col-span-6 space-y-5 text-center lg:text-left">
             <p className="font-cinzel text-[9px] tracking-[0.4em] text-[#C9A84C] uppercase">
-              Moments Made to Be Remembered
+              Candle Light Dinner · Udupi
             </p>
             <h2 className="font-cormorant italic text-3xl sm:text-4xl text-white font-light leading-snug">
               Thoughtfully curated evenings on the sand
             </h2>
             <p className="font-futura text-sm text-white/50 font-light leading-[1.9] tracking-wide max-w-md mx-auto lg:mx-0">
-              Make your time in Udupi special with candlelight dinners, beachside celebrations, and private setups by the Arabian Sea — created to turn a simple evening into a memory you&apos;ll carry home.
+              Looking for a candlelight dinner in Udupi? Reunion hosts private beachside candle light dinners on Mattu Beach — canopy setups, coastal cuisine, and personal service by the Arabian Sea. Perfect for proposals, anniversaries, and celebrations.
             </p>
           </div>
           <div className="lg:col-span-6 flex justify-center">

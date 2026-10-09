@@ -12,9 +12,9 @@ import {
 
 const BASE_URL = "https://www.reunionglobal.in";
 
-const PAGE_TITLE = "REUNION | Wellness — Rest & Reset by the Coast";
+const PAGE_TITLE = "REUNION | Wellness & Spa at Reunion — Rest by the Coast";
 const PAGE_DESCRIPTION =
-  "Holistic wellness at every REUNION stay — Ayurveda, beach yoga, spa, meditation, naturopathy, and salon services in partnership with Tapovana Life, Manipal.";
+  "Wellness and spa at REUNION in Udupi — Ayurveda, beach yoga, spa, meditation, naturopathy and salon services with Tapovana Life, Manipal.";
 
 export const metadata: Metadata = {
   title: { absolute: PAGE_TITLE },

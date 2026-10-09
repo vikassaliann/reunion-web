@@ -9,22 +9,52 @@ import { CATEGORIES, CATEGORY_MAP } from "@/utils/categories";
 
 const BASE_URL = "https://www.reunionglobal.in";
 
+const CATEGORY_SEO: Record<string, { title: string; description: string }> = {
+  "beach-villas": {
+    title: "REUNION | Beach Villas — Luxury Beach Stays in Udupi",
+    description:
+      "Explore beach villas at REUNION along the Udupi coast — private beachfront and near-shore stays near Malpe, Mattu, Kapu, Hoode and Uchila.",
+  },
+  "city-stays": {
+    title: "REUNION | City Villas — Premium City Stays in Udupi",
+    description:
+      "Explore city villas and premium suites at REUNION in Udupi — Chitpady, Kunjibettu, Manipal and central stays near Sri Krishna Matha.",
+  },
+  all: {
+    title: "REUNION | All Stays — Beach Villas & City Villas in Udupi",
+    description:
+      "Browse all stays at REUNION in Udupi — luxury beach villas, city villas and premium suites for families, couples and groups.",
+  },
+};
+
+export function generateStaticParams() {
+  return CATEGORIES.filter((c) => c.id !== "all").map((c) => ({ category: c.id }));
+}
+
 export async function generateMetadata({ params }: { params: Promise<{ category: string }> }): Promise<Metadata> {
   const { category } = await params;
   const categoryLabel = CATEGORIES.find(c => c.id === category)?.label || 'Stays';
-  const pageTitle = `REUNION | ${categoryLabel} — Udupi`;
-  const pageDescription = `Browse REUNION's exclusive ${categoryLabel.toLowerCase()} across Udupi, Karnataka — curated beach and city stays for families, couples and groups.`;
+  const seo = CATEGORY_SEO[category] || {
+    title: `REUNION | ${categoryLabel} — Udupi`,
+    description: `Browse REUNION's exclusive ${categoryLabel.toLowerCase()} across Udupi, Karnataka.`,
+  };
   return {
-    title: { absolute: pageTitle },
-    description: pageDescription,
+    title: { absolute: seo.title },
+    description: seo.description,
     alternates: { canonical: `${BASE_URL}/properties/category/${category}` },
     openGraph: {
-      title: pageTitle,
-      description: pageDescription,
+      title: seo.title,
+      description: seo.description,
       url: `${BASE_URL}/properties/category/${category}`,
       siteName: 'REUNION',
       type: 'website',
       images: [{ url: '/logoo.png', width: 1080, height: 1080, alt: `REUNION ${categoryLabel}` }],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: seo.title,
+      description: seo.description,
+      images: ['/logoo.png'],
     },
   };
 }
@@ -48,10 +78,10 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
         <div className="absolute top-0 left-0 right-0 h-[80vh] z-0 pointer-events-none">
           <img 
             src={categoryId === 'city-stays' ? "/properties/krshna/krthumb.png" : "/properties/ocean-manor/herooo.png"}
-            className="w-full h-full object-cover brightness-[0.45] grayscale-[20%]" 
+            className="w-full h-full object-cover brightness-[0.62] grayscale-[5%]" 
             alt={categoryInfo.label}
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-[#060606]/30 via-transparent to-[#060606]" />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#060606]/15 via-transparent to-[#060606]/75" />
         </div>
 
         <div className="relative z-10 mx-auto">
