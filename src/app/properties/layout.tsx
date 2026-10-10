@@ -1,13 +1,11 @@
 import type { Metadata } from "next";
 
-/** Browser tab favicon for /properties/* (file: ./icon.jpeg + cache-busted links) */
+/** Same site favicon as root — reunion-src-logo.jpeg only */
 export const metadata: Metadata = {
   icons: {
-    icon: [
-      { url: "/reunion-src-logo.jpeg?v=2", type: "image/jpeg", sizes: "any" },
-    ],
-    apple: [{ url: "/reunion-src-logo.jpeg?v=2", type: "image/jpeg" }],
-    shortcut: "/reunion-src-logo.jpeg?v=2",
+    icon: [{ url: "/reunion-src-logo.jpeg", type: "image/jpeg", sizes: "any" }],
+    apple: "/reunion-src-logo.jpeg",
+    shortcut: "/reunion-src-logo.jpeg",
   },
 };
 

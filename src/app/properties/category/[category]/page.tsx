@@ -42,9 +42,9 @@ export async function generateMetadata({ params }: { params: Promise<{ category:
     title: { absolute: seo.title },
     description: seo.description,
     icons: {
-      icon: [{ url: "/reunion-src-logo.jpeg?v=2", type: "image/jpeg", sizes: "any" }],
-      apple: [{ url: "/reunion-src-logo.jpeg?v=2", type: "image/jpeg" }],
-      shortcut: "/reunion-src-logo.jpeg?v=2",
+      icon: [{ url: "/reunion-src-logo.jpeg", type: "image/jpeg", sizes: "any" }],
+      apple: "/reunion-src-logo.jpeg",
+      shortcut: "/reunion-src-logo.jpeg",
     },
     alternates: { canonical: `${BASE_URL}/properties/category/${category}` },
     openGraph: {

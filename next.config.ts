@@ -44,7 +44,7 @@ const nextConfig: NextConfig = {
         headers: imageCache,
       },
       {
-        source: "/icon.png",
+        source: "/reunion-src-logo.jpeg",
         headers: imageCache,
       },
       {
