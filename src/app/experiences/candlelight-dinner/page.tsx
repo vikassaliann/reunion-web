@@ -35,6 +35,25 @@ const NOTES = [
   { n: "04", t: "Personal Service", d: "Attentive hosting throughout dinner" },
 ];
 
+const FAQS = [
+  {
+    q: "Where can I book a candle light dinner in Udupi?",
+    a: "Book with REUNION — private beachside candlelight dinners on Mattu Beach with canopy setups, coastal cuisine, and personal hosting.",
+  },
+  {
+    q: "What makes REUNION the candlelight dinner in Udupi to choose?",
+    a: "A fully private shoreline experience: fairy lights, candles, custom menus, and sunset-to-starlight ambiance for proposals, anniversaries, and celebrations.",
+  },
+  {
+    q: "Is this candle light dinner on the beach?",
+    a: "Yes. Your candle light dinner in Udupi is hosted on Mattu Beach (or select Padutonse setups) by the Arabian Sea.",
+  },
+  {
+    q: "How do I reserve?",
+    a: "Use the form below or WhatsApp us with your date, guest count, and occasion — we’ll confirm setup, menu, and timing.",
+  },
+];
+
 export default function CandlelightDinnerPage() {
   const formRef = useRef<HTMLDivElement>(null);
 
@@ -50,7 +69,7 @@ export default function CandlelightDinnerPage() {
       <section className="relative min-h-[88svh] sm:min-h-screen flex items-end overflow-hidden">
         <img
           src="/properties/experiances/exp12.png"
-          alt="Reunion candlelight dinner setup on Mattu Beach, Udupi"
+          alt="Candle light dinner in Udupi — REUNION private beachside setup"
           className="absolute inset-0 w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-[#080808] via-[#080808]/70 to-black/40" />
@@ -64,19 +83,21 @@ export default function CandlelightDinnerPage() {
             items={[
               { label: "Home", href: "/" },
               { label: "Experiences", href: "/experiences" },
-              { label: "Candlelight Dinner" },
+              { label: "Candle Light Dinner in Udupi" },
             ]}
           />
           <MandalaLotus className="w-9 h-9 mt-8 mb-5 opacity-55" />
           <p className="font-cinzel text-[9px] sm:text-[10px] tracking-[0.45em] text-[#C9A84C] uppercase mb-4">
-            Reunion Candlelight Dinner · Mattu Beach, Udupi
+            Candle Light Dinner in Udupi · REUNION
           </p>
           <h1 className="font-cormorant italic text-4xl sm:text-6xl md:text-7xl font-light text-white leading-[1.08] max-w-3xl">
-            Candlelight dinner in Udupi
-            <span className="block text-[#C9A84C]">by the sea</span>
+            Candle Light Dinner in Udupi
+            <span className="block text-[#C9A84C] not-italic text-[0.55em] sm:text-[0.5em] tracking-[0.08em] mt-2 font-cinzel uppercase">
+              Private beachside candlelight dinner
+            </span>
           </h1>
           <p className="mt-5 max-w-lg font-futura text-sm text-white/55 font-light leading-relaxed tracking-wide">
-            Book a private Reunion candle light dinner on Mattu Beach — intimate beachside evenings for anniversaries, proposals, birthdays, or quiet nights on Udupi’s shore.
+            Looking for a candle light dinner in Udupi? REUNION hosts the private candlelight dinner in Udupi on Mattu Beach — for anniversaries, proposals, birthdays, and quiet nights by the sea.
           </p>
           <button
             type="button"
@@ -97,13 +118,13 @@ export default function CandlelightDinnerPage() {
         <div className="relative z-10 max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
           <div className="lg:col-span-6 space-y-5 text-center lg:text-left">
             <p className="font-cinzel text-[9px] tracking-[0.4em] text-[#C9A84C] uppercase">
-              Candle Light Dinner · Udupi
+              Candle Light Dinner in Udupi
             </p>
             <h2 className="font-cormorant italic text-3xl sm:text-4xl text-white font-light leading-snug">
-              Thoughtfully curated evenings on the sand
+              The candlelight dinner in Udupi on Mattu Beach
             </h2>
             <p className="font-futura text-sm text-white/50 font-light leading-[1.9] tracking-wide max-w-md mx-auto lg:mx-0">
-              Looking for a candlelight dinner in Udupi? Reunion hosts private beachside candle light dinners on Mattu Beach — canopy setups, coastal cuisine, and personal service by the Arabian Sea. Perfect for proposals, anniversaries, and celebrations.
+              REUNION is known for candle light dinner in Udupi — a private beachside candlelight dinner with canopy setups, coastal cuisine, and personal service by the Arabian Sea. Ideal for proposals, anniversaries, and celebrations across Udupi.
             </p>
           </div>
           <div className="lg:col-span-6 flex justify-center">
@@ -189,6 +210,30 @@ export default function CandlelightDinnerPage() {
         </div>
       </section>
 
+      {/* FAQ — head-term coverage for SERP */}
+      <section className="page-pad pb-16 sm:pb-24 border-t border-white/10">
+        <div className="max-w-3xl mx-auto pt-14 sm:pt-16">
+          <p className="font-cinzel text-[9px] tracking-[0.4em] text-[#C9A84C] uppercase text-center mb-3">
+            FAQ
+          </p>
+          <h2 className="font-cormorant italic text-3xl sm:text-4xl text-white font-light text-center mb-10">
+            Candle light dinner in Udupi — questions
+          </h2>
+          <div className="space-y-8">
+            {FAQS.map((item) => (
+              <div key={item.q} className="border-b border-white/10 pb-6">
+                <h3 className="font-cinzel text-[11px] tracking-[0.15em] text-[#C9A84C] uppercase mb-2">
+                  {item.q}
+                </h3>
+                <p className="font-futura text-sm text-white/50 font-light leading-relaxed">
+                  {item.a}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* BOOK — Ocean Café enquiry form */}
       <section
         ref={formRef}
@@ -206,10 +251,10 @@ export default function CandlelightDinnerPage() {
               Reserve with Reunion
             </p>
             <h2 className="font-cormorant italic text-3xl sm:text-4xl text-white font-light">
-              Book your candlelight evening
+              Book your candle light dinner in Udupi
             </h2>
             <p className="font-futura text-xs text-white/40 font-light tracking-wide max-w-sm mx-auto">
-              Same enquiry path as Reunion Ocean Café — we&apos;ll confirm date, setup, and menu with you.
+              Tell us your date and occasion — we&apos;ll confirm your private candlelight dinner in Udupi.
             </p>
           </div>
           <ContactForm

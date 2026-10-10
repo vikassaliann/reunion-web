@@ -3,24 +3,25 @@ import type { Metadata } from "next";
 const BASE_URL = "https://www.reunionglobal.in";
 const CANONICAL = `${BASE_URL}/experiences/candlelight-dinner`;
 
-/** Target queries: reunion candlelight dinner, candlelight dinner udupi, candle light dinner udupi */
+/** Primary: candle light dinner in udupi / candlelight dinner udupi */
 const PAGE_TITLE =
-  "Candlelight Dinner in Udupi | REUNION Beachside Candle Light Dinner";
+  "Candle Light Dinner in Udupi | REUNION Candlelight Dinner";
 const PAGE_DESCRIPTION =
-  "Book a Reunion candlelight dinner in Udupi — private beachside candle light dinner on Mattu Beach with romantic setup, coastal cuisine, and sunset views. Ideal for proposals, anniversaries and celebrations.";
+  "Candle light dinner in Udupi by REUNION — the top private candlelight dinner in Udupi on Mattu Beach. Romantic beachside setup, coastal cuisine, proposals & anniversaries. Book your candlelight dinner in Udupi today.";
 
 export const metadata: Metadata = {
   title: { absolute: PAGE_TITLE },
   description: PAGE_DESCRIPTION,
   keywords: [
-    "candlelight dinner udupi",
+    "candle light dinner in udupi",
     "candle light dinner udupi",
+    "candlelight dinner in udupi",
+    "candlelight dinner udupi",
+    "best candlelight dinner udupi",
     "reunion candlelight dinner",
-    "candlelight dinner mattu beach",
-    "beachside candlelight dinner udupi",
     "romantic dinner udupi",
     "private candle light dinner udupi",
-    "proposal dinner udupi beach",
+    "candlelight dinner mattu beach",
   ],
   alternates: { canonical: CANONICAL },
   openGraph: {
@@ -35,7 +36,7 @@ export const metadata: Metadata = {
         url: `${BASE_URL}/properties/experiances/exp12.png`,
         width: 1200,
         height: 630,
-        alt: "Reunion candlelight dinner on Mattu Beach, Udupi",
+        alt: "Candle light dinner in Udupi — REUNION beachside setup at Mattu Beach",
       },
     ],
   },
@@ -50,11 +51,13 @@ export const metadata: Metadata = {
 const serviceSchema = {
   "@context": "https://schema.org",
   "@type": "Service",
-  name: "Reunion Candlelight Dinner in Udupi",
+  name: "Candle Light Dinner in Udupi — REUNION",
   alternateName: [
-    "Candlelight Dinner Udupi",
+    "Candlelight Dinner in Udupi",
     "Candle Light Dinner Udupi",
-    "Beachside Candlelight Dinner Mattu",
+    "Candlelight Dinner Udupi",
+    "Best Candlelight Dinner Udupi",
+    "REUNION Candlelight Dinner",
   ],
   description: PAGE_DESCRIPTION,
   url: CANONICAL,
@@ -63,20 +66,70 @@ const serviceSchema = {
     name: "Reunion Global Private Ltd.",
     alternateName: "REUNION",
     url: BASE_URL,
+    logo: `${BASE_URL}/reunion-src-logo.jpeg`,
   },
-  areaServed: {
-    "@type": "Place",
-    name: "Udupi, Karnataka, India",
-  },
-  serviceType: "Private beachside candlelight dinner",
+  areaServed: [
+    {
+      "@type": "City",
+      name: "Udupi",
+      containedInPlace: {
+        "@type": "State",
+        name: "Karnataka",
+      },
+    },
+    {
+      "@type": "Place",
+      name: "Mattu Beach, Udupi",
+    },
+  ],
+  serviceType: "Candle light dinner in Udupi",
   offers: {
     "@type": "Offer",
     availability: "https://schema.org/InStock",
     url: CANONICAL,
     priceCurrency: "INR",
-    description: "Private candle light dinner setup on Mattu Beach, Udupi",
+    description: "Private candle light dinner in Udupi on Mattu Beach",
   },
   image: `${BASE_URL}/properties/experiances/exp12.png`,
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: [
+    {
+      "@type": "Question",
+      name: "Where can I book a candle light dinner in Udupi?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Book a candle light dinner in Udupi with REUNION — private beachside candlelight dinners on Mattu Beach with romantic canopy setups, coastal cuisine, and personal hosting.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "What is the best candlelight dinner in Udupi?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "REUNION offers a private candlelight dinner in Udupi on Mattu Beach — fairy lights, candles, custom menus, and sunset-to-starlight ambiance for proposals, anniversaries, and celebrations.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Is the REUNION candle light dinner on the beach?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Yes. REUNION’s candle light dinner in Udupi is hosted on Mattu Beach (and select Padutonse beach setups) with a private shoreline table by the Arabian Sea.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "How do I reserve a candlelight dinner in Udupi with REUNION?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Use the booking form on this page or enquire via WhatsApp. Share your preferred date, guest count, and occasion — we’ll confirm setup, menu, and timing for your candle light dinner in Udupi.",
+      },
+    },
+  ],
 };
 
 export default function CandlelightDinnerLayout({
@@ -89,6 +142,10 @@ export default function CandlelightDinnerLayout({
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
       {children}
     </>

@@ -693,10 +693,10 @@ export default function Home() {
                 <div className="space-y-3 mb-10">
                   <span className="font-futura text-[10px] tracking-[0.4em] text-[#B8963E] uppercase block">ROMANTIC SPECIAL</span>
                   <h2 className="font-futura text-2xl sm:text-4xl text-[#1a1410] font-light uppercase tracking-[0.2em] leading-tight">
-                    Candlelight Dinner<br />at Reunion
+                    Candle Light Dinner<br />in Udupi
                   </h2>
                   <p className="font-futura text-stone-600 text-xs sm:text-sm leading-relaxed font-light tracking-wide max-w-md">
-                    Intimate beachside dining under starry coastal skies with private setups, handcrafted menus, and romantic seaside ambiance.
+                    Private candlelight dinner in Udupi on Mattu Beach — intimate setups, handcrafted menus, and romantic seaside ambiance.
                   </p>
                 </div>
 
@@ -707,7 +707,7 @@ export default function Home() {
                     className="absolute shadow-2xl hover:z-40 transition-all duration-500 hover:scale-105"
                     style={{ top: "2%", left: "2%", width: "52%", transform: "rotate(-3deg)", zIndex: 10 }}
                   >
-                    <img src="/properties/experiances/exp12.png" alt="Candlelight dinner" className="w-full h-auto rounded-sm" />
+                    <img src="/properties/experiances/exp12.png" alt="Candle light dinner in Udupi" className="w-full h-auto rounded-sm" />
                   </div>
 
                   {/* Image 2 — Top Right */}
@@ -715,7 +715,7 @@ export default function Home() {
                     className="absolute shadow-2xl hover:z-40 transition-all duration-500 hover:scale-105"
                     style={{ top: "15%", right: "0%", width: "48%", transform: "rotate(4deg)", zIndex: 20 }}
                   >
-                    <img src="/properties/experiances/exp13.png" alt="Candlelight dinner" className="w-full h-auto rounded-sm" />
+                    <img src="/properties/experiances/exp13.png" alt="Candlelight dinner in Udupi beach" className="w-full h-auto rounded-sm" />
                   </div>
 
                   {/* Image 3 — Bottom Center Overlap */}
@@ -723,7 +723,7 @@ export default function Home() {
                     className="absolute shadow-2xl hover:z-40 transition-all duration-500 hover:scale-105"
                     style={{ bottom: "2%", left: "15%", width: "60%", transform: "rotate(-1deg)", zIndex: 30 }}
                   >
-                    <img src="/properties/experiances/exp14.png" alt="Candlelight dinner" className="w-full h-auto rounded-sm" />
+                    <img src="/properties/experiances/exp14.png" alt="Private candlelight dinner Udupi" className="w-full h-auto rounded-sm" />
                   </div>
                 </div>
 
@@ -733,7 +733,7 @@ export default function Home() {
                     href="/experiences/candlelight-dinner"
                     className="inline-flex items-center gap-2 px-4 py-2 border border-[#B8963E] bg-transparent text-[#B8963E] font-futura text-[9.5px] tracking-[0.2em] font-semibold uppercase hover:bg-[#B8963E]/10 transition-all duration-300"
                   >
-                    EXPLORE MORE
+                    Candle Light Dinner in Udupi
                     <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
                     </svg>

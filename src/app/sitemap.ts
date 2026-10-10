@@ -69,12 +69,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'weekly',
       priority: 0.9,
     },
-    // Candlelight dinner
+    // Candlelight dinner — head term: candle light dinner in udupi
     {
       url: `${baseUrl}/experiences/candlelight-dinner`,
       lastModified: now,
       changeFrequency: 'weekly',
-      priority: 0.9,
+      priority: 0.95,
     },
     // Wellness & spa at Reunion
     {
