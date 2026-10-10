@@ -4,6 +4,16 @@ const nextConfig: NextConfig = {
   images: {
     formats: ["image/avif", "image/webp"],
   },
+  async redirects() {
+    return [
+      // Google still indexes the old property URL — send everyone to /dining
+      {
+        source: "/properties/ocean-cafe",
+        destination: "/dining",
+        permanent: true,
+      },
+    ];
+  },
   async headers() {
     const imageCache = [
       {

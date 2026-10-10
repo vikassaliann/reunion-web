@@ -25,8 +25,12 @@ export const metadata: Metadata = {
   creator: 'Reunion Global Private Ltd.',
   publisher: 'Reunion Global Private Ltd.',
   icons: {
-    icon: '/logoo.png',
-    apple: '/logoo.png',
+    icon: [
+      { url: '/icon-black.png', type: 'image/png', sizes: '512x512' },
+      { url: '/icon.png', type: 'image/png', sizes: '512x512' },
+    ],
+    apple: '/icon-black.png',
+    shortcut: '/icon-black.png',
   },
   alternates: {
     canonical: 'https://www.reunionglobal.in',
@@ -43,9 +47,9 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: '/logoo.png',
-        width: 1080,
-        height: 1080,
+        url: '/icon-black.png',
+        width: 512,
+        height: 512,
         alt: 'Discover REUNION in Udupi — Luxury Villas, Café & Events',
       },
     ],
@@ -54,7 +58,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: HOME_TITLE,
     description: HOME_DESCRIPTION,
-    images: ['/logoo.png'],
+    images: ['/icon-black.png'],
   },
   verification: {
     google: process.env.NEXT_PUBLIC_GSC_VERIFICATION || undefined,
@@ -71,7 +75,7 @@ const organizationSchema = {
   name: 'Reunion Global Private Ltd.',
   alternateName: 'REUNION',
   url: 'https://www.reunionglobal.in',
-  logo: 'https://www.reunionglobal.in/logoo.png',
+  logo: 'https://www.reunionglobal.in/icon-black.png',
   description: HOME_DESCRIPTION,
   foundingDate: '2020',
   founder: {

@@ -15,6 +15,11 @@ const PAGE_DESCRIPTION =
 export const metadata: Metadata = {
   title: { absolute: PAGE_TITLE },
   description: PAGE_DESCRIPTION,
+  icons: {
+    icon: [{ url: "/reunion-src-logo.jpeg?v=2", type: "image/jpeg", sizes: "any" }],
+    apple: [{ url: "/reunion-src-logo.jpeg?v=2", type: "image/jpeg" }],
+    shortcut: "/reunion-src-logo.jpeg?v=2",
+  },
   alternates: {
     canonical: `${BASE_URL}/properties`,
   },

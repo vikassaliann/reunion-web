@@ -41,6 +41,11 @@ export async function generateMetadata({ params }: { params: Promise<{ category:
   return {
     title: { absolute: seo.title },
     description: seo.description,
+    icons: {
+      icon: [{ url: "/reunion-src-logo.jpeg?v=2", type: "image/jpeg", sizes: "any" }],
+      apple: [{ url: "/reunion-src-logo.jpeg?v=2", type: "image/jpeg" }],
+      shortcut: "/reunion-src-logo.jpeg?v=2",
+    },
     alternates: { canonical: `${BASE_URL}/properties/category/${category}` },
     openGraph: {
       title: seo.title,

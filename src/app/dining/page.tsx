@@ -22,9 +22,10 @@ function getOceanCafe() {
 
 const cafe = getOceanCafe();
 
-const PAGE_TITLE = "REUNION | Ocean Café — Beachfront Dining at Mattu";
+// Match the ranked SERP title so Google can consolidate /properties/ocean-cafe → /dining
+const PAGE_TITLE = "REUNION Ocean Café | Beachfront Café at Mattu Beach, Udupi";
 const PAGE_DESCRIPTION =
-  "Fresh seafood, continental cuisine, specialty coffee, candlelight dinners, and sunset views at REUNION Ocean Café on Mattu Beach, Udupi.";
+  "Right on the shore at Mattu Beach featuring sunset views, fireplace lounge, fresh seafood specialties, gourmet coffee, and candlelight dinners in Udupi.";
 
 export const metadata: Metadata = {
   title: { absolute: PAGE_TITLE },

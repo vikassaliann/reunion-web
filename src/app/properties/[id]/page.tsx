@@ -159,6 +159,11 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
       absolute: propertyTitle,
     },
     description: propertyDescription,
+    icons: {
+      icon: [{ url: "/reunion-src-logo.jpeg?v=2", type: "image/jpeg", sizes: "any" }],
+      apple: [{ url: "/reunion-src-logo.jpeg?v=2", type: "image/jpeg" }],
+      shortcut: "/reunion-src-logo.jpeg?v=2",
+    },
     alternates: {
       canonical: canonicalUrl,
     },

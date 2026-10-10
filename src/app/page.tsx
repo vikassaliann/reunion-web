@@ -3,10 +3,10 @@
 import { useEffect, useState } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import ContactForm from "@/components/ContactForm";
 import Link from "next/link";
 import properties from "@/data/properties.json";
 import { MandalaRing, MandalaLotus } from "@/components/wellness/WellnessMandala";
+import ReunionMapSection from "@/components/ReunionMapSection";
 
 /* ── Hero slideshow images ── */
 const HERO_SLIDES = [
@@ -46,7 +46,7 @@ const STAY_CATEGORIES = [
     title: "Ocean Café",
     desc: "Dining right on Mattu Beach.",
     img: "/properties/ocean cafe/ocean1.png",
-    href: "/properties/ocean-cafe",
+    href: "/dining",
   },
 ];
 
@@ -76,27 +76,6 @@ const REVIEWS = [
     author: "Siddharth Verma",
     stayedAt: "De Homes",
   },
-];
-
-const MAP_LOCATIONS = [
-  { name: "Ocean Waves", link: "https://maps.app.goo.gl/DHikkppGEugCp3V19", desc: "Beachside Sanctuary, Mattu", image: "/properties/ocean-waves/wavest.png" },
-  { name: "Ocean Elite", link: "https://maps.app.goo.gl/i4qS8YbVEtMqgRFF7", desc: "Private Beachfront Villa", image: "/properties/popular/elite.png" },
-  { name: "Ocean Manor", link: "https://maps.app.goo.gl/QDo2c3Fy8mufX5s77", desc: "Sea & River View Villa", image: "/properties/ocean-manor/herooo.png" },
-  { name: "Ocean Bliss", link: "https://maps.app.goo.gl/y27fBpfybGmGsvwH7", desc: "Cozy Malpe Beach Villa", image: "/properties/ocean-bliss/blissthumb.png" },
-  { name: "Ocean Daaffy", link: "https://maps.app.goo.gl/RN5CDoGUvA2sbm7j7", desc: "Charming Coastal Villa", image: "/properties/ocean-daaffy/daaffyhero.png" },
-  { name: "Arya", link: "https://maps.app.goo.gl/bgDyEDBV22TvRQeLA", desc: "Modern Studio Rooms", image: "/properties/arya/aryathumb.png" },
-  { name: "Marina Villa", link: "https://maps.app.goo.gl/X5jrFW2phFrZDRgg8", desc: "Luxury Harbor Residency", image: "/properties/marina-villa/marinathumb.png" },
-  { name: "Krshna", link: "https://maps.app.goo.gl/hXcpqtsWGWkXSxHh7", desc: "Premium Heritage Residency", image: "/properties/krshna/krthumb.png" },
-  { name: "Charm Villa", link: "https://maps.app.goo.gl/AuEK46JEGCC1ygA78", desc: "Classic Heritage Villa", image: "/properties/charm-villa/charmthub.png" },
-  { name: "De Homes", link: "https://share.google/AXOZTWONFB5kLZE0o", desc: "Bespoke Townhouse, Chitpady", image: "/properties/popular/dehome.png" },
-  { name: "Aradhya Villa", link: "https://maps.app.goo.gl/h5PDhRjDrsTdj5dR8", desc: "Elegant Coastal Villa", image: "/properties/aradhya-villa/arathumb.png" },
-  { name: "Ocean Hridayam", link: "https://maps.app.goo.gl/18cbsHn53VKXr5oa9", desc: "Tranquil Garden Villa", image: "/properties/ocean-hridayam/hridthumb.png" },
-  { name: "Reunion Ocean Café", link: "https://maps.app.goo.gl/r4RPLhfcNUP4ECd18", desc: "Beachside Cafe, Mattu Beach", image: "/properties/ocean cafe/ocean1.png" },
-  { name: "Ocean Givaah", link: "https://maps.app.goo.gl/4Zau2oTbTh95BmxL6", desc: "Secluded Beachfront Villa", image: "/properties/popular/givaah.png" },
-  { name: "Reunion Villa", link: "https://maps.app.goo.gl/SJaK4GjhNkq9FKA29", desc: "Classic Beachfront Villa", image: "/properties/villa/villahero.png" },
-  { name: "Ocean Royal", link: "https://maps.app.goo.gl/R4LzcKq8bcPPS3ub6", desc: "Majestic Beachfront Villa", image: "/properties/popular/royal.png" },
-  { name: "Regal Villa", link: "https://maps.app.goo.gl/P3NuZSXE29bcFPT19", desc: "Majestic Kapu Residency", image: "/properties/regal-villa/regalhero.png" },
-  { name: "Reunion Serene", link: "https://maps.app.goo.gl/LaQVdsY9a3BPDYf19", desc: "Malnad Nature Stay, Shivamogga", image: "/properties/reunion-seren/hero.png" },
 ];
 
 const CAROUSEL_ORDER = [
@@ -838,6 +817,8 @@ export default function Home() {
         </section>
 
 
+        {/* Reunion Udupi Map + nearby places (restored) */}
+        <ReunionMapSection />
       </main>
 
       <div className="relative z-10">

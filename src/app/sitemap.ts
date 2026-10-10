@@ -10,12 +10,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://www.reunionglobal.in'
   const now = new Date()
 
-  const propertyUrls = properties.map((property) => ({
-    url: `${baseUrl}/properties/${property.id}`,
-    lastModified: now,
-    changeFrequency: 'weekly' as const,
-    priority: property.id === 'ocean-cafe' ? 0.75 : 0.8,
-  }))
+  // Ocean Café lives at /dining only — never list /properties/ocean-cafe
+  const propertyUrls = properties
+    .filter((property) => property.id !== 'ocean-cafe')
+    .map((property) => ({
+      url: `${baseUrl}/properties/${property.id}`,
+      lastModified: now,
+      changeFrequency: 'weekly' as const,
+      priority: 0.8,
+    }))
 
   const blogUrls = BLOG_POSTS.map((post) => ({
     url: `${baseUrl}/blogs/${post.slug}`,
