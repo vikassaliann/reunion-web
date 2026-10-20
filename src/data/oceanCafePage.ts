@@ -66,4 +66,4 @@ export const OCEAN_CAFE_GALLERY_IMAGES = OCEAN_CAFE_GALLERY_SLIDES.map((s) => s.
 export const OCEAN_CAFE_PHONE_DISPLAY = "+91 9972231289";
 
 export const OCEAN_CAFE_HERO_IMAGE = "/properties/ocean cafe/herooc.png";
-export const OCEAN_CAFE_VIDEO_POSTER = oc(4);
+export const OCEAN_CAFE_VIDEO_POSTER = oc(3);

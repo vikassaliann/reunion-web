@@ -7,24 +7,50 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import ContactForm from "@/components/ContactForm";
 import { MandalaRing, MandalaLotus } from "@/components/wellness/WellnessMandala";
 
+const cd = (n: number) => `/properties/experiances/candlelight/cd${n}.jpeg`;
+
 const MOMENTS = [
   {
-    src: "/properties/experiances/exp12.png",
+    src: cd(1),
     label: "Setting 01",
     title: "Intimate Candlelight Canopy",
     body: "A handcrafted canopy draped in warm lights, surrounded by glowing candles and fresh florals on the beach.",
   },
   {
-    src: "/properties/experiances/exp13.png",
+    src: cd(4),
     label: "Setting 02",
     title: "Private Shoreline Table",
     body: "Your table set where golden sand meets the tide — waves as the soundtrack to the evening.",
   },
   {
-    src: "/properties/experiances/exp14.png",
+    src: cd(6),
     label: "Setting 03",
     title: "Sunset & Culinary Pairings",
     body: "Karavali coastal flavours, handcrafted mocktails, and desserts under evening stars.",
+  },
+  {
+    src: cd(2),
+    label: "Setting 04",
+    title: "Proposal & Anniversary Setups",
+    body: "Personalised décor for proposals, anniversaries, and quiet celebrations on Mattu Beach.",
+  },
+  {
+    src: cd(5),
+    label: "Setting 05",
+    title: "Evening Ambience",
+    body: "Fairy lights, lanterns, and candlelit glow along the shore.",
+  },
+  {
+    src: cd(7),
+    label: "Setting 06",
+    title: "Coastal Dining",
+    body: "Multi-course coastal menus served with attentive hosting.",
+  },
+  {
+    src: cd(8),
+    label: "Setting 07",
+    title: "Starlit Evenings",
+    body: "Dine under the stars with the Arabian Sea at your side.",
   },
 ];
 
@@ -68,7 +94,7 @@ export default function CandlelightDinnerPage() {
       {/* HERO */}
       <section className="relative min-h-[88svh] sm:min-h-screen flex items-end overflow-hidden">
         <img
-          src="/properties/experiances/exp12.png"
+          src="/properties/experiances/candlelight/cd3.jpeg"
           alt="Candle light dinner in Udupi — REUNION private beachside setup"
           className="absolute inset-0 w-full h-full object-cover"
         />
@@ -97,7 +123,7 @@ export default function CandlelightDinnerPage() {
             </span>
           </h1>
           <p className="mt-5 max-w-lg font-futura text-sm text-white/55 font-light leading-relaxed tracking-wide">
-            Looking for a candle light dinner in Udupi? REUNION hosts the private candlelight dinner in Udupi on Mattu Beach — for anniversaries, proposals, birthdays, and quiet nights by the sea.
+            Plan a private candle light dinner in Udupi on Mattu Beach — romantic setup for proposals, anniversaries, and special nights by the sea.
           </p>
           <button
             type="button"
@@ -124,7 +150,7 @@ export default function CandlelightDinnerPage() {
               The candlelight dinner in Udupi on Mattu Beach
             </h2>
             <p className="font-futura text-sm text-white/50 font-light leading-[1.9] tracking-wide max-w-md mx-auto lg:mx-0">
-              REUNION is known for candle light dinner in Udupi — a private beachside candlelight dinner with canopy setups, coastal cuisine, and personal service by the Arabian Sea. Ideal for proposals, anniversaries, and celebrations across Udupi.
+              REUNION hosts private beachside candlelight dinners with canopy setups, coastal cuisine, and personal service by the Arabian Sea — ideal for proposals, anniversaries, and celebrations.
             </p>
           </div>
           <div className="lg:col-span-6 flex justify-center">

@@ -20,6 +20,16 @@ const CATEGORY_SEO: Record<string, { title: string; description: string }> = {
     description:
       "Explore city villas and premium suites at REUNION in Udupi — Chitpady, Kunjibettu, Manipal and central stays near Sri Krishna Matha.",
   },
+  "hotel-stays": {
+    title: "REUNION | Hotel Stays — De Homes & De Square in Udupi",
+    description:
+      "Hotel and boutique stays at REUNION — De Homes suites near Sri Krishna Temple, Udupi, and De Square hotel & resort in Koteshwara.",
+  },
+  "shivamogga-stays": {
+    title: "REUNION | Shivamogga Stays — Serene Villa near Jog Falls",
+    description:
+      "Reunion Serene — private pool villa stay near Shivamogga and Jog Falls, Karnataka. Malnad nature retreat for families and groups.",
+  },
   all: {
     title: "REUNION | All Stays — Beach Villas & City Villas in Udupi",
     description:
@@ -82,7 +92,15 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
         {/* Category Hero Background */}
         <div className="absolute top-0 left-0 right-0 h-[80vh] z-0 pointer-events-none">
           <img 
-            src={categoryId === 'city-stays' ? "/properties/krshna/krthumb.png" : "/properties/ocean-manor/herooo.png"}
+            src={
+              categoryId === "city-stays"
+                ? "/properties/krshna/krthumb.png"
+                : categoryId === "hotel-stays"
+                  ? "/properties/de-homes/dehomesthumb.png"
+                  : categoryId === "shivamogga-stays"
+                    ? "/properties/reunion-seren/hero.png"
+                    : "/properties/ocean-manor/herooo.png"
+            }
             className="w-full h-full object-cover brightness-[0.62] grayscale-[5%]" 
             alt={categoryInfo.label}
           />

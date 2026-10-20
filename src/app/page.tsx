@@ -86,6 +86,7 @@ const CAROUSEL_ORDER = [
   "reunion-seren",
   "krshna",
   "de-homes",
+  "de-square",
   "ocean-daaffy",
   "ocean-hridayam",
   "ocean-bliss",
@@ -99,11 +100,13 @@ const CAROUSEL_ORDER = [
   "ocean-cafe",
 ];
 
-const carouselProperties = [...properties].sort((a, b) => {
-  const ai = CAROUSEL_ORDER.indexOf(a.id);
-  const bi = CAROUSEL_ORDER.indexOf(b.id);
-  return (ai === -1 ? 999 : ai) - (bi === -1 ? 999 : bi);
-});
+const carouselProperties = [...properties]
+  .filter((p) => p.id !== "ocean-cafe")
+  .sort((a, b) => {
+    const ai = CAROUSEL_ORDER.indexOf(a.id);
+    const bi = CAROUSEL_ORDER.indexOf(b.id);
+    return (ai === -1 ? 999 : ai) - (bi === -1 ? 999 : bi);
+  });
 
 export default function Home() {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -163,9 +166,6 @@ export default function Home() {
           {/* Hero text — mobile: no CTAs, sit lower; desktop keeps buttons */}
           <div className="relative z-10 w-full max-w-7xl mx-auto page-pad pb-28 sm:pb-32 md:pb-36">
             <div className="max-w-2xl space-y-3 sm:space-y-4">
-              <span className="font-cinzel text-[9px] sm:text-[10px] tracking-[0.45em] text-[#C9A84C] uppercase block drop-shadow">
-                Reunion Global
-              </span>
               <h1 className="font-futura font-light text-[2.5rem] sm:text-6xl md:text-7xl text-white leading-[1.05] tracking-wide uppercase drop-shadow-md">
                 REUNION
               </h1>
@@ -196,17 +196,6 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Slide dots — above sticky bar on mobile */}
-          <div className="absolute bottom-[4.75rem] sm:bottom-10 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2 lg:bottom-10">
-            {HERO_SLIDES.map((_, idx) => (
-              <button
-                key={idx}
-                onClick={() => setCurrentSlide(idx)}
-                className={`h-[2px] rounded-full transition-all duration-500 ${currentSlide === idx ? "w-8 bg-[#C9A84C]" : "w-3 bg-white/25"}`}
-                aria-label={`Go to slide ${idx + 1}`}
-              />
-            ))}
-          </div>
         </section>
 
         {/* ══════════════════════════════════════════════════════════
@@ -391,7 +380,6 @@ export default function Home() {
           <div className="relative z-10 mx-auto">
             <div className="text-center max-w-2xl mx-auto mb-20 reveal">
               <MandalaLotus className="w-9 h-9 mx-auto mb-4 opacity-50" />
-              <span className="font-cinzel text-[10px] tracking-[0.4em] text-[#C9A84C] uppercase block mb-3">Popular Stays</span>
               <h2 className="font-futura text-3xl sm:text-4xl text-white font-light uppercase tracking-wider">
                 Signature Properties
               </h2>
@@ -541,9 +529,49 @@ export default function Home() {
                     </div>
                   </div>
 
-                  {/* De Homes — Image Right */}
+                  {/* De Square — Image Right */}
                   <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
                     <div className="space-y-6 order-2 lg:order-1 lg:col-span-5">
+                      <span className="font-futura text-[10px] tracking-[0.4em] text-[#C9A84C] uppercase block">Koteshwara, Udupi</span>
+                      <h3 className="font-futura text-3xl sm:text-4xl text-white font-light uppercase tracking-wider leading-tight">
+                        Reunion<br />De Square
+                      </h3>
+                      <p className="text-white/40 text-sm leading-relaxed font-futura font-light tracking-wide max-w-md">
+                        D-Square Hotels & Resort on the Udupi–Kundapura coast — comfortable hotel and resort rooms for families, pilgrims, and coastal travellers.
+                      </p>
+                      <Link
+                        href="/properties/de-square"
+                        className="inline-flex items-center gap-2 font-futura text-[11px] tracking-[0.25em] text-[#C9A84C] uppercase border-b border-[#C9A84C]/40 pb-1 hover:border-[#C9A84C] transition-all"
+                      >
+                        EXPLORE
+                        <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                        </svg>
+                      </Link>
+                    </div>
+                    <div className="order-1 lg:order-2 lg:col-span-7">
+                      <div className="aspect-[4/3] w-full overflow-hidden">
+                        <img
+                          src="/properties/reunion-de-square/dd4.png"
+                          alt="Reunion De Square"
+                          className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* De Homes — Image Left */}
+                  <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
+                    <div className="lg:col-span-7">
+                      <div className="aspect-[4/3] w-full overflow-hidden">
+                        <img
+                          src="/properties/de-homes/dehomesthumb.png"
+                          alt="Reunion De Homes"
+                          className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
+                        />
+                      </div>
+                    </div>
+                    <div className="space-y-6 lg:col-span-5">
                       <span className="font-futura text-[10px] tracking-[0.4em] text-[#C9A84C] uppercase block">Chitpady, Udupi</span>
                       <h3 className="font-futura text-3xl sm:text-4xl text-white font-light uppercase tracking-wider leading-tight">
                         Reunion<br />De Homes
@@ -560,15 +588,6 @@ export default function Home() {
                           <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
                         </svg>
                       </Link>
-                    </div>
-                    <div className="order-1 lg:order-2 lg:col-span-7">
-                      <div className="aspect-[4/3] w-full overflow-hidden">
-                        <img
-                          src="/properties/de-homes/dehomesthumb.png"
-                          alt="Reunion De Homes"
-                          className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
-                        />
-                      </div>
                     </div>
                   </div>
 

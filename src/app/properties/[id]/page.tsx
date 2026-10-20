@@ -30,6 +30,10 @@ const AUDIT_PROPERTY_SEO: Record<string, { title: string; description: string }>
     title: "REUNION De Homes | Premium Suites Near Krishna Temple, Udupi",
     description: "Boutique luxury suites offering Presidential Suite, balcony rooms, and modern executive comfort near Sri Krishna Temple, Udupi city."
   },
+  "de-square": {
+    title: "REUNION De Square | Hotel & Resort in Koteshwara, Udupi",
+    description: "D-Square Hotels & Resort by REUNION in Koteshwara, Udupi — comfortable hotel stays for families and travellers on the Udupi–Kundapura coast."
+  },
   "ocean-daaffy": {
     title: "REUNION Ocean Daaffy | Luxury Beach Villa in Uchila, Udupi",
     description: "A serene 3-bedroom luxury coastal retreat located just 100 metres from pristine sandy beaches at Ocean Daaffy in Uchila, Udupi."
@@ -90,6 +94,7 @@ const PROPERTY_GEO: Record<string, { lat: number; lng: number }> = {
   "ocean-givaah":   { lat: 13.2120, lng: 74.7430 },
   "ocean-royal":    { lat: 13.2200, lng: 74.7400 },
   "de-homes":       { lat: 13.3360, lng: 74.7460 },
+  "de-square":      { lat: 13.5165, lng: 74.7485 },
   "ocean-daaffy":   { lat: 13.2120, lng: 74.7430 },
   "ocean-hridayam": { lat: 13.2850, lng: 74.7150 },
   "ocean-bliss":    { lat: 13.3580, lng: 74.7040 },
@@ -124,6 +129,7 @@ const MAP_LINKS: Record<string, string> = {
   "villa": "https://maps.app.goo.gl/SJaK4GjhNkq9FKA29",
   // Not in the new list — keep existing
   "de-homes": "https://share.google/AXOZTWONFB5kLZE0o",
+  "de-square": "https://www.google.com/maps/search/?api=1&query=D-Square+Hotels+and+Resort+Koteshwara+Udupi",
   "regal-villa": "https://maps.app.goo.gl/P3NuZSXE29bcFPT19",
 };
 
@@ -215,13 +221,13 @@ function getPropertySchema(property: typeof properties[0]) {
       identifier: 'reunion-ocean-cafe',
       name: propertyTitle,
       description: property.description,
-      url: `${BASE_URL}/properties/ocean-cafe`,
+      url: `${BASE_URL}/dining`,
       image: allImages,
       telephone: '+91-9972231289',
       servesCuisine: ['Continental', 'Chinese', 'Seafood', 'Coastal Snacks', 'Specialty Coffee', 'Mocktails', 'Vegetarian', 'Vegan'],
       priceRange: '₹₹',
       acceptsReservations: 'True',
-      menu: `${BASE_URL}/properties/ocean-cafe`,
+      menu: `${BASE_URL}/dining`,
       address: {
         '@type': 'PostalAddress',
         streetAddress: 'Mattu Beach Shoreline, Mattu',

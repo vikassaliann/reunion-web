@@ -176,6 +176,35 @@
     "videoUrl": ""
   },
   {
+    "id": "de-square",
+    "name": "Reunion De Square",
+    "location": "Koteshwara, Udupi",
+    "description": "Reunion De Square (D-Square Hotels & Resort) in Koteshwara, Udupi, offers comfortable hotel and resort stays on the coastal belt between Udupi and Kundapura. Ideal for families, pilgrims, and travellers exploring temples, beaches, and the NH-66 corridor — with modern rooms, on-site dining, and easy access to Koteshwara and nearby coastal attractions.",
+    "price": "Contact for pricing",
+    "bedrooms": 0,
+    "acreage": "N/A",
+    "sqft": "N/A",
+    "completion": "N/A",
+    "amenities": [
+      "Hotel & Resort Rooms",
+      "Koteshwara, Udupi Location",
+      "Family-Friendly Stay",
+      "On-Site Dining",
+      "Parking Available",
+      "Coastal Karnataka Access"
+    ],
+    "heroImage": "/properties/reunion-de-square/dd4.png",
+    "gallery": [
+      "/properties/reunion-de-square/dd4.png",
+      "/properties/reunion-de-square/dde1.png",
+      "/properties/reunion-de-square/dde2.png",
+      "/properties/reunion-de-square/dde3.png",
+      "/properties/reunion-de-square/dd5.png",
+      "/properties/reunion-de-square/dd6.png"
+    ],
+    "videoUrl": ""
+  },
+  {
     "id": "ocean-daaffy",
     "name": "Ocean Daaffy",
     "location": "Bada, Udupi",

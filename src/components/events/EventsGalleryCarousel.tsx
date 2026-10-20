@@ -10,9 +10,13 @@ export type EventsGallerySlide = {
 
 interface EventsGalleryCarouselProps {
   slides: readonly EventsGallerySlide[];
+  ariaLabel?: string;
 }
 
-export default function EventsGalleryCarousel({ slides }: EventsGalleryCarouselProps) {
+export default function EventsGalleryCarousel({
+  slides,
+  ariaLabel = "Events & Weddings gallery",
+}: EventsGalleryCarouselProps) {
   const [active, setActive] = useState(0);
   const n = slides.length;
 
@@ -43,7 +47,7 @@ export default function EventsGalleryCarousel({ slides }: EventsGalleryCarouselP
   const current = slides[active];
 
   return (
-    <section className="w-full" aria-label="Events & Weddings gallery">
+    <section className="w-full" aria-label={ariaLabel}>
       <div className="relative flex items-center justify-center min-h-[440px] md:min-h-[560px] lg:min-h-[620px] px-2 md:px-8">
         <button
           type="button"
@@ -71,21 +75,9 @@ export default function EventsGalleryCarousel({ slides }: EventsGalleryCarouselP
             <img
               key={current.image}
               src={current.image}
-              alt={`${current.title} — ${current.caption}`}
+              alt={current.title}
               className="w-full h-full object-cover transition-opacity duration-700"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/25 to-transparent" />
-            <div key={active} className="absolute inset-x-0 bottom-0 p-6 md:p-9 text-center">
-              <p className="font-futura text-[10px] tracking-[0.35em] text-[#C9A84C] uppercase mb-3">
-                Gutthu
-              </p>
-              <h3 className="font-futura text-lg md:text-2xl text-white uppercase tracking-[0.18em] font-light mb-3 leading-snug">
-                {current.title}
-              </h3>
-              <p className="font-futura text-[11px] md:text-xs text-white/70 font-light leading-relaxed max-w-sm mx-auto">
-                {current.caption}
-              </p>
-            </div>
           </div>
 
           <button

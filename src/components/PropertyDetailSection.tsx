@@ -3,6 +3,36 @@
 import { useState } from "react";
 import ContactForm from "@/components/ContactForm";
 
+/** Upscale small source files in lightbox so they fill the viewport like full-size property photos. */
+function LightboxPhoto({ src, alt }: { src: string; alt: string }) {
+  const fitToViewport = (img: HTMLImageElement) => {
+    const maxW = Math.min(window.innerWidth * 0.92, 1280);
+    const maxH = window.innerHeight * 0.78;
+    const scale = Math.min(maxW / img.naturalWidth, maxH / img.naturalHeight, 5);
+    if (scale > 1.05) {
+      img.style.width = `${Math.round(img.naturalWidth * scale)}px`;
+      img.style.height = `${Math.round(img.naturalHeight * scale)}px`;
+      img.style.maxWidth = "none";
+      img.style.maxHeight = "none";
+    } else {
+      img.style.width = "";
+      img.style.height = "";
+      img.style.maxWidth = "";
+      img.style.maxHeight = "";
+    }
+  };
+
+  return (
+    <img
+      key={src}
+      src={src}
+      alt={alt}
+      onLoad={(e) => fitToViewport(e.currentTarget)}
+      className="max-h-[min(85vh,900px)] max-w-[min(95vw,1280px)] w-auto h-auto object-contain"
+    />
+  );
+}
+
 interface Property {
   id: string;
   name: string;
@@ -482,10 +512,9 @@ export default function PropertyDetailSection({ property, mapLink }: PropertyDet
               >
                 ‹
               </button>
-              <img
+              <LightboxPhoto
                 src={images[selectedImageIdx]}
                 alt={`${property.name} — photo ${selectedImageIdx + 1}`}
-                className="max-h-[min(75vh,900px)] max-w-full object-contain"
               />
               <button
                 type="button"

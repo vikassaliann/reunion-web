@@ -29,6 +29,8 @@ const NAV_ITEMS: NavItemData[] = [
     dropdown: [
       { label: "Beach Villas", desc: "", href: "/properties/category/beach-villas" },
       { label: "City Stays", desc: "", href: "/properties/category/city-stays" },
+      { label: "Hotel Stays", desc: "", href: "/properties/category/hotel-stays" },
+      { label: "Shivamogga Stays", desc: "", href: "/properties/category/shivamogga-stays" },
       { label: "View All Stays →", desc: "", href: "/properties", highlight: true },
     ],
   },
@@ -38,6 +40,7 @@ const NAV_ITEMS: NavItemData[] = [
     dropdown: [
       { label: "Coastal Experiences", desc: "", href: "/experiences" },
       { label: "Candlelight Dinner", desc: "", href: "/experiences/candlelight-dinner" },
+      { label: "Birthday Celebrations", desc: "", href: "/experiences/beach-birthday" },
     ],
   },
   {
@@ -51,6 +54,10 @@ const NAV_ITEMS: NavItemData[] = [
   {
     label: "EVENTS & WEDDINGS",
     href: "/events",
+  },
+  {
+    label: "CIVIL & CONSTRUCTION",
+    href: "/civil-construction",
   },
   {
     label: "BLOGS",
@@ -220,12 +227,12 @@ export default function Navbar() {
             >
               CONTACT
             </Link>
-            <button
-              onClick={() => openPartner()}
+            <Link
+              href="/partner-with-us"
               className="px-6 py-2.5 border border-[#C9A84C] bg-transparent text-[#C9A84C] font-futura text-[10.5px] tracking-[0.2em] font-bold uppercase hover:bg-[#C9A84C]/10 transition-all duration-200"
             >
               Partner With Us
-            </button>
+            </Link>
           </div>
         </div>
 
@@ -341,12 +348,13 @@ export default function Navbar() {
             >
               Book Now
             </button>
-            <button
-              onClick={() => { closeMobile(); openPartner(); }}
-              className="w-full py-4 border border-[#C9A84C]/40 bg-transparent text-[#C9A84C] font-futura text-[11px] tracking-[0.2em] uppercase hover:bg-[#C9A84C]/10"
+            <Link
+              href="/partner-with-us"
+              onClick={closeMobile}
+              className="block w-full py-4 text-center border border-[#C9A84C]/40 bg-transparent text-[#C9A84C] font-futura text-[11px] tracking-[0.2em] uppercase hover:bg-[#C9A84C]/10"
             >
               Partner With Us
-            </button>
+            </Link>
             <Link
               href="/contact"
               onClick={closeMobile}
@@ -368,7 +376,8 @@ export default function Navbar() {
           className="flex flex-col items-center justify-center gap-0.5 bg-transparent text-[#C9A84C] font-futura text-[8px] sm:text-[9px] tracking-[0.12em] font-semibold uppercase hover:bg-[#C9A84C]/10 transition-colors border-r border-[#C9A84C]/20 px-1"
         >
           <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            <path strokeLinecap="round" strokeLinejoin="round" d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
+            <polyline strokeLinecap="round" strokeLinejoin="round" points="9 22 9 12 15 12 15 22" />
           </svg>
           Explore Stays
         </Link>

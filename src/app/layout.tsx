@@ -11,7 +11,7 @@ const isProduction = process.env.NEXT_PUBLIC_VERCEL_ENV === 'production' || (!pr
 
 const HOME_TITLE = 'Discover REUNION in Udupi | Luxury Villas, Café & Events';
 const HOME_DESCRIPTION =
-  'Discover REUNION in Udupi, offering luxury beach and city villas, premium suites, a beachside café, candlelight dinners, and a beautiful beach venue for weddings, celebrations and private events';
+  'Luxury beach and city villas, a beachfront café, candlelight dinners and a wedding venue in Udupi, Karnataka. Book your stay with REUNION.';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.reunionglobal.in'),
@@ -92,7 +92,10 @@ const organizationSchema = {
     contactType: 'reservations',
     availableLanguage: ['English', 'Kannada', 'Hindi'],
   },
-  sameAs: [],
+  sameAs: [
+    'https://www.instagram.com/reunionteam19',
+    'https://www.youtube.com/@reunionteam19',
+  ],
 };
 
 export default function RootLayout({
@@ -101,7 +104,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className="dark">
+    <html lang="en-IN" className="dark">
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />

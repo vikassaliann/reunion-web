@@ -3,8 +3,6 @@
 import { useState } from "react";
 import Link from "next/link";
 import Logo from "./Logo";
-import { usePartner } from "./PartnerContext";
-
 interface FooterProps {
   variant?: "default" | "estate";
 }
@@ -57,8 +55,6 @@ function NewsletterForm() {
 }
 
 export default function Footer({ variant = "default" }: FooterProps) {
-  const { open: openPartner } = usePartner();
-
   if (variant === "estate") {
     return (
       <footer className="bg-[#080808] border-t border-[#C9A84C]/20 px-6 md:px-20 py-16 w-full">
@@ -68,7 +64,7 @@ export default function Footer({ variant = "default" }: FooterProps) {
           </Link>
           <div className="flex flex-wrap gap-8">
             <Link className="font-futura text-sm text-white/50 hover:text-[#C9A84C] transition-colors" href="/about">About Us</Link>
-            <button onClick={() => openPartner()} className="font-futura text-sm text-[#C9A84C] hover:text-white transition-colors">Partner With Us</button>
+            <Link href="/partner-with-us" className="font-futura text-sm text-[#C9A84C] hover:text-white transition-colors">Partner With Us</Link>
             <Link className="font-futura text-sm text-white/50 hover:text-[#C9A84C] transition-colors" href="#">Privacy Policy</Link>
             <Link className="font-futura text-sm text-white/50 hover:text-[#C9A84C] transition-colors" href="#">Terms of Service</Link>
           </div>
@@ -90,7 +86,7 @@ export default function Footer({ variant = "default" }: FooterProps) {
         <div className="md:col-span-3 space-y-6">
           <p className="font-futura text-[10px] text-[#C9A84C] tracking-[0.3em] uppercase">Explore</p>
           <ul className="space-y-4">
-            <li><button onClick={() => openPartner()} className="font-futura text-xs text-white/50 hover:text-white transition-colors tracking-wider text-left">Partner With Us</button></li>
+            <li><Link href="/partner-with-us" className="font-futura text-xs text-white/50 hover:text-white transition-colors tracking-wider">Partner With Us</Link></li>
             <li><Link className="font-futura text-xs text-white/50 hover:text-white transition-colors tracking-wider" href="/about">Our Story</Link></li>
             <li><Link href="/contact" className="font-futura text-xs text-white/50 hover:text-white transition-colors tracking-wider text-left">Contact Us</Link></li>
             <li><Link className="font-futura text-xs text-white/50 hover:text-white transition-colors tracking-wider" href="#">Terms & Conditions</Link></li>

@@ -7,7 +7,7 @@ const CANONICAL = `${BASE_URL}/experiences/candlelight-dinner`;
 const PAGE_TITLE =
   "Candle Light Dinner in Udupi | REUNION Candlelight Dinner";
 const PAGE_DESCRIPTION =
-  "Candle light dinner in Udupi by REUNION — the top private candlelight dinner in Udupi on Mattu Beach. Romantic beachside setup, coastal cuisine, proposals & anniversaries. Book your candlelight dinner in Udupi today.";
+  "A private candlelight dinner on Mattu Beach, Udupi — romantic beachside setup and coastal cuisine for proposals and anniversaries.";
 
 export const metadata: Metadata = {
   title: { absolute: PAGE_TITLE },

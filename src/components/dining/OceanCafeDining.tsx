@@ -1,16 +1,15 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import ContactForm from "@/components/ContactForm";
 import {
   PROPERTY_FAQS,
   TOURIST_ROUTES,
 } from "@/components/PropertyDetailSection";
 import { MenuDivider } from "@/components/dining/CafeDecor";
-import OceanCafeGalleryCarousel from "@/components/dining/OceanCafeGalleryCarousel";
+import PropertyStyleGallery from "@/components/PropertyStyleGallery";
 import {
   OCEAN_CAFE_GALLERY_IMAGES,
-  OCEAN_CAFE_GALLERY_SLIDES,
   OCEAN_CAFE_INTRO,
   OCEAN_CAFE_META,
   OCEAN_CAFE_OVERVIEW_LEAD,
@@ -33,38 +32,11 @@ export default function OceanCafeDining({
   mapLink,
   phone,
 }: OceanCafeDiningProps) {
-  const [lightboxOpen, setLightboxOpen] = useState(false);
-  const [selectedImageIdx, setSelectedImageIdx] = useState(0);
   const [touristOpen, setTouristOpen] = useState(false);
   const [faqOpen, setFaqOpen] = useState(false);
 
   const faqs = PROPERTY_FAQS["ocean-cafe"] ?? [];
   const allImages = OCEAN_CAFE_GALLERY_IMAGES;
-
-  const openLightbox = (idx: number) => {
-    setSelectedImageIdx(idx);
-    setLightboxOpen(true);
-  };
-
-  const closeLightbox = () => setLightboxOpen(false);
-
-  const lightboxPrev = () =>
-    setSelectedImageIdx((prev) => (prev - 1 + allImages.length) % allImages.length);
-  const lightboxNext = () =>
-    setSelectedImageIdx((prev) => (prev + 1) % allImages.length);
-
-  useEffect(() => {
-    if (!lightboxOpen) return;
-    document.body.style.overflow = "hidden";
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") closeLightbox();
-    };
-    window.addEventListener("keydown", onKey);
-    return () => {
-      document.body.style.overflow = "";
-      window.removeEventListener("keydown", onKey);
-    };
-  }, [lightboxOpen]);
 
   return (
     <div className="relative">
@@ -128,88 +100,7 @@ export default function OceanCafeDining({
         </p>
       </div>
 
-      <OceanCafeGalleryCarousel
-        slides={OCEAN_CAFE_GALLERY_SLIDES}
-        onOpenLightbox={openLightbox}
-      />
-
-      {/* Lightbox */}
-      {lightboxOpen && (
-        <div
-          className="fixed inset-0 z-[9999] flex flex-col bg-[#1a110c]/97"
-          role="dialog"
-          aria-modal="true"
-          aria-label="Ocean Café gallery"
-          onClick={closeLightbox}
-        >
-          <button
-            type="button"
-            onClick={closeLightbox}
-            className="fixed top-4 right-4 z-[10001] flex h-12 w-12 items-center justify-center rounded-full border-2 border-[#c9a84c] bg-[#1a110c]/90 text-2xl leading-none text-[#c9a84c] shadow-lg hover:bg-[#c9a84c] hover:text-[#1a110c] transition-colors"
-            aria-label="Close gallery"
-          >
-            ×
-          </button>
-          <div
-            className="flex items-center justify-between px-5 py-4 border-b border-[#c9a84c]/15 shrink-0"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <p className="font-futura text-[10px] tracking-[0.3em] text-[#e8dfd0]/50 uppercase">
-              {selectedImageIdx + 1} / {allImages.length}
-            </p>
-            <button
-              type="button"
-              onClick={closeLightbox}
-              className="font-futura text-[10px] tracking-[0.3em] uppercase text-[#c9a84c] px-4 py-2 border border-[#c9a84c]/40 hover:bg-[#c9a84c]/10"
-            >
-              Close
-            </button>
-          </div>
-          <div
-            className="relative flex-1 flex items-center justify-center px-4 md:px-16 py-6 min-h-0"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <button
-              type="button"
-              onClick={lightboxPrev}
-              className="absolute left-3 md:left-8 top-1/2 -translate-y-1/2 w-11 h-11 border border-[#c9a84c]/30 text-[#f4ebe1] hover:bg-[#c9a84c]/10 z-10"
-              aria-label="Previous"
-            >
-              ‹
-            </button>
-            <img
-              src={allImages[selectedImageIdx]}
-              alt=""
-              className="max-h-[min(70vh,880px)] max-w-full object-contain"
-            />
-            <button
-              type="button"
-              onClick={lightboxNext}
-              className="absolute right-3 md:right-8 top-1/2 -translate-y-1/2 w-11 h-11 border border-[#c9a84c]/30 text-[#f4ebe1] hover:bg-[#c9a84c]/10 z-10"
-              aria-label="Next"
-            >
-              ›
-            </button>
-          </div>
-          <div
-            className="px-5 pb-6 flex gap-2 overflow-x-auto justify-center shrink-0 [&::-webkit-scrollbar]:hidden"
-            onClick={(e) => e.stopPropagation()}
-          >
-            {allImages.map((src, i) => (
-              <button
-                key={src + i}
-                type="button"
-                onClick={() => setSelectedImageIdx(i)}
-                className={`flex-none w-14 h-14 overflow-hidden ring-2 ${
-                  selectedImageIdx === i ? "ring-[#c9a84c]" : "ring-transparent opacity-50"
-                }`}
-              >
-                <img src={src} alt="" className="w-full h-full object-cover" />
-              </button>
-            ))}
-          </div>
-        </div>
-      )}
+      <PropertyStyleGallery images={allImages} label="Ocean Café" className="mb-16 md:mb-20" />
 
       {/* Mobile: overview → highlights → enquiry → call/map → nearby → FAQ (same as property) */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-14 lg:gap-x-20 lg:gap-y-16 items-start">

@@ -55,6 +55,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'weekly',
       priority: 0.9,
     },
+    {
+      url: `${baseUrl}/properties/category/hotel-stays`,
+      lastModified: now,
+      changeFrequency: 'weekly',
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/properties/category/shivamogga-stays`,
+      lastModified: now,
+      changeFrequency: 'weekly',
+      priority: 0.85,
+    },
     // Dining
     {
       url: `${baseUrl}/dining`,
@@ -76,6 +88,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'weekly',
       priority: 0.95,
     },
+    {
+      url: `${baseUrl}/experiences/beach-birthday`,
+      lastModified: now,
+      changeFrequency: 'weekly',
+      priority: 0.9,
+    },
     // Wellness & spa at Reunion
     {
       url: `${baseUrl}/wellness`,
@@ -89,6 +107,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: now,
       changeFrequency: 'weekly',
       priority: 0.85,
+    },
+    {
+      url: `${baseUrl}/civil-construction`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.75,
+    },
+    {
+      url: `${baseUrl}/partner-with-us`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.7,
     },
     // Blogs hub + posts
     {

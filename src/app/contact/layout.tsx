@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 
 const BASE_URL = "https://www.reunionglobal.in";
-const PAGE_TITLE = "REUNION | Contact — Book Stays & Dining";
+const PAGE_TITLE = "Contact REUNION | Book Villas & Ocean Café in Udupi";
 const PAGE_DESCRIPTION =
-  "Contact REUNION to enquire about luxury beach and city villas, premium suites, Ocean Café dining, candlelight dinners, and event venues in Udupi.";
+  "Contact REUNION to book luxury beach and city villas, Ocean Café tables, candlelight dinners and event venues in Udupi, Karnataka.";
 
 export const metadata: Metadata = {
   title: { absolute: PAGE_TITLE },
