@@ -1,8 +1,6 @@
-import { buildFaqPageSchema } from "@/lib/faqSchema";
 import type { KeywordPageSeo } from "@/data/keywordGuide";
-import JsonLdScript from "@/components/JsonLdScript";
 
-export default function KeywordFaqJsonLd({ seo }: { seo: KeywordPageSeo | undefined }) {
-  if (!seo?.faqs?.length) return null;
-  return <JsonLdScript data={buildFaqPageSchema(seo.faqs)} />;
+/** Disabled — FAQPage JSON-LD only when FAQs are shown on-page (property pages use their own schema). */
+export default function KeywordFaqJsonLd(_props: { seo: KeywordPageSeo | undefined }) {
+  return null;
 }
