@@ -296,8 +296,9 @@ export default async function PropertyPage({ params }: { params: Promise<{ id: s
   const faqSchema = getFaqSchema(id);
   const keyword = getPropertyKeywordSeo(id);
   const seo = PROPERTY_SEO[id];
-  const fullTitleHeading = keyword?.h1 || seo?.h1 || `REUNION ${property.name}`;
-  const heroAlt = keyword?.imageAlt || `${fullTitleHeading} — ${property.location}`;
+  // Visible hero uses short property name (old UI); page title/meta still use keyword SEO.
+  const heroHeading = property.name;
+  const heroAlt = keyword?.imageAlt || `${property.name} — ${property.location}`;
 
   return (
     <div className="bg-background text-on-surface antialiased overflow-x-hidden selection:bg-antique-gold selection:text-obsidian-deep">
@@ -330,7 +331,7 @@ export default async function PropertyPage({ params }: { params: Promise<{ id: s
         <Breadcrumbs items={[
           { label: 'Home', href: '/' },
           { label: 'Properties', href: '/properties' },
-          { label: fullTitleHeading },
+          { label: heroHeading },
         ]} />
 
         <section className="relative w-full h-[85vh] md:h-screen flex items-end pb-margin-mobile md:pb-margin-desktop">
@@ -339,7 +340,7 @@ export default async function PropertyPage({ params }: { params: Promise<{ id: s
             <div className="absolute inset-0 bg-gradient-to-t from-obsidian-deep via-obsidian-deep/40 to-transparent"></div>
           </div>
           <div className="relative z-10 w-full max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop text-center">
-            <h1 className="font-display-xl text-headline-lg-mobile md:text-display-xl text-on-surface mb-4 uppercase tracking-widest">{fullTitleHeading}</h1>
+            <h1 className="font-display-xl text-headline-lg-mobile md:text-display-xl text-on-surface mb-4 uppercase tracking-widest">{heroHeading}</h1>
             <p className="font-label-caps text-label-caps text-antique-gold tracking-[0.3em] mb-8">{property.location}</p>
             <div className="w-px h-16 bg-antique-gold/50 mx-auto"></div>
           </div>

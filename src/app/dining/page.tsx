@@ -1,7 +1,6 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Breadcrumbs from "@/components/Breadcrumbs";
-import Link from "next/link";
 import properties from "@/data/properties.json";
 import OceanCafeDining from "@/components/dining/OceanCafeDining";
 import { CoffeeSteam, WaveSteamPattern } from "@/components/dining/CafeDecor";
@@ -138,12 +137,9 @@ export default function DiningPage() {
               <p className="font-futura text-[10px] tracking-[0.45em] text-[#c9a84c] uppercase mb-4">
                 {cafe.location}
               </p>
-              <h1 className="font-futura text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-light text-[#f4ebe1] uppercase tracking-[0.16em] md:tracking-[0.22em] leading-tight max-w-5xl">
-                Ocean Café — Beach Café on Mattu Beach, Udupi
+              <h1 className="font-futura text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-light text-[#f4ebe1] uppercase tracking-[0.22em] md:tracking-[0.28em] leading-tight max-w-5xl">
+                Reunion Ocean Café
               </h1>
-              <p className="mt-6 max-w-2xl mx-auto font-futura text-sm text-[#f4ebe1]/75 font-light leading-relaxed tracking-wide">
-                Ocean Café is REUNION&apos;s beachfront cafe in Udupi, right on Mattu Beach — sunset views, a fireplace lounge, fresh seafood and specialty coffee.
-              </p>
             </div>
           </div>
         </section>
@@ -159,17 +155,6 @@ export default function DiningPage() {
           />
 
           <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Dining" }]} />
-
-          <nav
-            aria-label="Breadcrumb"
-            className="relative mt-6 mb-4 flex flex-wrap items-center justify-center gap-2 font-futura text-[10px] tracking-[0.35em] text-[#e8dfd0]/40 uppercase"
-          >
-            <Link href="/" className="hover:text-[#c9a84c] transition-colors">
-              Home
-            </Link>
-            <span className="text-[#e8dfd0]/20">/</span>
-            <span className="text-[#c9a84c]">Ocean Café</span>
-          </nav>
 
           <OceanCafeDining
             name={cafe.name}

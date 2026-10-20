@@ -91,12 +91,12 @@ export default function EventsPage() {
             <p className="font-futura text-[10px] tracking-[0.45em] text-[#C9A84C] uppercase mb-5">
               Events & Weddings
             </p>
-            <h1 className="font-futura text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light tracking-[0.12em] uppercase text-white leading-tight max-w-4xl mx-auto">
-              Beach Weddings & Events in Udupi
+            <h1 className="font-futura text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light tracking-[0.14em] uppercase text-white leading-tight">
+              Gutthu
             </h1>
             <div className="w-14 h-px bg-[#C9A84C]/50 mx-auto my-7" />
-            <p className="font-futura text-sm md:text-base text-white/60 font-light tracking-wide max-w-2xl mx-auto leading-relaxed">
-              Looking for wedding venues in Udupi? REUNION hosts beach weddings, receptions and private events on the coast, with stays nearby for your guests — planned with Gutthu Weddings Planner and Events Management.
+            <p className="font-futura text-sm md:text-base text-white/60 font-light tracking-wide max-w-xl mx-auto leading-relaxed">
+              Weddings Planner and Events Management
             </p>
           </div>
         </section>

@@ -9,16 +9,7 @@ import { CATEGORIES, CATEGORY_MAP } from "@/utils/categories";
 import KeywordSeoSections from "@/components/KeywordSeoSections";
 import KeywordFaqJsonLd from "@/components/KeywordFaqJsonLd";
 import { getKeywordSeo } from "@/data/keywordGuide";
-import { BEACH_GROUPS, CITY_DISTANCE, PROPERTY_GUESTS } from "@/data/propertyGuests";
-
 const BASE_URL = "https://www.reunionglobal.in";
-
-const CATEGORY_H1: Record<string, string> = {
-  "beach-villas": "Beach Villas in Udupi",
-  "city-stays": "City Villas in Udupi",
-  "hotel-stays": "Hotel Stays in Udupi",
-  "shivamogga-stays": "Stays near Shivamogga & Jog Falls",
-};
 
 const CATEGORY_INTRO: Record<string, string> = {
   "beach-villas":
@@ -141,55 +132,22 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
           </div>
 
           {/* Header */}
-          <div className="flex flex-col items-center justify-center h-[calc(80vh-180px)] mb-16 text-center px-4">
-            <h1 className="font-futura text-4xl md:text-[4.5rem] text-white font-medium tracking-[0.2em] uppercase drop-shadow-xl">
-              {keywordSeo?.h1 ?? CATEGORY_H1[categoryId] ?? categoryInfo.label}
+          <div className="flex flex-col items-center justify-center min-h-[42vh] sm:min-h-[50vh] md:h-[calc(80vh-180px)] mb-12 md:mb-16 text-center px-4 w-full">
+            <h1 className="font-futura w-full max-w-full text-[clamp(1.35rem,6.5vw,5.5rem)] text-white font-medium tracking-[0.1em] sm:tracking-[0.2em] md:tracking-[0.28em] uppercase drop-shadow-xl text-center leading-[1.2] break-words">
+              {categoryInfo.label}
             </h1>
-            <p className="mt-6 max-w-2xl text-white/55 font-futura text-sm leading-relaxed font-light tracking-wide">
+            <p className="mt-5 md:mt-6 max-w-2xl text-white/55 font-futura text-xs sm:text-sm leading-relaxed font-light tracking-wide px-1">
               {keywordSeo?.lead ?? CATEGORY_INTRO[categoryId] ?? null}
             </p>
           </div>
 
           {/* Filter Bar */}
-          <div className="flex justify-between items-end border-b border-white/10 pb-4 mb-16">
-             <h2 className="text-[#C9A84C] font-futura tracking-[0.2em] uppercase text-[10px]">{categoryInfo.label} ({properties.length})</h2>
+          <div className="flex flex-wrap justify-between items-end gap-3 border-b border-white/10 pb-4 mb-12 md:mb-16">
+             <h2 className="text-[#C9A84C] font-futura tracking-[0.14em] sm:tracking-[0.2em] uppercase text-[10px] min-w-0 max-w-[70%] truncate sm:max-w-none sm:overflow-visible sm:whitespace-normal">
+               {categoryInfo.label} ({properties.length})
+             </h2>
              <FilterDropdown currentCategory={categoryId} />
           </div>
-
-          {categoryId === "beach-villas" && (
-            <div className="mb-16 max-w-3xl mx-auto space-y-6">
-              <h2 className="font-futura text-[11px] tracking-[0.3em] text-white/40 uppercase text-center">
-                Grouped by beach
-              </h2>
-              {BEACH_GROUPS.map((group) => (
-                <div key={group.beach} className="border-b border-white/10 pb-5">
-                  <p className="font-futura text-sm text-white/85 tracking-wide">
-                    <Link
-                      href={`/blogs/top-10-beaches-to-visit-in-udupi#${group.blogHash}`}
-                      className="text-[#C9A84C] hover:underline"
-                    >
-                      {group.beach}
-                    </Link>
-                    <span className="text-white/40"> — {group.walkNote}</span>
-                  </p>
-                  <p className="mt-2 font-futura text-[12px] text-white/50 font-light tracking-wide">
-                    {group.propertyIds.map((id, i) => {
-                      const p = properties.find((x) => x.id === id);
-                      if (!p) return null;
-                      return (
-                        <span key={id}>
-                          {i > 0 ? " · " : null}
-                          <Link href={`/properties/${id}`} className="text-white/70 hover:text-[#C9A84C]">
-                            {p.name}
-                          </Link>
-                        </span>
-                      );
-                    })}
-                  </p>
-                </div>
-              ))}
-            </div>
-          )}
 
           {/* Properties List - Alternating Layout */}
           {properties.length > 0 ? (
@@ -211,15 +169,6 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
                           <>Reunion<br />{prop.name}</>
                         )}
                       </h2>
-                      <p className="font-futura text-[11px] tracking-[0.18em] text-white/45 uppercase">
-                        {prop.bedrooms > 0 ? `${prop.bedrooms} BR` : "Stay"}
-                        {PROPERTY_GUESTS[prop.id] ? ` · ${PROPERTY_GUESTS[prop.id]}` : ""}
-                      </p>
-                      {CITY_DISTANCE[prop.id] ? (
-                        <p className="font-futura text-[11px] tracking-[0.12em] text-white/50 font-light">
-                          {CITY_DISTANCE[prop.id]}
-                        </p>
-                      ) : null}
                       <p className="text-white/40 text-sm leading-relaxed font-futura font-light tracking-wide max-w-md">
                         {prop.description.length > 180 ? `${prop.description.substring(0, 180)}...` : prop.description}
                       </p>
@@ -227,7 +176,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
                         href={`/properties/${prop.id}`}
                         className="inline-flex items-center gap-2 font-futura text-[11px] tracking-[0.25em] text-[#C9A84C] uppercase border-b border-[#C9A84C]/40 pb-1 hover:border-[#C9A84C] transition-all mt-4"
                       >
-                        {`View ${prop.name.replace(/^REUNION\s+/i, "")}`}
+                        EXPLORE MORE
                         <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                           <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
                         </svg>

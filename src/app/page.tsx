@@ -7,10 +7,6 @@ import Link from "next/link";
 import properties from "@/data/properties.json";
 import { MandalaRing, MandalaLotus } from "@/components/wellness/WellnessMandala";
 import ReunionMapSection from "@/components/ReunionMapSection";
-import KeywordSeoSections from "@/components/KeywordSeoSections";
-import KeywordFaqJsonLd from "@/components/KeywordFaqJsonLd";
-import { getKeywordSeo } from "@/data/keywordGuide";
-
 /* ── Hero slideshow images ── */
 const HERO_SLIDES = [
   { src: "/properties/ocean-manor/herooo.png", alt: "Ocean Manor — Sea & River Facing Beachfront Villa" },
@@ -169,15 +165,11 @@ export default function Home() {
           {/* Hero text — mobile: no CTAs, sit lower; desktop keeps buttons */}
           <div className="relative z-10 w-full max-w-7xl mx-auto page-pad pb-28 sm:pb-32 md:pb-36">
             <div className="max-w-2xl space-y-3 sm:space-y-4">
-              <p className="font-futura font-light text-[2rem] sm:text-5xl md:text-6xl text-white/95 leading-[1.05] tracking-wide uppercase drop-shadow-md" aria-hidden="true">
+              <h1 className="font-futura font-light text-[2.5rem] sm:text-6xl md:text-7xl text-white leading-[1.05] tracking-wide uppercase drop-shadow-md">
                 REUNION
-              </p>
-              <h1 className="font-futura font-light text-xl sm:text-3xl md:text-4xl text-[#C9A84C] leading-[1.15] tracking-[0.12em] uppercase drop-shadow-md mt-2">
-                {getKeywordSeo("/")?.h1 ?? "Luxury Villas & Beach Stays in Udupi"}
               </h1>
-              <p className="font-futura text-sm sm:text-base text-white/85 font-light tracking-wide leading-relaxed drop-shadow max-w-xl">
-                {getKeywordSeo("/")?.lead ??
-                  "REUNION offers luxury villas in Udupi, Karnataka — private villas at Hoode, Uchila, Kapu, Mattu and Malpe beaches, city suites, Ocean Café and beach celebrations."}
+              <p className="font-cormorant italic text-lg sm:text-2xl text-white/90 font-light tracking-wide leading-snug drop-shadow">
+                Creating Memories, One Reunion at a Time
               </p>
               <p className="font-futura text-[9px] sm:text-[11px] tracking-[0.22em] sm:tracking-[0.35em] text-white/65 uppercase leading-relaxed pt-1">
                 STAY · RELAX · EXPLORE · CELEBRATE · RECONNECT
@@ -842,43 +834,6 @@ export default function Home() {
           </div>
         </section>
 
-
-        <section className="bg-[#080808] border-t border-white/10 py-14 px-5 md:px-10">
-          <div className="max-w-3xl mx-auto space-y-8">
-            <h2 className="font-futura text-[11px] tracking-[0.35em] text-[#C9A84C] uppercase text-center">
-              Guest reviews
-            </h2>
-            <div className="space-y-6 font-futura text-sm text-white/60 font-light leading-relaxed">
-              <blockquote className="border-l border-[#C9A84C]/40 pl-5">
-                <p>
-                  “Incredible beachfront dining at Ocean Café — sunset views over Mattu Beach and fresh seafood. We stayed next door at Ocean Waves.”
-                </p>
-                <footer className="mt-2 text-[11px] tracking-[0.2em] text-white/35 uppercase">Google · Ocean Café</footer>
-              </blockquote>
-              <blockquote className="border-l border-[#C9A84C]/40 pl-5">
-                <p>
-                  “Ocean Manor was perfect for our family group — sea and river views, and direct access to Hoode Beach, Udupi.”
-                </p>
-                <footer className="mt-2 text-[11px] tracking-[0.2em] text-white/35 uppercase">Guest · Ocean Manor</footer>
-              </blockquote>
-              <blockquote className="border-l border-[#C9A84C]/40 pl-5">
-                <p>
-                  “Clean suites near Sri Krishna Temple. De Homes front desk was helpful for early darshan.”
-                </p>
-                <footer className="mt-2 text-[11px] tracking-[0.2em] text-white/35 uppercase">Guest · De Homes</footer>
-              </blockquote>
-            </div>
-          </div>
-        </section>
-
-        {getKeywordSeo("/") ? (
-          <section className="bg-[#080808] border-t border-white/10 py-16 px-5 md:px-10">
-            <KeywordFaqJsonLd seo={getKeywordSeo("/")} />
-            <div className="max-w-3xl mx-auto">
-              <KeywordSeoSections seo={getKeywordSeo("/")!} />
-            </div>
-          </section>
-        ) : null}
 
         {/* Reunion Udupi Map + nearby places (restored) */}
         <ReunionMapSection />
