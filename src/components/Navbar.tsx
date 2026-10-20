@@ -3,7 +3,6 @@
 import { useEffect, useState, useRef } from "react";
 import Link from "next/link";
 import Logo from "./Logo";
-import { usePartner } from "./PartnerContext";
 import { useEnquiry } from "./EnquiryContext";
 
 /* ─── Types ─── */
@@ -71,40 +70,25 @@ const NAV_ITEMS: NavItemData[] = [
 
 // DropdownItem interface defined above NAV_ITEMS
 
-function NavDropdown({ items, onClose, openPartner }: { items: DropdownItem[]; onClose: () => void; openPartner: () => void }) {
+function NavDropdown({ items, onClose }: { items: DropdownItem[]; onClose: () => void }) {
   return (
     <div
       className="absolute top-full left-1/2 -translate-x-1/2 mt-1 pt-1 z-50 min-w-[200px]"
       style={{ willChange: "transform, opacity" }}
     >
       <div className="bg-black/80 backdrop-blur-lg overflow-hidden py-3 rounded-md border border-white/5">
-        {items.map((item) => {
-          if (item.isPartner) {
-            return (
-              <button
-                key={item.label}
-                onClick={() => { onClose(); openPartner(); }}
-                className={`w-full text-left px-5 py-2 group/item flex items-center gap-3 hover:bg-white/10 transition-colors duration-150`}
-              >
-                <span className="font-futura text-[10px] tracking-[0.2em] text-[#C9A84C] uppercase font-medium group-hover/item:text-white transition-colors">
-                  {item.label}
-                </span>
-              </button>
-            );
-          }
-          return (
+        {items.map((item) => (
             <Link
               key={item.label}
-              href={item.href}
+              href={item.isPartner ? "/partner-with-us" : item.href}
               onClick={onClose}
               className={`block px-5 py-2 group/item hover:bg-white/10 transition-colors duration-150`}
             >
-              <span className={`font-futura text-[10px] tracking-[0.2em] uppercase font-medium transition-colors ${item.highlight ? "text-[#C9A84C]" : "text-white/70 group-hover/item:text-white"}`}>
+              <span className={`font-futura text-[10px] tracking-[0.2em] uppercase font-medium transition-colors ${item.isPartner || item.highlight ? "text-[#C9A84C]" : "text-white/70 group-hover/item:text-white"}`}>
                 {item.label}
               </span>
             </Link>
-          );
-        })}
+          ))}
       </div>
     </div>
   );
@@ -112,10 +96,8 @@ function NavDropdown({ items, onClose, openPartner }: { items: DropdownItem[]; o
 
 function NavItem({
   item,
-  openPartner,
 }: {
   item: NavItemData;
-  openPartner: () => void;
 }) {
   const [open, setOpen] = useState(false);
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -159,7 +141,6 @@ function NavItem({
           <NavDropdown
             items={item.dropdown!}
             onClose={() => setOpen(false)}
-            openPartner={openPartner}
           />
         </div>
       )}
@@ -171,7 +152,6 @@ export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [mobileExpanded, setMobileExpanded] = useState<string | null>(null);
-  const { open: openPartner } = usePartner();
   const { open: openEnquiry } = useEnquiry();
 
   useEffect(() => {
@@ -215,7 +195,7 @@ export default function Navbar() {
           {/* Center Nav Links */}
           <nav className="flex items-center gap-6 xl:gap-8 flex-shrink-0">
             {NAV_ITEMS.map((item) => (
-              <NavItem key={item.label} item={item} openPartner={openPartner} />
+              <NavItem key={item.label} item={item} />
             ))}
           </nav>
 
@@ -306,21 +286,12 @@ export default function Navbar() {
                   </button>
                   {mobileExpanded === label && (
                     <div className="pb-3 pl-3 space-y-1">
-                      {dropdown.map((sub) =>
-                        sub.isPartner ? (
-                          <button
-                            key={sub.label}
-                            onClick={() => { closeMobile(); openPartner(); }}
-                            className="block w-full text-left py-2 font-futura text-[11px] tracking-[0.15em] text-[#C9A84C] uppercase"
-                          >
-                            {sub.label}
-                          </button>
-                        ) : (
+                      {dropdown.map((sub) => (
                           <Link
                             key={sub.label}
-                            href={sub.href}
+                            href={sub.isPartner ? "/partner-with-us" : sub.href}
                             onClick={closeMobile}
-                            className={`block py-2 font-futura text-[11px] tracking-[0.15em] uppercase ${sub.highlight ? "text-[#C9A84C]" : "text-white/60"}`}
+                            className={`block py-2 font-futura text-[11px] tracking-[0.15em] uppercase ${sub.isPartner || sub.highlight ? "text-[#C9A84C]" : "text-white/60"}`}
                           >
                             {sub.label}
                           </Link>
@@ -390,8 +361,8 @@ export default function Navbar() {
           </svg>
           Book Now
         </button>
-        <button
-          onClick={() => openPartner()}
+        <Link
+          href="/partner-with-us"
           className="flex flex-col items-center justify-center gap-0.5 bg-transparent text-[#C9A84C] font-futura text-[8px] sm:text-[9px] tracking-[0.12em] font-bold uppercase hover:bg-[#C9A84C]/10 transition-colors px-1"
         >
           <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
@@ -399,7 +370,7 @@ export default function Navbar() {
             <polyline points="9 22 9 12 15 12 15 22" />
           </svg>
           Partner With Us
-        </button>
+        </Link>
       </div>
     </>
   );
