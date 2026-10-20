@@ -1,10 +1,13 @@
 import type { Metadata } from "next";
+import { getKeywordSeo } from "@/data/keywordGuide";
 
 const BASE_URL = "https://www.reunionglobal.in";
 const CANONICAL = `${BASE_URL}/experiences/beach-birthday`;
 
-const PAGE_TITLE = "Beach Birthday Celebration in Udupi | REUNION";
+const seo = getKeywordSeo("/experiences/beach-birthday");
+const PAGE_TITLE = seo?.title ?? "Beach Birthday Celebration in Udupi | REUNION";
 const PAGE_DESCRIPTION =
+  seo?.description ??
   "Celebrate a birthday on the beach in Udupi — decorated beachside setup at Mattu Beach with dinner and cake. Packages for couples, families and groups.";
 
 export const metadata: Metadata = {
@@ -27,37 +30,6 @@ export const metadata: Metadata = {
   },
 };
 
-const faqSchema = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  mainEntity: [
-    {
-      "@type": "Question",
-      name: "How much does a beach birthday in Udupi cost?",
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: "Packages vary by guest count, décor, and catering — enquire with your date and we will share options.",
-      },
-    },
-    {
-      "@type": "Question",
-      name: "Can you arrange a surprise birthday setup?",
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: "Yes. REUNION specialises in surprise beach and villa birthday setups on Mattu Beach and at our Udupi stays.",
-      },
-    },
-  ],
-};
-
 export default function BeachBirthdayLayout({ children }: { children: React.ReactNode }) {
-  return (
-    <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
-      />
-      {children}
-    </>
-  );
+  return <>{children}</>;
 }

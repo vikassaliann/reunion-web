@@ -6,6 +6,11 @@ import Footer from "@/components/Footer";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import ContactForm from "@/components/ContactForm";
 import { MandalaRing, MandalaLotus } from "@/components/wellness/WellnessMandala";
+import KeywordSeoSections from "@/components/KeywordSeoSections";
+import KeywordFaqJsonLd from "@/components/KeywordFaqJsonLd";
+import { getKeywordSeo } from "@/data/keywordGuide";
+
+const seo = getKeywordSeo("/experiences/beach-birthday");
 
 const BDY = (file: string) => `/properties/experiances/candlelight/bdy/${file}`;
 
@@ -65,13 +70,14 @@ export default function BirthdayPage() {
 
   return (
     <div className="bg-[#080808] text-white antialiased min-h-screen overflow-x-hidden">
+      <KeywordFaqJsonLd seo={seo} />
       <Navbar />
 
       {/* HERO */}
       <section className="relative min-h-[88svh] sm:min-h-screen flex items-end overflow-hidden">
         <img
           src={BDY("bd.jpeg")}
-          alt="Birthday celebrations in Udupi — REUNION private party setup"
+          alt={seo?.imageAlt ?? "Birthday celebrations in Udupi — REUNION private party setup"}
           className="absolute inset-0 w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-[#080808] via-[#080808]/70 to-black/40" />
@@ -92,14 +98,11 @@ export default function BirthdayPage() {
           <p className="font-futura text-[9px] sm:text-[10px] tracking-[0.45em] text-[#C9A84C] uppercase mb-4">
             Birthday Celebrations · REUNION
           </p>
-          <h1 className="font-futura text-4xl sm:text-6xl md:text-7xl font-light text-white leading-[1.08] max-w-3xl uppercase tracking-widest">
-            Birthday Celebration in Udupi
-            <span className="block text-[#C9A84C] text-[0.4em] tracking-[0.12em] mt-3 font-futura uppercase">
-              Private beach & villa parties in Udupi
-            </span>
+          <h1 className="font-futura text-3xl sm:text-5xl md:text-6xl font-light text-white leading-[1.08] max-w-3xl uppercase tracking-[0.12em]">
+            Beach Birthday Celebrations in Udupi
           </h1>
           <p className="mt-5 max-w-lg font-futura text-sm text-white/55 font-light leading-relaxed tracking-wide">
-            Celebrate your special day with REUNION — private beachside setups, villa parties, surprise midnight celebrations, and curated dining for unforgettable birthdays.
+            Make it a birthday to remember with a birthday celebration in Udupi on Mattu Beach — decorated setups, dinner and cake for couples, families and groups.
           </p>
           <button
             type="button"
@@ -258,6 +261,12 @@ export default function BirthdayPage() {
           </div>
         </div>
       </section>
+
+      {seo ? (
+        <div className="max-w-3xl mx-auto px-5 md:px-10 pb-20">
+          <KeywordSeoSections seo={seo} />
+        </div>
+      ) : null}
 
       <Footer />
     </div>

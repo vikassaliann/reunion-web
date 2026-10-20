@@ -7,12 +7,15 @@ import Link from "next/link";
 import properties from "@/data/properties.json";
 import { MandalaRing, MandalaLotus } from "@/components/wellness/WellnessMandala";
 import ReunionMapSection from "@/components/ReunionMapSection";
+import KeywordSeoSections from "@/components/KeywordSeoSections";
+import KeywordFaqJsonLd from "@/components/KeywordFaqJsonLd";
+import { getKeywordSeo } from "@/data/keywordGuide";
 
 /* ── Hero slideshow images ── */
 const HERO_SLIDES = [
   { src: "/properties/ocean-manor/herooo.png", alt: "Ocean Manor — Sea & River Facing Beachfront Villa" },
   { src: "/properties/ocean-royal/royalthumb.png", alt: "Ocean Royal — Heritage Farmhouse by the Sea" },
-  { src: "/properties/reunion-seren/hero.png", alt: "Reunion Serene — Private Nature Stay near Shivamogga" },
+  { src: "/properties/reunion-serene/hero.png", alt: "Reunion Serene — Private Nature Stay near Shivamogga" },
   { src: "/properties/krshna/krthumb.png", alt: "Krshna Residency — Premium Heritage Villa" },
   { src: "/properties/charm-villa/charmthub.png", alt: "Charm Villa — Classic Heritage Residency" },
 ];
@@ -83,7 +86,7 @@ const CAROUSEL_ORDER = [
   "ocean-manor",
   "ocean-givaah",
   "ocean-royal",
-  "reunion-seren",
+  "reunion-serene",
   "krshna",
   "de-homes",
   "de-square",
@@ -166,11 +169,15 @@ export default function Home() {
           {/* Hero text — mobile: no CTAs, sit lower; desktop keeps buttons */}
           <div className="relative z-10 w-full max-w-7xl mx-auto page-pad pb-28 sm:pb-32 md:pb-36">
             <div className="max-w-2xl space-y-3 sm:space-y-4">
-              <h1 className="font-futura font-light text-[2.5rem] sm:text-6xl md:text-7xl text-white leading-[1.05] tracking-wide uppercase drop-shadow-md">
+              <p className="font-futura font-light text-[2rem] sm:text-5xl md:text-6xl text-white/95 leading-[1.05] tracking-wide uppercase drop-shadow-md" aria-hidden="true">
                 REUNION
+              </p>
+              <h1 className="font-futura font-light text-xl sm:text-3xl md:text-4xl text-[#C9A84C] leading-[1.15] tracking-[0.12em] uppercase drop-shadow-md mt-2">
+                {getKeywordSeo("/")?.h1 ?? "Luxury Villas & Beach Stays in Udupi"}
               </h1>
-              <p className="font-cormorant italic text-lg sm:text-2xl text-white/90 font-light tracking-wide leading-snug drop-shadow">
-                Creating Memories, One Reunion at a Time
+              <p className="font-futura text-sm sm:text-base text-white/85 font-light tracking-wide leading-relaxed drop-shadow max-w-xl">
+                {getKeywordSeo("/")?.lead ??
+                  "REUNION offers luxury villas in Udupi, Karnataka — private villas at Hoode, Uchila, Kapu, Mattu and Malpe beaches, city suites, Ocean Café and beach celebrations."}
               </p>
               <p className="font-futura text-[9px] sm:text-[11px] tracking-[0.22em] sm:tracking-[0.35em] text-white/65 uppercase leading-relaxed pt-1">
                 STAY · RELAX · EXPLORE · CELEBRATE · RECONNECT
@@ -389,7 +396,7 @@ export default function Home() {
               {/* Ocean Elite — Image Right */}
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center reveal">
                 <div className="space-y-6 order-2 lg:order-1 lg:col-span-5">
-                  <span className="font-futura text-[10px] tracking-[0.4em] text-[#C9A84C] uppercase block">Padutonse, Udupi</span>
+                  <span className="font-futura text-[10px] tracking-[0.4em] text-[#C9A84C] uppercase block">Hoode Beach, Udupi</span>
                   <h3 className="font-futura text-3xl sm:text-4xl text-white font-light uppercase tracking-wider leading-tight">
                     Reunion<br />Ocean Elite
                   </h3>
@@ -429,7 +436,7 @@ export default function Home() {
                   </div>
                 </div>
                 <div className="space-y-6 lg:col-span-5">
-                  <span className="font-futura text-[10px] tracking-[0.4em] text-[#C9A84C] uppercase block">Padutonse, Udupi</span>
+                  <span className="font-futura text-[10px] tracking-[0.4em] text-[#C9A84C] uppercase block">Hoode Beach, Udupi</span>
                   <h3 className="font-futura text-3xl sm:text-4xl text-white font-light uppercase tracking-wider leading-tight">
                     Reunion<br />Ocean Manor
                   </h3>
@@ -596,7 +603,7 @@ export default function Home() {
                     <div className="lg:col-span-7">
                       <div className="aspect-[4/3] w-full overflow-hidden">
                         <img
-                          src="/properties/reunion-seren/hero.png"
+                          src="/properties/reunion-serene/hero.png"
                           alt="Reunion Serene"
                           className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
                         />
@@ -611,7 +618,7 @@ export default function Home() {
                         A private Malnad nature-stay near Shivamogga with a year-round outdoor pool, 4 bedrooms for up to 8 guests, terrace, garden, free Wi-Fi and parking.
                       </p>
                       <Link
-                        href="/properties/reunion-seren"
+                        href="/properties/reunion-serene"
                         className="inline-flex items-center gap-2 font-futura text-[11px] tracking-[0.25em] text-[#C9A84C] uppercase border-b border-[#C9A84C]/40 pb-1 hover:border-[#C9A84C] transition-all"
                       >
                         EXPLORE
@@ -793,7 +800,7 @@ export default function Home() {
                 { name: "Ocean Manor", id: "ocean-manor", style: { fontFamily: "Helvetica, sans-serif", fontWeight: 700, letterSpacing: "0.2em", textTransform: "uppercase", fontSize: "0.9rem" } },
                 { name: "Ocean Givaah", id: "ocean-givaah", style: { fontFamily: "Georgia, serif", fontVariant: "small-caps", fontSize: "1.4rem", letterSpacing: "0.05em" } },
                 { name: "Ocean Royal", id: "ocean-royal", style: { fontFamily: "Courier New, monospace", letterSpacing: "0.1em", fontSize: "1.1rem" } },
-                { name: "Reunion Serene", id: "reunion-seren", style: { fontFamily: "Hoefler Text, serif", fontStyle: "italic", fontSize: "1.4rem" } },
+                { name: "Reunion Serene", id: "reunion-serene", style: { fontFamily: "Hoefler Text, serif", fontStyle: "italic", fontSize: "1.4rem" } },
                 { name: "Krshna", id: "krshna", style: { fontFamily: "Optima, sans-serif", textTransform: "uppercase", letterSpacing: "0.4em", fontSize: "0.9rem" } },
                 { name: "De Homes", id: "de-homes", style: { fontFamily: "Arial, sans-serif", fontWeight: 900, textTransform: "uppercase", letterSpacing: "-0.02em", fontSize: "1.2rem" } },
                 { name: "Ocean Daaffy", id: "ocean-daaffy", style: { fontFamily: "Palatino, serif", letterSpacing: "0.08em", fontSize: "1.3rem" } },
@@ -806,11 +813,11 @@ export default function Home() {
                 { name: "Ocean Waves", id: "ocean-waves", style: { fontFamily: "Century Gothic, sans-serif", fontWeight: 700, textTransform: "lowercase", letterSpacing: "-0.05em", fontSize: "1.2rem" } },
                 { name: "Regal Villa", id: "regal-villa", style: { fontFamily: "Bodoni MT, serif", textTransform: "uppercase", fontSize: "1.1rem", letterSpacing: "0.1em" } },
                 { name: "Villa", id: "villa", style: { fontFamily: "Rockwell, serif", fontWeight: "bold", fontSize: "1.2rem" } },
-                { name: "Reunion Ocean Café", id: "ocean-cafe", style: { fontFamily: "Tahoma, sans-serif", textTransform: "uppercase", letterSpacing: "0.2em", fontSize: "0.8rem" } },
+                { name: "Reunion Ocean Café", id: "ocean-cafe", href: "/dining", style: { fontFamily: "Tahoma, sans-serif", textTransform: "uppercase", letterSpacing: "0.2em", fontSize: "0.8rem" } },
               ].map((prop, idx) => (
                 <Link
                   key={idx}
-                  href={`/properties/${prop.id}`}
+                  href={"href" in prop && prop.href ? prop.href : `/properties/${prop.id}`}
                   className="whitespace-nowrap text-white/70 hover:text-[#C9A84C] transition-colors duration-500"
                   style={prop.style as any}
                 >
@@ -835,6 +842,43 @@ export default function Home() {
           </div>
         </section>
 
+
+        <section className="bg-[#080808] border-t border-white/10 py-14 px-5 md:px-10">
+          <div className="max-w-3xl mx-auto space-y-8">
+            <h2 className="font-futura text-[11px] tracking-[0.35em] text-[#C9A84C] uppercase text-center">
+              Guest reviews
+            </h2>
+            <div className="space-y-6 font-futura text-sm text-white/60 font-light leading-relaxed">
+              <blockquote className="border-l border-[#C9A84C]/40 pl-5">
+                <p>
+                  “Incredible beachfront dining at Ocean Café — sunset views over Mattu Beach and fresh seafood. We stayed next door at Ocean Waves.”
+                </p>
+                <footer className="mt-2 text-[11px] tracking-[0.2em] text-white/35 uppercase">Google · Ocean Café</footer>
+              </blockquote>
+              <blockquote className="border-l border-[#C9A84C]/40 pl-5">
+                <p>
+                  “Ocean Manor was perfect for our family group — sea and river views, and direct access to Hoode Beach, Udupi.”
+                </p>
+                <footer className="mt-2 text-[11px] tracking-[0.2em] text-white/35 uppercase">Guest · Ocean Manor</footer>
+              </blockquote>
+              <blockquote className="border-l border-[#C9A84C]/40 pl-5">
+                <p>
+                  “Clean suites near Sri Krishna Temple. De Homes front desk was helpful for early darshan.”
+                </p>
+                <footer className="mt-2 text-[11px] tracking-[0.2em] text-white/35 uppercase">Guest · De Homes</footer>
+              </blockquote>
+            </div>
+          </div>
+        </section>
+
+        {getKeywordSeo("/") ? (
+          <section className="bg-[#080808] border-t border-white/10 py-16 px-5 md:px-10">
+            <KeywordFaqJsonLd seo={getKeywordSeo("/")} />
+            <div className="max-w-3xl mx-auto">
+              <KeywordSeoSections seo={getKeywordSeo("/")!} />
+            </div>
+          </section>
+        ) : null}
 
         {/* Reunion Udupi Map + nearby places (restored) */}
         <ReunionMapSection />

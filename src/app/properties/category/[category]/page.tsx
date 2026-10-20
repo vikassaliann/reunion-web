@@ -6,19 +6,41 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import type { Metadata } from "next";
 import FilterDropdown from "@/components/FilterDropdown";
 import { CATEGORIES, CATEGORY_MAP } from "@/utils/categories";
+import KeywordSeoSections from "@/components/KeywordSeoSections";
+import KeywordFaqJsonLd from "@/components/KeywordFaqJsonLd";
+import { getKeywordSeo } from "@/data/keywordGuide";
+import { BEACH_GROUPS, CITY_DISTANCE, PROPERTY_GUESTS } from "@/data/propertyGuests";
 
 const BASE_URL = "https://www.reunionglobal.in";
 
+const CATEGORY_H1: Record<string, string> = {
+  "beach-villas": "Beach Villas in Udupi",
+  "city-stays": "City Villas in Udupi",
+  "hotel-stays": "Hotel Stays in Udupi",
+  "shivamogga-stays": "Stays near Shivamogga & Jog Falls",
+};
+
+const CATEGORY_INTRO: Record<string, string> = {
+  "beach-villas":
+    "REUNION's private beach villas in Udupi sit steps from Hoode, Uchila, Kapu, Mattu and Malpe beaches — an easy weekend trip from Bangalore.",
+  "city-stays":
+    "REUNION's city villas in Udupi put you close to Sri Krishna Matha, Manipal and Udupi town — ideal for families, temple visits and longer stays.",
+  "hotel-stays":
+    "Hotel and boutique stays at REUNION — De Homes suites near Sri Krishna Temple, Udupi, and De Square hotel & resort in Koteshwara.",
+  "shivamogga-stays":
+    "Reunion Serene — private pool villa stay near Shivamogga and Jog Falls for families and groups in the Malnad.",
+};
+
 const CATEGORY_SEO: Record<string, { title: string; description: string }> = {
   "beach-villas": {
-    title: "REUNION | Beach Villas — Luxury Beach Stays in Udupi",
+    title: "Beach Villas in Udupi | Private Beach Stays | REUNION",
     description:
-      "Explore beach villas at REUNION along the Udupi coast — private beachfront and near-shore stays near Malpe, Mattu, Kapu, Hoode and Uchila.",
+      "Private beach villas in Udupi near Malpe, Mattu, Kapu, Hoode and Uchila beaches. Book a REUNION beach villa for family and group stays.",
   },
   "city-stays": {
-    title: "REUNION | City Villas — Premium City Stays in Udupi",
+    title: "City Villas in Udupi & Suites near Krishna Temple | REUNION",
     description:
-      "Explore city villas and premium suites at REUNION in Udupi — Chitpady, Kunjibettu, Manipal and central stays near Sri Krishna Matha.",
+      "City villas and premium suites in Udupi — Chitpady, Kunjibettu and Manipal, close to Sri Krishna Matha. Ideal for families and temple visits.",
   },
   "hotel-stays": {
     title: "REUNION | Hotel Stays — De Homes & De Square in Udupi",
@@ -44,18 +66,17 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Promise<{ category: string }> }): Promise<Metadata> {
   const { category } = await params;
   const categoryLabel = CATEGORIES.find(c => c.id === category)?.label || 'Stays';
-  const seo = CATEGORY_SEO[category] || {
+  const keywordSeo = getKeywordSeo(`/properties/category/${category}`);
+  const fallback = CATEGORY_SEO[category] || {
     title: `REUNION | ${categoryLabel} — Udupi`,
     description: `Browse REUNION's exclusive ${categoryLabel.toLowerCase()} across Udupi, Karnataka.`,
   };
+  const seo = keywordSeo
+    ? { title: keywordSeo.title, description: keywordSeo.description }
+    : fallback;
   return {
     title: { absolute: seo.title },
     description: seo.description,
-    icons: {
-      icon: [{ url: "/reunion-src-logo.jpeg", type: "image/jpeg", sizes: "any" }],
-      apple: "/reunion-src-logo.jpeg",
-      shortcut: "/reunion-src-logo.jpeg",
-    },
     alternates: { canonical: `${BASE_URL}/properties/category/${category}` },
     openGraph: {
       title: seo.title,
@@ -77,7 +98,8 @@ export async function generateMetadata({ params }: { params: Promise<{ category:
 export default async function CategoryPage({ params }: { params: Promise<{ category: string }> }) {
   const { category: categoryId } = await params;
   const categoryInfo = CATEGORIES.find(c => c.id === categoryId) || CATEGORIES[0];
-  
+  const keywordSeo = getKeywordSeo(`/properties/category/${categoryId}`);
+
   // Filter properties based on the category
   const properties = propertiesData.filter(prop => {
     const propertyCategories = CATEGORY_MAP[prop.id] || [];
@@ -86,6 +108,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
 
   return (
     <>
+      <KeywordFaqJsonLd seo={keywordSeo} />
       <Navbar />
 
       <section className="relative pt-32 pb-24 bg-[#060606] min-h-screen px-4 md:px-10 overflow-hidden">
@@ -98,11 +121,11 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
                 : categoryId === "hotel-stays"
                   ? "/properties/de-homes/dehomesthumb.png"
                   : categoryId === "shivamogga-stays"
-                    ? "/properties/reunion-seren/hero.png"
+                    ? "/properties/reunion-serene/hero.png"
                     : "/properties/ocean-manor/herooo.png"
             }
             className="w-full h-full object-cover brightness-[0.62] grayscale-[5%]" 
-            alt={categoryInfo.label}
+            alt={keywordSeo?.imageAlt ?? categoryInfo.label}
           />
           <div className="absolute inset-0 bg-gradient-to-b from-[#060606]/15 via-transparent to-[#060606]/75" />
         </div>
@@ -118,10 +141,13 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
           </div>
 
           {/* Header */}
-          <div className="flex items-center justify-center h-[calc(80vh-180px)] mb-16">
-            <h1 className="font-futura text-5xl md:text-[5.5rem] text-white font-medium tracking-[0.3em] uppercase drop-shadow-xl text-center">
-              {categoryInfo.label}
+          <div className="flex flex-col items-center justify-center h-[calc(80vh-180px)] mb-16 text-center px-4">
+            <h1 className="font-futura text-4xl md:text-[4.5rem] text-white font-medium tracking-[0.2em] uppercase drop-shadow-xl">
+              {keywordSeo?.h1 ?? CATEGORY_H1[categoryId] ?? categoryInfo.label}
             </h1>
+            <p className="mt-6 max-w-2xl text-white/55 font-futura text-sm leading-relaxed font-light tracking-wide">
+              {keywordSeo?.lead ?? CATEGORY_INTRO[categoryId] ?? null}
+            </p>
           </div>
 
           {/* Filter Bar */}
@@ -129,6 +155,41 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
              <h2 className="text-[#C9A84C] font-futura tracking-[0.2em] uppercase text-[10px]">{categoryInfo.label} ({properties.length})</h2>
              <FilterDropdown currentCategory={categoryId} />
           </div>
+
+          {categoryId === "beach-villas" && (
+            <div className="mb-16 max-w-3xl mx-auto space-y-6">
+              <h2 className="font-futura text-[11px] tracking-[0.3em] text-white/40 uppercase text-center">
+                Grouped by beach
+              </h2>
+              {BEACH_GROUPS.map((group) => (
+                <div key={group.beach} className="border-b border-white/10 pb-5">
+                  <p className="font-futura text-sm text-white/85 tracking-wide">
+                    <Link
+                      href={`/blogs/top-10-beaches-to-visit-in-udupi#${group.blogHash}`}
+                      className="text-[#C9A84C] hover:underline"
+                    >
+                      {group.beach}
+                    </Link>
+                    <span className="text-white/40"> — {group.walkNote}</span>
+                  </p>
+                  <p className="mt-2 font-futura text-[12px] text-white/50 font-light tracking-wide">
+                    {group.propertyIds.map((id, i) => {
+                      const p = properties.find((x) => x.id === id);
+                      if (!p) return null;
+                      return (
+                        <span key={id}>
+                          {i > 0 ? " · " : null}
+                          <Link href={`/properties/${id}`} className="text-white/70 hover:text-[#C9A84C]">
+                            {p.name}
+                          </Link>
+                        </span>
+                      );
+                    })}
+                  </p>
+                </div>
+              ))}
+            </div>
+          )}
 
           {/* Properties List - Alternating Layout */}
           {properties.length > 0 ? (
@@ -150,6 +211,15 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
                           <>Reunion<br />{prop.name}</>
                         )}
                       </h2>
+                      <p className="font-futura text-[11px] tracking-[0.18em] text-white/45 uppercase">
+                        {prop.bedrooms > 0 ? `${prop.bedrooms} BR` : "Stay"}
+                        {PROPERTY_GUESTS[prop.id] ? ` · ${PROPERTY_GUESTS[prop.id]}` : ""}
+                      </p>
+                      {CITY_DISTANCE[prop.id] ? (
+                        <p className="font-futura text-[11px] tracking-[0.12em] text-white/50 font-light">
+                          {CITY_DISTANCE[prop.id]}
+                        </p>
+                      ) : null}
                       <p className="text-white/40 text-sm leading-relaxed font-futura font-light tracking-wide max-w-md">
                         {prop.description.length > 180 ? `${prop.description.substring(0, 180)}...` : prop.description}
                       </p>
@@ -157,7 +227,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
                         href={`/properties/${prop.id}`}
                         className="inline-flex items-center gap-2 font-futura text-[11px] tracking-[0.25em] text-[#C9A84C] uppercase border-b border-[#C9A84C]/40 pb-1 hover:border-[#C9A84C] transition-all mt-4"
                       >
-                        EXPLORE MORE
+                        {`View ${prop.name.replace(/^REUNION\s+/i, "")}`}
                         <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                           <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
                         </svg>
@@ -188,6 +258,12 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
             </div>
           )}
         </div>
+
+        {keywordSeo ? (
+          <div className="max-w-3xl mx-auto mt-20 pb-8">
+            <KeywordSeoSections seo={keywordSeo} />
+          </div>
+        ) : null}
       </section>
 
       <Footer />

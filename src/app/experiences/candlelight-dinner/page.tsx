@@ -6,6 +6,11 @@ import Footer from "@/components/Footer";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import ContactForm from "@/components/ContactForm";
 import { MandalaRing, MandalaLotus } from "@/components/wellness/WellnessMandala";
+import KeywordSeoSections from "@/components/KeywordSeoSections";
+import KeywordFaqJsonLd from "@/components/KeywordFaqJsonLd";
+import { getKeywordSeo } from "@/data/keywordGuide";
+
+const seo = getKeywordSeo("/experiences/candlelight-dinner");
 
 const cd = (n: number) => `/properties/experiances/candlelight/cd${n}.jpeg`;
 
@@ -55,7 +60,7 @@ const MOMENTS = [
 ];
 
 const NOTES = [
-  { n: "01", t: "Private Setup", d: "Secluded spot on Mattu or Padutonse beach" },
+  { n: "01", t: "Private Setup", d: "Secluded spot on Mattu Beach, Udupi" },
   { n: "02", t: "Custom Menu", d: "Multi-course meals & fresh coastal catches" },
   { n: "03", t: "Ambient Lighting", d: "Fairy lights, lanterns & candlelit glow" },
   { n: "04", t: "Personal Service", d: "Attentive hosting throughout dinner" },
@@ -72,7 +77,7 @@ const FAQS = [
   },
   {
     q: "Is this candle light dinner on the beach?",
-    a: "Yes. Your candle light dinner in Udupi is hosted on Mattu Beach (or select Padutonse setups) by the Arabian Sea.",
+    a: "Yes. Your candle light dinner in Udupi is hosted on Mattu Beach by the Arabian Sea.",
   },
   {
     q: "How do I reserve?",
@@ -89,6 +94,7 @@ export default function CandlelightDinnerPage() {
 
   return (
     <div className="bg-[#080808] text-white antialiased min-h-screen overflow-x-hidden">
+      <KeywordFaqJsonLd seo={seo} />
       <Navbar />
 
       {/* HERO */}
@@ -116,14 +122,11 @@ export default function CandlelightDinnerPage() {
           <p className="font-cinzel text-[9px] sm:text-[10px] tracking-[0.45em] text-[#C9A84C] uppercase mb-4">
             Candle Light Dinner in Udupi · REUNION
           </p>
-          <h1 className="font-cormorant italic text-4xl sm:text-6xl md:text-7xl font-light text-white leading-[1.08] max-w-3xl">
-            Candle Light Dinner in Udupi
-            <span className="block text-[#C9A84C] not-italic text-[0.55em] sm:text-[0.5em] tracking-[0.08em] mt-2 font-cinzel uppercase">
-              Private beachside candlelight dinner
-            </span>
+          <h1 className="font-cormorant italic text-3xl sm:text-5xl md:text-6xl font-light text-white leading-[1.08] max-w-3xl">
+            Private Candle Light Dinner on Mattu Beach, Udupi
           </h1>
           <p className="mt-5 max-w-lg font-futura text-sm text-white/55 font-light leading-relaxed tracking-wide">
-            Plan a private candle light dinner in Udupi on Mattu Beach — romantic setup for proposals, anniversaries, and special nights by the sea.
+            Plan a private candle light dinner in Udupi, right on the sand at Mattu Beach — a romantic setup for proposals, anniversaries and special nights.
           </p>
           <button
             type="button"
@@ -290,6 +293,12 @@ export default function CandlelightDinnerPage() {
           />
         </div>
       </section>
+
+      {seo ? (
+        <div className="max-w-3xl mx-auto px-5 md:px-10 pb-20">
+          <KeywordSeoSections seo={seo} />
+        </div>
+      ) : null}
 
       <Footer />
     </div>

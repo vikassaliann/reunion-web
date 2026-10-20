@@ -1,6 +1,7 @@
 import { MetadataRoute } from 'next'
 import properties from '@/data/properties.json'
 import { BLOG_POSTS } from '@/data/blogs'
+import { lastModForBlog, lastModForPath, lastModForProperty } from '@/data/sitemapLastMod'
 
 /**
  * Full indexable sitemap for bot crawling.
@@ -8,140 +9,54 @@ import { BLOG_POSTS } from '@/data/blogs'
  */
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://www.reunionglobal.in'
-  const now = new Date()
+  const fallback = new Date()
 
   // Ocean Café lives at /dining only — never list /properties/ocean-cafe
   const propertyUrls = properties
     .filter((property) => property.id !== 'ocean-cafe')
     .map((property) => ({
       url: `${baseUrl}/properties/${property.id}`,
-      lastModified: now,
+      lastModified: lastModForProperty(property.id, fallback),
       changeFrequency: 'weekly' as const,
       priority: 0.8,
     }))
 
   const blogUrls = BLOG_POSTS.map((post) => ({
     url: `${baseUrl}/blogs/${post.slug}`,
-    lastModified: now,
+    lastModified: lastModForBlog(post.slug, fallback),
     changeFrequency: 'monthly' as const,
     priority: 0.75,
   }))
 
+  const page = (
+    path: string,
+    entry: Omit<MetadataRoute.Sitemap[number], 'url' | 'lastModified'>,
+  ): MetadataRoute.Sitemap[number] => ({
+    url: path === '/' ? baseUrl : `${baseUrl}${path}`,
+    lastModified: lastModForPath(path, fallback),
+    ...entry,
+  })
+
   return [
-    // Home
-    {
-      url: baseUrl,
-      lastModified: now,
-      changeFrequency: 'daily',
-      priority: 1.0,
-    },
-    // All stays
-    {
-      url: `${baseUrl}/properties`,
-      lastModified: now,
-      changeFrequency: 'daily',
-      priority: 0.95,
-    },
-    // Beach villas & city villas
-    {
-      url: `${baseUrl}/properties/category/beach-villas`,
-      lastModified: now,
-      changeFrequency: 'weekly',
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/properties/category/city-stays`,
-      lastModified: now,
-      changeFrequency: 'weekly',
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/properties/category/hotel-stays`,
-      lastModified: now,
-      changeFrequency: 'weekly',
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/properties/category/shivamogga-stays`,
-      lastModified: now,
-      changeFrequency: 'weekly',
-      priority: 0.85,
-    },
-    // Dining
-    {
-      url: `${baseUrl}/dining`,
-      lastModified: now,
-      changeFrequency: 'weekly',
-      priority: 0.9,
-    },
-    // Experiences at Reunion
-    {
-      url: `${baseUrl}/experiences`,
-      lastModified: now,
-      changeFrequency: 'weekly',
-      priority: 0.9,
-    },
-    // Candlelight dinner — head term: candle light dinner in udupi
-    {
-      url: `${baseUrl}/experiences/candlelight-dinner`,
-      lastModified: now,
-      changeFrequency: 'weekly',
-      priority: 0.95,
-    },
-    {
-      url: `${baseUrl}/experiences/beach-birthday`,
-      lastModified: now,
-      changeFrequency: 'weekly',
-      priority: 0.9,
-    },
-    // Wellness & spa at Reunion
-    {
-      url: `${baseUrl}/wellness`,
-      lastModified: now,
-      changeFrequency: 'weekly',
-      priority: 0.85,
-    },
-    // Events
-    {
-      url: `${baseUrl}/events`,
-      lastModified: now,
-      changeFrequency: 'weekly',
-      priority: 0.85,
-    },
-    {
-      url: `${baseUrl}/civil-construction`,
-      lastModified: now,
-      changeFrequency: 'monthly',
-      priority: 0.75,
-    },
-    {
-      url: `${baseUrl}/partner-with-us`,
-      lastModified: now,
-      changeFrequency: 'monthly',
-      priority: 0.7,
-    },
-    // Blogs hub + posts
-    {
-      url: `${baseUrl}/blogs`,
-      lastModified: now,
-      changeFrequency: 'weekly',
-      priority: 0.8,
-    },
+    page('/', { changeFrequency: 'daily', priority: 1.0 }),
+    page('/properties', { changeFrequency: 'daily', priority: 0.95 }),
+    page('/properties/category/beach-villas', { changeFrequency: 'weekly', priority: 0.9 }),
+    page('/properties/category/city-stays', { changeFrequency: 'weekly', priority: 0.9 }),
+    page('/properties/category/hotel-stays', { changeFrequency: 'weekly', priority: 0.9 }),
+    page('/properties/category/shivamogga-stays', { changeFrequency: 'weekly', priority: 0.85 }),
+    page('/dining', { changeFrequency: 'weekly', priority: 0.9 }),
+    page('/experiences', { changeFrequency: 'weekly', priority: 0.9 }),
+    page('/experiences/candlelight-dinner', { changeFrequency: 'weekly', priority: 0.95 }),
+    page('/experiences/beach-birthday', { changeFrequency: 'weekly', priority: 0.9 }),
+    page('/wellness', { changeFrequency: 'weekly', priority: 0.85 }),
+    page('/events', { changeFrequency: 'weekly', priority: 0.85 }),
+    page('/events/beach-venue', { changeFrequency: 'weekly', priority: 0.85 }),
+    page('/civil-construction', { changeFrequency: 'monthly', priority: 0.75 }),
+    page('/partner-with-us', { changeFrequency: 'monthly', priority: 0.7 }),
+    page('/blogs', { changeFrequency: 'weekly', priority: 0.8 }),
     ...blogUrls,
-    // About & contact
-    {
-      url: `${baseUrl}/about`,
-      lastModified: now,
-      changeFrequency: 'monthly',
-      priority: 0.65,
-    },
-    {
-      url: `${baseUrl}/contact`,
-      lastModified: now,
-      changeFrequency: 'monthly',
-      priority: 0.7,
-    },
-    // Individual properties
+    page('/about', { changeFrequency: 'monthly', priority: 0.65 }),
+    page('/contact', { changeFrequency: 'monthly', priority: 0.7 }),
     ...propertyUrls,
   ]
 }

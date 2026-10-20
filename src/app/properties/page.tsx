@@ -5,21 +5,22 @@ import Link from "next/link";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import type { Metadata } from "next";
 import FilterDropdown from "@/components/FilterDropdown";
+import KeywordSeoSections from "@/components/KeywordSeoSections";
+import KeywordFaqJsonLd from "@/components/KeywordFaqJsonLd";
+import { getKeywordSeo } from "@/data/keywordGuide";
+import { PROPERTY_GUESTS } from "@/data/propertyGuests";
 
 const BASE_URL = "https://www.reunionglobal.in";
+const keywordSeo = getKeywordSeo("/properties");
 
-const PAGE_TITLE = 'REUNION | All Stays — Beach Villas & City Villas in Udupi';
+const PAGE_TITLE = keywordSeo?.title ?? 'Udupi Villas | Beach & City Villas in Udupi | REUNION';
 const PAGE_DESCRIPTION =
-  "Browse all stays at REUNION in Udupi — luxury beach villas, city villas, premium suites and coastal homes near Malpe, Kapu, Mattu and Udupi city.";
+  keywordSeo?.description ??
+  "Browse REUNION's Udupi villas — private beach villas near Malpe, Mattu, Kapu, Hoode and Uchila, plus city villas near Sri Krishna Matha.";
 
 export const metadata: Metadata = {
   title: { absolute: PAGE_TITLE },
   description: PAGE_DESCRIPTION,
-  icons: {
-    icon: [{ url: "/reunion-src-logo.jpeg", type: "image/jpeg", sizes: "any" }],
-    apple: "/reunion-src-logo.jpeg",
-    shortcut: "/reunion-src-logo.jpeg",
-  },
   alternates: {
     canonical: `${BASE_URL}/properties`,
   },
@@ -62,6 +63,7 @@ export default function PropertiesPage() {
 
   return (
     <>
+      <KeywordFaqJsonLd seo={keywordSeo} />
       <Navbar />
 
       {/* ItemList JSON-LD Schema */}
@@ -91,10 +93,14 @@ export default function PropertiesPage() {
           </div>
 
           {/* Header */}
-          <div className="flex items-center justify-center h-[calc(80vh-180px)] mb-16">
-            <h1 className="font-futura text-5xl md:text-[5.5rem] text-white font-medium tracking-[0.3em] uppercase drop-shadow-xl text-center">
-              PROPERTIES
+          <div className="flex flex-col items-center justify-center h-[calc(80vh-180px)] mb-16 text-center px-4">
+            <h1 className="font-futura text-4xl md:text-[4.5rem] text-white font-medium tracking-[0.2em] uppercase drop-shadow-xl">
+              {keywordSeo?.h1 ?? "Villas & Stays in Udupi"}
             </h1>
+            <p className="mt-6 max-w-2xl text-white/55 font-futura text-sm leading-relaxed font-light tracking-wide">
+              {keywordSeo?.lead ??
+                "Explore REUNION's villas in Udupi — private beach villas and city villas for families, couples and groups, an easy weekend trip from Bangalore."}
+            </p>
           </div>
 
           {/* Filter Bar */}
@@ -122,6 +128,11 @@ export default function PropertiesPage() {
                         <>Reunion<br />{prop.name}</>
                       )}
                     </h2>
+                    <p className="font-futura text-[11px] tracking-[0.18em] text-white/45 uppercase">
+                      {prop.location}
+                      {prop.bedrooms > 0 ? ` · ${prop.bedrooms} BR` : ""}
+                      {PROPERTY_GUESTS[prop.id] ? ` · ${PROPERTY_GUESTS[prop.id]}` : ""}
+                    </p>
                     <p className="text-white/40 text-sm leading-relaxed font-futura font-light tracking-wide max-w-md">
                       {prop.description.length > 180 ? `${prop.description.substring(0, 180)}...` : prop.description}
                     </p>
@@ -129,7 +140,7 @@ export default function PropertiesPage() {
                       href={`/properties/${prop.id}`}
                       className="inline-flex items-center gap-2 font-futura text-[11px] tracking-[0.25em] text-[#C9A84C] uppercase border-b border-[#C9A84C]/40 pb-1 hover:border-[#C9A84C] transition-all mt-4"
                     >
-                      EXPLORE MORE
+                      {`View ${prop.name.replace(/^REUNION\s+/i, "")}`}
                       <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
                       </svg>
@@ -151,6 +162,12 @@ export default function PropertiesPage() {
               );
             })}
           </div>
+
+          {keywordSeo ? (
+            <div className="max-w-3xl mx-auto mt-24 pb-8">
+              <KeywordSeoSections seo={keywordSeo} skipHeadings={["Overview"]} />
+            </div>
+          ) : null}
         </div>
       </section>
 

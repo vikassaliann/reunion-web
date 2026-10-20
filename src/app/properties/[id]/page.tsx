@@ -5,88 +5,10 @@ import { notFound } from "next/navigation";
 import PropertyDetailSection, { PROPERTY_FAQS } from "@/components/PropertyDetailSection";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import type { Metadata } from "next";
+import { PROPERTY_SEO } from "@/data/propertySeo";
+import { getPropertyKeywordSeo } from "@/data/keywordGuide";
 
 const BASE_URL = "https://www.reunionglobal.in";
-
-// Standardized Titles & Meta Descriptions for All 17 Properties (Exact Brand Titles Specified)
-const AUDIT_PROPERTY_SEO: Record<string, { title: string; description: string }> = {
-  "ocean-elite": {
-    title: "REUNION Ocean Elite | Luxury Beach Villa in Hoode, Udupi",
-    description: "Experience direct beach access, private sea-view balcony, spacious lawn, and premium amenities at Ocean Elite by Reunion in Hoode, Udupi."
-  },
-  "ocean-manor": {
-    title: "REUNION Ocean Manor | Beachfront Villa Stay in Hoode, Udupi",
-    description: "Featuring sea-facing balconies, river views, and scenic rock-bed beach access for families and group stays at Ocean Manor in Hoode, Udupi."
-  },
-  "ocean-givaah": {
-    title: "REUNION Ocean Givaah | Luxury 3BHK Pool Villa in Uchila, Udupi",
-    description: "Enjoy a private swimming pool, lush garden, and panoramic ocean-view terrace just 200 metres from the shore at Ocean Givaah in Uchila, Udupi."
-  },
-  "ocean-royal": {
-    title: "REUNION Ocean Royal | Heritage Villa Stay in Kapu, Udupi",
-    description: "Charming heritage coastal stay surrounded by lush coconut groves just 50 metres from the sea at Ocean Royal in Kapu, Udupi."
-  },
-  "de-homes": {
-    title: "REUNION De Homes | Premium Suites Near Krishna Temple, Udupi",
-    description: "Boutique luxury suites offering Presidential Suite, balcony rooms, and modern executive comfort near Sri Krishna Temple, Udupi city."
-  },
-  "de-square": {
-    title: "REUNION De Square | Hotel & Resort in Koteshwara, Udupi",
-    description: "D-Square Hotels & Resort by REUNION in Koteshwara, Udupi — comfortable hotel stays for families and travellers on the Udupi–Kundapura coast."
-  },
-  "ocean-daaffy": {
-    title: "REUNION Ocean Daaffy | Luxury Beach Villa in Uchila, Udupi",
-    description: "A serene 3-bedroom luxury coastal retreat located just 100 metres from pristine sandy beaches at Ocean Daaffy in Uchila, Udupi."
-  },
-  "ocean-hridayam": {
-    title: "REUNION Ocean Hridayam | Beachfront 2BHK Villa in Mattu, Udupi",
-    description: "Step directly onto the sand from this 2-bedroom beachfront villa featuring a sea-facing balcony and equipped kitchen at Mattu Beach, Udupi."
-  },
-  "ocean-bliss": {
-    title: "REUNION Ocean Bliss | 2BHK Villa Near Malpe Beach, Udupi",
-    description: "A peaceful 2BHK open-compound retreat with everyday comforts located moments from Malpe Beach in Udupi."
-  },
-  "marina-villa": {
-    title: "REUNION Marina Villa | Luxury 3BHK Villa in Udupi City",
-    description: "Spacious 3-bedroom luxury city residence with modern AC bedrooms, private kitchen facility, and parking in Kannarpady, Udupi City."
-  },
-  "charm-villa": {
-    title: "REUNION Charm Villa | Luxury Private Villa in Udupi",
-    description: "Relaxed 3-bedroom luxury private stay featuring attached suites, balcony living, and essential modern amenities in Badagabettu, Udupi."
-  },
-  "aradhya-villa": {
-    title: "REUNION Aradhya Villa | Luxury 4BHK Villa in Udupi",
-    description: "Multi-story luxury 4BHK residence featuring a bathtub suite, closed event terrace, living balconies, and spacious dining in Udupi."
-  },
-  "arya": {
-    title: "REUNION Arya Studio Stays | Luxury Studio Apartments in Udupi",
-    description: "Independent 1BHK studio suites designed for couples, business travelers, and small family getaways in Kunjibettu, Udupi."
-  },
-  "krshna": {
-    title: "REUNION Krshna | Premium 2BHK Stay in Manipal, Udupi",
-    description: "Modern 2-bedroom premium home equipped with a full kitchen, high-speed WiFi, and quiet neighborhood surroundings in Manipal, Udupi."
-  },
-  "ocean-waves": {
-    title: "REUNION Ocean Waves | Beachfront Villa Stay in Mattu, Udupi",
-    description: "Listen to the ocean from your balcony in this beachfront villa featuring 3 independent private units just 5 meters from Mattu Beach, Udupi."
-  },
-  "regal-villa": {
-    title: "REUNION Regal Villa | Luxury Private Villa in Udupi",
-    description: "Air-conditioned 2-bedroom luxury private villa featuring a spacious terrace, private balcony, and full kitchen in Chitpady, Udupi."
-  },
-  "villa": {
-    title: "REUNION Villa | Luxury Private Villa in Chitpady, Udupi",
-    description: "Charming 3-bedroom property featuring garden views, top-floor terrace, and custom meal arrangements in Chitpady, Udupi."
-  },
-  "ocean-cafe": {
-    title: "REUNION Ocean Café | Beachfront Café at Mattu Beach, Udupi",
-    description: "Right on the shore at Mattu Beach featuring sunset views, fireplace lounge, fresh seafood specialties, gourmet coffee, and candlelight dinners in Udupi."
-  },
-  "reunion-seren": {
-    title: "REUNION Serene | Private Nature Stay near Shivamogga",
-    description: "Private Malnad holiday home near Shivamogga with a year-round outdoor pool, 4 bedrooms for up to 8 guests, terrace, garden, Wi-Fi, and parking."
-  }
-};
 
 const PROPERTY_GEO: Record<string, { lat: number; lng: number }> = {
   "ocean-elite":    { lat: 13.3980, lng: 74.6980 },
@@ -107,7 +29,7 @@ const PROPERTY_GEO: Record<string, { lat: number; lng: number }> = {
   "regal-villa":    { lat: 13.3360, lng: 74.7460 },
   "villa":          { lat: 13.3360, lng: 74.7460 },
   "ocean-cafe":     { lat: 13.2850, lng: 74.7150 },
-  "reunion-seren":  { lat: 13.9299, lng: 75.5681 },
+  "reunion-serene":  { lat: 13.8619138, lng: 75.5884242 },
 };
 
 const MAP_LINKS: Record<string, string> = {
@@ -125,7 +47,7 @@ const MAP_LINKS: Record<string, string> = {
   "ocean-manor": "https://maps.app.goo.gl/QDo2c3Fy8mufX5s77",
   "ocean-royal": "https://maps.app.goo.gl/R4LzcKq8bcPPS3ub6",
   "ocean-waves": "https://maps.app.goo.gl/DHikkppGEugCp3V19",
-  "reunion-seren": "https://maps.app.goo.gl/LaQVdsY9a3BPDYf19",
+  "reunion-serene": "https://www.google.com/maps/place/Reunion+Serene+Villa/@13.8619138,75.5884242,17z",
   "villa": "https://maps.app.goo.gl/SJaK4GjhNkq9FKA29",
   // Not in the new list — keep existing
   "de-homes": "https://share.google/AXOZTWONFB5kLZE0o",
@@ -150,9 +72,10 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
     };
   }
 
-  const auditSeo = AUDIT_PROPERTY_SEO[id];
-  const propertyTitle = auditSeo?.title || `REUNION ${property.name} | Luxury Stay in ${property.location}`;
-  const propertyDescription = auditSeo?.description || property.description.substring(0, 155) + '...';
+  const keyword = getPropertyKeywordSeo(id);
+  const seo = PROPERTY_SEO[id];
+  const propertyTitle = keyword?.title || seo?.title || `REUNION ${property.name} | Luxury Stay in ${property.location}`;
+  const propertyDescription = keyword?.description || seo?.description || property.description.substring(0, 155) + '...';
   const heroImageUrl = `${BASE_URL}${property.heroImage}`;
   // Ocean Café public page is /dining — keep property URL but canonical to dining
   const canonicalUrl =
@@ -165,11 +88,6 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
       absolute: propertyTitle,
     },
     description: propertyDescription,
-    icons: {
-      icon: [{ url: "/reunion-src-logo.jpeg", type: "image/jpeg", sizes: "any" }],
-      apple: "/reunion-src-logo.jpeg",
-      shortcut: "/reunion-src-logo.jpeg",
-    },
     alternates: {
       canonical: canonicalUrl,
     },
@@ -197,13 +115,16 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
   };
 }
 
-// VacationRental / LodgingBusiness / Restaurant JSON-LD schema builder (Solves GSC missing identifier, geo, containsPlace, offers & optional warnings)
+// LodgingBusiness / Restaurant JSON-LD (Developer Brief task 1)
 function getPropertySchema(property: typeof properties[0]) {
   const isCafe = property.id === 'ocean-cafe';
-  const isHotel = property.id === 'de-homes';
+  const isHotel = property.id === 'de-homes' || property.id === 'de-square';
   const mapUrl = MAP_LINKS[property.id];
-  const auditSeo = AUDIT_PROPERTY_SEO[property.id];
-  const propertyTitle = auditSeo?.title || `REUNION ${property.name}`;
+  const seo = PROPERTY_SEO[property.id];
+  const keywordSeo = getPropertyKeywordSeo(property.id);
+  const propertyTitle = seo?.title || `REUNION ${property.name}`;
+  const propertyDescription =
+    keywordSeo?.description || seo?.description || property.description;
 
   const galleryImages = (property.gallery && property.gallery.length > 0)
     ? property.gallery.map((img) => `${BASE_URL}${img}`)
@@ -249,32 +170,9 @@ function getPropertySchema(property: typeof properties[0]) {
           closes: '22:00',
         },
       ],
-      aggregateRating: {
-        '@type': 'AggregateRating',
-        ratingValue: '4.9',
-        reviewCount: '48',
-        bestRating: '5',
-        worstRating: '1',
-      },
-      review: [
-        {
-          '@type': 'Review',
-          author: {
-            '@type': 'Person',
-            name: 'Foodie Explorer',
-          },
-          datePublished: '2026-01-20',
-          reviewBody: 'Incredible beachfront dining experience at REUNION Ocean Café! Breathtaking sunset views over Mattu Beach, fresh seafood, specialty coffee, and candlelit ambiance.',
-          reviewRating: {
-            '@type': 'Rating',
-            ratingValue: '5',
-            bestRating: '5',
-          },
-        },
-      ],
-      provider: {
+      parentOrganization: {
         '@type': 'Organization',
-        name: 'Reunion Global Private Ltd.',
+        name: 'REUNION',
         url: BASE_URL,
       },
     };
@@ -291,12 +189,13 @@ function getPropertySchema(property: typeof properties[0]) {
 
   return {
     '@context': 'https://schema.org',
-    '@type': isHotel ? 'LodgingBusiness' : 'VacationRental',
-    additionalType: isHotel ? 'https://schema.org/Hotel' : 'https://schema.org/VacationRental',
+    '@type': 'LodgingBusiness',
+    ...(isHotel ? { additionalType: 'https://schema.org/Hotel' } : {}),
     identifier: `reunion-${property.id}`,
     name: propertyTitle,
-    description: property.description,
+    description: propertyDescription,
     url: `${BASE_URL}/properties/${property.id}`,
+    telephone: '+91-99802-08289',
     ...(mapUrl ? { sameAs: [mapUrl], hasMap: mapUrl } : {}),
     image: allImages,
     address: {
@@ -316,7 +215,7 @@ function getPropertySchema(property: typeof properties[0]) {
       '@type': 'Accommodation',
       additionalType: 'https://schema.org/Accommodation',
       name: propertyTitle,
-      description: property.description,
+      description: propertyDescription,
       numberOfBedrooms: bedroomsCount,
       numberOfBathroomsTotal: bathroomsCount,
       bed: {
@@ -330,45 +229,14 @@ function getPropertySchema(property: typeof properties[0]) {
       },
       amenityFeature: amenitiesList,
     },
-    aggregateRating: {
-      '@type': 'AggregateRating',
-      ratingValue: '4.9',
-      reviewCount: '24',
-      bestRating: '5',
-      worstRating: '1',
-    },
-    review: [
-      {
-        '@type': 'Review',
-        author: {
-          '@type': 'Person',
-          name: 'Verified Guest',
-        },
-        datePublished: '2026-01-15',
-        reviewBody: `Exceptional stay at ${propertyTitle}. Beautiful location, spotless facilities, and outstanding hospitality by Reunion Global.`,
-        reviewRating: {
-          '@type': 'Rating',
-          ratingValue: '5',
-          bestRating: '5',
-        },
-      },
-    ],
-    offers: {
-      '@type': 'Offer',
-      priceCurrency: 'INR',
-      price: '3500.00',
-      availability: 'https://schema.org/InStock',
-      validFrom: '2026-01-01',
-      url: `${BASE_URL}/properties/${property.id}`,
-    },
-    checkinTime: property.id === 'reunion-seren' ? '13:00' : '14:00',
+    checkinTime: property.id === 'reunion-serene' ? '13:00' : '14:00',
     checkoutTime: '11:00',
     priceRange: '₹₹₹',
     ...(property.bedrooms > 0 ? { numberOfRooms: property.bedrooms } : {}),
     amenityFeature: amenitiesList,
-    provider: {
+    parentOrganization: {
       '@type': 'Organization',
-      name: 'Reunion Global Private Ltd.',
+      name: 'REUNION',
       url: BASE_URL,
     },
     photo: allImages.slice(0, 10).map((img) => ({
@@ -381,8 +249,8 @@ function getPropertySchema(property: typeof properties[0]) {
 // VideoObject JSON-LD schema builder (Solves GSC "Video isn't on a watch page" warning)
 function getVideoSchema(property: typeof properties[0]) {
   if (!property.videoUrl) return null;
-  const auditSeo = AUDIT_PROPERTY_SEO[property.id];
-  const propertyTitle = auditSeo?.title || `REUNION ${property.name}`;
+  const seo = PROPERTY_SEO[property.id];
+  const propertyTitle = seo?.title || `REUNION ${property.name}`;
 
   return {
     '@context': 'https://schema.org',
@@ -398,7 +266,7 @@ function getVideoSchema(property: typeof properties[0]) {
 
 // FAQPage JSON-LD schema builder
 function getFaqSchema(propertyId: string) {
-  const faqs = PROPERTY_FAQS[propertyId];
+  const faqs = getPropertyKeywordSeo(propertyId)?.faqs ?? PROPERTY_FAQS[propertyId];
   if (!faqs || faqs.length === 0) return null;
 
   return {
@@ -426,8 +294,10 @@ export default async function PropertyPage({ params }: { params: Promise<{ id: s
   const propertySchema = getPropertySchema(property);
   const videoSchema = getVideoSchema(property);
   const faqSchema = getFaqSchema(id);
-  const auditSeo = AUDIT_PROPERTY_SEO[id];
-  const fullTitleHeading = auditSeo?.title ? auditSeo.title.split(' | ')[0] : `REUNION ${property.name}`;
+  const keyword = getPropertyKeywordSeo(id);
+  const seo = PROPERTY_SEO[id];
+  const fullTitleHeading = keyword?.h1 || seo?.h1 || `REUNION ${property.name}`;
+  const heroAlt = keyword?.imageAlt || `${fullTitleHeading} — ${property.location}`;
 
   return (
     <div className="bg-background text-on-surface antialiased overflow-x-hidden selection:bg-antique-gold selection:text-obsidian-deep">
@@ -465,7 +335,7 @@ export default async function PropertyPage({ params }: { params: Promise<{ id: s
 
         <section className="relative w-full h-[85vh] md:h-screen flex items-end pb-margin-mobile md:pb-margin-desktop">
           <div className="absolute inset-0 w-full h-full">
-            <img alt={`${fullTitleHeading} exterior with beach view in ${property.location}`} className="w-full h-full object-cover" src={property.heroImage} />
+            <img alt={heroAlt} className="w-full h-full object-cover" src={property.heroImage} />
             <div className="absolute inset-0 bg-gradient-to-t from-obsidian-deep via-obsidian-deep/40 to-transparent"></div>
           </div>
           <div className="relative z-10 w-full max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop text-center">
@@ -475,7 +345,7 @@ export default async function PropertyPage({ params }: { params: Promise<{ id: s
           </div>
         </section>
 
-        <PropertyDetailSection property={property} mapLink={MAP_LINKS[id]} />
+        <PropertyDetailSection property={property} mapLink={MAP_LINKS[id]} seoLead={keyword?.lead || seo?.lead} />
       </main>
 
       <Footer />

@@ -1,8 +1,11 @@
 import type { Metadata } from "next";
+import { getKeywordSeo } from "@/data/keywordGuide";
 
 const BASE_URL = "https://www.reunionglobal.in";
-const PAGE_TITLE = "Experiences in Udupi | Coastal Celebrations | REUNION";
+const seo = getKeywordSeo("/experiences");
+const PAGE_TITLE = seo?.title ?? "Experiences in Udupi | Coastal Celebrations | REUNION";
 const PAGE_DESCRIPTION =
+  seo?.description ??
   "Candlelight dinners on Mattu Beach, beach birthdays, wellness and curated coastal experiences in Udupi, hosted by REUNION.";
 
 export const metadata: Metadata = {

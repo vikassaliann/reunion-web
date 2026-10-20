@@ -4,6 +4,9 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import Link from "next/link";
 import Image from "next/image";
 import type { Metadata } from "next";
+import KeywordSeoSections from "@/components/KeywordSeoSections";
+import KeywordFaqJsonLd from "@/components/KeywordFaqJsonLd";
+import { getKeywordSeo } from "@/data/keywordGuide";
 import {
   MandalaRing,
   MandalaLotus,
@@ -12,9 +15,11 @@ import {
 
 const BASE_URL = "https://www.reunionglobal.in";
 
-const PAGE_TITLE = "REUNION | Wellness & Spa at Reunion — Rest by the Coast";
+const seo = getKeywordSeo("/wellness");
+const PAGE_TITLE = seo?.title ?? "Spa in Udupi | Ayurveda & Wellness at REUNION";
 const PAGE_DESCRIPTION =
-  "Wellness and spa at REUNION in Udupi — Ayurveda, beach yoga, spa, meditation, naturopathy and salon services with Tapovana Life, Manipal.";
+  seo?.description ??
+  "Ayurveda, spa, beach yoga and meditation in Udupi with Tapovana Life, Manipal — wellness treatments for REUNION guests.";
 
 export const metadata: Metadata = {
   title: { absolute: PAGE_TITLE },
@@ -90,6 +95,7 @@ export default function WellnessPage() {
       className="text-white antialiased selection:bg-[#c9b57a] selection:text-[#1e383e]"
       style={{ backgroundColor: TEAL_DEEP }}
     >
+      <KeywordFaqJsonLd seo={seo} />
       <Navbar />
 
       <main className="relative min-h-screen overflow-hidden">
@@ -154,13 +160,12 @@ export default function WellnessPage() {
             <p className="font-futura text-[10px] tracking-[0.5em] text-[#c9b57a] uppercase mb-4">
               In collaboration with Reunion
             </p>
-            <h1 className="font-futura text-3xl sm:text-4xl md:text-5xl font-light tracking-[0.28em] uppercase text-white/95 mb-6">
-              Wellness & Spa
+            <h1 className="font-futura text-2xl sm:text-3xl md:text-4xl font-light tracking-[0.14em] uppercase text-white/95 mb-6">
+              Spa in Udupi — Ayurveda & Wellness
             </h1>
             <MandalaLotus className="w-14 h-14 mx-auto mb-8 opacity-80" />
             <p className="font-futura text-sm md:text-[15px] text-white/50 leading-[2.1] tracking-wide font-light max-w-xl mx-auto">
-              A calm continuum of Ayurveda, yoga, spa, and holistic care — brought to your
-              Reunion stay through Tapovana Life, Manipal.
+              Relax at REUNION&apos;s spa in Udupi — REUNION and Tapovana Life offer treatments, beach yoga and meditation for guests.
             </p>
           </header>
 
@@ -279,6 +284,12 @@ export default function WellnessPage() {
           </div>
 
         </section>
+
+        {seo ? (
+          <div className="max-w-3xl mx-auto px-5 md:px-10 pb-20">
+            <KeywordSeoSections seo={seo} />
+          </div>
+        ) : null}
       </main>
 
       <Footer />

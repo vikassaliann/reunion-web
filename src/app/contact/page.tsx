@@ -4,14 +4,29 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Link from "next/link";
 import { useEnquiry } from "@/components/EnquiryContext";
+import KeywordSeoSections from "@/components/KeywordSeoSections";
+import KeywordFaqJsonLd from "@/components/KeywordFaqJsonLd";
+import { getKeywordSeo } from "@/data/keywordGuide";
+
+const seo = getKeywordSeo("/contact");
 const CONTACT_VALUE =
   "font-futura text-sm text-white/80 group-hover:text-[#C9A84C] font-light tracking-wide leading-relaxed transition-colors duration-300 break-all";
 
 const CONTACT_ROWS = [
   {
-    label: "Phone",
+    label: "Main reservations",
     value: "+91 99802 08289",
     href: "tel:+919980208289",
+  },
+  {
+    label: "Ocean Café, Mattu Beach",
+    value: "+91 99722 31289",
+    href: "tel:+919972231289",
+  },
+  {
+    label: "De Homes front desk",
+    value: "+91 93807 40060",
+    href: "tel:+919380740060",
   },
   {
     label: "Guest Support",
@@ -63,12 +78,13 @@ export default function ContactPage() {
 
   return (
     <div className="bg-[#080808] text-white min-h-screen font-futura">
+      <KeywordFaqJsonLd seo={seo} />
       <Navbar />
 
       <section className="relative min-h-[48vh] flex items-end overflow-hidden">
         <img
           src="/properties/popular/elite.png"
-          alt=""
+          alt={seo?.imageAlt ?? ""}
           className="absolute inset-0 w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-[#080808] via-[#080808]/55 to-black/25" />
@@ -80,7 +96,7 @@ export default function ContactPage() {
             Contact REUNION
           </h1>
           <p className="font-futura mt-4 sm:mt-5 max-w-md text-sm text-white/55 font-light tracking-wide leading-relaxed">
-            Reach the Reunion team for stays, dining, events, or property partnerships across coastal Karnataka.
+            Contact REUNION by call or WhatsApp to book a villa in Udupi, reserve Ocean Café or plan a beach celebration.
           </p>
         </div>
       </section>
@@ -156,6 +172,12 @@ export default function ContactPage() {
           </div>
         </div>
       </section>
+
+      {seo ? (
+        <div className="max-w-3xl mx-auto px-5 md:px-10 pb-20">
+          <KeywordSeoSections seo={seo} />
+        </div>
+      ) : null}
 
       <Footer />
     </div>

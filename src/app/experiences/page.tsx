@@ -5,6 +5,11 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import { MandalaRing, MandalaLotus } from "@/components/wellness/WellnessMandala";
+import KeywordSeoSections from "@/components/KeywordSeoSections";
+import KeywordFaqJsonLd from "@/components/KeywordFaqJsonLd";
+import { getKeywordSeo } from "@/data/keywordGuide";
+
+const seo = getKeywordSeo("/experiences");
 
 /* ── Hero Slideshow Images (exp9 -> exp6 -> exp1 -> exp4) ── */
 const HERO_SLIDES = [
@@ -108,6 +113,7 @@ export default function ExperiencesPage() {
 
   return (
     <div className="bg-[#060606] text-white antialiased min-h-screen overflow-x-hidden">
+      <KeywordFaqJsonLd seo={seo} />
       <Navbar />
 
       {/* HERO */}
@@ -136,12 +142,12 @@ export default function ExperiencesPage() {
           <span className="font-cinzel text-[9px] sm:text-[10px] tracking-[0.5em] text-[#C9A84C] uppercase block mb-3 font-medium">
             Reunion Global
           </span>
-          <h1 className="font-futura font-bold text-2xl sm:text-4xl md:text-6xl text-white tracking-[0.28em] sm:tracking-[0.4em] uppercase leading-tight drop-shadow-2xl">
-            EXPERIENCES
+          <h1 className="font-futura font-light text-2xl sm:text-4xl md:text-5xl text-white tracking-[0.14em] sm:tracking-[0.2em] uppercase leading-tight drop-shadow-2xl">
+            Experiences in Udupi
           </h1>
           <div className="w-12 h-px bg-[#C9A84C]/60 mx-auto my-4 sm:my-5" />
-          <p className="font-cormorant italic text-base sm:text-lg text-white/80 max-w-md mx-auto font-light tracking-wide">
-            Discover the culture, nature & heritage of coastal Udupi
+          <p className="font-futura text-sm sm:text-base text-white/75 max-w-xl mx-auto font-light tracking-wide leading-relaxed">
+            From candle light dinners to beach birthdays and wellness, these are REUNION&apos;s experiences in Udupi — made for couples, families and groups.
           </p>
         </div>
       </section>
@@ -218,6 +224,12 @@ export default function ExperiencesPage() {
           </div>
         </div>
       </section>
+
+      {seo ? (
+        <div className="max-w-3xl mx-auto px-5 md:px-10 pb-20">
+          <KeywordSeoSections seo={seo} />
+        </div>
+      ) : null}
 
       <Footer />
     </div>

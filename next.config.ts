@@ -12,6 +12,11 @@ const nextConfig: NextConfig = {
         destination: "/dining",
         permanent: true,
       },
+      {
+        source: "/properties/reunion-seren",
+        destination: "/properties/reunion-serene",
+        permanent: true,
+      },
     ];
   },
   async headers() {

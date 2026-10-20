@@ -1,8 +1,11 @@
 import type { Metadata } from "next";
+import { getKeywordSeo } from "@/data/keywordGuide";
 
 const BASE_URL = "https://www.reunionglobal.in";
-const PAGE_TITLE = "Contact REUNION | Book Villas & Ocean Café in Udupi";
+const seo = getKeywordSeo("/contact");
+const PAGE_TITLE = seo?.title ?? "Contact REUNION | Book Villas & Ocean Café in Udupi";
 const PAGE_DESCRIPTION =
+  seo?.description ??
   "Contact REUNION to book luxury beach and city villas, Ocean Café tables, candlelight dinners and event venues in Udupi, Karnataka.";
 
 export const metadata: Metadata = {

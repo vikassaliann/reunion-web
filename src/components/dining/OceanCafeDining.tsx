@@ -146,9 +146,9 @@ export default function OceanCafeDining({
                 <span className="font-futura text-[9px] tracking-[0.4em] text-[#c9a84c] block mb-3 uppercase">
                   Inquire
                 </span>
-                <h3 className="font-futura text-2xl md:text-3xl text-[#f4ebe1] font-light uppercase tracking-widest">
+                <div className="font-futura text-2xl md:text-3xl text-[#f4ebe1] font-light uppercase tracking-widest">
                   Reserve Your Table
-                </h3>
+                </div>
               </div>
               <ContactForm
                 defaultPreference={name}
@@ -183,9 +183,9 @@ export default function OceanCafeDining({
               onClick={() => setTouristOpen(!touristOpen)}
               className="w-full flex items-center justify-between py-5 border-b border-[#c9a84c]/10 group"
             >
-              <span className="font-futura text-[11px] tracking-[0.3em] text-[#e8dfd0]/60 group-hover:text-[#f4ebe1] uppercase transition-colors">
+              <h2 className="font-futura text-[11px] tracking-[0.3em] text-[#e8dfd0]/60 group-hover:text-[#f4ebe1] uppercase transition-colors">
                 Nearby Tourist Places
-              </span>
+              </h2>
               <span className="text-[#c9a84c] text-xl leading-none">{touristOpen ? "−" : "+"}</span>
             </button>
             <div
@@ -196,9 +196,9 @@ export default function OceanCafeDining({
               <div className="py-6 space-y-8">
                 {TOURIST_ROUTES.map((route) => (
                   <div key={route.title} className="space-y-4">
-                    <h4 className="font-futura text-[10px] tracking-widest text-[#c9a84c] uppercase">
+                    <h3 className="font-futura text-[10px] tracking-widest text-[#c9a84c] uppercase">
                       {route.title}
-                    </h4>
+                    </h3>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                       {route.places.map((place) => (
                         <a

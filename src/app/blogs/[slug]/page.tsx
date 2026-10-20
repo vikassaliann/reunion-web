@@ -5,6 +5,9 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { BLOG_POSTS, getBlogBySlug } from "@/data/blogs";
 import { MandalaRing, MandalaLotus } from "@/components/wellness/WellnessMandala";
+import KeywordSeoSections from "@/components/KeywordSeoSections";
+import KeywordFaqJsonLd from "@/components/KeywordFaqJsonLd";
+import { getKeywordSeo } from "@/data/keywordGuide";
 import type { Metadata } from "next";
 
 const BASE_URL = "https://www.reunionglobal.in";
@@ -22,14 +25,16 @@ export async function generateMetadata({
   const post = getBlogBySlug(slug);
   if (!post) return { title: "Blog Not Found" };
 
-  const pageTitle = `REUNION | ${post.title}`;
+  const keywordSeo = getKeywordSeo(`/blogs/${slug}`);
+  const pageTitle = keywordSeo?.title ?? post.metaTitle ?? `REUNION | ${post.title}`;
+  const pageDescription = keywordSeo?.description ?? post.excerpt;
   return {
     title: { absolute: pageTitle },
-    description: post.excerpt,
+    description: pageDescription,
     alternates: { canonical: `${BASE_URL}/blogs/${post.slug}` },
     openGraph: {
       title: pageTitle,
-      description: post.excerpt,
+      description: pageDescription,
       url: `${BASE_URL}/blogs/${post.slug}`,
       siteName: "REUNION",
       type: "article",
@@ -38,7 +43,7 @@ export async function generateMetadata({
     twitter: {
       card: "summary_large_image",
       title: pageTitle,
-      description: post.excerpt,
+      description: pageDescription,
       images: [`${BASE_URL}${post.coverImage}`],
     },
   };
@@ -53,27 +58,31 @@ export default async function BlogPostPage({
   const post = getBlogBySlug(slug);
   if (!post) notFound();
 
+  const seo = getKeywordSeo(`/blogs/${slug}`);
   const others = BLOG_POSTS.filter((b) => b.slug !== post.slug);
   const isBeachesGuide = post.slug === "top-10-beaches-to-visit-in-udupi";
 
   return (
     <div className="bg-[#0a0908] text-white antialiased selection:bg-[#C9A84C] selection:text-black min-h-screen">
+      <KeywordFaqJsonLd seo={seo} />
       <Navbar />
 
       <main>
         <section className="relative h-[42vh] md:h-[50vh] min-h-[280px] flex items-end">
           <img
             src={post.coverImage}
-            alt=""
+            alt={seo?.imageAlt ?? post.title}
             className="absolute inset-0 w-full h-full object-cover"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-[#0a0908] via-[#0a0908]/50 to-black/30" />
           <div className="relative z-10 w-full max-w-5xl mx-auto px-5 md:px-10 pb-10">
             <p className="font-futura text-[10px] tracking-[0.4em] text-[#C9A84C] uppercase mb-3">
               {post.category}
+              {post.author ? ` · ${post.author}` : ""}
+              {post.date ? ` · ${post.date}` : ""}
             </p>
             <h1 className="font-futura text-3xl sm:text-4xl md:text-[2.75rem] font-light tracking-[0.08em] uppercase leading-tight max-w-3xl">
-              {post.title}
+              {seo?.h1 ?? post.title}
             </h1>
           </div>
         </section>
@@ -134,12 +143,26 @@ export default async function BlogPostPage({
                       <p className="font-futura text-sm text-white/50 font-light leading-[1.95] tracking-wide">
                         {section.body}
                       </p>
+                      {section.stayNearby?.length ? (
+                        <p className="mt-5 font-futura text-[12px] text-white/45 font-light tracking-wide">
+                          Stay nearby:{" "}
+                          {section.stayNearby.map((link, li) => (
+                            <span key={link.href}>
+                              {li > 0 ? " · " : null}
+                              <Link href={link.href} className="text-[#C9A84C] hover:underline">
+                                {link.label}
+                              </Link>
+                            </span>
+                          ))}
+                        </p>
+                      ) : null}
                     </div>
                   );
                   return (
                     <section
+                      id={section.id}
                       key={section.heading}
-                      className="grid grid-cols-1 md:grid-cols-2 items-stretch border border-white/10 overflow-hidden"
+                      className="grid grid-cols-1 md:grid-cols-2 items-stretch border border-white/10 overflow-hidden scroll-mt-28"
                     >
                       {reverse ? (
                         <>
@@ -159,7 +182,7 @@ export default async function BlogPostPage({
             ) : (
               <div className="relative space-y-0 border-l border-[#C9A84C]/25 ml-3 md:ml-4 pl-8 md:pl-12">
                 {post.content.sections.map((section, i) => (
-                  <section key={section.heading} className="relative pb-16 last:pb-0">
+                  <section id={section.id} key={section.heading} className="relative pb-16 last:pb-0 scroll-mt-28">
                     <span className="absolute -left-[calc(2rem+5px)] md:-left-[calc(3rem+5px)] top-1 w-2.5 h-2.5 rounded-full bg-[#C9A84C] ring-4 ring-[#0a0908]" />
                     <span className="font-futura text-[10px] tracking-[0.35em] text-[#C9A84C] uppercase">
                       {section.places?.length ? `Route ${i + 1}` : `Part ${i + 1}`}
@@ -201,6 +224,20 @@ export default async function BlogPostPage({
                       </p>
                     )}
 
+                    {section.stayNearby?.length ? (
+                      <p className="mb-8 font-futura text-[12px] text-white/45 font-light tracking-wide max-w-2xl">
+                        Stay nearby:{" "}
+                        {section.stayNearby.map((link, li) => (
+                          <span key={link.href}>
+                            {li > 0 ? " · " : null}
+                            <Link href={link.href} className="text-[#C9A84C] hover:underline">
+                              {link.label}
+                            </Link>
+                          </span>
+                        ))}
+                      </p>
+                    ) : null}
+
                     {section.places && section.places.length > 0 && (
                       <ul className="space-y-6 max-w-2xl">
                         {section.places.map((place) => (
@@ -238,6 +275,12 @@ export default async function BlogPostPage({
                 {post.content.closing}
               </p>
             </div>
+
+            {seo ? (
+              <div className="max-w-3xl mx-auto mt-16">
+                <KeywordSeoSections seo={seo} />
+              </div>
+            ) : null}
 
             <div className="mt-12 flex flex-col sm:flex-row gap-3">
               <Link

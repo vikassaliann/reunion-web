@@ -2,7 +2,7 @@
   {
     "id": "ocean-elite",
     "name": "Ocean Elite",
-    "location": "Padutonse, Udupi",
+    "location": "Hoode Beach, Udupi",
     "description": "Reunion Ocean Elite is a charming 2-bedroom villa offering direct beach access. It comes with a fully equipped kitchen and essential amenities like a fridge, WiFi, geyser, and AC. The villa features a spacious lawn that leads directly to the beach. One of the bedrooms boasts a beautiful beach view and a private balcony. The property also has generator backup to ensure uninterrupted power.",
     "price": "Contact for pricing",
     "bedrooms": 2,
@@ -39,7 +39,7 @@
   {
     "id": "ocean-manor",
     "name": "Ocean Manor",
-    "location": "Padutonse, Udupi",
+    "location": "Hoode Beach, Udupi",
     "description": "Reunion Ocean Manor features 2 BHK on the first floor and 2 independent one-bedroom halls on the ground floor. On the first floor, one bedroom is sea-facing and the other is river-facing. The living area has a huge beach-facing balcony. One bedroom hall on the ground floor has a living room with a sea-facing bedroom and balcony. There is a lawn with beach access through scenic rock beds. All basic amenities are available with generator power backup. Reunion Ocean Manor (Dreams) offers a cozy 1BHK on the ground floor with a direct beach view from the bedroom and immediate access to the shore, providing an intimate and relaxing setting.",
     "price": "Contact for pricing",
     "bedrooms": 4,
@@ -556,7 +556,7 @@
     "videoUrl": ""
   },
   {
-    "id": "reunion-seren",
+    "id": "reunion-serene",
     "name": "Reunion Serene",
     "location": "Shivamogga, Karnataka",
     "description": "Reunion Serene Villa is a private nature-stay and holiday home located in the Malnad region of Karnataka, near Shivamogga (Shimoga). Approximately 7.7 km from the Shivamogga city center, the villa accommodates up to 8 guests across 4 separate bedrooms. Guests enjoy a private outdoor swimming pool (year-round), free Wi-Fi and parking, a terrace, garden, and family rooms, plus washing machine access.",
@@ -572,19 +572,19 @@
       "Terrace, Garden & Family Rooms",
       "Washing Machine"
     ],
-    "heroImage": "/properties/reunion-seren/hero.png",
+    "heroImage": "/properties/reunion-serene/hero.png",
     "gallery": [
-      "/properties/reunion-seren/hero.png",
-      "/properties/reunion-seren/seren1.jpeg",
-      "/properties/reunion-seren/seren2.jpeg",
-      "/properties/reunion-seren/seren3.jpeg",
-      "/properties/reunion-seren/seren4.jpeg",
-      "/properties/reunion-seren/seren5.jpeg",
-      "/properties/reunion-seren/seren6.jpeg",
-      "/properties/reunion-seren/seren7.jpeg",
-      "/properties/reunion-seren/seren8.jpeg",
-      "/properties/reunion-seren/seren9.jpeg",
-      "/properties/reunion-seren/seren10.jpeg"
+      "/properties/reunion-serene/hero.png",
+      "/properties/reunion-serene/seren1.jpeg",
+      "/properties/reunion-serene/seren2.jpeg",
+      "/properties/reunion-serene/seren3.jpeg",
+      "/properties/reunion-serene/seren4.jpeg",
+      "/properties/reunion-serene/seren5.jpeg",
+      "/properties/reunion-serene/seren6.jpeg",
+      "/properties/reunion-serene/seren7.jpeg",
+      "/properties/reunion-serene/seren8.jpeg",
+      "/properties/reunion-serene/seren9.jpeg",
+      "/properties/reunion-serene/seren10.jpeg"
     ],
     "videoUrl": ""
   },

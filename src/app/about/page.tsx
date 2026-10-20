@@ -6,6 +6,11 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import properties from "@/data/properties.json";
 import Breadcrumbs from "@/components/Breadcrumbs";
+import KeywordSeoSections from "@/components/KeywordSeoSections";
+import KeywordFaqJsonLd from "@/components/KeywordFaqJsonLd";
+import { getKeywordSeo } from "@/data/keywordGuide";
+
+const seo = getKeywordSeo("/about");
 
 const BASE_URL = "https://www.reunionglobal.in";
 
@@ -179,6 +184,7 @@ export default function AboutPage() {
 
   return (
     <div className="bg-[#080808] text-white antialiased overflow-x-hidden selection:bg-[#C9A84C] selection:text-black min-h-screen">
+      <KeywordFaqJsonLd seo={seo} />
       <Navbar />
 
       <script
@@ -209,14 +215,12 @@ export default function AboutPage() {
             <p className="font-futura text-[10px] tracking-[0.45em] text-[#C9A84C] uppercase">
               Our Story
             </p>
-            <h1 className="font-futura text-4xl md:text-6xl lg:text-7xl font-light tracking-[0.22em] uppercase">
-              REUNION
+            <h1 className="font-futura text-3xl md:text-5xl lg:text-6xl font-light tracking-[0.16em] uppercase">
+              About REUNION
             </h1>
             <p className="text-white/55 text-sm md:text-base font-futura font-light leading-relaxed max-w-2xl mx-auto tracking-wide">
-              Every stay deserves to be memorable. At Reunion, we redefine hospitality
-              through thoughtful management, strategic marketing, and operational
-              excellence—creating exceptional guest experiences and helping hospitality
-              businesses reach their full potential.
+              REUNION (Reunion Global Private Ltd.) is a hospitality company in Udupi, Karnataka, founded in 2020,
+              managing beach villas, city stays and Ocean Café.
             </p>
           </div>
         </section>
@@ -311,6 +315,12 @@ export default function AboutPage() {
             </div>
           </div>
         </section>
+
+        {seo ? (
+          <div className="max-w-3xl mx-auto px-5 md:px-10 pb-20">
+            <KeywordSeoSections seo={seo} skipHeadings={["Our team"]} />
+          </div>
+        ) : null}
       </main>
 
       <Footer />

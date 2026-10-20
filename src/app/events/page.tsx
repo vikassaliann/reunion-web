@@ -4,6 +4,9 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import Link from "next/link";
 import EventsGalleryCarousel from "@/components/events/EventsGalleryCarousel";
 import type { Metadata } from "next";
+import KeywordSeoSections from "@/components/KeywordSeoSections";
+import KeywordFaqJsonLd from "@/components/KeywordFaqJsonLd";
+import { getKeywordSeo } from "@/data/keywordGuide";
 
 const BASE_URL = "https://www.reunionglobal.in";
 const PHONE_DISPLAY = "+91 99802 08289";
@@ -41,9 +44,11 @@ const GALLERY_SLIDES = [
   },
 ] as const;
 
-const PAGE_TITLE = "REUNION | Events & Weddings — Beach Venue in Udupi";
+const seo = getKeywordSeo("/events");
+const PAGE_TITLE = seo?.title ?? "Beach Weddings & Wedding Venues in Udupi | REUNION";
 const PAGE_DESCRIPTION =
-  "Plan weddings, private celebrations and coastal events with REUNION — beach venue experiences and Gutthu Weddings Planner coordination in Udupi, Karnataka.";
+  seo?.description ??
+  "Plan a beach wedding, reception or private event in Udupi with REUNION — beach venue, guest stays and Gutthu Weddings coordination.";
 
 export const metadata: Metadata = {
   title: { absolute: PAGE_TITLE },
@@ -68,6 +73,7 @@ export const metadata: Metadata = {
 export default function EventsPage() {
   return (
     <div className="bg-[#060606] text-white antialiased selection:bg-[#C9A84C] selection:text-black min-h-screen">
+      <KeywordFaqJsonLd seo={seo} />
       <Navbar />
 
       <main>
@@ -75,7 +81,7 @@ export default function EventsPage() {
           <div className="absolute inset-0">
             <img
               src={wd(4)}
-              alt="Gutthu Weddings Planner and Events Management"
+              alt={seo?.imageAlt ?? "Gutthu Weddings Planner and Events Management"}
               className="w-full h-full object-cover"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-[#060606] via-[#060606]/50 to-[#060606]/70" />
@@ -85,12 +91,12 @@ export default function EventsPage() {
             <p className="font-futura text-[10px] tracking-[0.45em] text-[#C9A84C] uppercase mb-5">
               Events & Weddings
             </p>
-            <h1 className="font-futura text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light tracking-[0.14em] uppercase text-white leading-tight">
-              Gutthu
+            <h1 className="font-futura text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light tracking-[0.12em] uppercase text-white leading-tight max-w-4xl mx-auto">
+              Beach Weddings & Events in Udupi
             </h1>
             <div className="w-14 h-px bg-[#C9A84C]/50 mx-auto my-7" />
-            <p className="font-futura text-sm md:text-base text-white/60 font-light tracking-wide max-w-xl mx-auto leading-relaxed">
-              Weddings Planner and Events Management
+            <p className="font-futura text-sm md:text-base text-white/60 font-light tracking-wide max-w-2xl mx-auto leading-relaxed">
+              Looking for wedding venues in Udupi? REUNION hosts beach weddings, receptions and private events on the coast, with stays nearby for your guests — planned with Gutthu Weddings Planner and Events Management.
             </p>
           </div>
         </section>
@@ -122,8 +128,13 @@ export default function EventsPage() {
             </h2>
             <p className="font-futura text-sm text-white/50 leading-[2] font-light tracking-wide">
               Gutthu Weddings Planner and Events Management — partnered with Reunion for
-              weddings, private celebrations, and thoughtfully managed events along Coastal
-              Karnataka.
+              beach weddings, haldi and mehendi on the sand, reception dinners, and private corporate
+              gatherings along Coastal Karnataka. Guest rooms and villas nearby keep families together
+              from rehearsal to farewell. Explore our{" "}
+              <Link href="/events/beach-venue" className="text-[#C9A84C] hover:underline">
+                beach venue in Udupi
+              </Link>{" "}
+              for private setups by the sea.
             </p>
           </div>
 
@@ -155,6 +166,12 @@ export default function EventsPage() {
               </a>
             </div>
           </div>
+
+          {seo ? (
+            <div className="max-w-3xl mx-auto mt-20 pt-12 border-t border-white/10">
+              <KeywordSeoSections seo={seo} />
+            </div>
+          ) : null}
         </section>
       </main>
 

@@ -1,7 +1,11 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import ContactForm from "@/components/ContactForm";
+import { PROPERTY_RELATED } from "@/data/propertyRelated";
+import { getPropertyKeywordSeo } from "@/data/keywordGuide";
+import KeywordSeoSections from "@/components/KeywordSeoSections";
 
 /** Upscale small source files in lightbox so they fill the viewport like full-size property photos. */
 function LightboxPhoto({ src, alt }: { src: string; alt: string }) {
@@ -52,6 +56,7 @@ interface Property {
 interface PropertyDetailSectionProps {
   property: Property;
   mapLink?: string;
+  seoLead?: string;
 }
 
 // Phone numbers per property
@@ -73,7 +78,7 @@ const PROPERTY_PHONES: Record<string, string> = {
   "villa":          "+91 9980208289",
   "ocean-royal":    "+91 9980208289",
   "regal-villa":    "+91 9980208289",
-  "reunion-seren":  "+91 9980208289",
+  "reunion-serene":  "+91 9980208289",
 };
 
 // Guest/Room capacity info per property
@@ -94,7 +99,7 @@ const GUEST_INFO: Record<string, string[]> = {
   "regal-villa":    ["Up to 6 Guests"],
   "villa":          ["Up to 10 Guests"],
   "de-homes":       ["16 Premium Rooms"],
-  "reunion-seren":  ["4 Bedrooms", "Up to 8 Guests"],
+  "reunion-serene":  ["4 Bedrooms", "Up to 8 Guests"],
 };
 
 // Property Guidelines & Facilities per property
@@ -116,7 +121,7 @@ const PROPERTY_GUIDELINES: Record<string, { power: string; highlightDetail: stri
   "regal-villa":    { power: "Balcony & Terrace Access", highlightDetail: "Free Private Parking & WiFi" },
   "villa":          { power: "3 Bedrooms (2 AC + 1 Non-AC)", highlightDetail: "Meals Arranged on Request" },
   "ocean-cafe":     { power: "Fireplace & Live Music (Select Days)", highlightDetail: "Open Daily: 9:30 AM – 10:00 PM" },
-  "reunion-seren":  { power: "Standard Grid Power", highlightDetail: "Private Outdoor Pool · Terrace & Garden" },
+  "reunion-serene":  { power: "Standard Grid Power", highlightDetail: "Private Outdoor Pool · Terrace & Garden" },
 };
 
 // Property FAQs — derived exclusively from each property's actual details
@@ -127,8 +132,9 @@ export interface FAQ {
 
 export const PROPERTY_FAQS: Record<string, FAQ[]> = {
   "ocean-elite": [
-    { q: "How many bedrooms does Ocean Elite have?", a: "Ocean Elite is a 2-bedroom villa. One of the bedrooms has a beautiful beach view with a private balcony." },
-    { q: "How close is Ocean Elite to the beach?", a: "The villa offers direct beach access — the spacious lawn leads straight to the beach." },
+    { q: "Does Ocean Elite have direct beach access?", a: "Yes — REUNION Ocean Elite at Hoode Beach, Udupi has direct beach access from the lawn." },
+    { q: "How many guests can stay?", a: "Ocean Elite accommodates up to 6 guests in its 2-bedroom villa." },
+    { q: "How far is Hoode Beach from Udupi town?", a: "Hoode Beach is roughly 12–15 km from Udupi town — about 25–30 minutes by car." },
     { q: "What amenities are available at Ocean Elite?", a: "The villa comes with a fully equipped kitchen, refrigerator, WiFi, geyser, air conditioning, and a spacious lawn." },
     { q: "Is there power backup at Ocean Elite?", a: "Yes, Ocean Elite has heavy-duty generator backup to ensure uninterrupted power." },
     { q: "How many guests can Ocean Elite accommodate?", a: "Ocean Elite can accommodate up to 6 guests." },
@@ -156,6 +162,7 @@ export const PROPERTY_FAQS: Record<string, FAQ[]> = {
     { q: "Is there power backup at Ocean Royal?", a: "Yes, Ocean Royal has heavy-duty generator backup." },
   ],
   "de-homes": [
+    { q: "How far is De Homes from Udupi Krishna Temple?", a: "De Homes in Chitpady is about a 10-minute walk from Sri Krishna Matha, Udupi." },
     { q: "What type of property is De Homes?", a: "Reunion De Homes is a premium suites property with 16 rooms, located in the absolute center of Udupi city, close to the sacred Udupi Sri Krishna Matha." },
     { q: "What room categories are available at De Homes?", a: "Room categories include Standard Double Room, Standard Twin Room, Deluxe Double Room, Deluxe Double Room with Balcony, and Presidential Suite." },
     { q: "Who is De Homes ideal for?", a: "De Homes is ideal for devotees on a spiritual journey, corporate professionals, and families on vacation." },
@@ -170,6 +177,8 @@ export const PROPERTY_FAQS: Record<string, FAQ[]> = {
     { q: "What is the setting like at Ocean Daaffy?", a: "The villa is set in a peaceful, tranquil natural surrounding — ideal for those seeking a coastal retreat amidst nature." },
   ],
   "ocean-hridayam": [
+    { q: "Is Ocean Hridayam right on the beach?", a: "Yes — you can step from the sea-facing balcony onto Mattu Beach." },
+    { q: "How far is Ocean Café?", a: "Ocean Café is next door on the same Mattu Beach shoreline — ideal for sunset meals." },
     { q: "What is the layout of Ocean Hridayam?", a: "Ocean Hridayam is a 2BHK villa with one bedroom on the ground floor and another on the first floor — a split-level family layout." },
     { q: "How many guests can Ocean Hridayam accommodate?", a: "Ocean Hridayam can accommodate up to 6 guests." },
     { q: "Does Ocean Hridayam have a kitchen?", a: "Yes, the villa is equipped with a kitchen with essential utensils, making your stay feel just like home." },
@@ -212,12 +221,14 @@ export const PROPERTY_FAQS: Record<string, FAQ[]> = {
     { q: "Is the property owner nearby?", a: "Yes, the owner of the property stays nearby for any assistance." },
   ],
   "krshna": [
+    { q: "How far is Krshna from MAHE / KMC Hospital?", a: "Krshna in Manipal is about 2 km from MAHE and roughly 3 km from KMC Hospital — a short drive or auto ride." },
     { q: "Where is Krshna located?", a: "Krshna is a 2BHK property located in Manipal, Udupi." },
     { q: "How many guests can Krshna accommodate?", a: "Krshna can accommodate up to 6 guests." },
     { q: "What amenities are available at Krshna?", a: "The villa offers a fully furnished kitchen, free WiFi, parking space, refrigerator, and UPS power backup." },
     { q: "Is there power backup at Krshna?", a: "Yes, UPS power backup is available." },
   ],
   "ocean-waves": [
+    { q: "Is Ocean Café nearby?", a: "Yes — REUNION Ocean Café is on the same Mattu Beach stretch, a short walk from Ocean Waves." },
     { q: "What is the layout of Ocean Waves?", a: "Ocean Waves has 3 independent units — a 1BHK on the first floor and 2 independent one-bedroom halls on the ground floor, each with a balcony, living area, bedroom, and attached bathroom." },
     { q: "How close is Ocean Waves to the beach?", a: "The beach is hardly 5 meters from the property — just cross the road and you're on the sand." },
     { q: "What amenities does each unit have?", a: "Each unit features AC, geyser, mini fridge, microwave, and kettle." },
@@ -241,14 +252,15 @@ export const PROPERTY_FAQS: Record<string, FAQ[]> = {
     { q: "What amenities are available at Villa?", a: "The villa features a terrace with garden views, balcony, free private parking, air conditioning, TV, and an in-kitchen." },
   ],
   "ocean-cafe": [
-    { q: "What type of dining does Ocean Café offer?", a: "Ocean Café serves continental and Chinese cuisine, gourmet coastal snacks, artisanal burgers, fresh seafood, specialty coffees, refreshing mocktails, and a dedicated vegetarian and vegan selection." },
-    { q: "Where is Ocean Café located?", a: "Ocean Café is situated directly on the pristine shoreline of Mattu Beach in Udupi, Karnataka." },
-    { q: "Does Ocean Café host special events?", a: "Yes, the café is recommended for romantic candlelight dinners, beach birthday celebrations, and small private events." },
+    { q: "What are Ocean Café's timings?", a: "Open daily 9:30 AM to 10:00 PM on Mattu Beach, Udupi." },
+    { q: "Is Ocean Café on the beach?", a: "Yes — Ocean Café is beachfront on Mattu Beach, Udupi." },
+    { q: "Can we celebrate a birthday at Ocean Café?", a: "Yes — enquire for beach birthday setups and private celebration dining with REUNION." },
     { q: "Does Ocean Café have live music?", a: "Yes, the cozy lounge features a fireplace and live musical performances on select occasions." },
     { q: "What is the ambiance like at Ocean Café?", a: "Guests can relax in breezy outdoor seating areas facing the rolling waves or unwind in a cozy indoor lounge, with stunning sunset vistas over the Arabian Sea." },
   ],
-  "reunion-seren": [
-    { q: "Where is Reunion Serene located?", a: "Reunion Serene Villa is a private nature-stay in the Malnad region of Karnataka, near Shivamogga (Shimoga), approximately 7.7 km from the Shivamogga city center." },
+  "reunion-serene": [
+    { q: "How far is Reunion Serene from Jog Falls?", a: "Jog Falls is about 85 km from Reunion Serene — plan a half-day drive from the villa." },
+    { q: "Where is Reunion Serene located?", a: "Reunion Serene Villa is a private Malnad stay near Shivamogga (Shimoga), Karnataka — see the Google Maps pin for Reunion Serene Villa for exact directions." },
     { q: "How many guests can Reunion Serene accommodate?", a: "The villa accommodates up to 8 guests across 4 separate bedrooms." },
     { q: "Does Reunion Serene have a swimming pool?", a: "Yes, the property features a private outdoor swimming pool available year-round." },
     { q: "What amenities are available at Reunion Serene?", a: "Guests enjoy free Wi-Fi and parking, a terrace, garden, family rooms, and washing machine access, along with the private outdoor pool." },
@@ -336,7 +348,9 @@ export const TOURIST_ROUTES: RouteGroup[] = [
   },
 ];
 
-export default function PropertyDetailSection({ property, mapLink }: PropertyDetailSectionProps) {
+export default function PropertyDetailSection({ property, mapLink, seoLead }: PropertyDetailSectionProps) {
+  const keywordSeo = getPropertyKeywordSeo(property.id);
+  const faqs = keywordSeo?.faqs?.length ? keywordSeo.faqs : PROPERTY_FAQS[property.id] ?? [];
   const [selectedImageIdx, setSelectedImageIdx] = useState(0);
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [touristOpen, setTouristOpen] = useState(false);
@@ -548,14 +562,35 @@ export default function PropertyDetailSection({ property, mapLink }: PropertyDet
           {/* Block 1 — Overview through Guidelines */}
           <div className="lg:col-span-7 space-y-12 sm:space-y-16">
             <div className="space-y-6">
-              <h3 className="font-futura text-[11px] tracking-[0.3em] text-white/40 uppercase">Overview</h3>
+              <h2 className="font-futura text-[11px] tracking-[0.3em] text-white/40 uppercase">Overview</h2>
+              {seoLead ? (
+                <p className="text-white/80 font-futura text-[15px] md:text-base leading-[2] font-light tracking-wide">
+                  {seoLead}
+                </p>
+              ) : null}
               <p className="text-white/80 font-futura text-[15px] md:text-base leading-[2] font-light tracking-wide">
                 {property.description}
               </p>
             </div>
 
+            {PROPERTY_RELATED[property.id]?.length ? (
+              <div className="space-y-4">
+                <h2 className="font-futura text-[11px] tracking-[0.3em] text-white/40 uppercase">Similar stays</h2>
+                <p className="text-white/50 font-futura text-[13px] leading-relaxed font-light tracking-wide">
+                  {PROPERTY_RELATED[property.id].map((link, i) => (
+                    <span key={link.href}>
+                      {i > 0 ? " · " : null}
+                      <Link href={link.href} className="text-[#C9A84C]/90 hover:text-[#C9A84C] transition-colors">
+                        {link.label}
+                      </Link>
+                    </span>
+                  ))}
+                </p>
+              </div>
+            ) : null}
+
             <div className="space-y-6">
-              <h3 className="font-futura text-[11px] tracking-[0.3em] text-white/40 uppercase">Amenities & Details</h3>
+              <h2 className="font-futura text-[11px] tracking-[0.3em] text-white/40 uppercase">Amenities & Details</h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-4 gap-x-8">
                 {highlights.map((item, i) => (
                   <div key={i} className="flex items-center gap-4 group/item">
@@ -570,7 +605,7 @@ export default function PropertyDetailSection({ property, mapLink }: PropertyDet
 
             {property.id !== "ocean-cafe" && (
               <div className="space-y-6">
-                <h3 className="font-futura text-[11px] tracking-[0.3em] text-white/40 uppercase">Guidelines</h3>
+                <h2 className="font-futura text-[11px] tracking-[0.3em] text-white/40 uppercase">Guidelines</h2>
                 <div className="space-y-4 font-futura text-sm tracking-wide font-light text-white/60">
                   <div className="flex items-start gap-4">
                     <span className="uppercase text-[#C9A84C] w-32 shrink-0 text-[11px] tracking-[0.2em] mt-0.5">Power</span>
@@ -583,6 +618,15 @@ export default function PropertyDetailSection({ property, mapLink }: PropertyDet
                 </div>
               </div>
             )}
+
+            {keywordSeo ? (
+              <KeywordSeoSections
+                seo={keywordSeo}
+                skipHeadings={["Overview", "Amenities", "Amenities & Details", "FAQs", "Similar stays"]}
+                hideFaqs
+                hideLinks
+              />
+            ) : null}
           </div>
 
           {/* Enquiry form — after guidelines on mobile; sticky right on desktop */}
@@ -591,9 +635,9 @@ export default function PropertyDetailSection({ property, mapLink }: PropertyDet
               <div className="space-y-8 sm:space-y-10">
                 <div>
                   <span className="font-cinzel text-[9px] tracking-[0.4em] text-[#C9A84C] block mb-3 uppercase">Inquire</span>
-                  <h3 className="font-cormorant italic text-3xl md:text-4xl text-white font-light leading-snug">
+                  <div className="font-cormorant italic text-3xl md:text-4xl text-white font-light leading-snug">
                     {property.id === "ocean-cafe" ? "Reserve Table" : "Reserve Stay"}
-                  </h3>
+                  </div>
                 </div>
                 <ContactForm
                   defaultPreference={property.name}
@@ -638,16 +682,16 @@ export default function PropertyDetailSection({ property, mapLink }: PropertyDet
                 onClick={() => setTouristOpen(!touristOpen)}
                 className="w-full flex items-center justify-between py-5 border-b border-white/10 group"
               >
-                <span className="font-futura text-[11px] tracking-[0.3em] text-white/70 group-hover:text-white uppercase transition-colors">
+                <h2 className="font-futura text-[11px] tracking-[0.3em] text-white/70 group-hover:text-white uppercase transition-colors">
                   Nearby Tourist Places
-                </span>
+                </h2>
                 <span className="text-[#C9A84C] text-xl leading-none">{touristOpen ? "−" : "+"}</span>
               </button>
               <div className={`overflow-hidden transition-all duration-500 ${touristOpen ? "max-h-[3000px] opacity-100" : "max-h-0 opacity-0"}`}>
                 <div className="py-6 space-y-8">
-                  {(property.id === "reunion-seren" ? SERENE_TOURIST_ROUTES : TOURIST_ROUTES).map((route, rIdx) => (
+                  {(property.id === "reunion-serene" ? SERENE_TOURIST_ROUTES : TOURIST_ROUTES).map((route, rIdx) => (
                     <div key={rIdx} className="space-y-4">
-                      <h4 className="font-futura text-[10px] tracking-widest text-[#C9A84C] uppercase">{route.title}</h4>
+                      <h3 className="font-futura text-[10px] tracking-widest text-[#C9A84C] uppercase">{route.title}</h3>
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                         {route.places.map((place, pIdx) => (
                           <a key={pIdx} href={place.mapUrl} target="_blank" rel="noopener noreferrer" className="font-futura text-[13px] font-light tracking-wide text-white/70 hover:text-white transition-colors flex items-center gap-3">
@@ -661,20 +705,20 @@ export default function PropertyDetailSection({ property, mapLink }: PropertyDet
                 </div>
               </div>
 
-              {PROPERTY_FAQS[property.id] && PROPERTY_FAQS[property.id].length > 0 && (
+              {faqs.length > 0 && (
                 <>
                   <button
                     onClick={() => setFaqOpen(!faqOpen)}
                     className="w-full flex items-center justify-between py-5 border-b border-white/10 group"
                   >
-                    <span className="font-futura text-[11px] tracking-[0.3em] text-white/70 group-hover:text-white uppercase transition-colors">
+                    <h2 className="font-futura text-[11px] tracking-[0.3em] text-white/70 group-hover:text-white uppercase transition-colors">
                       Frequently Asked Questions
-                    </span>
+                    </h2>
                     <span className="text-[#C9A84C] text-xl leading-none">{faqOpen ? "−" : "+"}</span>
                   </button>
                   <div className={`overflow-hidden transition-all duration-500 ${faqOpen ? "max-h-[5000px] opacity-100" : "max-h-0 opacity-0"}`}>
                     <div className="py-6 space-y-6">
-                      {PROPERTY_FAQS[property.id].map((faq, fIdx) => (
+                      {faqs.map((faq, fIdx) => (
                         <div key={fIdx} className="space-y-2">
                           <p className="font-futura text-[13px] text-white tracking-wide uppercase">{faq.q}</p>
                           <p className="font-futura text-[13px] font-light text-white/60 leading-relaxed">{faq.a}</p>

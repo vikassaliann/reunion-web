@@ -16,7 +16,7 @@ export const CATEGORY_MAP: Record<string, string[]> = {
   "ocean-waves": ["beach-villas"],
   "regal-villa": ["city-stays"],
   "villa": ["city-stays"],
-  "reunion-seren": ["shivamogga-stays"],
+  "reunion-serene": ["shivamogga-stays"],
   "ocean-cafe": [],
 };
 

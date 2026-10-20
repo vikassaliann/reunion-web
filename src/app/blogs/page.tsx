@@ -4,12 +4,15 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import Link from "next/link";
 import { BLOG_POSTS } from "@/data/blogs";
 import type { Metadata } from "next";
+import { getKeywordSeo } from "@/data/keywordGuide";
 
 const BASE_URL = "https://www.reunionglobal.in";
+const blogsSeo = getKeywordSeo("/blogs");
 
-const PAGE_TITLE = "REUNION | Blogs — Udupi Travel Guides";
+const PAGE_TITLE = blogsSeo?.title ?? "Udupi Travel Guides & Local Tips | REUNION Blog";
 const PAGE_DESCRIPTION =
-  "Read REUNION travel guides — top beaches in Udupi, 2-day coastal itineraries (peak season October–March), and inspiration for your next stay.";
+  blogsSeo?.description ??
+  "Local guides to Udupi — the best beaches, tourist places, a 2-day itinerary and when to visit, written by the REUNION team in Udupi.";
 
 export const metadata: Metadata = {
   title: { absolute: PAGE_TITLE },
@@ -60,10 +63,11 @@ export default function BlogsPage() {
               Reunion Journal
             </p>
             <h1 className="mt-4 font-futura text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-light tracking-[0.18em] uppercase leading-[1.05]">
-              Blogs
+              {blogsSeo?.h1 ?? "Udupi Travel Guides"}
             </h1>
-            <p className="mt-5 max-w-md font-cormorant italic text-lg sm:text-xl text-white/75 font-light leading-snug">
-              Coastal guides for Udupi — beaches, routes, and days worth staying for.
+            <p className="mt-5 max-w-md font-futura text-sm sm:text-base text-white/70 font-light leading-relaxed">
+              {blogsSeo?.lead ??
+                "Coastal guides for Udupi — beaches, routes, and days worth staying for."}
             </p>
 
             {featured && (
@@ -130,6 +134,8 @@ export default function BlogsPage() {
                     <div className="min-w-0">
                       <span className="font-futura text-[10px] tracking-[0.3em] text-white/35 uppercase">
                         {post.category}
+                        {post.author ? ` · ${post.author}` : ""}
+                        {post.date ? ` · ${post.date}` : ""}
                       </span>
                       <h3 className="mt-2 font-futura text-lg sm:text-xl md:text-2xl font-light uppercase tracking-[0.08em] leading-snug group-hover:text-[#C9A84C] transition-colors">
                         {post.title}

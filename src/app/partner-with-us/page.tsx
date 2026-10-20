@@ -55,6 +55,24 @@ export default function PartnerWithUsPage() {
             About REUNION
           </Link>
         </div>
+
+        <div className="pt-12 border-t border-white/10 space-y-6">
+          <h2 className="text-[11px] tracking-[0.3em] text-[#C9A84C] uppercase">FAQs</h2>
+          <dl className="space-y-5 text-sm text-white/50 font-light leading-relaxed">
+            <div>
+              <dt className="text-white/85 mb-1">Can I list my villa with REUNION?</dt>
+              <dd>Yes — we partner with owners across Udupi and Coastal Karnataka who want professional hospitality management.</dd>
+            </div>
+            <div>
+              <dt className="text-white/85 mb-1">What does REUNION manage?</dt>
+              <dd>Marketing, guest operations, housekeeping coordination, and revenue optimisation while you retain ownership.</dd>
+            </div>
+            <div>
+              <dt className="text-white/85 mb-1">How do I start?</dt>
+              <dd>Submit the partnership enquiry form — our team reviews your property and responds within a few business days.</dd>
+            </div>
+          </dl>
+        </div>
       </section>
 
       <Footer />

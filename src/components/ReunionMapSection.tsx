@@ -14,8 +14,8 @@ type MapLoc = {
 /* Pins projected from PROPERTY_GEO + place labels; x always east of coastline (land). */
 const MAP_LOCATIONS: MapLoc[] = [
   // North coast — Padutonse / Bengre
-  { name: "Ocean Elite", x: 102, y: 68, link: "https://maps.app.goo.gl/i4qS8YbVEtMqgRFF7", desc: "Private Beachfront Villa, Padutonse", image: "/properties/popular/elite.png" },
-  { name: "Ocean Manor", x: 106, y: 78, link: "https://maps.app.goo.gl/QDo2c3Fy8mufX5s77", desc: "Sea & River View Villa, Padutonse", image: "/properties/ocean-manor/herooo.png" },
+  { name: "Ocean Elite", x: 102, y: 68, link: "https://maps.app.goo.gl/i4qS8YbVEtMqgRFF7", desc: "Private Beachfront Villa, Hoode Beach", image: "/properties/popular/elite.png" },
+  { name: "Ocean Manor", x: 106, y: 78, link: "https://maps.app.goo.gl/QDo2c3Fy8mufX5s77", desc: "Sea & River View Villa, Hoode Beach", image: "/properties/ocean-manor/herooo.png" },
   // Malpe
   { name: "Ocean Bliss", x: 108, y: 118, link: "https://maps.app.goo.gl/y27fBpfybGmGsvwH7", desc: "Cozy Malpe Beach Villa", image: "/properties/ocean-bliss/blissthumb.png" },
   // Udupi city belt (inland)
@@ -36,7 +36,7 @@ const MAP_LOCATIONS: MapLoc[] = [
   { name: "Ocean Givaah", x: 98, y: 235, link: "https://maps.app.goo.gl/4Zau2oTbTh95BmxL6", desc: "Secluded Beachfront Villa, Bada", image: "/properties/popular/givaah.png" },
   { name: "Ocean Royal", x: 96, y: 245, link: "https://maps.app.goo.gl/R4LzcKq8bcPPS3ub6", desc: "Majestic Beachfront Villa, Kapu", image: "/properties/popular/royal.png" },
   // Outside coastal frame — Shivamogga
-  { name: "Reunion Serene", x: 272, y: 48, link: "https://maps.app.goo.gl/LaQVdsY9a3BPDYf19", desc: "Malnad Nature Stay, Shivamogga", image: "/properties/reunion-seren/hero.png" },
+  { name: "Reunion Serene", x: 272, y: 48, link: "https://www.google.com/maps/place/Reunion+Serene+Villa/@13.8619138,75.5884242,17z", desc: "Malnad Nature Stay, Shivamogga", image: "/properties/reunion-serene/hero.png" },
 ];
 
 export default function ReunionMapSection() {

@@ -71,6 +71,12 @@ export default function NotFound() {
             >
               View Properties
             </Link>
+            <Link
+              href="/contact"
+              className="inline-flex items-center gap-3 px-8 py-3.5 border border-[#C9A84C]/30 text-[#C9A84C] font-cinzel text-[11px] tracking-[0.2em] uppercase hover:bg-[#C9A84C]/10 transition-all duration-300"
+            >
+              Contact REUNION
+            </Link>
           </div>
         </div>
       </main>

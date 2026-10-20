@@ -7,6 +7,9 @@ import OceanCafeDining from "@/components/dining/OceanCafeDining";
 import { CoffeeSteam, WaveSteamPattern } from "@/components/dining/CafeDecor";
 import { OCEAN_CAFE_HERO_IMAGE } from "@/data/oceanCafePage";
 import type { Metadata } from "next";
+import KeywordSeoSections from "@/components/KeywordSeoSections";
+import KeywordFaqJsonLd from "@/components/KeywordFaqJsonLd";
+import { getKeywordSeo } from "@/data/keywordGuide";
 
 const BASE_URL = "https://www.reunionglobal.in";
 const MAP_LINK = "https://maps.app.goo.gl/r4RPLhfcNUP4ECd18";
@@ -22,10 +25,11 @@ function getOceanCafe() {
 
 const cafe = getOceanCafe();
 
-// Match the ranked SERP title so Google can consolidate /properties/ocean-cafe → /dining
-const PAGE_TITLE = "REUNION Ocean Café | Beachfront Café at Mattu Beach, Udupi";
+const diningSeo = getKeywordSeo("/dining");
+const PAGE_TITLE = diningSeo?.title ?? "Ocean Café, Mattu Beach | Beach Café in Udupi | REUNION";
 const PAGE_DESCRIPTION =
-  "Right on the shore at Mattu Beach featuring sunset views, fireplace lounge, fresh seafood specialties, gourmet coffee, and candlelight dinners in Udupi.";
+  diningSeo?.description ??
+  "Beachfront café on Mattu Beach, Udupi — sunset views, fireplace lounge, seafood, coffee and candlelight dinners. Open daily 9:30 AM–10 PM.";
 
 export const metadata: Metadata = {
   title: { absolute: PAGE_TITLE },
@@ -109,6 +113,7 @@ export default function DiningPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(getRestaurantSchema()) }}
       />
+      <KeywordFaqJsonLd seo={diningSeo} />
 
       <Navbar />
 
@@ -116,9 +121,9 @@ export default function DiningPage() {
         {/* Hero */}
         <section className="relative w-full h-[85vh] md:h-[min(92vh,880px)] flex items-end pb-12 md:pb-16">
           <div className="absolute inset-0">
-            <img
+              <img
               src={heroImage}
-              alt="Reunion Ocean Café on Mattu Beach, Udupi"
+              alt={diningSeo?.imageAlt ?? "Ocean Café on Mattu Beach, Udupi at sunset"}
               className="w-full h-full object-cover"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-[#1a110c] via-[#1a110c]/55 to-[#1a110c]/75" />
@@ -133,9 +138,12 @@ export default function DiningPage() {
               <p className="font-futura text-[10px] tracking-[0.45em] text-[#c9a84c] uppercase mb-4">
                 {cafe.location}
               </p>
-              <h1 className="font-futura text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-light text-[#f4ebe1] uppercase tracking-[0.22em] md:tracking-[0.28em] leading-tight max-w-5xl">
-                Reunion Ocean Café
+              <h1 className="font-futura text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-light text-[#f4ebe1] uppercase tracking-[0.16em] md:tracking-[0.22em] leading-tight max-w-5xl">
+                Ocean Café — Beach Café on Mattu Beach, Udupi
               </h1>
+              <p className="mt-6 max-w-2xl mx-auto font-futura text-sm text-[#f4ebe1]/75 font-light leading-relaxed tracking-wide">
+                Ocean Café is REUNION&apos;s beachfront cafe in Udupi, right on Mattu Beach — sunset views, a fireplace lounge, fresh seafood and specialty coffee.
+              </p>
             </div>
           </div>
         </section>
@@ -170,6 +178,11 @@ export default function DiningPage() {
             mapLink={MAP_LINK}
             phone={CAFE_PHONE}
           />
+          {diningSeo ? (
+            <div className="relative max-w-3xl mx-auto mt-20">
+              <KeywordSeoSections seo={diningSeo} />
+            </div>
+          ) : null}
         </section>
       </main>
 

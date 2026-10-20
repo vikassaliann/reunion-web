@@ -20,6 +20,34 @@ export const metadata: Metadata = {
   },
 };
 
+const partnerFaqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: [
+    {
+      "@type": "Question",
+      name: "Can I list my villa with REUNION?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Yes — REUNION partners with property owners across Udupi and Coastal Karnataka for hospitality management.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "What does REUNION manage for partners?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Marketing, guest operations, housekeeping coordination, and revenue optimisation.",
+      },
+    },
+  ],
+};
+
 export default function PartnerLayout({ children }: { children: React.ReactNode }) {
-  return children;
+  return (
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(partnerFaqSchema) }} />
+      {children}
+    </>
+  );
 }
