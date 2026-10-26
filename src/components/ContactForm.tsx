@@ -8,6 +8,8 @@ interface ContactFormProps {
   whatsappNumber?: string; // override WhatsApp number per property
   instagramHandle?: string; // optional secondary Instagram handle (e.g. De Homes)
   propertyDropdown?: boolean;
+  /** Experiences: one date field instead of check-in / check-out */
+  dateOnly?: boolean;
 }
 
 export default function ContactForm({
@@ -15,6 +17,7 @@ export default function ContactForm({
   whatsappNumber = "919980208289",
   instagramHandle,
   propertyDropdown = false,
+  dateOnly = false,
 }: ContactFormProps) {
   const [status, setStatus] = useState("Submit Inquiry");
   const [preference, setPreference] = useState(defaultPreference);
@@ -33,7 +36,7 @@ export default function ContactForm({
       phone: formData.get("phone") as string,
       email: formData.get("email") as string,
       preference: formData.get("preference") as string,
-      checkin: formData.get("checkin") as string,
+      date: (formData.get("date") as string) || (formData.get("checkin") as string),
       checkout: formData.get("checkout") as string,
       description: formData.get("description") as string,
     };
@@ -50,7 +53,7 @@ export default function ContactForm({
 Name: ${data.name}
 Phone: ${data.phone}
 Email: ${data.email}
-Date: ${data.checkin || "Not specified"}
+Date: ${data.date || "Not specified"}
 Time/Details: ${data.description || "None provided"}`;
 
     let message: string;
@@ -69,7 +72,7 @@ Name: ${data.name}
 Phone: ${data.phone}
 Email: ${data.email}
 Preference: ${data.preference || "Not specified"}
-Check-In: ${data.checkin || "Not specified"}
+Check-In: ${data.date || "Not specified"}
 Check-Out: ${data.checkout || "Not specified"}
 Inquiry Details: ${data.description || "None provided"}`;
     }
@@ -152,30 +155,45 @@ Inquiry Details: ${data.description || "None provided"}`;
           )}
         </div>
 
-        <div className="grid grid-cols-2 gap-4">
+        {dateOnly ? (
           <div className="relative group">
-            <label className="block font-cinzel text-[8px] tracking-[0.3em] text-[#C9A84C]/70 uppercase mb-1" htmlFor="checkin">
-              Check-in
+            <label className="block font-cinzel text-[8px] tracking-[0.3em] text-[#C9A84C]/70 uppercase mb-1" htmlFor="date">
+              Date
             </label>
             <input
-              name="checkin"
+              name="date"
               type="date"
+              required
               className="w-full bg-transparent border-0 border-b border-white/10 py-2.5 focus:ring-0 focus:border-[#C9A84C] transition-colors text-sm text-white/80 font-cormorant [color-scheme:dark]"
-              id="checkin"
+              id="date"
             />
           </div>
-          <div className="relative group">
-            <label className="block font-cinzel text-[8px] tracking-[0.3em] text-[#C9A84C]/70 uppercase mb-1" htmlFor="checkout">
-              Check-out
-            </label>
-            <input
-              name="checkout"
-              type="date"
-              className="w-full bg-transparent border-0 border-b border-white/10 py-2.5 focus:ring-0 focus:border-[#C9A84C] transition-colors text-sm text-white/80 font-cormorant [color-scheme:dark]"
-              id="checkout"
-            />
+        ) : (
+          <div className="grid grid-cols-2 gap-4">
+            <div className="relative group">
+              <label className="block font-cinzel text-[8px] tracking-[0.3em] text-[#C9A84C]/70 uppercase mb-1" htmlFor="checkin">
+                Check-in
+              </label>
+              <input
+                name="checkin"
+                type="date"
+                className="w-full bg-transparent border-0 border-b border-white/10 py-2.5 focus:ring-0 focus:border-[#C9A84C] transition-colors text-sm text-white/80 font-cormorant [color-scheme:dark]"
+                id="checkin"
+              />
+            </div>
+            <div className="relative group">
+              <label className="block font-cinzel text-[8px] tracking-[0.3em] text-[#C9A84C]/70 uppercase mb-1" htmlFor="checkout">
+                Check-out
+              </label>
+              <input
+                name="checkout"
+                type="date"
+                className="w-full bg-transparent border-0 border-b border-white/10 py-2.5 focus:ring-0 focus:border-[#C9A84C] transition-colors text-sm text-white/80 font-cormorant [color-scheme:dark]"
+                id="checkout"
+              />
+            </div>
           </div>
-        </div>
+        )}
 
         <div className="relative group">
           <textarea name="description" className={`${fieldClass} resize-none`} id="description" placeholder="Inquiry Details" rows={2}></textarea>

@@ -290,6 +290,7 @@ export default function CandlelightDinnerPage() {
             defaultPreference="Candlelight Dinner — Reunion Ocean Café"
             whatsappNumber="919972231289"
             instagramHandle="@reunionteam19"
+            dateOnly
           />
         </div>
       </section>
