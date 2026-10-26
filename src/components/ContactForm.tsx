@@ -38,17 +38,32 @@ export default function ContactForm({
       description: formData.get("description") as string,
     };
 
-    const isOceanCafe = whatsappNumber === "919972231289" || (data.preference && (data.preference.toLowerCase().includes("cafe") || data.preference.toLowerCase().includes("café")));
+    const prefLower = (data.preference || "").toLowerCase();
+    const isOceanCafe =
+      whatsappNumber === "919972231289" ||
+      prefLower.includes("cafe") ||
+      prefLower.includes("café");
 
-    const message = isOceanCafe
-      ? `Hello Reunion Ocean Café! I would like to reserve a table.
+    const oceanCafeLines = (intro: string) =>
+      `Hello Reunion Ocean Café! ${intro}
 
 Name: ${data.name}
 Phone: ${data.phone}
 Email: ${data.email}
 Date: ${data.checkin || "Not specified"}
-Time/Details: ${data.description || "None provided"}`
-      : `Hello Reunion! I would like to inquire about your villas.
+Time/Details: ${data.description || "None provided"}`;
+
+    let message: string;
+    if (prefLower.includes("birthday")) {
+      message = oceanCafeLines(
+        "I would like to plan a beach birthday celebration at Reunion Ocean Café (Mattu Beach)."
+      );
+    } else if (prefLower.includes("candlelight")) {
+      message = oceanCafeLines("I would like to book a candle light dinner.");
+    } else if (isOceanCafe) {
+      message = oceanCafeLines("I would like to reserve a table.");
+    } else {
+      message = `Hello Reunion! I would like to inquire about your villas.
 
 Name: ${data.name}
 Phone: ${data.phone}
@@ -57,6 +72,7 @@ Preference: ${data.preference || "Not specified"}
 Check-In: ${data.checkin || "Not specified"}
 Check-Out: ${data.checkout || "Not specified"}
 Inquiry Details: ${data.description || "None provided"}`;
+    }
 
     try {
       const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
