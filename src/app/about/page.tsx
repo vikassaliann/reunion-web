@@ -6,7 +6,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import properties from "@/data/properties.json";
 import Breadcrumbs from "@/components/Breadcrumbs";
-import KeywordSeoSections from "@/components/KeywordSeoSections";
+import ExpandablePageFaq from "@/components/ExpandablePageFaq";
 import KeywordFaqJsonLd from "@/components/KeywordFaqJsonLd";
 import { getKeywordSeo } from "@/data/keywordGuide";
 
@@ -316,9 +316,9 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {seo ? (
-          <div className="max-w-3xl mx-auto px-5 md:px-10 pb-20">
-            <KeywordSeoSections seo={seo} skipHeadings={["Our team"]} />
+        {seo?.faqs?.length ? (
+          <div className="max-w-3xl mx-auto w-full px-5 md:px-10 pb-20">
+            <ExpandablePageFaq faqs={seo.faqs} />
           </div>
         ) : null}
       </main>

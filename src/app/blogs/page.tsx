@@ -5,6 +5,8 @@ import Link from "next/link";
 import { BLOG_POSTS } from "@/data/blogs";
 import type { Metadata } from "next";
 import { getKeywordSeo } from "@/data/keywordGuide";
+import { BLOGS_UNDER_MAINTENANCE } from "@/data/siteFlags";
+import BlogMaintenance from "@/components/BlogMaintenance";
 
 const BASE_URL = "https://www.reunionglobal.in";
 const blogsSeo = getKeywordSeo("/blogs");
@@ -17,6 +19,9 @@ const PAGE_DESCRIPTION =
 export const metadata: Metadata = {
   title: { absolute: PAGE_TITLE },
   description: PAGE_DESCRIPTION,
+  ...(BLOGS_UNDER_MAINTENANCE
+    ? { robots: { index: false, follow: false } }
+    : {}),
   alternates: { canonical: `${BASE_URL}/blogs` },
   openGraph: {
     title: PAGE_TITLE,
@@ -35,6 +40,10 @@ export const metadata: Metadata = {
 };
 
 export default function BlogsPage() {
+  if (BLOGS_UNDER_MAINTENANCE) {
+    return <BlogMaintenance />;
+  }
+
   const [featured, ...rest] = BLOG_POSTS;
 
   return (

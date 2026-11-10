@@ -1,5 +1,8 @@
 /** Keyword Implementation Guide — full page map (titles, metas, H1, lead, H2, FAQ, links). */
 import { ON_PAGE_OVERRIDES } from "@/data/onPageOverrides";
+import { PAGE_FAQS_BY_PATH } from "@/data/pageFaqs";
+import { PROPERTY_FAQS } from "@/data/propertyFaqs";
+import { isPlaceholderFaqAnswer, resolvePropertyFaqs } from "@/lib/faqResolve";
 
 export type KeywordFaq = { q: string; a: string };
 export type KeywordLink = { label: string; href: string };
@@ -18,7 +21,7 @@ export type KeywordPageSeo = {
 export const KEYWORD_PAGE_SEO: Record<string, KeywordPageSeo> = {
   "/": {
     title: "REUNION | Luxury Villas in Udupi & Beach Stays, Karnataka",
-    description: "Luxury beach and city villas, a beachfront caf\u00e9, candlelight dinners and a wedding venue in Udupi, Karnataka. Book your stay with REUNION.",
+    description: "Luxury beach and city villas, Ocean Café on Mattu Beach, candlelight dinners, and beach weddings & events in Udupi, Karnataka. Book with REUNION.",
     h1: "Luxury Villas in Udupi",
     lead: "REUNION offers luxury villas in Udupi, Karnataka \u2014 private villas at Hoode, Uchila, Kapu, Mattu and Malpe beaches, city suites, Ocean Caf\u00e9 and beach celebrations.",
     imageAlt: "REUNION beach villa at sunset, Udupi, Karnataka",
@@ -30,9 +33,9 @@ export const KEYWORD_PAGE_SEO: Record<string, KeywordPageSeo> = {
       { heading: "Why guests choose REUNION", body: "This section covers Why guests choose REUNION for Luxury Villas in Udupi. REUNION offers luxury villas in Udupi, Karnataka \u2014 private villas at Hoode, Uchila, Kapu, Mattu and Malpe beaches, city suites, Ocean Caf\u00e9 and beach celebrations. REUNION is based in Udupi, Karnataka, and manages beach villas, city villas, hotel rooms, Ocean Caf\u00e9 and coastal experiences for guests from Bangalore and across India. When you plan a weekend or longer stay, keep the main keyword of this page in mind once or twice in natural language, and use the related links below to move between stays, dining and celebrations without competing pages. Always pair locality names with Udupi \u2014 Hoode Beach Udupi, Mattu Beach Udupi, Uchila Beach Udupi, Kapu Beach Udupi and Malpe Beach Udupi \u2014 so out-of-state guests find you. Our team helps with airport transfers advice, temple timings, beach conditions and add-ons such as candle light dinner in Udupi or beach birthday setups. Book direct for clear communication on check-in, guest count and any special requests. For partnerships, see Partner With Us. Useful next steps: browse villas in Udupi, explore beach villas, check Ocean Caf\u00e9 timings, or call main reservations on WhatsApp. Peak season is October to March; monsoon months bring lush scenery with rougher seas and occasional ferry pauses to St. Mary's Island. Families, couples and groups are welcome \u2014 tell us how many guests and we will match the right REUNION property. Internal links on this page use the exact phrases guests search for, so you can jump from this guide straight into a bookable stay or experience. " },
     ],
     faqs: [
-      { q: "Where are REUNION villas located?", a: "Contact REUNION about where are reunion villas located \u2014 our Udupi team will confirm for your dates." },
+      { q: "Where are REUNION villas located?", a: "Beach villas at Hoode, Mattu, Uchila, Kapu and near Malpe; city and hotel stays in Udupi and Koteshwara; Reunion Serene near Shivamogga." },
       { q: "How far is Udupi from Bangalore?", a: "Udupi is about 400 km from Bangalore \u2014 7\u20138 hours by road or overnight train." },
-      { q: "How do I book a REUNION stay?", a: "Contact REUNION about how do i book a reunion stay \u2014 our Udupi team will confirm for your dates." },
+      { q: "How do I book a REUNION stay?", a: "Book via WhatsApp (+91 9980208289), the Contact page, or enquiry forms on each property and experience page." },
     ],
     links: [
       { label: "villas in Udupi", href: "/properties" },
@@ -170,8 +173,8 @@ export const KEYWORD_PAGE_SEO: Record<string, KeywordPageSeo> = {
     ],
     faqs: [
       { q: "What are Ocean Caf\u00e9's timings?", a: "Ocean Caf\u00e9 on Mattu Beach is open daily 9:30 AM\u201310:00 PM." },
-      { q: "Is Ocean Caf\u00e9 on the beach?", a: "Beach distance is in the overview. REUNION can confirm walking time for your dates." },
-      { q: "Can we celebrate a birthday at Ocean Caf\u00e9?", a: "Contact REUNION about can we celebrate a birthday at ocean caf\u00e9 \u2014 our Udupi team will confirm for your dates." },
+      { q: "Is Ocean Caf\u00e9 on the beach?", a: "Yes — Ocean Café sits on the Mattu Beach shoreline in Udupi." },
+      { q: "Can we celebrate a birthday at Ocean Caf\u00e9?", a: "Yes — beach birthday setups and private dining on Mattu Beach are arranged through REUNION." },
     ],
     links: [
       { label: "candle light dinner in Udupi", href: "/experiences/candlelight-dinner" },
@@ -237,7 +240,7 @@ export const KEYWORD_PAGE_SEO: Record<string, KeywordPageSeo> = {
     links: [
       { label: "candle light dinner in Udupi", href: "/experiences/candlelight-dinner" },
       { label: "Ocean Caf\u00e9", href: "/dining" },
-      { label: "beach venue in Udupi", href: "/events/beach-venue" },
+      { label: "beach weddings in Udupi", href: "/events" },
     ],
   },
   "/events": {
@@ -255,36 +258,12 @@ export const KEYWORD_PAGE_SEO: Record<string, KeywordPageSeo> = {
     ],
     faqs: [
       { q: "How many guests can your venue hold?", a: "Capacity depends on layout \u2014 contact REUNION for exact guest counts for Beach Weddings & Events in Udupi." },
-      { q: "Do you arrange decoration and catering?", a: "Contact REUNION about do you arrange decoration and catering \u2014 our Udupi team will confirm for your dates." },
-      { q: "Can wedding guests stay nearby?", a: "Contact REUNION about can wedding guests stay nearby \u2014 our Udupi team will confirm for your dates." },
+      { q: "Do you arrange decoration and catering?", a: "Yes — Gutthu Weddings Planner coordinates décor and catering with REUNION for coastal weddings and events." },
+      { q: "Can wedding guests stay nearby?", a: "Yes — REUNION beach and city villas across Mattu, Hoode, Kapu, Malpe and Udupi town host wedding parties." },
     ],
     links: [
-      { label: "beach venue in Udupi", href: "/events/beach-venue" },
+      { label: "beach birthday celebrations", href: "/experiences/beach-birthday" },
       { label: "villas for wedding guests", href: "/properties" },
-      { label: "Ocean Caf\u00e9", href: "/dining" },
-    ],
-  },
-  "/events/beach-venue": {
-    title: "Beach Venue in Udupi for Weddings & Events | REUNION",
-    description: "Book a private beach venue in Udupi for weddings, birthdays and celebrations \u2014 capacity, setups and photos. Enquire with REUNION.",
-    h1: "Beach Venue in Udupi",
-    lead: "REUNION's beach venue in Udupi is a private space by the sea for weddings, birthdays, receptions and corporate events.",
-    imageAlt: "Private beach venue setup in Udupi",
-    sections: [
-      { heading: "Venue setups", body: "Beach venue in Udupi for weddings, birthdays and private events \u2014 enquire for capacity. REUNION is based in Udupi, Karnataka, and manages beach villas, city villas, hotel rooms, Ocean Caf\u00e9 and coastal experiences for guests from Bangalore and across India. When you plan a weekend or longer stay, keep the main keyword of this page in mind once or twice in natural language, and use the related links below to move between stays, dining and celebrations without competing pages. Always pair locality names with Udupi \u2014 Hoode Beach Udupi, Mattu Beach Udupi, Uchila Beach Udupi, Kapu Beach Udupi and Malpe Beach Udupi \u2014 so out-of-state guests find you. Our team helps with airport transfers advice, temple timings, beach conditions and add-ons such as candle light dinner in Udupi or beach birthday setups. Book direct for clear communication on check-in, guest count and any special requests. For partnerships, see Partner With Us. Useful next steps: browse villas in Udupi, explore beach villas, check Ocean Caf\u00e9 timings, or call main reservations on WhatsApp. Peak season is October to March; monsoon months bring lush scenery with rougher seas and occasional ferry pauses to St. Mary's Island. Families, couples and groups are welcome \u2014 tell us how many guests and we will match the right REUNION property. Internal links on this page use the exact phrases guests search for, so you can jump from this guide straight into a bookable stay or experience. " },
-      { heading: "Guest capacity", body: "Capacity depends on layout and season \u2014 share numbers early. REUNION is based in Udupi, Karnataka, and manages beach villas, city villas, hotel rooms, Ocean Caf\u00e9 and coastal experiences for guests from Bangalore and across India. When you plan a weekend or longer stay, keep the main keyword of this page in mind once or twice in natural language, and use the related links below to move between stays, dining and celebrations without competing pages. Always pair locality names with Udupi \u2014 Hoode Beach Udupi, Mattu Beach Udupi, Uchila Beach Udupi, Kapu Beach Udupi and Malpe Beach Udupi \u2014 so out-of-state guests find you. Our team helps with airport transfers advice, temple timings, beach conditions and add-ons such as candle light dinner in Udupi or beach birthday setups. Book direct for clear communication on check-in, guest count and any special requests. For partnerships, see Partner With Us. Useful next steps: browse villas in Udupi, explore beach villas, check Ocean Caf\u00e9 timings, or call main reservations on WhatsApp. Peak season is October to March; monsoon months bring lush scenery with rougher seas and occasional ferry pauses to St. Mary's Island. Families, couples and groups are welcome \u2014 tell us how many guests and we will match the right REUNION property. Internal links on this page use the exact phrases guests search for, so you can jump from this guide straight into a bookable stay or experience. " },
-      { heading: "Events we host", body: "We host weddings, birthdays, receptions and corporate coastal gatherings. REUNION is based in Udupi, Karnataka, and manages beach villas, city villas, hotel rooms, Ocean Caf\u00e9 and coastal experiences for guests from Bangalore and across India. When you plan a weekend or longer stay, keep the main keyword of this page in mind once or twice in natural language, and use the related links below to move between stays, dining and celebrations without competing pages. Always pair locality names with Udupi \u2014 Hoode Beach Udupi, Mattu Beach Udupi, Uchila Beach Udupi, Kapu Beach Udupi and Malpe Beach Udupi \u2014 so out-of-state guests find you. Our team helps with airport transfers advice, temple timings, beach conditions and add-ons such as candle light dinner in Udupi or beach birthday setups. Book direct for clear communication on check-in, guest count and any special requests. For partnerships, see Partner With Us. Useful next steps: browse villas in Udupi, explore beach villas, check Ocean Caf\u00e9 timings, or call main reservations on WhatsApp. Peak season is October to March; monsoon months bring lush scenery with rougher seas and occasional ferry pauses to St. Mary's Island. Families, couples and groups are welcome \u2014 tell us how many guests and we will match the right REUNION property. Internal links on this page use the exact phrases guests search for, so you can jump from this guide straight into a bookable stay or experience. " },
-      { heading: "What's included", body: "What's included varies by package \u2014 REUNION lists d\u00e9cor, dining and timing when you book. REUNION is based in Udupi, Karnataka, and manages beach villas, city villas, hotel rooms, Ocean Caf\u00e9 and coastal experiences for guests from Bangalore and across India. When you plan a weekend or longer stay, keep the main keyword of this page in mind once or twice in natural language, and use the related links below to move between stays, dining and celebrations without competing pages. Always pair locality names with Udupi \u2014 Hoode Beach Udupi, Mattu Beach Udupi, Uchila Beach Udupi, Kapu Beach Udupi and Malpe Beach Udupi \u2014 so out-of-state guests find you. Our team helps with airport transfers advice, temple timings, beach conditions and add-ons such as candle light dinner in Udupi or beach birthday setups. Book direct for clear communication on check-in, guest count and any special requests. For partnerships, see Partner With Us. Useful next steps: browse villas in Udupi, explore beach villas, check Ocean Caf\u00e9 timings, or call main reservations on WhatsApp. Peak season is October to March; monsoon months bring lush scenery with rougher seas and occasional ferry pauses to St. Mary's Island. Families, couples and groups are welcome \u2014 tell us how many guests and we will match the right REUNION property. Internal links on this page use the exact phrases guests search for, so you can jump from this guide straight into a bookable stay or experience. " },
-      { heading: "Enquire", body: "Enquire with guest count, date and event type \u2014 REUNION confirms setups. REUNION is based in Udupi, Karnataka, and manages beach villas, city villas, hotel rooms, Ocean Caf\u00e9 and coastal experiences for guests from Bangalore and across India. When you plan a weekend or longer stay, keep the main keyword of this page in mind once or twice in natural language, and use the related links below to move between stays, dining and celebrations without competing pages. Always pair locality names with Udupi \u2014 Hoode Beach Udupi, Mattu Beach Udupi, Uchila Beach Udupi, Kapu Beach Udupi and Malpe Beach Udupi \u2014 so out-of-state guests find you. Our team helps with airport transfers advice, temple timings, beach conditions and add-ons such as candle light dinner in Udupi or beach birthday setups. Book direct for clear communication on check-in, guest count and any special requests. For partnerships, see Partner With Us. Useful next steps: browse villas in Udupi, explore beach villas, check Ocean Caf\u00e9 timings, or call main reservations on WhatsApp. Peak season is October to March; monsoon months bring lush scenery with rougher seas and occasional ferry pauses to St. Mary's Island. Families, couples and groups are welcome \u2014 tell us how many guests and we will match the right REUNION property. Internal links on this page use the exact phrases guests search for, so you can jump from this guide straight into a bookable stay or experience. " },
-    ],
-    faqs: [
-      { q: "How many guests can the beach venue hold?", a: "Capacity depends on layout \u2014 contact REUNION for exact guest counts for Beach Venue in Udupi." },
-      { q: "Can we bring our own decorator?", a: "Contact REUNION about can we bring our own decorator \u2014 our Udupi team will confirm for your dates." },
-      { q: "Is the venue available in monsoon?", a: "Contact REUNION about is the venue available in monsoon \u2014 our Udupi team will confirm for your dates." },
-    ],
-    links: [
-      { label: "beach weddings", href: "/events" },
-      { label: "beach birthday", href: "/experiences/beach-birthday" },
       { label: "Ocean Caf\u00e9", href: "/dining" },
     ],
   },
@@ -434,6 +413,22 @@ export const KEYWORD_PAGE_SEO: Record<string, KeywordPageSeo> = {
       { label: "city villas in Udupi", href: "/properties/category/city-stays" },
       { label: "Arya studio apartments", href: "/properties/arya" },
       { label: "Ocean Caf\u00e9", href: "/dining" },
+    ],
+  },
+  "/properties/d-square": {
+    title: "REUNION D Square | Hotel & Resort in Koteshwara, Udupi",
+    description:
+      "REUNION D Square in Koteshwara, Udupi — hotel and resort rooms on the Udupi–Kundapura coast for families, pilgrims and coastal travellers.",
+    h1: "REUNION D Square — Hotel & Resort in Koteshwara, Udupi",
+    lead:
+      "REUNION D Square in Koteshwara, Udupi offers hotel and resort rooms on the coastal belt between Udupi and Kundapura.",
+    imageAlt: "REUNION D Square hotel in Koteshwara, Udupi",
+    sections: [],
+    faqs: [],
+    links: [
+      { label: "De Homes near Krishna Temple", href: "/properties/de-homes" },
+      { label: "hotel stays in Udupi", href: "/properties/category/hotel-stays" },
+      { label: "beach villas in Udupi", href: "/properties/category/beach-villas" },
     ],
   },
   "/properties/ocean-daaffy": {
@@ -905,7 +900,23 @@ export const KEYWORD_PAGE_SEO: Record<string, KeywordPageSeo> = {
   },
 };
 
-export function getKeywordSeo(path: string): KeywordPageSeo | undefined {
+function applyPageFaqs(path: string, seo: KeywordPageSeo): KeywordPageSeo {
+  const curated = PAGE_FAQS_BY_PATH[path];
+  if (curated?.length) {
+    return { ...seo, faqs: curated };
+  }
+  const faqs = seo.faqs.filter((f) => !isPlaceholderFaqAnswer(f.a));
+  return faqs.length ? { ...seo, faqs } : { ...seo, faqs: [] };
+}
+
+export function getPropertyKeywordSeo(id: string): KeywordPageSeo | undefined {
+  const seo = getKeywordSeo(`/properties/${id}`);
+  if (!seo) return undefined;
+  const faqs = resolvePropertyFaqs(seo.faqs, PROPERTY_FAQS[id]);
+  return { ...seo, faqs };
+}
+
+function getKeywordSeoBase(path: string): KeywordPageSeo | undefined {
   const base = KEYWORD_PAGE_SEO[path];
   const override = ON_PAGE_OVERRIDES[path];
   if (!base && !override) return undefined;
@@ -926,7 +937,9 @@ export function getKeywordSeo(path: string): KeywordPageSeo | undefined {
   return { ...base, ...override };
 }
 
-export function getPropertyKeywordSeo(id: string): KeywordPageSeo | undefined {
-  return getKeywordSeo(`/properties/${id}`);
+export function getKeywordSeo(path: string): KeywordPageSeo | undefined {
+  const merged = getKeywordSeoBase(path);
+  if (!merged) return undefined;
+  return applyPageFaqs(path, merged);
 }
 

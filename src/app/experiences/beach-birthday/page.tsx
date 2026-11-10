@@ -8,6 +8,8 @@ import ContactForm from "@/components/ContactForm";
 import { MandalaRing, MandalaLotus } from "@/components/wellness/WellnessMandala";
 import EventsGalleryCarousel from "@/components/events/EventsGalleryCarousel";
 import { getKeywordSeo } from "@/data/keywordGuide";
+import ExpandablePageFaq from "@/components/ExpandablePageFaq";
+import KeywordFaqJsonLd from "@/components/KeywordFaqJsonLd";
 
 const seo = getKeywordSeo("/experiences/beach-birthday");
 
@@ -57,6 +59,7 @@ export default function BirthdayPage() {
 
   return (
     <div className="bg-[#080808] text-white antialiased min-h-screen overflow-x-hidden">
+      <KeywordFaqJsonLd seo={seo} />
       <Navbar />
 
       <section className="relative min-h-[88svh] sm:min-h-screen flex items-end overflow-hidden">
@@ -193,6 +196,12 @@ export default function BirthdayPage() {
           />
         </div>
       </section>
+
+      {seo?.faqs?.length ? (
+        <div className="max-w-3xl mx-auto w-full px-5 md:px-10 pb-20">
+          <ExpandablePageFaq faqs={seo.faqs} showTopBorder />
+        </div>
+      ) : null}
 
       <Footer />
     </div>

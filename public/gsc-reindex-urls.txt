@@ -1,9 +1,12 @@
-# Google Search Console — URL Inspection → Request indexing
-# On-Page SEO Report priority #1 (16 Oct 2026)
-# Paste each URL in GSC after deploy.
+# Google Search Console — URL Inspection → Request indexing (post Nov 2026 updates)
+# Paste each URL after deploy. /events/beach-venue permanently redirects to /events.
 
 https://www.reunionglobal.in/
 https://www.reunionglobal.in/properties
+https://www.reunionglobal.in/properties/category/beach-villas
+https://www.reunionglobal.in/properties/category/city-stays
+https://www.reunionglobal.in/properties/category/hotel-stays
+https://www.reunionglobal.in/properties/category/shivamogga-stays
 https://www.reunionglobal.in/properties/ocean-waves
 https://www.reunionglobal.in/properties/ocean-daaffy
 https://www.reunionglobal.in/properties/ocean-elite
@@ -13,6 +16,8 @@ https://www.reunionglobal.in/properties/ocean-royal
 https://www.reunionglobal.in/properties/ocean-hridayam
 https://www.reunionglobal.in/properties/ocean-bliss
 https://www.reunionglobal.in/properties/de-homes
+https://www.reunionglobal.in/properties/d-square
+https://www.reunionglobal.in/properties/d-square
 https://www.reunionglobal.in/properties/marina-villa
 https://www.reunionglobal.in/properties/charm-villa
 https://www.reunionglobal.in/properties/aradhya-villa
@@ -22,7 +27,16 @@ https://www.reunionglobal.in/properties/regal-villa
 https://www.reunionglobal.in/properties/villa
 https://www.reunionglobal.in/properties/reunion-serene
 https://www.reunionglobal.in/dining
+https://www.reunionglobal.in/experiences
+https://www.reunionglobal.in/experiences/candlelight-dinner
+https://www.reunionglobal.in/experiences/beach-birthday
 https://www.reunionglobal.in/events
+https://www.reunionglobal.in/wellness
+https://www.reunionglobal.in/partner-with-us
+https://www.reunionglobal.in/civil-construction
+https://www.reunionglobal.in/about
+https://www.reunionglobal.in/contact
+https://www.reunionglobal.in/blogs
 https://www.reunionglobal.in/blogs/tourist-places-in-udupi
 https://www.reunionglobal.in/blogs/top-10-beaches-to-visit-in-udupi
 https://www.reunionglobal.in/blogs/mattu-beach-udupi
@@ -30,3 +44,5 @@ https://www.reunionglobal.in/blogs/things-to-do-in-udupi
 https://www.reunionglobal.in/blogs/best-restaurants-in-udupi
 https://www.reunionglobal.in/blogs/hoode-uchila-beaches-udupi
 https://www.reunionglobal.in/blogs/2-day-udupi-itinerary
+https://www.reunionglobal.in/blogs/malpe-beach-udupi
+https://www.reunionglobal.in/blogs/bangalore-to-udupi-weekend-trip

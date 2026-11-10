@@ -4,7 +4,7 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import Link from "next/link";
 import EventsGalleryCarousel from "@/components/events/EventsGalleryCarousel";
 import type { Metadata } from "next";
-import KeywordSeoSections from "@/components/KeywordSeoSections";
+import ExpandablePageFaq from "@/components/ExpandablePageFaq";
 import KeywordFaqJsonLd from "@/components/KeywordFaqJsonLd";
 import { getKeywordSeo } from "@/data/keywordGuide";
 
@@ -91,12 +91,13 @@ export default function EventsPage() {
             <p className="font-futura text-[10px] tracking-[0.45em] text-[#C9A84C] uppercase mb-5">
               Events & Weddings
             </p>
-            <h1 className="font-futura text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light tracking-[0.14em] uppercase text-white leading-tight">
-              Gutthu
+            <h1 className="font-futura text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light tracking-[0.12em] uppercase text-white leading-tight max-w-4xl mx-auto">
+              {seo?.h1 ?? "Beach Weddings & Events in Udupi"}
             </h1>
             <div className="w-14 h-px bg-[#C9A84C]/50 mx-auto my-7" />
-            <p className="font-futura text-sm md:text-base text-white/60 font-light tracking-wide max-w-xl mx-auto leading-relaxed">
-              Weddings Planner and Events Management
+            <p className="font-futura text-sm md:text-base text-white/60 font-light tracking-wide max-w-2xl mx-auto leading-relaxed">
+              {seo?.lead ??
+                "Looking for wedding venues in Udupi? REUNION hosts beach weddings, receptions and private events on the coast, with stays nearby for your guests — planned with Gutthu Weddings Planner and Events Management."}
             </p>
           </div>
         </section>
@@ -121,6 +122,16 @@ export default function EventsPage() {
           </nav>
 
           <div className="text-center max-w-2xl mx-auto mb-16 md:mb-20 space-y-5">
+            <h2 className="font-futura text-[11px] tracking-[0.35em] text-[#C9A84C] uppercase">
+              Plan Your Event
+            </h2>
+            <p className="font-futura text-sm text-white/50 font-light tracking-wide">
+              Beach weddings and private celebrations on the coast —{" "}
+              <Link href="/contact" className="text-[#C9A84C] hover:underline">
+                enquire with REUNION
+              </Link>
+              .
+            </p>
             <h2 className="font-futura text-2xl md:text-3xl text-white font-light uppercase tracking-[0.12em]">
               Gutthu Weddings Planner
               <br className="hidden sm:block" />
@@ -130,11 +141,7 @@ export default function EventsPage() {
               Gutthu Weddings Planner and Events Management — partnered with Reunion for
               beach weddings, haldi and mehendi on the sand, reception dinners, and private corporate
               gatherings along Coastal Karnataka. Guest rooms and villas nearby keep families together
-              from rehearsal to farewell. Explore our{" "}
-              <Link href="/events/beach-venue" className="text-[#C9A84C] hover:underline">
-                beach venue in Udupi
-              </Link>{" "}
-              for private setups by the sea.
+              from rehearsal to farewell.
             </p>
           </div>
 
@@ -167,9 +174,9 @@ export default function EventsPage() {
             </div>
           </div>
 
-          {seo ? (
-            <div className="max-w-3xl mx-auto mt-20 pt-12 border-t border-white/10">
-              <KeywordSeoSections seo={seo} />
+          {seo?.faqs?.length ? (
+            <div className="max-w-3xl mx-auto w-full mt-20">
+              <ExpandablePageFaq faqs={seo.faqs} showTopBorder />
             </div>
           ) : null}
         </section>

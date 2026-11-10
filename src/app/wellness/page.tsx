@@ -4,7 +4,7 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import Link from "next/link";
 import Image from "next/image";
 import type { Metadata } from "next";
-import KeywordSeoSections from "@/components/KeywordSeoSections";
+import ExpandablePageFaq from "@/components/ExpandablePageFaq";
 import KeywordFaqJsonLd from "@/components/KeywordFaqJsonLd";
 import { getKeywordSeo } from "@/data/keywordGuide";
 import {
@@ -160,13 +160,13 @@ export default function WellnessPage() {
             <p className="font-futura text-[10px] tracking-[0.5em] text-[#c9b57a] uppercase mb-4">
               In collaboration with Reunion
             </p>
-            <h1 className="font-futura text-3xl sm:text-4xl md:text-5xl font-light tracking-[0.28em] uppercase text-white/95 mb-6">
-              Wellness & Spa
+            <h1 className="font-futura text-2xl sm:text-3xl md:text-4xl font-light tracking-[0.14em] uppercase text-white/95 mb-6 max-w-3xl mx-auto">
+              {seo?.h1 ?? "Spa & Ayurveda in Udupi"}
             </h1>
             <MandalaLotus className="w-14 h-14 mx-auto mb-8 opacity-80" />
             <p className="font-futura text-sm md:text-[15px] text-white/50 leading-[2.1] tracking-wide font-light max-w-xl mx-auto">
-              A calm continuum of Ayurveda, yoga, spa, and holistic care — brought to your
-              Reunion stay through Tapovana Life, Manipal.
+              {seo?.lead ??
+                "Relax at REUNION's spa in Udupi — REUNION and Tapovana Life offer treatments, beach yoga and meditation for guests."}
             </p>
           </header>
 
@@ -287,8 +287,8 @@ export default function WellnessPage() {
         </section>
 
         {seo ? (
-          <div className="max-w-3xl mx-auto px-5 md:px-10 pb-20">
-            <KeywordSeoSections seo={seo} />
+          <div className="max-w-3xl mx-auto w-full px-5 md:px-10 pb-20">
+            <ExpandablePageFaq faqs={seo.faqs} />
           </div>
         ) : null}
       </main>

@@ -16,14 +16,14 @@ export const PROPERTY_GUESTS: Record<string, string> = {
   "regal-villa": "Up to 6 guests",
   villa: "Up to 10 guests",
   "de-homes": "16 rooms",
-  "de-square": "Hotel rooms",
+  "d-square": "Hotel rooms",
   "reunion-serene": "Up to 8 guests",
 };
 
 /** Distance line for city / hotel listing cards (On-Page Report). */
 export const CITY_DISTANCE: Record<string, string> = {
   "de-homes": "~5–10 min walk to Sri Krishna Matha",
-  "de-square": "Koteshwara — coastal highway base",
+  "d-square": "Koteshwara — coastal highway base",
   "marina-villa": "~10–15 min to Sri Krishna Matha",
   "charm-villa": "~10–15 min to Sri Krishna Matha",
   "aradhya-villa": "~10 min to Sri Krishna Matha · Kunjibettu",

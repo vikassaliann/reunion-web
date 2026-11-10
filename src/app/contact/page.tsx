@@ -4,9 +4,11 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Link from "next/link";
 import { useEnquiry } from "@/components/EnquiryContext";
-import KeywordSeoSections from "@/components/KeywordSeoSections";
+import ExpandablePageFaq from "@/components/ExpandablePageFaq";
 import KeywordFaqJsonLd from "@/components/KeywordFaqJsonLd";
 import { getKeywordSeo } from "@/data/keywordGuide";
+import { REUNION_OFFICE_ADDRESS } from "@/data/factCheck";
+import { CONTACT_FAQS } from "@/data/pageFaqs";
 
 const seo = getKeywordSeo("/contact");
 const CONTACT_VALUE =
@@ -27,6 +29,11 @@ const CONTACT_ROWS = [
     label: "De Homes front desk",
     value: "+91 93807 40060",
     href: "tel:+919380740060",
+  },
+  {
+    label: "Office",
+    value: REUNION_OFFICE_ADDRESS.display,
+    href: undefined,
   },
   {
     label: "Guest Support",
@@ -78,7 +85,7 @@ export default function ContactPage() {
 
   return (
     <div className="bg-[#080808] text-white min-h-screen font-futura">
-      <KeywordFaqJsonLd seo={seo} />
+      <KeywordFaqJsonLd seo={seo} faqs={CONTACT_FAQS} />
       <Navbar />
 
       <section className="relative min-h-[48vh] flex items-end overflow-hidden">
@@ -104,18 +111,27 @@ export default function ContactPage() {
       <section className="relative page-pad pb-24 sm:pb-28 pt-12 sm:pt-16">
         <div className="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10 sm:gap-14 lg:gap-20">
           <div className="lg:col-span-7 space-y-5">
-            {CONTACT_ROWS.map((row) => (
-              <a
-                key={row.label}
-                href={row.href}
-                className="group block border border-white/10 hover:border-[#C9A84C]/40 bg-white/[0.02] hover:bg-[#C9A84C]/5 transition-all duration-300 px-6 sm:px-7 py-5 sm:py-6"
-              >
-                <p className="font-futura text-[10px] tracking-[0.35em] text-[#C9A84C] uppercase mb-3">
-                  {row.label}
-                </p>
-                <p className={CONTACT_VALUE}>{row.value}</p>
-              </a>
-            ))}
+            {CONTACT_ROWS.map((row) => {
+              const inner = (
+                <>
+                  <p className="font-futura text-[10px] tracking-[0.35em] text-[#C9A84C] uppercase mb-3">
+                    {row.label}
+                  </p>
+                  <p className={CONTACT_VALUE}>{row.value}</p>
+                </>
+              );
+              const boxClass =
+                "group block border border-white/10 hover:border-[#C9A84C]/40 bg-white/[0.02] hover:bg-[#C9A84C]/5 transition-all duration-300 px-6 sm:px-7 py-5 sm:py-6";
+              return row.href ? (
+                <a key={row.label} href={row.href} className={boxClass}>
+                  {inner}
+                </a>
+              ) : (
+                <div key={row.label} className={boxClass}>
+                  {inner}
+                </div>
+              );
+            })}
 
             <div className="group border border-white/10 hover:border-[#C9A84C]/40 bg-white/[0.02] hover:bg-[#C9A84C]/5 transition-all duration-300 px-6 sm:px-7 py-5 sm:py-6">
               <p className="font-futura text-[10px] tracking-[0.35em] text-[#C9A84C] uppercase mb-3">
@@ -173,11 +189,9 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {seo ? (
-        <div className="max-w-3xl mx-auto px-5 md:px-10 pb-20">
-          <KeywordSeoSections seo={seo} />
-        </div>
-      ) : null}
+      <div className="max-w-3xl mx-auto w-full px-5 md:px-10 pb-20">
+        <ExpandablePageFaq faqs={CONTACT_FAQS} />
+      </div>
 
       <Footer />
     </div>

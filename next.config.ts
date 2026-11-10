@@ -8,6 +8,16 @@ const nextConfig: NextConfig = {
     return [
       // Google still indexes the old property URL — send everyone to /dining
       {
+        source: "/properties/de-square",
+        destination: "/properties/d-square",
+        permanent: true,
+      },
+      {
+        source: "/events/beach-venue",
+        destination: "/events",
+        permanent: true,
+      },
+      {
         source: "/properties/ocean-cafe",
         destination: "/dining",
         permanent: true,
@@ -15,6 +25,16 @@ const nextConfig: NextConfig = {
       {
         source: "/properties/reunion-seren",
         destination: "/properties/reunion-serene",
+        permanent: true,
+      },
+      {
+        source: "/properties/ocean%20cafe/cafevd.mp4",
+        destination: "/properties/ocean%20cafe/oceancafe.mp4",
+        permanent: true,
+      },
+      {
+        source: "/properties/ocean cafe/cafevd.mp4",
+        destination: "/properties/ocean%20cafe/oceancafe.mp4",
         permanent: true,
       },
     ];

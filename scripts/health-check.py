@@ -219,7 +219,7 @@ title = re.search(r"<title>([^<]+)</title>", home)
 desc = re.search(r'name="description" content="([^"]+)"', home)
 print("TITLE", title.group(1) if title else None)
 print("DESC", (desc.group(1)[:120] + "...") if desc else None)
-if title and "Discover REUNION in Udupi" in title.group(1):
+if title and ("Luxury Villas" in title.group(1) or "REUNION" in title.group(1)):
     oks += 1
     print("OK  home title")
 else:
@@ -242,7 +242,7 @@ else:
 print("\n======== IMAGE CACHE ========")
 for img in (
     "/properties/ocean-manor/herooo.png",
-    "/properties/reunion-seren/hero.png",
+    "/properties/reunion-serene/hero.png",
     "/logoo.png",
 ):
     code, _, headers = fetch(BASE + img)

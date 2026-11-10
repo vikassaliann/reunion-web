@@ -1,12 +1,13 @@
 "use client";
 
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import ContactForm from "@/components/ContactForm";
 import { MandalaRing, MandalaLotus } from "@/components/wellness/WellnessMandala";
-import KeywordSeoSections from "@/components/KeywordSeoSections";
+import ExpandablePageFaq from "@/components/ExpandablePageFaq";
 import KeywordFaqJsonLd from "@/components/KeywordFaqJsonLd";
 import { getKeywordSeo } from "@/data/keywordGuide";
 
@@ -14,48 +15,45 @@ const seo = getKeywordSeo("/experiences/candlelight-dinner");
 
 const cd = (n: number) => `/properties/experiances/candlelight/cd${n}.jpeg`;
 
+/** Hero: original still + evening ambience (label 05) only. */
+const HERO_SLIDES = [cd(3), cd(5)];
+
 const MOMENTS = [
   {
     src: cd(1),
-    label: "Setting 01",
+    label: "01",
     title: "Intimate Candlelight Canopy",
     body: "A handcrafted canopy draped in warm lights, surrounded by glowing candles and fresh florals on the beach.",
   },
   {
     src: cd(4),
-    label: "Setting 02",
+    label: "02",
     title: "Private Shoreline Table",
     body: "Your table set where golden sand meets the tide — waves as the soundtrack to the evening.",
   },
   {
     src: cd(6),
-    label: "Setting 03",
+    label: "03",
     title: "Sunset & Culinary Pairings",
     body: "Karavali coastal flavours, handcrafted mocktails, and desserts under evening stars.",
   },
   {
     src: cd(2),
-    label: "Setting 04",
-    title: "Proposal & Anniversary Setups",
+    label: "04",
+    title: "Proposal & Anniversary Evenings",
     body: "Personalised décor for proposals, anniversaries, and quiet celebrations on Mattu Beach.",
   },
   {
     src: cd(5),
-    label: "Setting 05",
+    label: "05",
     title: "Evening Ambience",
     body: "Fairy lights, lanterns, and candlelit glow along the shore.",
   },
   {
     src: cd(7),
-    label: "Setting 06",
+    label: "06",
     title: "Coastal Dining",
     body: "Multi-course coastal menus served with attentive hosting.",
-  },
-  {
-    src: cd(8),
-    label: "Setting 07",
-    title: "Starlit Evenings",
-    body: "Dine under the stars with the Arabian Sea at your side.",
   },
 ];
 
@@ -66,27 +64,17 @@ const NOTES = [
   { n: "04", t: "Personal Service", d: "Attentive hosting throughout dinner" },
 ];
 
-const FAQS = [
-  {
-    q: "Where can I book a candle light dinner in Udupi?",
-    a: "Book with REUNION — private beachside candlelight dinners on Mattu Beach with canopy setups, coastal cuisine, and personal hosting.",
-  },
-  {
-    q: "What makes REUNION the candlelight dinner in Udupi to choose?",
-    a: "A fully private shoreline experience: fairy lights, candles, custom menus, and sunset-to-starlight ambiance for proposals, anniversaries, and celebrations.",
-  },
-  {
-    q: "Is this candle light dinner on the beach?",
-    a: "Yes. Your candle light dinner in Udupi is hosted on Mattu Beach by the Arabian Sea.",
-  },
-  {
-    q: "How do I reserve?",
-    a: "Use the form below or WhatsApp us with your date, guest count, and occasion — we’ll confirm setup, menu, and timing.",
-  },
-];
-
 export default function CandlelightDinnerPage() {
   const formRef = useRef<HTMLDivElement>(null);
+  const [heroSlide, setHeroSlide] = useState(0);
+
+  useEffect(() => {
+    const t = setInterval(
+      () => setHeroSlide((p) => (p + 1) % HERO_SLIDES.length),
+      5000,
+    );
+    return () => clearInterval(t);
+  }, []);
 
   const scrollToBook = () => {
     formRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -99,12 +87,19 @@ export default function CandlelightDinnerPage() {
 
       {/* HERO */}
       <section className="relative min-h-[88svh] sm:min-h-screen flex items-end overflow-hidden">
-        <img
-          src="/properties/experiances/candlelight/cd3.jpeg"
-          alt="Candle light dinner in Udupi — REUNION private beachside setup"
-          className="absolute inset-0 w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#080808] via-[#080808]/70 to-black/40" />
+        <div className="absolute inset-0 w-full h-full">
+          {HERO_SLIDES.map((src, idx) => (
+            <img
+              key={src}
+              src={src}
+              alt=""
+              role="presentation"
+              className="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ease-in-out"
+              style={{ opacity: heroSlide === idx ? 1 : 0 }}
+            />
+          ))}
+        </div>
+        <div className="absolute inset-0 bg-gradient-to-t from-[#080808]/90 via-[#080808]/45 to-black/25" />
         <MandalaRing
           className="pointer-events-none absolute -right-24 top-20 w-[300px] h-[300px] sm:w-[420px] sm:h-[420px] z-[1]"
           opacity={0.1}
@@ -193,12 +188,18 @@ export default function CandlelightDinnerPage() {
               return (
                 <div
                   key={m.title}
-                  className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-center"
+                  className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-start"
                 >
-                  <div className={`md:col-span-7 ${reverse ? "md:order-2" : ""}`}>
-                    <div className="aspect-[16/10] overflow-hidden">
-                      <img src={m.src} alt={m.title} className="w-full h-full object-cover" />
-                    </div>
+                  <div
+                    className={`md:col-span-7 flex items-center justify-center ${
+                      reverse ? "md:order-2" : ""
+                    }`}
+                  >
+                    <img
+                      src={m.src}
+                      alt={m.title}
+                      className="w-full h-auto max-h-[min(90vh,840px)] object-contain"
+                    />
                   </div>
                   <div
                     className={`md:col-span-5 space-y-3 text-center md:text-left ${
@@ -206,7 +207,7 @@ export default function CandlelightDinnerPage() {
                     }`}
                   >
                     <p className="font-cinzel text-[9px] tracking-[0.35em] text-[#C9A84C] uppercase">
-                      {m.label}
+                      {m.label} / 06
                     </p>
                     <h3 className="font-cormorant italic text-2xl sm:text-3xl text-white font-light leading-snug">
                       {m.title}
@@ -239,30 +240,6 @@ export default function CandlelightDinnerPage() {
         </div>
       </section>
 
-      {/* FAQ — head-term coverage for SERP */}
-      <section className="page-pad pb-16 sm:pb-24 border-t border-white/10">
-        <div className="max-w-3xl mx-auto pt-14 sm:pt-16">
-          <p className="font-cinzel text-[9px] tracking-[0.4em] text-[#C9A84C] uppercase text-center mb-3">
-            FAQ
-          </p>
-          <h2 className="font-cormorant italic text-3xl sm:text-4xl text-white font-light text-center mb-10">
-            Candle light dinner in Udupi — questions
-          </h2>
-          <div className="space-y-8">
-            {FAQS.map((item) => (
-              <div key={item.q} className="border-b border-white/10 pb-6">
-                <h3 className="font-cinzel text-[11px] tracking-[0.15em] text-[#C9A84C] uppercase mb-2">
-                  {item.q}
-                </h3>
-                <p className="font-futura text-sm text-white/50 font-light leading-relaxed">
-                  {item.a}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* BOOK — Ocean Café enquiry form */}
       <section
         ref={formRef}
@@ -283,7 +260,11 @@ export default function CandlelightDinnerPage() {
               Book your candle light dinner in Udupi
             </h2>
             <p className="font-futura text-xs text-white/40 font-light tracking-wide max-w-sm mx-auto">
-              Tell us your date and occasion — we&apos;ll confirm your private candlelight dinner in Udupi.
+              Tell us your date and occasion — we&apos;ll confirm your private candlelight dinner in Udupi. For larger celebrations, see{" "}
+              <Link href="/events" className="text-[#C9A84C] hover:underline">
+                Events &amp; Weddings
+              </Link>
+              .
             </p>
           </div>
           <ContactForm
@@ -295,9 +276,9 @@ export default function CandlelightDinnerPage() {
         </div>
       </section>
 
-      {seo ? (
-        <div className="max-w-3xl mx-auto px-5 md:px-10 pb-20">
-          <KeywordSeoSections seo={seo} />
+      {seo?.faqs?.length ? (
+        <div className="max-w-3xl mx-auto w-full px-5 md:px-10 pb-20">
+          <ExpandablePageFaq faqs={seo.faqs} showTopBorder />
         </div>
       ) : null}
 

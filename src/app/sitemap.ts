@@ -50,7 +50,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     page('/experiences/beach-birthday', { changeFrequency: 'weekly', priority: 0.9 }),
     page('/wellness', { changeFrequency: 'weekly', priority: 0.85 }),
     page('/events', { changeFrequency: 'weekly', priority: 0.85 }),
-    page('/events/beach-venue', { changeFrequency: 'weekly', priority: 0.85 }),
     page('/civil-construction', { changeFrequency: 'monthly', priority: 0.75 }),
     page('/partner-with-us', { changeFrequency: 'monthly', priority: 0.7 }),
     page('/blogs', { changeFrequency: 'weekly', priority: 0.8 }),

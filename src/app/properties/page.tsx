@@ -5,9 +5,10 @@ import Link from "next/link";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import type { Metadata } from "next";
 import FilterDropdown from "@/components/FilterDropdown";
-import KeywordSeoSections from "@/components/KeywordSeoSections";
+import ExpandablePageFaq from "@/components/ExpandablePageFaq";
 import KeywordFaqJsonLd from "@/components/KeywordFaqJsonLd";
 import { getKeywordSeo } from "@/data/keywordGuide";
+import { propertyCardAlt } from "@/data/imageAlt";
 const BASE_URL = "https://www.reunionglobal.in";
 const keywordSeo = getKeywordSeo("/properties");
 
@@ -92,8 +93,8 @@ export default function PropertiesPage() {
 
           {/* Header */}
           <div className="flex flex-col items-center justify-center min-h-[42vh] sm:min-h-[50vh] md:h-[calc(80vh-180px)] mb-12 md:mb-16 text-center px-4 w-full">
-            <h1 className="font-futura w-full max-w-full text-[clamp(1.35rem,6.5vw,5.5rem)] text-white font-medium tracking-[0.1em] sm:tracking-[0.2em] md:tracking-[0.28em] uppercase drop-shadow-xl text-center leading-[1.2] break-words">
-              PROPERTIES
+            <h1 className="font-futura w-full max-w-full text-[clamp(1.35rem,5.5vw,4.5rem)] text-white font-medium tracking-[0.1em] sm:tracking-[0.2em] md:tracking-[0.28em] uppercase drop-shadow-xl text-center leading-[1.2] break-words px-2">
+              {keywordSeo?.h1 ?? "Villas & Stays in Udupi"}
             </h1>
             <p className="mt-5 md:mt-6 max-w-2xl text-white/55 font-futura text-xs sm:text-sm leading-relaxed font-light tracking-wide px-1">
               {keywordSeo?.lead ??
@@ -145,7 +146,7 @@ export default function PropertiesPage() {
                     <Link href={`/properties/${prop.id}`} className="block aspect-[4/3] w-full overflow-hidden group">
                       <img
                         src={prop.heroImage}
-                        alt={prop.name}
+                        alt={propertyCardAlt(prop.name, prop.location)}
                         loading={index < 2 ? "eager" : "lazy"}
                         className="w-full h-full object-cover transition-transform duration-700"
                       />
@@ -156,9 +157,9 @@ export default function PropertiesPage() {
             })}
           </div>
 
-          {keywordSeo ? (
-            <div className="max-w-3xl mx-auto mt-24 pb-8">
-              <KeywordSeoSections seo={keywordSeo} skipHeadings={["Overview"]} />
+          {keywordSeo?.faqs?.length ? (
+            <div className="max-w-3xl mx-auto w-full mt-24 pb-8">
+              <ExpandablePageFaq faqs={keywordSeo.faqs} />
             </div>
           ) : null}
         </div>

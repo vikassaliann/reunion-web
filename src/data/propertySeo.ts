@@ -47,13 +47,13 @@ export const PROPERTY_SEO: Record<string, PropertySeoEntry> = {
     lead:
       "De Homes is a premium stay among hotels near Udupi Krishna Temple, about a 10-minute walk from Sri Krishna Matha in Chitpady, Udupi.",
   },
-  "de-square": {
-    title: "REUNION De Square | Hotel & Resort in Koteshwara, Udupi",
+  "d-square": {
+    title: "REUNION D Square | Hotel & Resort in Koteshwara, Udupi",
     description:
-      "D-Square Hotels & Resort by REUNION in Koteshwara, Udupi — comfortable hotel stays for families and travellers on the Udupi–Kundapura coast.",
-    h1: "De Square — Hotel & Resort in Koteshwara, Udupi",
+      "REUNION D Square in Koteshwara, Udupi — hotel and resort rooms on the Udupi–Kundapura coast for families, pilgrims and coastal travellers.",
+    h1: "REUNION D Square — Hotel & Resort in Koteshwara, Udupi",
     lead:
-      "Reunion De Square in Koteshwara, Udupi offers hotel and resort rooms on the coastal belt between Udupi and Kundapura — ideal for families and pilgrims.",
+      "REUNION D Square in Koteshwara, Udupi offers hotel and resort rooms on the coastal belt between Udupi and Kundapura — ideal for families and pilgrims.",
   },
   "ocean-daaffy": {
     title: "REUNION Ocean Daaffy Beach House | 3BHK Villa, Uchila",

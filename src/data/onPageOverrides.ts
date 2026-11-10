@@ -13,7 +13,7 @@ export const ON_PAGE_OVERRIDES: Record<
     title: "REUNION | Luxury Villas & Beach Stays in Udupi, Karnataka",
     h1: "Luxury Villas & Beach Stays in Udupi",
     description:
-      "Luxury beach and city villas, a beachfront café, candlelight dinners and a wedding venue in Udupi, Karnataka. Book your stay with REUNION.",
+      "Luxury beach and city villas, Ocean Café on Mattu Beach, candlelight dinners, and beach weddings & events in Udupi, Karnataka. Book with REUNION.",
   },
   "/properties": {
     title: "Villas & Stays in Udupi | Beach & City Villas | REUNION",
@@ -66,6 +66,15 @@ export const ON_PAGE_OVERRIDES: Record<
     h1: "De Homes — Premium Suites near Sri Krishna Temple",
     description:
       "Boutique suites near Sri Krishna Temple, Udupi — Presidential Suite, balcony rooms and executive rooms. De Homes by REUNION, Udupi city.",
+  },
+  "/properties/d-square": {
+    title: "REUNION D Square | Hotel & Resort in Koteshwara, Udupi",
+    h1: "REUNION D Square — Hotel & Resort in Koteshwara, Udupi",
+    description:
+      "REUNION D Square in Koteshwara, Udupi — hotel and resort rooms on the Udupi–Kundapura coast for families, pilgrims and coastal travellers.",
+    lead:
+      "REUNION D Square in Koteshwara, Udupi offers hotel and resort rooms on the coastal belt between Udupi and Kundapura.",
+    imageAlt: "REUNION D Square hotel in Koteshwara, Udupi",
   },
   "/properties/arya": {
     title: "REUNION Arya | Studio Apartments in Udupi",

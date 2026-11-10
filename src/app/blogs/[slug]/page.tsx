@@ -5,9 +5,11 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { BLOG_POSTS, getBlogBySlug } from "@/data/blogs";
 import { MandalaRing, MandalaLotus } from "@/components/wellness/WellnessMandala";
-import KeywordSeoSections from "@/components/KeywordSeoSections";
+import ExpandablePageFaq from "@/components/ExpandablePageFaq";
 import KeywordFaqJsonLd from "@/components/KeywordFaqJsonLd";
 import { getKeywordSeo } from "@/data/keywordGuide";
+import { BLOGS_UNDER_MAINTENANCE } from "@/data/siteFlags";
+import BlogMaintenance from "@/components/BlogMaintenance";
 import type { Metadata } from "next";
 
 const BASE_URL = "https://www.reunionglobal.in";
@@ -22,6 +24,12 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
+  if (BLOGS_UNDER_MAINTENANCE) {
+    return {
+      title: "Guides — Under maintenance | REUNION",
+      robots: { index: false, follow: false },
+    };
+  }
   const post = getBlogBySlug(slug);
   if (!post) return { title: "Blog Not Found" };
 
@@ -55,6 +63,11 @@ export default async function BlogPostPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
+
+  if (BLOGS_UNDER_MAINTENANCE) {
+    return <BlogMaintenance />;
+  }
+
   const post = getBlogBySlug(slug);
   if (!post) notFound();
 
@@ -122,12 +135,12 @@ export default async function BlogPostPage({
                 {post.content.sections.map((section, i) => {
                   const reverse = i % 2 === 1;
                   const photo = (
-                    <div className="relative aspect-[5/4] md:aspect-auto md:min-h-[320px]">
+                    <div className="flex items-center justify-center bg-[#0d0b0a] p-4 md:p-6 min-h-[200px]">
                       {section.image && (
                         <img
                           src={section.image}
                           alt={section.heading}
-                          className="absolute inset-0 w-full h-full object-cover"
+                          className="w-full h-auto max-h-[min(70vh,420px)] object-contain"
                         />
                       )}
                     </div>
@@ -193,19 +206,19 @@ export default async function BlogPostPage({
 
                     {section.images && section.images.length > 0 && (
                       <div
-                        className={`mb-6 grid gap-3 ${
+                        className={`mb-6 grid gap-4 items-start ${
                           section.images.length === 2
-                            ? "grid-cols-2 max-w-xl"
-                            : "grid-cols-2 sm:grid-cols-3"
+                            ? "grid-cols-1 sm:grid-cols-2 max-w-2xl"
+                            : "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 max-w-3xl"
                         }`}
                       >
                         {section.images.map((src, imgIdx) => (
                           <figure key={src} className="space-y-2">
-                            <div className="relative aspect-[3/4] overflow-hidden ring-1 ring-white/10">
+                            <div className="overflow-hidden ring-1 ring-white/10 bg-[#100e0c] flex items-center justify-center">
                               <img
                                 src={src}
                                 alt={section.imageCaptions?.[imgIdx] || section.heading}
-                                className="w-full h-full object-cover"
+                                className="w-full h-auto max-h-[min(55vh,480px)] object-contain"
                               />
                             </div>
                             {section.imageCaptions?.[imgIdx] && (
@@ -276,9 +289,9 @@ export default async function BlogPostPage({
               </p>
             </div>
 
-            {seo ? (
-              <div className="max-w-3xl mx-auto mt-16">
-                <KeywordSeoSections seo={seo} />
+            {seo?.faqs?.length ? (
+              <div className="max-w-3xl mx-auto w-full mt-16">
+                <ExpandablePageFaq faqs={seo.faqs} showTopBorder />
               </div>
             ) : null}
 

@@ -7,13 +7,20 @@ import Link from "next/link";
 import properties from "@/data/properties.json";
 import { MandalaRing, MandalaLotus } from "@/components/wellness/WellnessMandala";
 import ReunionMapSection from "@/components/ReunionMapSection";
+import { getKeywordSeo } from "@/data/keywordGuide";
+import ExpandablePageFaq from "@/components/ExpandablePageFaq";
+import DiwaliGreetingModal from "@/components/DiwaliGreetingModal";
+import SeoPageH1 from "@/components/SeoPageH1";
+import { DIWALI_GREETING_ENABLED } from "@/data/siteFlags";
+
+const homeSeo = getKeywordSeo("/");
 /* ── Hero slideshow images ── */
 const HERO_SLIDES = [
-  { src: "/properties/ocean-manor/herooo.png", alt: "Ocean Manor — Sea & River Facing Beachfront Villa" },
-  { src: "/properties/ocean-royal/royalthumb.png", alt: "Ocean Royal — Heritage Farmhouse by the Sea" },
-  { src: "/properties/reunion-serene/hero.png", alt: "Reunion Serene — Private Nature Stay near Shivamogga" },
-  { src: "/properties/krshna/krthumb.png", alt: "Krshna Residency — Premium Heritage Villa" },
-  { src: "/properties/charm-villa/charmthub.png", alt: "Charm Villa — Classic Heritage Residency" },
+  { src: "/properties/ocean-manor/herooo.png" },
+  { src: "/properties/ocean-royal/royalthumb.png" },
+  { src: "/properties/reunion-serene/hero.png" },
+  { src: "/properties/krshna/krthumb.png" },
+  { src: "/properties/charm-villa/charmthub.png" },
 ];
 
 const STAY_CATEGORIES = [
@@ -85,7 +92,7 @@ const CAROUSEL_ORDER = [
   "reunion-serene",
   "krshna",
   "de-homes",
-  "de-square",
+  "d-square",
   "ocean-daaffy",
   "ocean-hridayam",
   "ocean-bliss",
@@ -134,6 +141,7 @@ export default function Home() {
 
   return (
     <div className="bg-[#080808] text-white antialiased overflow-x-hidden selection:bg-[#C9A84C] selection:text-[#080808]">
+      {DIWALI_GREETING_ENABLED ? <DiwaliGreetingModal /> : null}
       <Navbar />
 
       <main>
@@ -147,7 +155,8 @@ export default function Home() {
               <img
                 key={slide.src}
                 src={slide.src}
-                alt={slide.alt}
+                alt=""
+                role="presentation"
                 className="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ease-in-out"
                 style={{ opacity: currentSlide === idx ? 1 : 0 }}
               />
@@ -165,14 +174,14 @@ export default function Home() {
           {/* Hero text — mobile: no CTAs, sit lower; desktop keeps buttons */}
           <div className="relative z-10 w-full max-w-7xl mx-auto page-pad pb-28 sm:pb-32 md:pb-36">
             <div className="max-w-2xl space-y-3 sm:space-y-4">
-              <h1 className="font-futura font-light text-[2.5rem] sm:text-6xl md:text-7xl text-white leading-[1.05] tracking-wide uppercase drop-shadow-md">
+              <SeoPageH1
+                seoHeading={homeSeo?.h1 ?? "Luxury Villas in Udupi"}
+                visualClassName="font-futura font-light text-[2.5rem] sm:text-6xl md:text-7xl text-white leading-[1.05] tracking-wide uppercase drop-shadow-md"
+              >
                 REUNION
-              </h1>
+              </SeoPageH1>
               <p className="font-cormorant italic text-lg sm:text-2xl text-white/90 font-light tracking-wide leading-snug drop-shadow">
                 Creating Memories, One Reunion at a Time
-              </p>
-              <p className="font-futura text-[9px] sm:text-[11px] tracking-[0.22em] sm:tracking-[0.35em] text-white/65 uppercase leading-relaxed pt-1">
-                STAY · RELAX · EXPLORE · CELEBRATE · RECONNECT
               </p>
 
               <div className="hidden md:flex pt-5 sm:pt-6 flex-wrap items-center gap-3 sm:gap-4">
@@ -528,18 +537,18 @@ export default function Home() {
                     </div>
                   </div>
 
-                  {/* De Square — Image Right */}
+                  {/* D Square — Image Right */}
                   <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
                     <div className="space-y-6 order-2 lg:order-1 lg:col-span-5">
                       <span className="font-futura text-[10px] tracking-[0.4em] text-[#C9A84C] uppercase block">Koteshwara, Udupi</span>
                       <h3 className="font-futura text-3xl sm:text-4xl text-white font-light uppercase tracking-wider leading-tight">
-                        Reunion<br />De Square
+                        Reunion<br />D Square
                       </h3>
                       <p className="text-white/40 text-sm leading-relaxed font-futura font-light tracking-wide max-w-md">
                         D-Square Hotels & Resort on the Udupi–Kundapura coast — comfortable hotel and resort rooms for families, pilgrims, and coastal travellers.
                       </p>
                       <Link
-                        href="/properties/de-square"
+                        href="/properties/d-square"
                         className="inline-flex items-center gap-2 font-futura text-[11px] tracking-[0.25em] text-[#C9A84C] uppercase border-b border-[#C9A84C]/40 pb-1 hover:border-[#C9A84C] transition-all"
                       >
                         EXPLORE
@@ -552,7 +561,7 @@ export default function Home() {
                       <div className="aspect-[4/3] w-full overflow-hidden">
                         <img
                           src="/properties/reunion-de-square/dd4.png"
-                          alt="Reunion De Square"
+                          alt="Reunion D Square"
                           className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
                         />
                       </div>
@@ -835,7 +844,14 @@ export default function Home() {
         </section>
 
 
-        {/* Reunion Udupi Map + nearby places (restored) */}
+        {homeSeo?.faqs?.length ? (
+          <section className="bg-[#080808] py-14 px-5 md:px-10">
+            <div className="max-w-3xl mx-auto w-full">
+              <ExpandablePageFaq faqs={homeSeo.faqs} noDividers />
+            </div>
+          </section>
+        ) : null}
+
         <ReunionMapSection />
       </main>
 

@@ -1,7 +1,7 @@
 /** Dining page copy — do not paraphrase */
 
 export const OCEAN_CAFE_OVERVIEW_LEAD =
-  "REUNION Reunion Ocean Café is a luxury property and beach stay located in Mattu Beach, Udupi, Udupi district.";
+  "Beachfront dining on Mattu Beach — sunset views, a fireplace lounge, seafood, coffee and candlelight dinners.";
 
 export const OCEAN_CAFE_TAGLINE = "Where the Ocean Meets Every Sip & Bite";
 
@@ -11,7 +11,11 @@ export const OCEAN_CAFE_INTRO =
 export const OCEAN_CAFE_META =
   "Mattu Beach, Kapu Road | Mon - Sun: 9:30 AM – 10:00 PM | Curated Music & Fireplace";
 
-export const OCEAN_CAFE_VIDEO = "/properties/ocean cafe/cafevd.mp4";
+/** Portrait 9:16 source (719×1280) — serve as-is, no re-encode */
+export const OCEAN_CAFE_VIDEO = "/properties/ocean%20cafe/oceancafe.mp4";
+export const OCEAN_CAFE_VIDEO_ASPECT = "9 / 16" as const;
+export const OCEAN_CAFE_VIDEO_WIDTH = 719;
+export const OCEAN_CAFE_VIDEO_HEIGHT = 1280;
 
 const oc = (n: number) => `/properties/ocean cafe/oc${n}.png`;
 

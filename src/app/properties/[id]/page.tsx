@@ -4,6 +4,7 @@ import properties from "@/data/properties.json";
 import { notFound } from "next/navigation";
 import PropertyDetailSection, { PROPERTY_FAQS } from "@/components/PropertyDetailSection";
 import Breadcrumbs from "@/components/Breadcrumbs";
+import SeoPageH1 from "@/components/SeoPageH1";
 import type { Metadata } from "next";
 import { PROPERTY_SEO } from "@/data/propertySeo";
 import { getPropertyKeywordSeo } from "@/data/keywordGuide";
@@ -16,7 +17,7 @@ const PROPERTY_GEO: Record<string, { lat: number; lng: number }> = {
   "ocean-givaah":   { lat: 13.2120, lng: 74.7430 },
   "ocean-royal":    { lat: 13.2200, lng: 74.7400 },
   "de-homes":       { lat: 13.3360, lng: 74.7460 },
-  "de-square":      { lat: 13.5165, lng: 74.7485 },
+  "d-square":      { lat: 13.5165, lng: 74.7485 },
   "ocean-daaffy":   { lat: 13.2120, lng: 74.7430 },
   "ocean-hridayam": { lat: 13.2850, lng: 74.7150 },
   "ocean-bliss":    { lat: 13.3580, lng: 74.7040 },
@@ -51,7 +52,7 @@ const MAP_LINKS: Record<string, string> = {
   "villa": "https://maps.app.goo.gl/SJaK4GjhNkq9FKA29",
   // Not in the new list — keep existing
   "de-homes": "https://share.google/AXOZTWONFB5kLZE0o",
-  "de-square": "https://www.google.com/maps/search/?api=1&query=D-Square+Hotels+and+Resort+Koteshwara+Udupi",
+  "d-square": "https://www.google.com/maps/search/?api=1&query=D-Square+Hotels+and+Resort+Koteshwara+Udupi",
   "regal-villa": "https://maps.app.goo.gl/P3NuZSXE29bcFPT19",
 };
 
@@ -118,7 +119,7 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
 // LodgingBusiness / Restaurant JSON-LD (Developer Brief task 1)
 function getPropertySchema(property: typeof properties[0]) {
   const isCafe = property.id === 'ocean-cafe';
-  const isHotel = property.id === 'de-homes' || property.id === 'de-square';
+  const isHotel = property.id === 'de-homes' || property.id === 'd-square';
   const mapUrl = MAP_LINKS[property.id];
   const seo = PROPERTY_SEO[property.id];
   const keywordSeo = getPropertyKeywordSeo(property.id);
@@ -266,7 +267,7 @@ function getVideoSchema(property: typeof properties[0]) {
 
 // FAQPage JSON-LD schema builder
 function getFaqSchema(propertyId: string) {
-  const faqs = getPropertyKeywordSeo(propertyId)?.faqs ?? PROPERTY_FAQS[propertyId];
+  const faqs = getPropertyKeywordSeo(propertyId)?.faqs;
   if (!faqs || faqs.length === 0) return null;
 
   return {
@@ -296,9 +297,12 @@ export default async function PropertyPage({ params }: { params: Promise<{ id: s
   const faqSchema = getFaqSchema(id);
   const keyword = getPropertyKeywordSeo(id);
   const seo = PROPERTY_SEO[id];
-  // Visible hero uses short property name (old UI); page title/meta still use keyword SEO.
-  const heroHeading = property.name;
-  const heroAlt = keyword?.imageAlt || `${property.name} — ${property.location}`;
+  const heroHeading = keyword?.h1 || seo?.h1 || `REUNION ${property.name}`;
+  const heroDisplayName = property.name.toUpperCase().startsWith("REUNION ")
+    ? property.name
+    : `REUNION ${property.name}`;
+  const heroAlt =
+    keyword?.imageAlt || `${heroHeading} — ${property.location}`;
 
   return (
     <div className="bg-background text-on-surface antialiased overflow-x-hidden selection:bg-antique-gold selection:text-obsidian-deep">
@@ -331,7 +335,7 @@ export default async function PropertyPage({ params }: { params: Promise<{ id: s
         <Breadcrumbs items={[
           { label: 'Home', href: '/' },
           { label: 'Properties', href: '/properties' },
-          { label: heroHeading },
+          { label: property.name },
         ]} />
 
         <section className="relative w-full h-[85vh] md:h-screen flex items-end pb-margin-mobile md:pb-margin-desktop">
@@ -339,10 +343,13 @@ export default async function PropertyPage({ params }: { params: Promise<{ id: s
             <img alt={heroAlt} className="w-full h-full object-cover" src={property.heroImage} />
             <div className="absolute inset-0 bg-gradient-to-t from-obsidian-deep via-obsidian-deep/40 to-transparent"></div>
           </div>
-          <div className="relative z-10 w-full max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop text-center">
-            <h1 className="font-display-xl text-headline-lg-mobile md:text-display-xl text-on-surface mb-4 uppercase tracking-widest">{heroHeading}</h1>
-            <p className="font-label-caps text-label-caps text-antique-gold tracking-[0.3em] mb-8">{property.location}</p>
-            <div className="w-px h-16 bg-antique-gold/50 mx-auto"></div>
+          <div className="relative z-10 w-full max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop text-center pb-2">
+            <SeoPageH1
+              seoHeading={heroHeading}
+              visualClassName="font-display-xl text-headline-lg-mobile md:text-display-xl text-on-surface uppercase tracking-widest"
+            >
+              {heroDisplayName}
+            </SeoPageH1>
           </div>
         </section>
 

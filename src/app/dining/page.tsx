@@ -4,9 +4,13 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import properties from "@/data/properties.json";
 import OceanCafeDining from "@/components/dining/OceanCafeDining";
 import { CoffeeSteam, WaveSteamPattern } from "@/components/dining/CafeDecor";
-import { OCEAN_CAFE_HERO_IMAGE } from "@/data/oceanCafePage";
+import {
+  OCEAN_CAFE_HERO_IMAGE,
+  OCEAN_CAFE_VIDEO,
+  OCEAN_CAFE_VIDEO_HEIGHT,
+  OCEAN_CAFE_VIDEO_WIDTH,
+} from "@/data/oceanCafePage";
 import type { Metadata } from "next";
-import KeywordSeoSections from "@/components/KeywordSeoSections";
 import KeywordFaqJsonLd from "@/components/KeywordFaqJsonLd";
 import { getKeywordSeo } from "@/data/keywordGuide";
 
@@ -100,6 +104,20 @@ function getRestaurantSchema() {
   };
 }
 
+function getCafeVideoSchema() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "VideoObject",
+    name: "Reunion Ocean Café — Mattu Beach, Udupi",
+    description: PAGE_DESCRIPTION,
+    contentUrl: `${BASE_URL}${OCEAN_CAFE_VIDEO}`,
+    thumbnailUrl: `${BASE_URL}${OCEAN_CAFE_HERO_IMAGE}`,
+    uploadDate: "2026-11-10",
+    width: OCEAN_CAFE_VIDEO_WIDTH,
+    height: OCEAN_CAFE_VIDEO_HEIGHT,
+  };
+}
+
 export default function DiningPage() {
   const heroImage = OCEAN_CAFE_HERO_IMAGE;
 
@@ -111,6 +129,10 @@ export default function DiningPage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(getRestaurantSchema()) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(getCafeVideoSchema()) }}
       />
       <KeywordFaqJsonLd seo={diningSeo} />
 
@@ -134,12 +156,12 @@ export default function DiningPage() {
           <div className="relative z-10 w-full max-w-[1400px] mx-auto px-5 md:px-10 lg:px-12">
             <div className="flex flex-col items-center text-center">
               <CoffeeSteam className="w-10 h-14 text-[#c9a84c]/80 mb-6" />
-              <p className="font-futura text-[10px] tracking-[0.45em] text-[#c9a84c] uppercase mb-4">
-                {cafe.location}
-              </p>
-              <h1 className="font-futura text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-light text-[#f4ebe1] uppercase tracking-[0.22em] md:tracking-[0.28em] leading-tight max-w-5xl">
+              <h1 className="font-futura text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-light text-[#f4ebe1] uppercase tracking-[0.18em] md:tracking-[0.28em] leading-tight">
                 Reunion Ocean Café
               </h1>
+              <p className="mt-4 font-futura text-[10px] tracking-[0.35em] text-[#c9a84c] uppercase">
+                Mattu Beach, Udupi
+              </p>
             </div>
           </div>
         </section>
@@ -162,12 +184,8 @@ export default function DiningPage() {
             amenities={cafe.amenities}
             mapLink={MAP_LINK}
             phone={CAFE_PHONE}
+            faqs={diningSeo?.faqs ?? []}
           />
-          {diningSeo ? (
-            <div className="relative max-w-3xl mx-auto mt-20">
-              <KeywordSeoSections seo={diningSeo} />
-            </div>
-          ) : null}
         </section>
       </main>
 

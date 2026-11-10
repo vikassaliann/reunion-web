@@ -4,8 +4,10 @@ import { useState } from "react";
 import Link from "next/link";
 import ContactForm from "@/components/ContactForm";
 import { PROPERTY_RELATED } from "@/data/propertyRelated";
+import { PROPERTY_GUESTS } from "@/data/propertyGuests";
+import { CATEGORY_MAP } from "@/utils/categories";
 import { getPropertyKeywordSeo } from "@/data/keywordGuide";
-import KeywordSeoSections from "@/components/KeywordSeoSections";
+import ExpandablePageFaq from "@/components/ExpandablePageFaq";
 
 /** Upscale small source files in lightbox so they fill the viewport like full-size property photos. */
 function LightboxPhoto({ src, alt }: { src: string; alt: string }) {
@@ -124,148 +126,8 @@ const PROPERTY_GUIDELINES: Record<string, { power: string; highlightDetail: stri
   "reunion-serene":  { power: "Standard Grid Power", highlightDetail: "Private Outdoor Pool · Terrace & Garden" },
 };
 
-// Property FAQs — derived exclusively from each property's actual details
-export interface FAQ {
-  q: string;
-  a: string;
-}
-
-export const PROPERTY_FAQS: Record<string, FAQ[]> = {
-  "ocean-elite": [
-    { q: "Does Ocean Elite have direct beach access?", a: "Yes — REUNION Ocean Elite at Hoode Beach, Udupi has direct beach access from the lawn." },
-    { q: "How many guests can stay?", a: "Ocean Elite accommodates up to 6 guests in its 2-bedroom villa." },
-    { q: "How far is Hoode Beach from Udupi town?", a: "Hoode Beach is roughly 12–15 km from Udupi town — about 25–30 minutes by car." },
-    { q: "What amenities are available at Ocean Elite?", a: "The villa comes with a fully equipped kitchen, refrigerator, WiFi, geyser, air conditioning, and a spacious lawn." },
-    { q: "Is there power backup at Ocean Elite?", a: "Yes, Ocean Elite has heavy-duty generator backup to ensure uninterrupted power." },
-    { q: "How many guests can Ocean Elite accommodate?", a: "Ocean Elite can accommodate up to 6 guests." },
-  ],
-  "ocean-manor": [
-    { q: "What is the layout of Ocean Manor?", a: "Ocean Manor has a 2BHK on the first floor (one sea-facing bedroom and one river-facing bedroom with a large beach-facing balcony) and 2 independent one-bedroom halls on the ground floor." },
-    { q: "How many guests can stay at Ocean Manor?", a: "Ocean Manor has 3 bookable units — the first floor accommodates up to 6 guests, while each ground floor room accommodates up to 3 guests." },
-    { q: "Does Ocean Manor have beach access?", a: "Yes, there is a lawn with beach access through scenic rock beds." },
-    { q: "Is there power backup at Ocean Manor?", a: "Yes, Ocean Manor has heavy-duty generator backup." },
-    { q: "What views are available at Ocean Manor?", a: "The property features sea-facing and river-facing bedrooms, along with a huge beach-facing balcony in the living area." },
-  ],
-  "ocean-givaah": [
-    { q: "Does Ocean Givaah have a private pool?", a: "Yes, Ocean Givaah features a private pool with a depth of 4 feet." },
-    { q: "How far is Ocean Givaah from the beach?", a: "The beach is just 200 meters from the property, providing direct access to the sand." },
-    { q: "How many bedrooms and guests does Ocean Givaah accommodate?", a: "Ocean Givaah is a 3BHK villa that can accommodate up to 9 guests." },
-    { q: "What amenities are available at Ocean Givaah?", a: "The villa features spacious bedrooms, a cozy living area, fully equipped kitchen, ocean-view terrace, lush garden, air conditioning, high-speed WiFi, and on-site parking." },
-    { q: "Is there power backup at Ocean Givaah?", a: "Yes, the property is equipped with heavy-duty generator backup." },
-    { q: "Is food delivery available at Ocean Givaah?", a: "Yes, a local app and local restaurants are available for food delivery to the property." },
-  ],
-  "ocean-royal": [
-    { q: "What type of property is Ocean Royal?", a: "Ocean Royal is a charming heritage villa surrounded by coconut trees and greenery, giving it the appearance of a farmhouse with expansive space." },
-    { q: "How close is Ocean Royal to the beach?", a: "The villa is situated just 50 meters from the beach, providing easy access to the shore." },
-    { q: "How many guests can Ocean Royal accommodate?", a: "Ocean Royal can accommodate up to 15 guests across its 3 bedrooms." },
-    { q: "What amenities are available at Ocean Royal?", a: "The villa offers a refrigerator, air conditioning, WiFi, gas stove kitchen, and generator backup." },
-    { q: "Is there power backup at Ocean Royal?", a: "Yes, Ocean Royal has heavy-duty generator backup." },
-  ],
-  "de-homes": [
-    { q: "How far is De Homes from Udupi Krishna Temple?", a: "De Homes in Chitpady is about a 10-minute walk from Sri Krishna Matha, Udupi." },
-    { q: "What type of property is De Homes?", a: "Reunion De Homes is a premium suites property with 16 rooms, located in the absolute center of Udupi city, close to the sacred Udupi Sri Krishna Matha." },
-    { q: "What room categories are available at De Homes?", a: "Room categories include Standard Double Room, Standard Twin Room, Deluxe Double Room, Deluxe Double Room with Balcony, and Presidential Suite." },
-    { q: "Who is De Homes ideal for?", a: "De Homes is ideal for devotees on a spiritual journey, corporate professionals, and families on vacation." },
-    { q: "What is the power backup situation at De Homes?", a: "De Homes is connected to the central city power grid, ensuring reliable power supply." },
-    { q: "How many rooms does De Homes have?", a: "De Homes has 16 premium rooms across multiple categories." },
-  ],
-  "ocean-daaffy": [
-    { q: "How many bedrooms does Ocean Daaffy have?", a: "Ocean Daaffy is a 3-bedroom villa." },
-    { q: "How close is Ocean Daaffy to the beach?", a: "The villa is located just 100 meters from a pristine beach." },
-    { q: "How many guests can Ocean Daaffy accommodate?", a: "Ocean Daaffy can accommodate up to 9 guests." },
-    { q: "Is there power backup at Ocean Daaffy?", a: "Yes, the property is backed by a reliable UPS power system." },
-    { q: "What is the setting like at Ocean Daaffy?", a: "The villa is set in a peaceful, tranquil natural surrounding — ideal for those seeking a coastal retreat amidst nature." },
-  ],
-  "ocean-hridayam": [
-    { q: "Is Ocean Hridayam right on the beach?", a: "Yes — you can step from the sea-facing balcony onto Mattu Beach." },
-    { q: "How far is Ocean Café?", a: "Ocean Café is next door on the same Mattu Beach shoreline — ideal for sunset meals." },
-    { q: "What is the layout of Ocean Hridayam?", a: "Ocean Hridayam is a 2BHK villa with one bedroom on the ground floor and another on the first floor — a split-level family layout." },
-    { q: "How many guests can Ocean Hridayam accommodate?", a: "Ocean Hridayam can accommodate up to 6 guests." },
-    { q: "Does Ocean Hridayam have a kitchen?", a: "Yes, the villa is equipped with a kitchen with essential utensils, making your stay feel just like home." },
-    { q: "Does Ocean Hridayam have a beach view?", a: "Yes, the first floor features a stunning beach-facing balcony where you can enjoy the sound of the waves and breathtaking views." },
-    { q: "Is there power backup at Ocean Hridayam?", a: "Yes, the property has reliable UPS power backup." },
-  ],
-  "ocean-bliss": [
-    { q: "How many bedrooms does Ocean Bliss have?", a: "Ocean Bliss is a 2BHK property with one common bathroom." },
-    { q: "How far is Ocean Bliss from the beach?", a: "The beach is 800 meters away from the property." },
-    { q: "How many guests can Ocean Bliss accommodate?", a: "Ocean Bliss can accommodate up to 6 guests." },
-    { q: "What type of property is Ocean Bliss?", a: "It is an open compound property offering a simple, peaceful retreat with all the basic amenities." },
-    { q: "Is there power backup at Ocean Bliss?", a: "Yes, the property has UPS power backup." },
-  ],
-  "marina-villa": [
-    { q: "Where is Marina Villa located?", a: "Marina Villa is located in Kannarpady, in the heart of Udupi city." },
-    { q: "How many bedrooms does Marina Villa have?", a: "Marina Villa is a 3BHK property." },
-    { q: "How many guests can Marina Villa accommodate?", a: "Marina Villa can accommodate up to 10 guests." },
-    { q: "What amenities are available at Marina Villa?", a: "The villa offers air conditioning, WiFi, parking space, kitchen facility, and UPS power backup." },
-    { q: "Is there power backup at Marina Villa?", a: "Yes, UPS power backup is available for an uninterrupted stay." },
-  ],
-  "charm-villa": [
-    { q: "What is the layout of Charm Villa?", a: "Charm Villa is a 3BHK property on the first floor. One bedroom has an attached bathroom, and one common bathroom is shared between the other two bedrooms." },
-    { q: "How many guests can Charm Villa accommodate?", a: "Charm Villa can accommodate up to 9 guests." },
-    { q: "Is there power backup at Charm Villa?", a: "Yes, UPS power backup is available." },
-    { q: "Where is Charm Villa located?", a: "Charm Villa is located in Badagabettu, Udupi." },
-  ],
-  "aradhya-villa": [
-    { q: "What is the layout of Aradhya Villa?", a: "Aradhya Villa is a 4BHK across three levels — ground floor has a living area, kitchen, and one bedroom; first floor has two bedrooms with a balcony; second floor has a luxurious bedroom with a bathtub, plus a closed terrace." },
-    { q: "How close is Aradhya Villa to Sri Krishna Temple?", a: "Aradhya Villa is located just 700 meters from the famous Udupi Krishna Temple." },
-    { q: "How many guests can Aradhya Villa accommodate?", a: "Aradhya Villa can accommodate up to 12 guests." },
-    { q: "Does Aradhya Villa have a kitchen?", a: "Yes, the ground floor features a well-equipped kitchen with basic utensils." },
-    { q: "Is the closed terrace suitable for gatherings?", a: "Yes, the closed terrace area on the second floor is excellent for small family gatherings or celebrations." },
-    { q: "What makes Aradhya Villa unique?", a: "Each floor has attached bathrooms, the second floor bedroom features a bathtub for added indulgence, and the property is close to major tourist attractions and Udupi's best local cuisines." },
-  ],
-  "arya": [
-    { q: "What is the layout of Arya?", a: "Arya has 2 independent 1BHK studio rooms on the first floor, each with all basic amenities." },
-    { q: "How many guests can each Arya unit accommodate?", a: "Each room can accommodate up to 3 guests." },
-    { q: "Is parking available at Arya?", a: "Yes, open parking is available right next to the compound." },
-    { q: "Is there power backup at Arya?", a: "Yes, UPS power backup is available." },
-    { q: "Is the property owner nearby?", a: "Yes, the owner of the property stays nearby for any assistance." },
-  ],
-  "krshna": [
-    { q: "How far is Krshna from MAHE / KMC Hospital?", a: "Krshna in Manipal is about 2 km from MAHE and roughly 3 km from KMC Hospital — a short drive or auto ride." },
-    { q: "Where is Krshna located?", a: "Krshna is a 2BHK property located in Manipal, Udupi." },
-    { q: "How many guests can Krshna accommodate?", a: "Krshna can accommodate up to 6 guests." },
-    { q: "What amenities are available at Krshna?", a: "The villa offers a fully furnished kitchen, free WiFi, parking space, refrigerator, and UPS power backup." },
-    { q: "Is there power backup at Krshna?", a: "Yes, UPS power backup is available." },
-  ],
-  "ocean-waves": [
-    { q: "Is Ocean Café nearby?", a: "Yes — REUNION Ocean Café is on the same Mattu Beach stretch, a short walk from Ocean Waves." },
-    { q: "What is the layout of Ocean Waves?", a: "Ocean Waves has 3 independent units — a 1BHK on the first floor and 2 independent one-bedroom halls on the ground floor, each with a balcony, living area, bedroom, and attached bathroom." },
-    { q: "How close is Ocean Waves to the beach?", a: "The beach is hardly 5 meters from the property — just cross the road and you're on the sand." },
-    { q: "What amenities does each unit have?", a: "Each unit features AC, geyser, mini fridge, microwave, and kettle." },
-    { q: "Is food delivery available at Ocean Waves?", a: "Yes, food delivery via Swiggy and Zomato is available. Home-made food can also be delivered if pre-ordered." },
-    { q: "Is there security at Ocean Waves?", a: "Yes, CCTV surveillance is in place for added security." },
-    { q: "How many guests can Ocean Waves accommodate?", a: "Ocean Waves has 3 bookable rooms — one room accommodates up to 6 guests, and the other two rooms accommodate up to 3 guests each." },
-  ],
-  "regal-villa": [
-    { q: "How many bedrooms does Regal Villa have?", a: "Regal Villa has 2 separate bedrooms with air conditioning." },
-    { q: "How many guests can Regal Villa accommodate?", a: "Regal Villa can accommodate up to 6 guests." },
-    { q: "What amenities are available at Regal Villa?", a: "The villa offers a balcony, terrace, free private parking, free WiFi, fully equipped kitchen, and a flat-screen TV." },
-    { q: "How far is the nearest airport from Regal Villa?", a: "The nearest airport is Mangalore International Airport, 54 km from the villa." },
-    { q: "Where is Regal Villa located?", a: "Regal Villa is located in Chitpady, Udupi." },
-  ],
-  "villa": [
-    { q: "How many bedrooms does Villa have?", a: "Villa has 3 bedrooms — 2 with AC and 1 non-AC." },
-    { q: "How many guests can Villa accommodate?", a: "Villa can accommodate up to 10 guests." },
-    { q: "Can meals be arranged at Villa?", a: "Yes, Breakfast, Lunch, and Dinner (including Continental) can be arranged if ordered prior." },
-    { q: "How far is Villa from the beach?", a: "The nearest beach is 8 km from the villa." },
-    { q: "What are the nearby landmarks?", a: "The nearest Temple/Church/Mosque is 2 km away, Manipal University is 5 km, and the nearest International Airport is 43 km." },
-    { q: "What amenities are available at Villa?", a: "The villa features a terrace with garden views, balcony, free private parking, air conditioning, TV, and an in-kitchen." },
-  ],
-  "ocean-cafe": [
-    { q: "What are Ocean Café's timings?", a: "Open daily 9:30 AM to 10:00 PM on Mattu Beach, Udupi." },
-    { q: "Is Ocean Café on the beach?", a: "Yes — Ocean Café is beachfront on Mattu Beach, Udupi." },
-    { q: "Can we celebrate a birthday at Ocean Café?", a: "Yes — enquire for beach birthday setups and private celebration dining with REUNION." },
-    { q: "Does Ocean Café have live music?", a: "Yes, the cozy lounge features a fireplace and live musical performances on select occasions." },
-    { q: "What is the ambiance like at Ocean Café?", a: "Guests can relax in breezy outdoor seating areas facing the rolling waves or unwind in a cozy indoor lounge, with stunning sunset vistas over the Arabian Sea." },
-  ],
-  "reunion-serene": [
-    { q: "How far is Reunion Serene from Jog Falls?", a: "Jog Falls is about 85 km from Reunion Serene — plan a half-day drive from the villa." },
-    { q: "Where is Reunion Serene located?", a: "Reunion Serene Villa is a private Malnad stay near Shivamogga (Shimoga), Karnataka — see the Google Maps pin for Reunion Serene Villa for exact directions." },
-    { q: "How many guests can Reunion Serene accommodate?", a: "The villa accommodates up to 8 guests across 4 separate bedrooms." },
-    { q: "Does Reunion Serene have a swimming pool?", a: "Yes, the property features a private outdoor swimming pool available year-round." },
-    { q: "What amenities are available at Reunion Serene?", a: "Guests enjoy free Wi-Fi and parking, a terrace, garden, family rooms, and washing machine access, along with the private outdoor pool." },
-  ],
-};
+export type { FAQ } from "@/data/propertyFaqs";
+export { PROPERTY_FAQS } from "@/data/propertyFaqs";
 
 // Nearby Tourist Places — 4 route groups with accurate Google Maps search URLs
 export interface TouristPlace {
@@ -350,13 +212,11 @@ export const TOURIST_ROUTES: RouteGroup[] = [
 
 export default function PropertyDetailSection({ property, mapLink, seoLead }: PropertyDetailSectionProps) {
   const keywordSeo = getPropertyKeywordSeo(property.id);
-  const faqs = keywordSeo?.faqs?.length ? keywordSeo.faqs : PROPERTY_FAQS[property.id] ?? [];
+  const faqs = keywordSeo?.faqs ?? [];
   const [selectedImageIdx, setSelectedImageIdx] = useState(0);
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [touristOpen, setTouristOpen] = useState(false);
   const [expandedRoutes, setExpandedRoutes] = useState<Record<number, boolean>>({});
-  const [faqOpen, setFaqOpen] = useState(false);
-  const [expandedFaqs, setExpandedFaqs] = useState<Record<number, boolean>>({});
 
   const images = property.gallery && property.gallery.length > 0 ? property.gallery : [property.heroImage];
   const gridSlots = images.slice(0, 5);
@@ -374,10 +234,6 @@ export default function PropertyDetailSection({ property, mapLink, seoLead }: Pr
 
   const toggleRoute = (idx: number) => {
     setExpandedRoutes((prev) => ({ ...prev, [idx]: !prev[idx] }));
-  };
-
-  const toggleFaq = (idx: number) => {
-    setExpandedFaqs((prev) => ({ ...prev, [idx]: !prev[idx] }));
   };
 
   // Highlights: bedrooms + amenities only (no guest count — not provided by user)
@@ -571,6 +427,16 @@ export default function PropertyDetailSection({ property, mapLink, seoLead }: Pr
               <p className="text-white/80 font-futura text-[15px] md:text-base leading-[2] font-light tracking-wide">
                 {property.description}
               </p>
+              {(property.bedrooms > 0 || PROPERTY_GUESTS[property.id]) && (
+                <p className="text-white/55 font-futura text-sm font-light leading-relaxed tracking-wide border-l border-[#C9A84C]/40 pl-4">
+                  <span className="text-[#C9A84C]/80 uppercase text-[10px] tracking-[0.25em] block mb-1">
+                    At a glance
+                  </span>
+                  {property.name} · {property.location}
+                  {property.bedrooms > 0 ? ` · ${property.bedrooms} bedroom${property.bedrooms > 1 ? "s" : ""}` : ""}
+                  {PROPERTY_GUESTS[property.id] ? ` · ${PROPERTY_GUESTS[property.id]}` : ""}
+                </p>
+              )}
             </div>
 
             {PROPERTY_RELATED[property.id]?.length ? (
@@ -585,6 +451,31 @@ export default function PropertyDetailSection({ property, mapLink, seoLead }: Pr
                       </Link>
                     </span>
                   ))}
+                </p>
+              </div>
+            ) : null}
+
+            {CATEGORY_MAP[property.id]?.[0] === "beach-villas" ? (
+              <div className="space-y-3">
+                <h2 className="font-futura text-[11px] tracking-[0.3em] text-white/40 uppercase">
+                  More Beach Stays in Udupi
+                </h2>
+                <p className="font-futura text-sm text-white/50 font-light tracking-wide">
+                  <Link href="/properties/category/beach-villas" className="text-[#C9A84C] hover:underline">
+                    More Beach Stays in Udupi
+                  </Link>
+                </p>
+              </div>
+            ) : null}
+            {CATEGORY_MAP[property.id]?.[0] === "city-stays" ? (
+              <div className="space-y-3">
+                <h2 className="font-futura text-[11px] tracking-[0.3em] text-white/40 uppercase">
+                  More City Stays in Udupi
+                </h2>
+                <p className="font-futura text-sm text-white/50 font-light tracking-wide">
+                  <Link href="/properties/category/city-stays" className="text-[#C9A84C] hover:underline">
+                    More City Stays in Udupi
+                  </Link>
                 </p>
               </div>
             ) : null}
@@ -619,14 +510,6 @@ export default function PropertyDetailSection({ property, mapLink, seoLead }: Pr
               </div>
             )}
 
-            {keywordSeo ? (
-              <KeywordSeoSections
-                seo={keywordSeo}
-                skipHeadings={["Overview", "Amenities", "Amenities & Details", "FAQs", "Similar stays"]}
-                hideFaqs
-                hideLinks
-              />
-            ) : null}
           </div>
 
           {/* Enquiry form — after guidelines on mobile; sticky right on desktop */}
@@ -689,6 +572,13 @@ export default function PropertyDetailSection({ property, mapLink, seoLead }: Pr
               </button>
               <div className={`overflow-hidden transition-all duration-500 ${touristOpen ? "max-h-[3000px] opacity-100" : "max-h-0 opacity-0"}`}>
                 <div className="py-6 space-y-8">
+                  {property.id !== "reunion-serene" && (
+                    <p className="font-futura text-[13px] text-white/55 font-light tracking-wide">
+                      <Link href="/blogs/tourist-places-in-udupi" className="text-[#C9A84C] hover:underline">
+                        See all tourist places in Udupi
+                      </Link>
+                    </p>
+                  )}
                   {(property.id === "reunion-serene" ? SERENE_TOURIST_ROUTES : TOURIST_ROUTES).map((route, rIdx) => (
                     <div key={rIdx} className="space-y-4">
                       <h3 className="font-futura text-[10px] tracking-widest text-[#C9A84C] uppercase">{route.title}</h3>
@@ -705,29 +595,13 @@ export default function PropertyDetailSection({ property, mapLink, seoLead }: Pr
                 </div>
               </div>
 
-              {faqs.length > 0 && (
-                <>
-                  <button
-                    onClick={() => setFaqOpen(!faqOpen)}
-                    className="w-full flex items-center justify-between py-5 border-b border-white/10 group"
-                  >
-                    <h2 className="font-futura text-[11px] tracking-[0.3em] text-white/70 group-hover:text-white uppercase transition-colors">
-                      Frequently Asked Questions
-                    </h2>
-                    <span className="text-[#C9A84C] text-xl leading-none">{faqOpen ? "−" : "+"}</span>
-                  </button>
-                  <div className={`overflow-hidden transition-all duration-500 ${faqOpen ? "max-h-[5000px] opacity-100" : "max-h-0 opacity-0"}`}>
-                    <div className="py-6 space-y-6">
-                      {faqs.map((faq, fIdx) => (
-                        <div key={fIdx} className="space-y-2">
-                          <p className="font-futura text-[13px] text-white tracking-wide uppercase">{faq.q}</p>
-                          <p className="font-futura text-[13px] font-light text-white/60 leading-relaxed">{faq.a}</p>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </>
-              )}
+              {faqs.length > 0 ? (
+                <ExpandablePageFaq
+                  faqs={faqs}
+                  title="Frequently Asked Questions"
+                  showTopBorder
+                />
+              ) : null}
             </div>
           </div>
         </div>

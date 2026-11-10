@@ -201,6 +201,14 @@ export const BLOG_POSTS: BlogPost[] = [
           ],
         },
         {
+          heading: "Where to Stay in Udupi",
+          body: "Temple-first days pair well with city villas near Sri Krishna Matha — De Homes, Charm Villa, Marina Villa or Aradhya Villa. Beach-first itineraries work from Ocean Bliss at Malpe, Ocean Royal at Kapu, or Mattu beachfront stays next to Ocean Café.",
+          stayNearby: [
+            { label: "stays near Krishna Temple", href: "/properties/category/city-stays" },
+            { label: "beach villas in Udupi", href: "/properties/category/beach-villas" },
+          ],
+        },
+        {
           heading: "Best time to visit Udupi",
           body: "Best time to visit Udupi is October–March for pleasant weather, clearer skies, and more reliable Malpe boat services to St. Mary’s Island. June–September is monsoon: lush and dramatic, but rough seas and limited island crossings. Shoulder weeks in late September and early April still work if you prefer fewer crowds and accept warmer afternoons. Book beach villas early for December–January weekends from Bangalore.",
           stayNearby: [
@@ -464,8 +472,8 @@ export const BLOG_POSTS: BlogPost[] = [
           heading: "Why visit Mattu Beach",
           body: "Mattu Beach sits on the Arabian Sea south of Udupi city, away from the busiest harbour traffic. The shoreline is popular for evening walks, soft sunset colour, and a slower coastal pace. Families and couples often prefer Mattu when they want sand and sea without water-sports noise. Local fishing life continues nearby; mornings feel quiet, and evenings fill with café guests and walkers. From REUNION villas on this beach you can step onto the sand in minutes — that proximity is why Mattu Beach stays appear so often in guest plans after Sri Krishna Matha darshan.",
           stayNearby: [
-            { label: "Ocean Hridayam", href: "/properties/ocean-hridayam" },
-            { label: "Ocean Waves", href: "/properties/ocean-waves" },
+            { label: "beachfront stay at Mattu Beach", href: "/properties/ocean-waves" },
+            { label: "2BHK villa on Mattu Beach", href: "/properties/ocean-hridayam" },
           ],
         },
         {
@@ -496,8 +504,8 @@ export const BLOG_POSTS: BlogPost[] = [
           heading: "Where to stay nearby on Mattu Beach",
           body: "Book Ocean Hridayam for a 2-bedroom beachfront villa with a sea-facing balcony, or Ocean Waves for three private beachfront units about 5 m from Mattu Beach. Both put you next to Ocean Café and keep Malpe and Kapu within an easy day drive. Browse all beach villas in Udupi if your group needs more bedrooms across Hoode or Uchila as well.",
           stayNearby: [
-            { label: "Ocean Hridayam", href: "/properties/ocean-hridayam" },
-            { label: "Ocean Waves", href: "/properties/ocean-waves" },
+            { label: "beachfront stay at Mattu Beach", href: "/properties/ocean-waves" },
+            { label: "2BHK villa on Mattu Beach", href: "/properties/ocean-hridayam" },
             { label: "beach villas in Udupi", href: "/properties/category/beach-villas" },
           ],
         },
@@ -528,6 +536,14 @@ export const BLOG_POSTS: BlogPost[] = [
         {
           heading: "Weekend plan",
           body: "Day 1: Sri Krishna Matha and Malpe Beach. Day 2: Kapu lighthouse and Mattu/Ocean Café. See our 2-day Udupi itinerary for a full hour-by-hour outline.",
+        },
+        {
+          heading: "Where to Stay in Udupi",
+          body: "From Bangalore, most weekend guests book a beach villa for Friday–Sunday — Mattu, Hoode, Kapu or Malpe depending on whether you want café sunsets, quiet sand or harbour energy. Families sometimes split one night city + one night coast.",
+          stayNearby: [
+            { label: "beach villas for a weekend", href: "/properties/category/beach-villas" },
+            { label: "villas in Udupi", href: "/properties" },
+          ],
         },
       ],
       closing: "Book a REUNION beach villa for an easy Bangalore weekend escape — check-in Friday night, back Sunday evening.",
@@ -631,7 +647,7 @@ export const BLOG_POSTS: BlogPost[] = [
           heading: "Ocean Café — beachfront café on Mattu Beach",
           body: "For restaurants in Udupi with a true beachfront view, Ocean Café by REUNION sits on Mattu Beach — seafood, coffee, fireplace lounge, and sunset seating. Open daily about 9:30 AM–10 PM. Candlelight dinners can be arranged for proposals and anniversaries. Guests at Ocean Hridayam and Ocean Waves literally stay next door.",
           stayNearby: [
-            { label: "Ocean Café", href: "/dining" },
+            { label: "beach café at Mattu", href: "/dining" },
             { label: "Ocean Hridayam", href: "/properties/ocean-hridayam" },
             { label: "Ocean Waves", href: "/properties/ocean-waves" },
             { label: "Mattu Beach guide", href: "/blogs/mattu-beach-udupi" },
@@ -644,6 +660,41 @@ export const BLOG_POSTS: BlogPost[] = [
       ],
       closing:
         "Staying with REUNION? Ask the host for tonight’s pick based on your villa location — town thali one night, Mattu sunset the next — and link your dinner plan to candle light dinner if you are celebrating.",
+    },
+  },
+  {
+    slug: "malpe-beach-udupi",
+    title: "Malpe Beach, Udupi",
+    metaTitle: "Malpe Beach, Udupi: Guide & Where to Stay | REUNION",
+    excerpt:
+      "Malpe Beach, Udupi — harbour, Sea Walk, St. Mary's Island boats and the best stays nearby, including Ocean Bliss.",
+    category: "Travel Guide",
+    readTime: "6 min read",
+    author: "REUNION Team, Udupi",
+    date: "November 2026",
+    coverImage: beach("malpe"),
+    content: {
+      intro:
+        "Malpe Beach is Udupi's busiest coastal hub — fishing harbour, Sea Walk, water sports and ferries toward St. Mary's Island when seas are calm. This guide covers how to reach Malpe, what to do, and where to stay nearby with REUNION.",
+      sections: [
+        {
+          heading: "Why visit Malpe Beach",
+          body: "Malpe sits about 6 km west of Udupi town. Expect harbour activity, sunset walks, and the classic St. Mary's Island boat when conditions allow. It is the go-to beach for families who want services, snacks and activity — unlike quieter Mattu or Hoode.",
+          stayNearby: [
+            { label: "stay near Malpe Beach", href: "/properties/ocean-bliss" },
+          ],
+        },
+        {
+          heading: "Where to Stay near Malpe",
+          body: "Ocean Bliss is REUNION's stay closest to Malpe harbour logistics — useful if St. Mary's Island or Sea Walk is on your plan. Browse all beach villas in Udupi if your group wants more bedrooms on Hoode or Mattu as well.",
+          stayNearby: [
+            { label: "Ocean Bliss", href: "/properties/ocean-bliss" },
+            { label: "beach villas in Udupi", href: "/properties/category/beach-villas" },
+          ],
+        },
+      ],
+      closing:
+        "Pair Malpe with a temple morning in Udupi, then coast evenings at Mattu or Kapu. Enquire with REUNION for dates at Ocean Bliss or other beach villas.",
     },
   },
   {

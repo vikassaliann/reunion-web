@@ -1,11 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import ContactForm from "@/components/ContactForm";
-import {
-  PROPERTY_FAQS,
-  TOURIST_ROUTES,
-} from "@/components/PropertyDetailSection";
+import ExpandablePageFaq, { type FaqItem } from "@/components/ExpandablePageFaq";
+import { TOURIST_ROUTES } from "@/components/PropertyDetailSection";
 import { MenuDivider } from "@/components/dining/CafeDecor";
 import PropertyStyleGallery from "@/components/PropertyStyleGallery";
 import {
@@ -14,7 +12,8 @@ import {
   OCEAN_CAFE_META,
   OCEAN_CAFE_OVERVIEW_LEAD,
   OCEAN_CAFE_VIDEO,
-  OCEAN_CAFE_VIDEO_POSTER,
+  OCEAN_CAFE_VIDEO_HEIGHT,
+  OCEAN_CAFE_VIDEO_WIDTH,
 } from "@/data/oceanCafePage";
 
 interface OceanCafeDiningProps {
@@ -23,6 +22,7 @@ interface OceanCafeDiningProps {
   amenities: string[];
   mapLink: string;
   phone: string;
+  faqs: FaqItem[];
 }
 
 export default function OceanCafeDining({
@@ -31,11 +31,19 @@ export default function OceanCafeDining({
   amenities,
   mapLink,
   phone,
+  faqs,
 }: OceanCafeDiningProps) {
   const [touristOpen, setTouristOpen] = useState(false);
-  const [faqOpen, setFaqOpen] = useState(false);
+  const [videoMuted, setVideoMuted] = useState(true);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
-  const faqs = PROPERTY_FAQS["ocean-cafe"] ?? [];
+  useEffect(() => {
+    const el = videoRef.current;
+    if (!el) return;
+    el.muted = videoMuted;
+    void el.play().catch(() => {});
+  }, [videoMuted]);
+
   const allImages = OCEAN_CAFE_GALLERY_IMAGES;
 
   return (
@@ -55,49 +63,43 @@ export default function OceanCafeDining({
         </p>
       </div>
 
-      {/* Video */}
-      <div className="mb-16 md:mb-24 max-w-4xl mx-auto">
-        <video
-          className="w-full aspect-video object-cover ring-1 ring-[#c9a84c]/25"
-          controls
-          playsInline
-          preload="metadata"
-          poster={OCEAN_CAFE_VIDEO_POSTER}
+      {/* Video reel — autoplay loop, no controls; mute toggle on the side */}
+      <div className="mb-16 md:mb-24 flex justify-center items-center gap-3 sm:gap-4">
+        <div className="relative w-full max-w-[min(100%,280px)] sm:max-w-[320px] aspect-[9/16] overflow-hidden bg-black/40 ring-1 ring-[#c9a84c]/25">
+          <video
+            ref={videoRef}
+            src={OCEAN_CAFE_VIDEO}
+            autoPlay
+            muted={videoMuted}
+            loop
+            playsInline
+            preload="auto"
+            width={OCEAN_CAFE_VIDEO_WIDTH}
+            height={OCEAN_CAFE_VIDEO_HEIGHT}
+            className="w-full h-full object-cover"
+            onPause={(e) => {
+              void e.currentTarget.play().catch(() => {});
+            }}
+          />
+        </div>
+        <button
+          type="button"
+          onClick={() => setVideoMuted((m) => !m)}
+          className="flex-shrink-0 w-11 h-11 border border-[#c9a84c]/40 text-[#c9a84c] hover:bg-[#c9a84c]/10 transition-colors flex items-center justify-center"
+          aria-label={videoMuted ? "Unmute video" : "Mute video"}
+          title={videoMuted ? "Unmute" : "Mute"}
         >
-          <source src={OCEAN_CAFE_VIDEO} type="video/mp4" />
-        </video>
-        <p className="mt-3 flex items-center justify-center gap-2 font-futura text-[10px] tracking-[0.15em] text-[#e8dfd0]/50">
-          <svg
-            className="w-3.5 h-3.5 text-[#c9a84c]/80 shrink-0"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1.5"
-            aria-hidden
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M17 1l4 4-4 4"
-            />
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M3 11V9a4 4 0 014-4h14"
-            />
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M7 23l-4-4 4-4"
-            />
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M21 13v2a4 4 0 01-4 4H3"
-            />
-          </svg>
-          <span className="text-[#c9a84c]/90">@doee_eye</span>
-        </p>
+          {videoMuted ? (
+            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 9.75L19.5 12m0 0l2.25 2.25M19.5 12l2.25-2.25M19.5 12l-2.25 2.25M9 9v6h3l4 4V5L12 9H9z" />
+            </svg>
+          ) : (
+            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M9 9v6h3l4 4V5L12 9H9z" />
+              <path strokeLinecap="round" strokeLinejoin="round" d="M15.5 8.5a5 5 0 010 7M18.5 5.5a9 9 0 010 13" />
+            </svg>
+          )}
+        </button>
       </div>
 
       <PropertyStyleGallery images={allImages} label="Ocean Café" className="mb-16 md:mb-20" />
@@ -217,42 +219,15 @@ export default function OceanCafeDining({
                 ))}
               </div>
             </div>
-
-            {faqs.length > 0 && (
-              <>
-                <button
-                  type="button"
-                  onClick={() => setFaqOpen(!faqOpen)}
-                  className="w-full flex items-center justify-between py-5 border-b border-[#c9a84c]/10 group"
-                >
-                  <span className="font-futura text-[11px] tracking-[0.3em] text-[#e8dfd0]/60 group-hover:text-[#f4ebe1] uppercase transition-colors">
-                    Frequently Asked Questions
-                  </span>
-                  <span className="text-[#c9a84c] text-xl leading-none">{faqOpen ? "−" : "+"}</span>
-                </button>
-                <div
-                  className={`overflow-hidden transition-all duration-500 ${
-                    faqOpen ? "max-h-[5000px] opacity-100" : "max-h-0 opacity-0"
-                  }`}
-                >
-                  <div className="py-6 space-y-6">
-                    {faqs.map((faq) => (
-                      <div key={faq.q} className="space-y-2">
-                        <p className="font-futura text-[13px] text-[#f4ebe1] tracking-wide uppercase">
-                          {faq.q}
-                        </p>
-                        <p className="font-futura text-[13px] font-light text-[#e8dfd0]/50 leading-relaxed">
-                          {faq.a}
-                        </p>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </>
-            )}
           </div>
         </div>
       </div>
+
+      {faqs.length > 0 ? (
+        <div className="max-w-3xl w-full mx-auto mt-16 md:mt-24 pt-2">
+          <ExpandablePageFaq faqs={faqs} title="Frequently Asked Questions" showTopBorder />
+        </div>
+      ) : null}
     </div>
   );
 }

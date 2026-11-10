@@ -27,7 +27,7 @@ export const PROPERTY_RELATED: Record<string, RelatedLink[]> = {
     { label: "Arya studio apartments", href: "/properties/arya" },
     { label: "Ocean Café", href: "/dining" },
   ],
-  "de-square": [
+  "d-square": [
     { label: "hotel stays in Udupi", href: "/properties/category/hotel-stays" },
     { label: "De Homes", href: "/properties/de-homes" },
     { label: "villas in Udupi", href: "/properties" },
@@ -38,12 +38,12 @@ export const PROPERTY_RELATED: Record<string, RelatedLink[]> = {
     { label: "beach villas in Udupi", href: "/properties/category/beach-villas" },
   ],
   "ocean-hridayam": [
+    { label: "Mattu Beach guide", href: "/blogs/mattu-beach-udupi" },
     { label: "Ocean Café", href: "/dining" },
     { label: "Ocean Waves", href: "/properties/ocean-waves" },
-    { label: "candle light dinner in Udupi", href: "/experiences/candlelight-dinner" },
   ],
   "ocean-bliss": [
-    { label: "Malpe Beach", href: "/blogs/top-10-beaches-to-visit-in-udupi" },
+    { label: "Malpe Beach guide", href: "/blogs/malpe-beach-udupi" },
     { label: "beach villas in Udupi", href: "/properties/category/beach-villas" },
     { label: "2-day Udupi itinerary", href: "/blogs/2-day-udupi-itinerary" },
   ],
@@ -88,9 +88,9 @@ export const PROPERTY_RELATED: Record<string, RelatedLink[]> = {
     { label: "villas in Udupi", href: "/properties" },
   ],
   "reunion-serene": [
-    { label: "villas in Udupi", href: "/properties" },
+    { label: "stays near Shivamogga", href: "/properties/category/shivamogga-stays" },
+    { label: "more Reunion stays", href: "/properties" },
     { label: "spa & wellness", href: "/wellness" },
-    { label: "Shivamogga stays", href: "/properties/category/shivamogga-stays" },
   ],
   "ocean-cafe": [
     { label: "candle light dinner in Udupi", href: "/experiences/candlelight-dinner" },

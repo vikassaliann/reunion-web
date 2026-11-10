@@ -6,9 +6,10 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import type { Metadata } from "next";
 import FilterDropdown from "@/components/FilterDropdown";
 import { CATEGORIES, CATEGORY_MAP } from "@/utils/categories";
-import KeywordSeoSections from "@/components/KeywordSeoSections";
+import ExpandablePageFaq from "@/components/ExpandablePageFaq";
 import KeywordFaqJsonLd from "@/components/KeywordFaqJsonLd";
 import { getKeywordSeo } from "@/data/keywordGuide";
+import { propertyCardAlt } from "@/data/imageAlt";
 const BASE_URL = "https://www.reunionglobal.in";
 
 const CATEGORY_INTRO: Record<string, string> = {
@@ -17,7 +18,7 @@ const CATEGORY_INTRO: Record<string, string> = {
   "city-stays":
     "REUNION's city villas in Udupi put you close to Sri Krishna Matha, Manipal and Udupi town — ideal for families, temple visits and longer stays.",
   "hotel-stays":
-    "Hotel and boutique stays at REUNION — De Homes suites near Sri Krishna Temple, Udupi, and De Square hotel & resort in Koteshwara.",
+    "Hotel and boutique stays at REUNION — De Homes suites near Sri Krishna Temple, Udupi, and D Square hotel & resort in Koteshwara.",
   "shivamogga-stays":
     "Reunion Serene — private pool villa stay near Shivamogga and Jog Falls for families and groups in the Malnad.",
 };
@@ -34,9 +35,9 @@ const CATEGORY_SEO: Record<string, { title: string; description: string }> = {
       "City villas and premium suites in Udupi — Chitpady, Kunjibettu and Manipal, close to Sri Krishna Matha. Ideal for families and temple visits.",
   },
   "hotel-stays": {
-    title: "REUNION | Hotel Stays — De Homes & De Square in Udupi",
+    title: "REUNION | Hotel Stays — De Homes & D Square in Udupi",
     description:
-      "Hotel and boutique stays at REUNION — De Homes suites near Sri Krishna Temple, Udupi, and De Square hotel & resort in Koteshwara.",
+      "Hotel and boutique stays at REUNION — De Homes suites near Sri Krishna Temple, Udupi, and D Square hotel & resort in Koteshwara.",
   },
   "shivamogga-stays": {
     title: "REUNION | Shivamogga Stays — Serene Villa near Jog Falls",
@@ -133,8 +134,8 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
 
           {/* Header */}
           <div className="flex flex-col items-center justify-center min-h-[42vh] sm:min-h-[50vh] md:h-[calc(80vh-180px)] mb-12 md:mb-16 text-center px-4 w-full">
-            <h1 className="font-futura w-full max-w-full text-[clamp(1.35rem,6.5vw,5.5rem)] text-white font-medium tracking-[0.1em] sm:tracking-[0.2em] md:tracking-[0.28em] uppercase drop-shadow-xl text-center leading-[1.2] break-words">
-              {categoryInfo.label}
+            <h1 className="font-futura w-full max-w-full text-[clamp(1.35rem,5.5vw,4.5rem)] text-white font-medium tracking-[0.1em] sm:tracking-[0.2em] md:tracking-[0.28em] uppercase drop-shadow-xl text-center leading-[1.2] break-words px-2">
+              {keywordSeo?.h1 ?? categoryInfo.label}
             </h1>
             <p className="mt-5 md:mt-6 max-w-2xl text-white/55 font-futura text-xs sm:text-sm leading-relaxed font-light tracking-wide px-1">
               {keywordSeo?.lead ?? CATEGORY_INTRO[categoryId] ?? null}
@@ -148,6 +149,20 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
              </h2>
              <FilterDropdown currentCategory={categoryId} />
           </div>
+
+          {categoryId === "city-stays" && (
+            <div className="mb-12 max-w-2xl mx-auto text-center">
+              <h2 className="font-futura text-[11px] tracking-[0.3em] text-white/40 uppercase mb-3">
+                Stays in Manipal
+              </h2>
+              <p className="font-futura text-sm text-white/55 font-light tracking-wide">
+                <Link href="/properties/krshna" className="text-[#C9A84C] hover:underline">
+                  2BHK stay in Manipal
+                </Link>
+                {" "}at REUNION Krshna — easy access to MAHE and KMC.
+              </p>
+            </div>
+          )}
 
           {/* Properties List - Alternating Layout */}
           {properties.length > 0 ? (
@@ -188,7 +203,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
                       <Link href={`/properties/${prop.id}`} className="block aspect-[4/3] overflow-hidden group">
                         <img
                           src={prop.heroImage}
-                          alt={prop.name}
+                          alt={propertyCardAlt(prop.name, prop.location)}
                           loading={index < 2 ? "eager" : "lazy"}
                           className="w-full h-full object-cover transition-transform duration-700"
                         />
@@ -208,9 +223,9 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
           )}
         </div>
 
-        {keywordSeo ? (
-          <div className="max-w-3xl mx-auto mt-20 pb-8">
-            <KeywordSeoSections seo={keywordSeo} />
+        {keywordSeo?.faqs?.length ? (
+          <div className="max-w-3xl mx-auto w-full mt-20 pb-8">
+            <ExpandablePageFaq faqs={keywordSeo.faqs} />
           </div>
         ) : null}
       </section>

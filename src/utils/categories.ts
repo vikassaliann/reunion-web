@@ -4,7 +4,7 @@ export const CATEGORY_MAP: Record<string, string[]> = {
   "ocean-givaah": ["beach-villas"],
   "ocean-royal": ["beach-villas"],
   "de-homes": ["hotel-stays"],
-  "de-square": ["hotel-stays"],
+  "d-square": ["hotel-stays"],
   "ocean-daaffy": ["beach-villas"],
   "ocean-hridayam": ["beach-villas"],
   "ocean-bliss": ["beach-villas"],

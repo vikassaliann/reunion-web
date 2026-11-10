@@ -81,6 +81,7 @@ function NavDropdown({ items, onClose }: { items: DropdownItem[]; onClose: () =>
             <Link
               key={item.label}
               href={item.isPartner ? "/partner-with-us" : item.href}
+              prefetch={false}
               onClick={onClose}
               className={`block px-5 py-2 group/item hover:bg-white/10 transition-colors duration-150`}
             >
@@ -121,6 +122,7 @@ function NavItem({
     >
       <Link
         href={item.href}
+        prefetch={false}
         className={`font-futura text-[11.5px] tracking-[0.14em] font-medium uppercase whitespace-nowrap transition-colors duration-200 pb-1 ${
           hasDropdown && open ? "text-[#C9A84C]" : "text-[#e5e2e1] hover:text-[#C9A84C]"
         }`}
@@ -180,7 +182,7 @@ export default function Navbar() {
         <div className="hidden lg:flex items-center justify-between w-full px-6 xl:px-12 h-[80px]">
 
           {/* Logo Left */}
-          <Link href="/" className="flex items-center gap-3 group flex-shrink-0">
+          <Link href="/" prefetch={false} className="flex items-center gap-3 group flex-shrink-0">
             <Logo className="h-10 w-10 transition-transform duration-300 group-hover:scale-105" />
             <div>
               <span className="font-futura text-[16px] tracking-[0.35em] font-bold text-[#C9A84C] uppercase leading-none block">
@@ -203,12 +205,14 @@ export default function Navbar() {
           <div className="flex items-center gap-4 flex-shrink-0">
             <Link
               href="/contact"
+              prefetch={false}
               className="font-futura text-[10.5px] tracking-[0.2em] text-white/80 hover:text-[#C9A84C] uppercase transition-colors"
             >
               CONTACT
             </Link>
             <Link
               href="/partner-with-us"
+              prefetch={false}
               className="px-6 py-2.5 border border-[#C9A84C] bg-transparent text-[#C9A84C] font-futura text-[10.5px] tracking-[0.2em] font-bold uppercase hover:bg-[#C9A84C]/10 transition-all duration-200"
             >
               Partner With Us
