@@ -13,6 +13,11 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       {
+        source: "/properties/reunion-de-square/:path*",
+        destination: "/properties/reunion-d-square/:path*",
+        permanent: true,
+      },
+      {
         source: "/events/beach-venue",
         destination: "/events",
         permanent: true,

@@ -560,7 +560,7 @@ export default function Home() {
                     <div className="order-1 lg:order-2 lg:col-span-7">
                       <div className="aspect-[4/3] w-full overflow-hidden">
                         <img
-                          src="/properties/reunion-de-square/dd4.png"
+                          src="/properties/reunion-d-square/dd4.png"
                           alt="Reunion D Square"
                           className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
                         />
