@@ -2,7 +2,7 @@
   {
     "id": "ocean-elite",
     "name": "Ocean Elite",
-    "location": "Padutonse, Udupi",
+    "location": "Hoode Beach, Udupi",
     "description": "Reunion Ocean Elite is a charming 2-bedroom villa offering direct beach access. It comes with a fully equipped kitchen and essential amenities like a fridge, WiFi, geyser, and AC. The villa features a spacious lawn that leads directly to the beach. One of the bedrooms boasts a beautiful beach view and a private balcony. The property also has generator backup to ensure uninterrupted power.",
     "price": "Contact for pricing",
     "bedrooms": 2,
@@ -20,7 +20,7 @@
     "heroImage": "/properties/ocean-elite/thumbelite.png",
     "gallery": [
       "/properties/ocean-elite/IMG-20240424-WA0059.jpg.jpeg",
-      "/properties/ocean-elite/IMG-20240424-WA0070.jpg (1).jpeg",
+      "/properties/ocean-elite/elite-gallery-0070.jpeg",
       "/properties/ocean-elite/IMG-20240424-WA0071.jpg.jpeg",
       "/properties/ocean-elite/IMG-20240424-WA0086.jpg.jpeg",
       "/properties/ocean-elite/IMG-20240424-WA0087.jpg.jpeg",
@@ -39,7 +39,7 @@
   {
     "id": "ocean-manor",
     "name": "Ocean Manor",
-    "location": "Padutonse, Udupi",
+    "location": "Hoode Beach, Udupi",
     "description": "Reunion Ocean Manor features 2 BHK on the first floor and 2 independent one-bedroom halls on the ground floor. On the first floor, one bedroom is sea-facing and the other is river-facing. The living area has a huge beach-facing balcony. One bedroom hall on the ground floor has a living room with a sea-facing bedroom and balcony. There is a lawn with beach access through scenic rock beds. All basic amenities are available with generator power backup. Reunion Ocean Manor (Dreams) offers a cozy 1BHK on the ground floor with a direct beach view from the bedroom and immediate access to the shore, providing an intimate and relaxing setting.",
     "price": "Contact for pricing",
     "bedrooms": 4,
@@ -54,8 +54,9 @@
       "Generator Backup",
       "Independent Ground Floor Units"
     ],
-    "heroImage": "/properties/ocean-manor/manor.png",
+    "heroImage": "/properties/ocean-manor/herooo.png",
     "gallery": [
+      "/properties/ocean-manor/herooo.png",
       "/properties/ocean-manor/IMG-20240330-WA0005.jpg.jpeg",
       "/properties/ocean-manor/IMG-20240330-WA0010.jpg.jpeg",
       "/properties/ocean-manor/IMG-20240330-WA0014.jpg.jpeg",
@@ -145,14 +146,14 @@
     "location": "Chitpady, Udupi",
     "description": "Reunion Dehomes Premium Suites — where luxury meets convenience. Perfectly situated in the absolute center of Udupi city, our premium suites are located in close proximity to the sacred Udupi Sri Krishna Matha, offering the ideal blend of comfort, privacy, and modern living. Whether you are a devotee on a spiritual journey, a corporate professional, or a family on vacation, our beautifully designed spaces serve as your peaceful sanctuary in the middle of a vibrant city. Room categories include Standard Double Room, Standard Twin Room, Deluxe Double Room, Deluxe Double Room with Balcony, and Presidential Suite.",
     "price": "Contact for pricing",
-    "bedrooms": 5,
+    "bedrooms": 0,
     "acreage": "N/A",
     "sqft": "N/A",
     "completion": "N/A",
     "amenities": [
-      "City Center Location",
+      "Olive Mini Banquet Hall",
+      "Prime City Center Location",
       "Near Sri Krishna Matha",
-      "Multiple Room Categories",
       "Presidential Suite",
       "Balcony Rooms Available",
       "Modern Amenities"
@@ -171,6 +172,35 @@
       "/properties/de-homes/Reunion_D_Homes-105_resized.jpg.jpeg",
       "/properties/de-homes/Reunion_D_Homes-106_resized.jpg.jpeg",
       "/properties/de-homes/Reunion_D_Homes-4_resized.jpg.jpeg"
+    ],
+    "videoUrl": ""
+  },
+  {
+    "id": "d-square",
+    "name": "D Square",
+    "location": "Koteshwara, Udupi",
+    "description": "REUNION D Square in Koteshwara, Udupi, offers comfortable hotel and resort stays on the coastal belt between Udupi and Kundapura. Ideal for families, pilgrims, and travellers exploring temples, beaches, and the NH-66 corridor — with modern rooms, on-site dining, and easy access to Koteshwara and nearby coastal attractions.",
+    "price": "Contact for pricing",
+    "bedrooms": 0,
+    "acreage": "N/A",
+    "sqft": "N/A",
+    "completion": "N/A",
+    "amenities": [
+      "Hotel & Resort Rooms",
+      "Koteshwara, Udupi Location",
+      "Family-Friendly Stay",
+      "On-Site Dining",
+      "Parking Available",
+      "Coastal Karnataka Access"
+    ],
+    "heroImage": "/properties/reunion-d-square/dd4.png",
+    "gallery": [
+      "/properties/reunion-d-square/dd4.png",
+      "/properties/reunion-d-square/dde1.png",
+      "/properties/reunion-d-square/dde2.png",
+      "/properties/reunion-d-square/dde3.png",
+      "/properties/reunion-d-square/dd5.png",
+      "/properties/reunion-d-square/dd6.png"
     ],
     "videoUrl": ""
   },
@@ -526,6 +556,39 @@
     "videoUrl": ""
   },
   {
+    "id": "reunion-serene",
+    "name": "Reunion Serene",
+    "location": "Shivamogga, Karnataka",
+    "description": "Reunion Serene Villa is a private nature-stay and holiday home located in the Malnad region of Karnataka, near Shivamogga (Shimoga). Approximately 7.7 km from the Shivamogga city center, the villa accommodates up to 8 guests across 4 separate bedrooms. Guests enjoy a private outdoor swimming pool (year-round), free Wi-Fi and parking, a terrace, garden, and family rooms, plus washing machine access.",
+    "price": "Contact for pricing",
+    "bedrooms": 4,
+    "acreage": "N/A",
+    "sqft": "N/A",
+    "completion": "N/A",
+    "amenities": [
+      "Private Outdoor Swimming Pool (Year-Round)",
+      "Up to 8 Guests · 4 Bedrooms",
+      "Free Wi-Fi & Parking",
+      "Terrace, Garden & Family Rooms",
+      "Washing Machine"
+    ],
+    "heroImage": "/properties/reunion-serene/hero.png",
+    "gallery": [
+      "/properties/reunion-serene/hero.png",
+      "/properties/reunion-serene/seren1.jpeg",
+      "/properties/reunion-serene/seren2.jpeg",
+      "/properties/reunion-serene/seren3.jpeg",
+      "/properties/reunion-serene/seren4.jpeg",
+      "/properties/reunion-serene/seren5.jpeg",
+      "/properties/reunion-serene/seren6.jpeg",
+      "/properties/reunion-serene/seren7.jpeg",
+      "/properties/reunion-serene/seren8.jpeg",
+      "/properties/reunion-serene/seren9.jpeg",
+      "/properties/reunion-serene/seren10.jpeg"
+    ],
+    "videoUrl": ""
+  },
+  {
     "id": "ocean-cafe",
     "name": "Reunion Ocean Café",
     "location": "Mattu Beach, Udupi",
@@ -537,23 +600,20 @@
     "completion": "N/A",
     "amenities": [
       "Mattu Beachfront",
-      "Sunset Seating",
-      "Cozy Fireplace",
-      "Seafood & Continental Delicacies",
-      "Specialty Coffee & Mocktails",
-      "Romantic Candlelight Dinner Setup"
+      "Fresh Seafood & Continental Cuisine",
+      "Specialty Coffee & Signature Mocktails",
+      "Romantic Candlelight Dinner",
+      "Beach Birthday Celebrations & Private Events"
     ],
-    "heroImage": "/properties/ocean cafe/ocean4.png",
+    "heroImage": "/properties/ocean cafe/herooc.png",
+    "videoUrl": "/properties/ocean cafe/cafevd.mp4",
     "gallery": [
-      "/properties/ocean cafe/ocean1.png",
-      "/properties/ocean cafe/ocean2.png",
-      "/properties/ocean cafe/ocean3.png",
-      "/properties/ocean cafe/ocean4.png",
-      "/properties/ocean cafe/ocean5.jpeg",
-      "/properties/ocean cafe/ocean8.webp",
-      "/properties/ocean cafe/ocean7.webp",
-      "/properties/ocean cafe/ocean6.webp",
-      "/properties/ocean cafe/ocean9.webp"
+      "/properties/ocean cafe/oc4.png",
+      "/properties/ocean cafe/oc2.png",
+      "/properties/ocean cafe/oc3.png",
+      "/properties/ocean cafe/oc5.png",
+      "/properties/ocean cafe/oc1.png",
+      "/properties/ocean cafe/oc6.png"
     ],
     "videoUrl": ""
   }

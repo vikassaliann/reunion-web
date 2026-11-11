@@ -1,0 +1,34 @@
+/** On-Page SEO Report helpers (GSC list + re-export overrides). */
+export { ON_PAGE_OVERRIDES } from "@/data/onPageOverrides";
+
+/** GSC URL Inspection — request indexing (On-Page Report priority #1). */
+export const GSC_REINDEX_URLS = [
+  "https://www.reunionglobal.in/",
+  "https://www.reunionglobal.in/properties",
+  "https://www.reunionglobal.in/properties/ocean-waves",
+  "https://www.reunionglobal.in/properties/ocean-daaffy",
+  "https://www.reunionglobal.in/properties/ocean-elite",
+  "https://www.reunionglobal.in/properties/ocean-manor",
+  "https://www.reunionglobal.in/properties/ocean-givaah",
+  "https://www.reunionglobal.in/properties/ocean-royal",
+  "https://www.reunionglobal.in/properties/ocean-hridayam",
+  "https://www.reunionglobal.in/properties/ocean-bliss",
+  "https://www.reunionglobal.in/properties/de-homes",
+  "https://www.reunionglobal.in/properties/marina-villa",
+  "https://www.reunionglobal.in/properties/charm-villa",
+  "https://www.reunionglobal.in/properties/aradhya-villa",
+  "https://www.reunionglobal.in/properties/arya",
+  "https://www.reunionglobal.in/properties/krshna",
+  "https://www.reunionglobal.in/properties/regal-villa",
+  "https://www.reunionglobal.in/properties/villa",
+  "https://www.reunionglobal.in/properties/reunion-serene",
+  "https://www.reunionglobal.in/dining",
+  "https://www.reunionglobal.in/events",
+  "https://www.reunionglobal.in/blogs/tourist-places-in-udupi",
+  "https://www.reunionglobal.in/blogs/top-10-beaches-to-visit-in-udupi",
+  "https://www.reunionglobal.in/blogs/hoode-uchila-beaches-udupi",
+  "https://www.reunionglobal.in/blogs/mattu-beach-udupi",
+  "https://www.reunionglobal.in/blogs/things-to-do-in-udupi",
+  "https://www.reunionglobal.in/blogs/best-restaurants-in-udupi",
+  "https://www.reunionglobal.in/blogs/2-day-udupi-itinerary",
+] as const;

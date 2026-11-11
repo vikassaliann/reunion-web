@@ -87,7 +87,9 @@ const config: Config = {
         "quote": ["Playfair Display"],
         "headline-md": ["Playfair Display"],
         "cinzel": ["Cinzel", "serif"],
-        "cormorant": ["Cormorant Garamond", "serif"]
+        "cormorant": ["Cormorant Garamond", "serif"],
+        "futura": ["Futura", "Jost", "Montserrat", "sans-serif"],
+        "raleway": ["Raleway", "sans-serif"]
       },
       fontSize: {
         "label-caps": ["12px", {"lineHeight": "1.0", "letterSpacing": "0.2em", "fontWeight": "600"}],
