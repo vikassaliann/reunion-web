@@ -14,7 +14,7 @@
     "dev": "NODE_OPTIONS='--max-old-space-size=4096' next dev",
     "build": "next build",
     "build:cf": "node scripts/strip-cf-oversized-assets.mjs && opennextjs-cloudflare build",
-    "deploy:cf": "wrangler deploy",
+    "deploy:cf": "OPEN_NEXT_DEPLOY=true wrangler deploy",
     "start": "next start",
     "lint": "eslint",
     "verify:seo": "node scripts/verify-seo-master.mjs",
