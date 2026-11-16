@@ -12,11 +12,12 @@
   "scripts": {
     "dev": "NODE_OPTIONS='--max-old-space-size=4096' next dev",
     "build": "next build",
+    "build:cf": "node scripts/strip-cf-oversized-assets.mjs && opennextjs-cloudflare build",
     "start": "next start",
     "lint": "eslint"
   },
   "dependencies": {
-    "next": "16.2.9",
+    "next": "16.4.6",
     "nodemailer": "^9.0.3",
     "react": "19.2.4",
     "react-dom": "19.2.4"
@@ -32,9 +33,11 @@
     "@types/react-dom": "^19",
     "autoprefixer": "^10.5.2",
     "eslint": "^9",
-    "eslint-config-next": "16.2.9",
+    "eslint-config-next": "16.4.6",
     "postcss": "^8.5.15",
     "tailwindcss": "^3.4.19",
-    "typescript": "^5"
+    "typescript": "^5",
+    "@opennextjs/cloudflare": "^1.20.17",
+    "wrangler": "^4.148.0"
   }
 }

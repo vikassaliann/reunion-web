@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import { initOpenNextCloudflareForDev } from "@opennextjs/cloudflare";
 
 const nextConfig: NextConfig = {
   images: {
@@ -6,7 +7,6 @@ const nextConfig: NextConfig = {
   },
   async redirects() {
     return [
-      // Google still indexes the old property URL — send everyone to /dining
       {
         source: "/properties/de-square",
         destination: "/properties/d-square",
@@ -51,7 +51,6 @@ const nextConfig: NextConfig = {
         value: "public, max-age=86400, stale-while-revalidate=604800",
       },
     ];
-    // /_next/static is cached by Next.js itself — do not override
     return [
       {
         source: "/properties/:path*",
@@ -86,3 +85,5 @@ const nextConfig: NextConfig = {
 };
 
 export default nextConfig;
+
+initOpenNextCloudflareForDev();
