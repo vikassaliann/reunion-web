@@ -7,12 +7,20 @@ import { EnquiryProvider } from '@/components/EnquiryContext'
 
 import GoldScrollShimmer from '@/components/GoldScrollShimmer'
 import { getKeywordSeo } from '@/data/keywordGuide'
+import {
+  REUNION_CONTACT_EMAIL,
+  REUNION_OFFICE_ADDRESS,
+  REUNION_PHONE_TEL,
+  REUNION_SOCIAL_SAME_AS,
+} from '@/data/factCheck'
 
-const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID
+const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID ?? 'GTM-WMZL2TTL'
 const GA_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID
 
 // Staging environment noindex protection (Item 17)
-const isProduction = process.env.NEXT_PUBLIC_VERCEL_ENV === 'production' || (!process.env.NEXT_PUBLIC_VERCEL_ENV && process.env.NEXT_PUBLIC_NOINDEX !== 'true');
+const isProduction =
+  process.env.NODE_ENV === 'production' &&
+  (process.env.NEXT_PUBLIC_NOINDEX !== 'true');
 
 const homeSeo = getKeywordSeo('/');
 const HOME_TITLE = homeSeo?.title ?? 'REUNION | Luxury Villas in Udupi & Beach Stays, Karnataka';
@@ -88,7 +96,8 @@ const organizationSchema = {
   url: 'https://www.reunionglobal.in',
   logo: 'https://www.reunionglobal.in/reunion-logo-black.png',
   description: HOME_DESCRIPTION,
-  telephone: '+91-99802-08289',
+  email: REUNION_CONTACT_EMAIL,
+  telephone: REUNION_PHONE_TEL,
   foundingDate: '2020',
   founder: {
     '@type': 'Person',
@@ -97,23 +106,34 @@ const organizationSchema = {
   },
   address: {
     '@type': 'PostalAddress',
-    streetAddress: 'REUNION Global — Udupi operations',
-    addressLocality: 'Udupi',
-    addressRegion: 'Karnataka',
-    postalCode: '576101',
-    addressCountry: 'IN',
+    streetAddress: REUNION_OFFICE_ADDRESS.streetAddress,
+    addressLocality: REUNION_OFFICE_ADDRESS.addressLocality,
+    addressRegion: REUNION_OFFICE_ADDRESS.addressRegion,
+    postalCode: REUNION_OFFICE_ADDRESS.postalCode,
+    addressCountry: REUNION_OFFICE_ADDRESS.addressCountry,
   },
   contactPoint: {
     '@type': 'ContactPoint',
-    telephone: '+91-99802-08289',
+    telephone: REUNION_PHONE_TEL,
+    email: REUNION_CONTACT_EMAIL,
     contactType: 'reservations',
     availableLanguage: ['English', 'Kannada', 'Hindi'],
   },
-  sameAs: [
-    'https://www.instagram.com/reunionteam19',
-    'https://www.youtube.com/@reunionteam19',
-    'https://www.facebook.com/share/1HEff1Dir3/',
-  ],
+  sameAs: [...REUNION_SOCIAL_SAME_AS],
+};
+
+const websiteSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: 'REUNION',
+  alternateName: 'Reunion Global',
+  url: 'https://www.reunionglobal.in',
+  publisher: {
+    '@type': 'Organization',
+    name: 'REUNION',
+    legalName: 'Reunion Global Private Ltd.',
+  },
+  inLanguage: 'en-IN',
 };
 
 export default function RootLayout({
@@ -126,27 +146,38 @@ export default function RootLayout({
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;400;500;600&family=Raleway:wght@300;400;500;600&family=Jost:wght@300;400;500;600&family=Cinzel:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-        {/* Preload home hero slideshow images */}
-        <link rel="preload" as="image" href="/properties/ocean-manor/herooo.png" />
-        <link rel="preload" as="image" href="/properties/ocean-royal/royalthumb.png" />
-        <link rel="preload" as="image" href="/properties/reunion-serene/hero.png" />
-        <link rel="preload" as="image" href="/properties/krshna/krthumb.png" />
-        <link rel="preload" as="image" href="/properties/charm-villa/charmthub.png" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;400;500;600&family=Raleway:wght@300;400;500;600&family=Jost:wght@300;400;500;600&family=Cinzel:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap"
+          rel="stylesheet"
+        />
         {/* Organization JSON-LD Schema */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
         />
-      </head>
-      <body className="relative bg-[#060606] text-white overflow-x-hidden">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
+        />
         {GTM_ID ? (
           <Script id="gtm" strategy="afterInteractive">{`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
 j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
 })(window,document,'script','dataLayer','${GTM_ID}');`}</Script>
+        ) : null}
+      </head>
+      <body className="relative bg-[#060606] text-white overflow-x-hidden">
+        {GTM_ID ? (
+          <noscript>
+            <iframe
+              src={`https://www.googletagmanager.com/ns.html?id=${GTM_ID}`}
+              height="0"
+              width="0"
+              style={{ display: 'none', visibility: 'hidden' }}
+              title="Google Tag Manager"
+            />
+          </noscript>
         ) : null}
         {GA_ID && !GTM_ID ? (
           <>

@@ -1,9 +1,19 @@
 import type { NextConfig } from "next";
 import { initOpenNextCloudflareForDev } from "@opennextjs/cloudflare";
+import imageRedirects from "./scripts/image-redirect-map.json";
+
+const fixFirstImageRedirects = (imageRedirects.renames ?? []).map(
+  ({ from, to }: { from: string; to: string }) => ({
+    source: from,
+    destination: to,
+    permanent: true as const,
+  })
+);
 
 const nextConfig: NextConfig = {
   images: {
     formats: ["image/avif", "image/webp"],
+    qualities: [100, 75],
   },
   async redirects() {
     return [
@@ -19,7 +29,7 @@ const nextConfig: NextConfig = {
       },
       {
         source: "/events/beach-venue",
-        destination: "/events",
+        destination: "/events#private-beach-venue",
         permanent: true,
       },
       {
@@ -33,15 +43,36 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       {
+        source: "/properties/experiances/:path*",
+        destination: "/properties/experiences/:path*",
+        permanent: true,
+      },
+      {
+        source: "/properties/ocean%20cafe/:path*",
+        destination: "/properties/ocean-cafe/:path*",
+        permanent: true,
+      },
+      {
+        source: "/properties/ocean cafe/:path*",
+        destination: "/properties/ocean-cafe/:path*",
+        permanent: true,
+      },
+      {
+        source: "/properties/ocean-cafe/cafevd.mp4",
+        destination: "/properties/ocean-cafe/oceancafe.mp4",
+        permanent: true,
+      },
+      {
         source: "/properties/ocean%20cafe/cafevd.mp4",
-        destination: "/properties/ocean%20cafe/oceancafe.mp4",
+        destination: "/properties/ocean-cafe/oceancafe.mp4",
         permanent: true,
       },
       {
         source: "/properties/ocean cafe/cafevd.mp4",
-        destination: "/properties/ocean%20cafe/oceancafe.mp4",
+        destination: "/properties/ocean-cafe/oceancafe.mp4",
         permanent: true,
       },
+      ...fixFirstImageRedirects,
     ];
   },
   async headers() {

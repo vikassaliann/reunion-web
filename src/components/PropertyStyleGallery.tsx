@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { altFor, galleryPhotoAlt } from "@/data/imageAlt";
 
 type PropertyStyleGalleryProps = {
   images: string[];
@@ -56,7 +57,7 @@ export default function PropertyStyleGallery({
         >
           <img
             src={images[0]}
-            alt={`${label} — photo 1`}
+            alt={altFor(images[0], galleryPhotoAlt(label, 0, images.length))}
             className="w-full h-full object-cover hover:scale-[1.02] transition-transform duration-700"
           />
         </button>
@@ -74,7 +75,7 @@ export default function PropertyStyleGallery({
               >
                 <img
                   src={src}
-                  alt={`${label} — photo ${i + 1}`}
+                  alt={altFor(src, galleryPhotoAlt(label, i, images.length))}
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
                 />
                 {i === 4 && extraPhotoCount > 0 && (
@@ -94,7 +95,10 @@ export default function PropertyStyleGallery({
             >
               <img
                 src={images[selectedImageIdx]}
-                alt={`${label} — photo ${selectedImageIdx + 1}`}
+                alt={altFor(
+                  images[selectedImageIdx],
+                  galleryPhotoAlt(label, selectedImageIdx, images.length)
+                )}
                 className="w-full h-full object-cover"
               />
             </button>
@@ -108,7 +112,11 @@ export default function PropertyStyleGallery({
                     selectedImageIdx === i ? "ring-[#C9A84C]" : "ring-transparent opacity-60"
                   }`}
                 >
-                  <img src={src} alt="" className="w-full h-full object-cover" />
+                  <img
+                    src={src}
+                    alt={altFor(src, galleryPhotoAlt(label, i, images.length))}
+                    className="w-full h-full object-cover"
+                  />
                 </button>
               ))}
             </div>
@@ -156,7 +164,10 @@ export default function PropertyStyleGallery({
             </button>
             <img
               src={images[selectedImageIdx]}
-              alt={`${label} — photo ${selectedImageIdx + 1}`}
+              alt={altFor(
+                images[selectedImageIdx],
+                galleryPhotoAlt(label, selectedImageIdx, images.length)
+              )}
               className="max-h-[min(75vh,900px)] max-w-full object-contain"
             />
             <button

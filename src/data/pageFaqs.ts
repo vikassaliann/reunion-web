@@ -1,55 +1,8 @@
+/** Answer-first FAQs from Reunion AEO/GEO Plan v2 (auto-generated — run scripts/write-aeo-faqs.mjs). */
 import type { FaqPair } from "@/lib/faqSchema";
-import { REUNION_OFFICE_ADDRESS } from "@/data/factCheck";
+import { REUNION_OFFICE_ADDRESS, REUNION_PHONE_DISPLAY } from "@/data/factCheck";
 
-export const DINING_FAQS: FaqPair[] = [
-  {
-    q: "What are Ocean Café's timings?",
-    a: "Ocean Café on Mattu Beach, Udupi is open daily from 9:30 AM to 10:00 PM.",
-  },
-  {
-    q: "Is Ocean Café on the beach?",
-    a: "Yes — Ocean Café sits directly on the Mattu Beach shoreline in Udupi.",
-  },
-  {
-    q: "Where is Ocean Café?",
-    a: "On Mattu Beach, Udupi — the same stretch as REUNION Ocean Hridayam and Ocean Waves.",
-  },
-  {
-    q: "Can we book a candlelight dinner at Ocean Café?",
-    a: "Yes — private candlelight dinners on Mattu Beach are arranged through REUNION. See Experiences → Candlelight Dinner or enquire when you reserve a table.",
-  },
-];
-
-export const EVENTS_FAQS: FaqPair[] = [
-  {
-    q: "What events does REUNION host on the coast?",
-    a: "Beach weddings, receptions, birthdays and private celebrations in Udupi, coordinated with Gutthu Weddings Planner.",
-  },
-  {
-    q: "Do you arrange decoration and catering?",
-    a: "Yes — Gutthu Weddings Planner coordinates décor and catering with REUNION for coastal weddings and events in Udupi.",
-  },
-  {
-    q: "Can wedding guests stay nearby?",
-    a: "Yes — REUNION beach and city villas across Mattu, Hoode, Kapu, Malpe and Udupi town host wedding parties.",
-  },
-];
-
-export const WELLNESS_FAQS: FaqPair[] = [
-  {
-    q: "What spa treatments are available?",
-    a: "Ayurveda therapies, spa treatments, beach yoga and meditation through Tapovana Life, Manipal.",
-  },
-  {
-    q: "Who provides wellness at REUNION?",
-    a: "Tapovana Life, Manipal — REUNION guests can add treatments to a Udupi stay.",
-  },
-  {
-    q: "Where is Tapovana Life?",
-    a: "Manipal, near Udupi — a short drive from REUNION beach and city stays.",
-  },
-];
-
+/** Visible on /contact only (not in AEO v2 page-FAQ table). */
 export const CONTACT_FAQS: FaqPair[] = [
   {
     q: "What are your reservation hours?",
@@ -65,248 +18,126 @@ export const CONTACT_FAQS: FaqPair[] = [
   },
 ];
 
-export const PROPERTIES_HUB_FAQS: FaqPair[] = [
-  {
-    q: "Which are the best villas in Udupi for families?",
-    a: "Beach options include Ocean Manor, Ocean Givaah and Ocean Royal; city options include Aradhya Villa and Marina Villa.",
-  },
-  {
-    q: "Do your Udupi villas have beach access?",
-    a: "Several REUNION beach villas at Hoode, Mattu, Uchila and Kapu offer direct or very close beach access.",
-  },
-  {
-    q: "Can a group of 10+ stay in one villa?",
-    a: "Yes — Aradhya Villa (up to 12), Ocean Royal (up to 15) and multi-unit Ocean Manor and Ocean Waves suit larger groups.",
-  },
+export const AEO_BOOKING_ANSWER = `Send your dates and group size through the enquiry form, call ${REUNION_PHONE_DISPLAY}, or message REUNION on WhatsApp. The Udupi team confirms availability and price.`;
+
+export const AEO_HOME_FAQS: FaqPair[] = [
+  { q: "Where can I stay in Udupi by the beach?", a: "REUNION has eight private beach villas in Udupi, on or near Mattu, Hoode, Kapu, Uchila and Malpe beaches. Ocean Waves and Ocean Hridayam sit right on Mattu Beach, and Ocean Elite has direct access to Hoode Beach. Every stay is private — no shared pools or corridors." },
+  { q: "What is REUNION in Udupi?", a: "REUNION is a hospitality management company in Udupi, Karnataka. It runs private beach villas, city homes near Sri Krishna Matha, boutique hotel suites, Reunion Ocean Café on Mattu Beach, and a beach venue for weddings and celebrations." },
+  { q: "Can I stay near Sri Krishna Matha?", a: "Yes. De Homes offers boutique suites near Sri Krishna Temple, and REUNION's city villas in Udupi — Marina, Charm, Regal, Reunion Villa, Aradhya and Arya — are a short drive from the temple." },
+  { q: "Does REUNION host beach weddings in Udupi?", a: "Yes. REUNION has a private beach venue in Udupi for weddings, engagements and birthday parties, planned with Gutthu Weddings Planner. Guests can also book REUNION villas nearby." },
+  { q: "How do I book a REUNION stay?", a: "Send your dates and group size through the enquiry form, call +91 99802 08289, or message REUNION on WhatsApp. The Udupi team confirms availability and price." },
 ];
 
-export const ABOUT_FAQS: FaqPair[] = [
-  {
-    q: "Who runs REUNION?",
-    a: "REUNION (Reunion Global Private Ltd.) is led by Mrs. Kshama Kadamba, Managing Director & CEO, founded in 2020 in Udupi.",
-  },
-  {
-    q: "How many properties does REUNION manage?",
-    a: "REUNION manages beach villas, city stays, hotel rooms, Ocean Café on Mattu Beach, D Square in Koteshwara, and Reunion Serene near Shivamogga.",
-  },
-  {
-    q: "Can I list my villa with REUNION?",
-    a: "Yes — property owners can partner with REUNION via the Partner With Us page.",
-  },
+export const AEO_PROPERTIES_CATEGORY_BEACH_VILLAS_FAQS: FaqPair[] = [
+  { q: "Which Reunion villas are right on the beach?", a: "Ocean Waves and Ocean Hridayam are beachfront on Mattu Beach, and Ocean Elite has direct beach access at Hoode. Ocean Royal is about 50 m from the sea at Kapu, Ocean Daaffy about 100 m from the sand, and Ocean Bliss about 800 m from Malpe Beach." },
+  { q: "Which beach villa is best for a large group?", a: "Ocean Manor and Ocean Waves are best for large groups because each has several separate units under one roof. Ocean Royal and Ocean Daaffy each have 3 bedrooms for big families." },
+  { q: "Is it safe to swim at Udupi beaches?", a: "Sea conditions on the Udupi coast change with the season, and the sea is rough in the monsoon, from June to September. Swim only where lifeguards and flags allow, and ask the REUNION team about conditions on the day." },
+  { q: "What is the best time for a beach stay in Udupi?", a: "October to March is the best time for a beach stay in Udupi, with calmer seas and pleasant weather. The monsoon, June to September, is greener and quieter but not for swimming." },
+  { q: "How do I book a beach villa in Udupi?", a: "Send your dates and group size through the enquiry form, call +91 99802 08289, or message REUNION on WhatsApp. The Udupi team confirms availability and price." },
 ];
 
-export const HOME_FAQS: FaqPair[] = [
-  {
-    q: "Where are REUNION villas located?",
-    a: "Beach villas at Hoode, Mattu, Uchila, Kapu and near Malpe; city villas and hotel rooms in Udupi and Manipal; Ocean Café on Mattu Beach; Reunion Serene near Shivamogga.",
-  },
-  {
-    q: "How far is Udupi from Bangalore?",
-    a: "Udupi is about 400 km from Bangalore — roughly 7–8 hours by road or an overnight train to Udupi station.",
-  },
-  {
-    q: "What does REUNION offer in Udupi?",
-    a: "Private beach and city stays, Ocean Café on Mattu Beach, candlelight dinners, beach birthdays, wellness with Tapovana Life, and coastal events.",
-  },
+export const AEO_PROPERTIES_CATEGORY_CITY_STAYS_FAQS: FaqPair[] = [
+  { q: "Is there a homestay near Udupi Krishna Temple?", a: "Yes. REUNION's city villas are private homestays in Udupi city, close to Sri Krishna Matha, with kitchens, AC bedrooms and parking at most homes. Marina, Charm, Regal and Reunion Villa suit families on temple visits." },
+  { q: "Which city villa suits a big family?", a: "Aradhya Villa suits big families: it is a multi-storey 4BHK with a bathtub suite, event terrace and large dining area. Marina, Charm and Reunion Villa each have 3 bedrooms." },
+  { q: "Where can I stay in Manipal for a hospital or university visit?", a: "Krshna is a modern 2-bedroom home in a quiet part of Manipal, with a full kitchen and fast Wi-Fi, suited to families visiting Manipal University or the hospital." },
+  { q: "Is a villa better than a hotel in Udupi?", a: "A villa gives a family or group a private home with a kitchen, living space and several bedrooms in one place. A hotel suits short solo or couple stays." },
 ];
 
-export const BEACH_VILLAS_CATEGORY_FAQS: FaqPair[] = [
-  {
-    q: "Which beach villa in Udupi is closest to the sea?",
-    a: "Ocean Waves and Ocean Hridayam are steps from Mattu Beach; Ocean Royal is about 50 m from Kapu Beach; Ocean Elite and Ocean Manor open onto Hoode Beach.",
-  },
-  {
-    q: "Do any villas have a private pool?",
-    a: "Ocean Givaah has a private 4 ft deep pool near Uchila Beach.",
-  },
-  {
-    q: "Which REUNION villas are on Mattu Beach?",
-    a: "Ocean Hridayam, Ocean Waves and Ocean Café share the Mattu Beach shoreline.",
-  },
+export const AEO_PROPERTIES_CATEGORY_HOTEL_STAYS_FAQS: FaqPair[] = [
+  { q: "Which REUNION hotel is near Sri Krishna Temple?", a: "De Homes is REUNION's boutique hotel near Sri Krishna Temple in Udupi, with a Presidential Suite, balcony rooms and executive rooms." },
+  { q: "Is there a REUNION hotel near Kundapura?", a: "Yes. D Square is a REUNION hotel and resort in Koteshwara, near Kundapura, for families and travellers on the Udupi–Kundapura coast." },
+  { q: "Should I book a hotel or a villa in Udupi?", a: "Book a hotel for a short stay or a couple; book a villa for a family or group that wants a kitchen and shared space. REUNION offers both." },
 ];
 
-export const CITY_STAYS_CATEGORY_FAQS: FaqPair[] = [
-  {
-    q: "Which stay is closest to Udupi Krishna Temple?",
-    a: "De Homes in Chitpady is about a 10-minute walk from Sri Krishna Matha.",
-  },
-  {
-    q: "Do you have stays in Manipal?",
-    a: "Yes — Krshna Residency is a 2BHK in Manipal, about 2 km from MAHE and 3 km from KMC Hospital.",
-  },
-  {
-    q: "Which city villas does REUNION operate in Udupi?",
-    a: "Aradhya Villa, Marina Villa, Charm Villa, Regal Villa, Arya studios, De Homes and related city stays.",
-  },
+export const AEO_PROPERTIES_CATEGORY_SHIVAMOGGA_STAYS_FAQS: FaqPair[] = [
+  { q: "Where is Reunion Serene?", a: "Reunion Serene is a private villa in the Malnad region near Shivamogga (Shimoga), Karnataka, about 7.7 km from the Shivamogga city centre." },
+  { q: "How many guests can stay at Reunion Serene?", a: "Reunion Serene has 4 separate bedrooms and accommodates up to 8 guests." },
+  { q: "Does Reunion Serene have a private pool?", a: "Yes. Reunion Serene has a private outdoor swimming pool, open year-round, along with a garden and terrace." },
+  { q: "How far is Jog Falls from Reunion Serene?", a: "Jog Falls is about 85 km from Reunion Serene, an easy day trip by car." },
+  { q: "How do I book Reunion Serene?", a: "Send your dates and group size through the enquiry form, call +91 99802 08289, or message REUNION on WhatsApp. The Udupi team confirms availability and price." },
 ];
 
-export const EXPERIENCES_HUB_FAQS: FaqPair[] = [
-  {
-    q: "Which experiences does REUNION offer in Udupi?",
-    a: "Candlelight dinner on Mattu Beach, beach birthdays, wellness with Tapovana Life, and coastal events with Gutthu Weddings.",
-  },
-  {
-    q: "Where is the candlelight dinner held?",
-    a: "On Mattu Beach, Udupi — private shoreline setups by REUNION.",
-  },
-  {
-    q: "Where is Ocean Café?",
-    a: "Beachfront on Mattu Beach, open daily 9:30 AM to 10:00 PM.",
-  },
+export const AEO_DINING_FAQS: FaqPair[] = [
+  { q: "Where is Reunion Ocean Café?", a: "Reunion Ocean Café is a beachfront café on Mattu Beach, Udupi, with sunset views, a fireplace lounge, fresh seafood and coffee." },
+  { q: "What are Reunion Ocean Café timings?", a: "Reunion Ocean Café is open daily from 9:30 AM to 10 PM." },
+  { q: "Can I book a candlelight dinner at Reunion Ocean Café?", a: "Yes. REUNION sets up private candlelight dinners on Mattu Beach, the same beach as the café, for anniversaries, proposals and birthdays." },
+  { q: "Is there parking at Reunion Ocean Café?", a: "There is roadside and beach parking near Mattu Beach — staff can guide you to the nearest spot when you arrive." },
 ];
 
-export const CANDLELIGHT_FAQS: FaqPair[] = [
-  {
-    q: "Where is the candlelight dinner held?",
-    a: "On Mattu Beach, Udupi — private shoreline setups by REUNION next to Ocean Café.",
-  },
-  {
-    q: "Is the dinner on the beach?",
-    a: "Yes — candlelight dinners are hosted on the sand at Mattu Beach.",
-  },
-  {
-    q: "How can I book a candlelight dinner?",
-    a: "Use the enquiry form on this page or WhatsApp +91 99722 31289 with your date and occasion.",
-  },
+export const AEO_EXPERIENCES_CANDLELIGHT_DINNER_FAQS: FaqPair[] = [
+  { q: "Where can I book a candle light dinner in Udupi?", a: "You can book a private candle light dinner on Mattu Beach, Udupi, with REUNION. The table is set on the sand with a candlelight canopy, ambient lighting and a coastal menu." },
+  { q: "Is the candle light dinner on the beach?", a: "Yes. The dinner is set up directly on Mattu Beach, so you eat with the sound of the sea and, in the early evening, the sunset." },
+  { q: "Can I plan a proposal or anniversary?", a: "Yes. REUNION offers proposal and anniversary setups with custom décor, a custom menu and personal service. Share your plan when you enquire." },
+  { q: "How much does a candle light dinner in Udupi cost?", a: "Packages vary by date, décor and menu — enquire for current pricing for two guests when you book." },
 ];
 
-export const BEACH_BIRTHDAY_FAQS: FaqPair[] = [
-  {
-    q: "Where are beach birthdays held?",
-    a: "On the Mattu Beach shoreline in Udupi.",
-  },
-  {
-    q: "How can I book a beach birthday?",
-    a: "Use the enquiry form on this page or WhatsApp +91 99722 31289 with your date and guest count.",
-  },
-  {
-    q: "What is nearby on Mattu Beach?",
-    a: "Ocean Café (9:30 AM–10:00 PM) and REUNION stays Ocean Hridayam and Ocean Waves on the same beach.",
-  },
+export const AEO_EXPERIENCES_BEACH_BIRTHDAY_FAQS: FaqPair[] = [
+  { q: "Where is the beach birthday setup?", a: "REUNION's beach birthday setups are on Mattu Beach, Udupi." },
+  { q: "What is included in a beach birthday setup?", a: "A REUNION beach birthday includes a decorated beachfront setup, dinner and cake, with music. Packages suit couples, families and groups." },
+  { q: "Can we bring our own cake?", a: "Yes — you may bring your own cake. REUNION can also help arrange cake and beach décor on request." },
+  { q: "How far ahead should we book?", a: "Book at least 3–5 days ahead so beach access, seating and décor can be confirmed." },
 ];
 
-export const BLOG_TOURIST_PLACES_FAQS: FaqPair[] = [
-  {
-    q: "What are the top tourist places in Udupi?",
-    a: "Sri Krishna Matha, Malpe Beach, Kapu lighthouse, Mattu Beach, Hoode and Uchila beaches, and day trips toward Karkala and Kundapura.",
-  },
-  {
-    q: "How many days are enough for Udupi?",
-    a: "Two days cover temples, Malpe and Kapu; a third day fits Mattu, Ocean Café or a Malpe–St. Mary's Island trip when boats run.",
-  },
-  {
-    q: "Where should I stay in Udupi?",
-    a: "Temple visits: De Homes or city villas. Mattu: Ocean Hridayam or Ocean Waves. Hoode: Ocean Elite or Ocean Manor. Kapu: Ocean Royal. Malpe: Ocean Bliss.",
-  },
+export const AEO_EVENTS_FAQS: FaqPair[] = [
+  { q: "Can I have a beach wedding in Udupi?", a: "Yes. REUNION hosts beach weddings and private celebrations in Udupi, planned end to end with Gutthu Weddings Planner, with REUNION villas nearby for guests." },
+  { q: "Who plans weddings at REUNION?", a: "Weddings at REUNION are planned with Gutthu Weddings Planner and Events Management." },
+  { q: "How many guests does the Udupi beach venue hold?", a: "Coastal weddings and events can range from intimate gatherings to 150+ guests depending on layout — share your guest count with Gutthu Weddings and REUNION for a site plan." },
+  { q: "What events can I host at the beach venue?", a: "REUNION's beach venue in Udupi hosts weddings, engagements, haldi, birthday parties and private celebrations." },
+  { q: "Can guests stay near the beach venue?", a: "Yes. REUNION's beach villas on Mattu Beach and nearby can house wedding guests close to the venue." },
 ];
 
-export const BLOG_TOP_BEACHES_FAQS: FaqPair[] = [
-  {
-    q: "Which beaches are near REUNION stays?",
-    a: "Mattu (Ocean Hridayam, Ocean Waves, Ocean Café), Hoode (Ocean Elite, Ocean Manor), Kapu (Ocean Royal), Uchila (Ocean Givaah), Malpe (Ocean Bliss).",
-  },
-  {
-    q: "Where is Malpe Beach?",
-    a: "North of Udupi town — harbour, Sea Walk and ferries toward St. Mary's Island when boats operate.",
-  },
-  {
-    q: "Where is Kapu Beach?",
-    a: "South of Udupi — known for the lighthouse and sunset views; Ocean Royal sits about 50 m from the shore.",
-  },
+export const AEO_WELLNESS_FAQS: FaqPair[] = [
+  { q: "Is there Ayurveda or spa in Udupi for guests?", a: "Yes. REUNION guests can add Ayurveda, beach yoga, spa, meditation, naturopathy and salon services with Tapovana Life, Manipal." },
+  { q: "Is the spa open to people not staying with REUNION?", a: "Wellness add-ons are arranged primarily for REUNION guests; selected Tapovana Life treatments may be booked by day visitors with advance notice — enquire before your visit." },
+  { q: "How do I add wellness to my stay?", a: "Choose your stay, share what you want from the visit, and REUNION arranges the sessions with Tapovana Life." },
 ];
 
-export const BLOG_MATTU_FAQS: FaqPair[] = [
-  {
-    q: "Where is Mattu Beach?",
-    a: "About 15–20 minutes south of Udupi town by car, along the coastal road toward Kaup.",
-  },
-  {
-    q: "What is on Mattu Beach from REUNION?",
-    a: "Ocean Café (9:30 AM–10:00 PM), Ocean Hridayam, Ocean Waves, and beach celebration experiences.",
-  },
-  {
-    q: "Where to stay near Mattu Beach?",
-    a: "Ocean Hridayam and Ocean Waves on the shoreline; Ocean Café on the same beach for meals.",
-  },
+export const AEO_PARTNER_WITH_US_FAQS: FaqPair[] = [
+  { q: "What does REUNION manage for property owners?", a: "REUNION manages villas, homestays and hotels in Udupi for owners — marketing, bookings, guest operations and revenue growth." },
+  { q: "How do I list my property with REUNION?", a: "Fill in the Partner With Us form or call +91 99802 08289. The team explains how the partnership works and reviews your property." },
 ];
 
-export const BLOG_BANGALORE_WEEKEND_FAQS: FaqPair[] = [
-  {
-    q: "How far is Udupi from Bangalore?",
-    a: "About 400 km — roughly 7–8 hours by NH48, overnight trains to Udupi station, or fly to Mangalore (~60 km to Udupi).",
-  },
-  {
-    q: "What is the nearest airport to Udupi?",
-    a: "Mangalore International Airport — about an hour's drive to Udupi town.",
-  },
-  {
-    q: "Where do REUNION guests stay on a weekend trip?",
-    a: "Beach villas on Mattu, Hoode, Kapu or Malpe, or city stays at De Homes and other Udupi villas.",
-  },
+export const AEO_BLOGS_TOURIST_PLACES_IN_UDUPI_FAQS: FaqPair[] = [
+  { q: "What are the top tourist places in Udupi?", a: "The top tourist places in Udupi are Sri Krishna Matha, Malpe Beach, St. Mary's Island, Kapu Beach and Lighthouse, Mattu Beach, and day trips to Kollur Mookambika Temple and Karkala." },
 ];
 
-export const BLOG_THINGS_TO_DO_FAQS: FaqPair[] = [
-  {
-    q: "What can I do in Udupi in one day?",
-    a: "Morning at Sri Krishna Matha, afternoon at Malpe or Kapu, sunset at Ocean Café on Mattu Beach.",
-  },
-  {
-    q: "Where is Sri Krishna Matha?",
-    a: "In Udupi town — De Homes in Chitpady is about a 10-minute walk away.",
-  },
-  {
-    q: "What is Udupi famous for?",
-    a: "Vegetarian temple cuisine and dosas, Sri Krishna Matha, and the Malpe–Mattu–Kapu coastline.",
-  },
+export const AEO_BLOGS_MATTU_BEACH_UDUPI_FAQS: FaqPair[] = [
+  { q: "How far is Mattu Beach from Udupi?", a: "Mattu Beach is about 10–12 km from Udupi town — roughly 20–30 minutes by car depending on traffic." },
+  { q: "Where can I stay on Mattu Beach?", a: "Ocean Waves and Ocean Hridayam by REUNION are beachfront stays on Mattu Beach, and Reunion Ocean Café is on the same beach." },
 ];
 
-export const BLOG_RESTAURANTS_FAQS: FaqPair[] = [
-  {
-    q: "What food is Udupi famous for?",
-    a: "Udupi vegetarian meals and dosas in town, plus coastal seafood along Mattu and Malpe.",
-  },
-  {
-    q: "Where to eat by the beach in Udupi?",
-    a: "Ocean Café on Mattu Beach — open 9:30 AM to 10:00 PM, beachfront seating.",
-  },
-  {
-    q: "Where is Ocean Café?",
-    a: "On Mattu Beach, Udupi — REUNION's beachfront café with coastal menu and sunset views.",
-  },
+export const AEO_BLOGS_MALPE_BEACH_UDUPI_FAQS: FaqPair[] = [
+  { q: "How do I reach St. Mary's Island from Malpe?", a: "Boats to St. Mary's Island leave from Malpe harbour when seas are calm — services are seasonal and often pause in the monsoon; check locally on the day for timings and fare." },
+  { q: "Where can I stay near Malpe Beach?", a: "Ocean Bliss by REUNION is a 2BHK villa about 800 m from Malpe Beach." },
 ];
 
-/** Authoritative FAQs shown on pages (overrides keywordGuide placeholders). */
+/** Only URLs listed in the AEO Answer-first FAQ table. */
 export const PAGE_FAQS_BY_PATH: Record<string, FaqPair[]> = {
-  "/": HOME_FAQS,
-  "/properties": PROPERTIES_HUB_FAQS,
-  "/properties/category/beach-villas": BEACH_VILLAS_CATEGORY_FAQS,
-  "/properties/category/city-stays": CITY_STAYS_CATEGORY_FAQS,
-  "/about": ABOUT_FAQS,
-  "/contact": CONTACT_FAQS,
-  "/dining": DINING_FAQS,
-  "/experiences": EXPERIENCES_HUB_FAQS,
-  "/experiences/candlelight-dinner": CANDLELIGHT_FAQS,
-  "/experiences/beach-birthday": BEACH_BIRTHDAY_FAQS,
-  "/events": EVENTS_FAQS,
-  "/wellness": WELLNESS_FAQS,
-  "/blogs/tourist-places-in-udupi": BLOG_TOURIST_PLACES_FAQS,
-  "/blogs/top-10-beaches-to-visit-in-udupi": BLOG_TOP_BEACHES_FAQS,
-  "/blogs/2-day-udupi-itinerary": [
-    {
-      q: "Is 2 days enough for Udupi?",
-      a: "Two days fit Sri Krishna Matha, Malpe or Kapu, and a Mattu evening at Ocean Café.",
-    },
-    {
-      q: "Where is De Homes?",
-      a: "Chitpady, Udupi — about a 10-minute walk from Sri Krishna Matha.",
-    },
-    {
-      q: "How far is Udupi from Bangalore?",
-      a: "About 400 km — roughly 7–8 hours by road or an overnight train to Udupi station.",
-    },
-  ],
-  "/blogs/mattu-beach-udupi": BLOG_MATTU_FAQS,
-  "/blogs/bangalore-to-udupi-weekend-trip": BLOG_BANGALORE_WEEKEND_FAQS,
-  "/blogs/things-to-do-in-udupi": BLOG_THINGS_TO_DO_FAQS,
-  "/blogs/best-restaurants-in-udupi": BLOG_RESTAURANTS_FAQS,
+  "/": AEO_HOME_FAQS,
+  "/properties/category/beach-villas": AEO_PROPERTIES_CATEGORY_BEACH_VILLAS_FAQS,
+  "/properties/category/city-stays": AEO_PROPERTIES_CATEGORY_CITY_STAYS_FAQS,
+  "/properties/category/hotel-stays": AEO_PROPERTIES_CATEGORY_HOTEL_STAYS_FAQS,
+  "/properties/category/shivamogga-stays": AEO_PROPERTIES_CATEGORY_SHIVAMOGGA_STAYS_FAQS,
+  "/dining": AEO_DINING_FAQS,
+  "/experiences/candlelight-dinner": AEO_EXPERIENCES_CANDLELIGHT_DINNER_FAQS,
+  "/experiences/beach-birthday": AEO_EXPERIENCES_BEACH_BIRTHDAY_FAQS,
+  "/events": AEO_EVENTS_FAQS,
+  "/wellness": AEO_WELLNESS_FAQS,
+  "/partner-with-us": AEO_PARTNER_WITH_US_FAQS,
+  "/blogs/tourist-places-in-udupi": AEO_BLOGS_TOURIST_PLACES_IN_UDUPI_FAQS,
+  "/blogs/mattu-beach-udupi": AEO_BLOGS_MATTU_BEACH_UDUPI_FAQS,
+  "/blogs/top-10-beaches-to-visit-in-udupi": [],
+  "/blogs/2-day-udupi-itinerary": [],
+  "/blogs/things-to-do-in-udupi": [],
+  "/blogs/best-restaurants-in-udupi": [],
+  "/blogs/bangalore-to-udupi-weekend-trip": [],
+  "/blogs/hoode-uchila-beaches-udupi": [],
+  "/about": [],
+  "/contact": [],
+  "/properties": [],
+  "/experiences": [],
+  "/blogs": [],
+  "/blogs/malpe-beach-udupi": AEO_BLOGS_MALPE_BEACH_UDUPI_FAQS,
 };
+
+export const PARTNER_FAQS = AEO_PARTNER_WITH_US_FAQS;

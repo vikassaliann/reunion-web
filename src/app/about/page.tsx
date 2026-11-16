@@ -9,6 +9,7 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import ExpandablePageFaq from "@/components/ExpandablePageFaq";
 import KeywordFaqJsonLd from "@/components/KeywordFaqJsonLd";
 import { getKeywordSeo } from "@/data/keywordGuide";
+import { altFor } from "@/data/imageAlt";
 
 const seo = getKeywordSeo("/about");
 
@@ -203,7 +204,7 @@ export default function AboutPage() {
             <img
               key={src}
               src={src}
-              alt=""
+              alt={altFor(src, "REUNION property in Udupi, Karnataka")}
               className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${
                 idx === currentSlide ? "opacity-100" : "opacity-0"
               }`}
@@ -253,7 +254,7 @@ export default function AboutPage() {
                         <div className="md:col-span-5 relative aspect-[4/5] w-full max-w-md mx-auto md:mx-0 overflow-hidden">
                           <Image
                             src={ceo.image}
-                            alt={ceo.name}
+                            alt={altFor(ceo.image, ceo.name)}
                             fill
                             className="object-cover object-top"
                             sizes="(max-width: 768px) 100vw, 40vw"
@@ -289,7 +290,7 @@ export default function AboutPage() {
                           <div className="relative w-full aspect-[4/5] overflow-hidden mb-4">
                             <Image
                               src={member.image}
-                              alt={member.name}
+                              alt={altFor(member.image, member.name)}
                               fill
                               className={`object-cover ${member.objectPosition || "object-center"}`}
                               sizes="(max-width: 768px) 50vw, 25vw"

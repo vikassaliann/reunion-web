@@ -39,7 +39,20 @@ export type BlogPost = {
   };
 };
 
-const beach = (name: string) => `/properties/beaches/${name}.png`;
+const BEACH_WEBP: Record<string, string> = {
+  malpe: "/properties/beaches/malpe-beach-udupi.webp",
+  mattu: "/properties/beaches/mattu-beach-udupi.webp",
+  hoode: "/properties/beaches/hoode-beach-udupi.webp",
+  stmarys: "/properties/beaches/st-marys-island-off-malpe-udupi.webp",
+  kapu: "/properties/beaches/kapu-beach-udupi.webp",
+  padubidri: "/properties/beaches/padubidri-blue-flag-beach-udupi.webp",
+  ucchila: "/properties/beaches/uchila-beach-udupi.webp",
+  maravante: "/properties/beaches/maravanthe-beach-udupi.webp",
+  delta: "/properties/beaches/delta-beach-udupi.webp",
+  hejamadi: "/properties/beaches/hejamadi-beach-udupi.webp",
+};
+const beach = (name: string) =>
+  BEACH_WEBP[name] ?? `/properties/beaches/${name}.png`;
 
 export const BLOG_POSTS: BlogPost[] = [
   {
@@ -63,7 +76,7 @@ export const BLOG_POSTS: BlogPost[] = [
           image: beach("malpe"),
           body: "About 6 km west of Udupi town, Malpe is the region’s lively coastal hub and one of the best beaches in Udupi for families. Expect a working fishing harbour, the Malpe Sea Walk, water sports (jet ski, parasailing, banana boat), and boats to St. Mary’s Island when seas are calm. Best for families, couples, and sunset strolls. How to reach: 15–20 minutes by auto or cab from Sri Krishna Matha. Safety: swim only in designated zones and watch harbour traffic. Best time: October–March for clearer skies and more reliable island ferries; monsoon (June–September) is dramatic but rough. Pair Malpe with a Udupi temple morning and Kapu lighthouse at golden hour for a full coastal day.",
           stayNearby: [
-            { label: "Ocean Bliss", href: "/properties/ocean-bliss" },
+            { label: "villa near Malpe Beach", href: "/properties/ocean-bliss" },
           ],
         },
         {
@@ -77,7 +90,7 @@ export const BLOG_POSTS: BlogPost[] = [
           image: beach("kapu"),
           body: "Famous for its historic lighthouse and wide shoreline, Kapu Beach is a photographer’s favourite among beaches in Udupi — especially at golden hour. Climb the lighthouse when open for panoramic Arabian Sea views, then linger on the quieter sands below. How to reach: about 15–20 minutes south of Udupi town by road. Safety: tides can be strong; stay aware of currents near rocky patches. Best time: October–March for sunset photography; monsoon evenings are lush but windy. Kapu pairs well with Padubidri Blue Flag Beach further south on the same coastal drive.",
           stayNearby: [
-            { label: "Ocean Royal Beach House", href: "/properties/ocean-royal" },
+            { label: "heritage beach house at Kapu", href: "/properties/ocean-royal" },
           ],
         },
         {
@@ -131,22 +144,6 @@ export const BLOG_POSTS: BlogPost[] = [
           image: beach("maravante"),
           body: "A short scenic drive north towards Kundapura, Maravanthe is famous for the NH66 stretch where the Arabian Sea sits on one side and the Souparnika River on the other. Worth a half-day detour for one of the coast’s most dramatic road views. Stay nearby: REUNION beach or city villas as a base for the northern coastal day trip. Local tip from the REUNION team: carry cash for parking and snacks, start beach time after 4 PM in peak heat, and book candle light dinner or Ocean Café tables on weekends in advance. Families with kids often prefer Mattu and Kapu; groups wanting a pool choose Uchila’s Ocean Givaah after a Kapu lighthouse sunset.",
         },
-        {
-          heading: "Best time to visit Udupi beaches & FAQs",
-          body: "Best time to visit Udupi beaches is October through March — pleasant evenings, clearer sunsets, and more reliable Malpe boats to St. Mary’s Island. June–September is monsoon: lush and dramatic, but rough seas and limited island crossings. Is it safe to swim? Conditions vary by beach and season — Malpe has busier zones; Mattu and Kapu feel calmer but still need local advice. Which beach is best for families? Mattu and Kapu for quieter sand; Malpe for water sports. Where should I stay? Use the Stay nearby links under each beach for REUNION villas on that shore. For temple days, combine with city villas or De Homes near Sri Krishna Matha.",
-          stayNearby: [
-            { label: "villas in Udupi", href: "/properties" },
-            { label: "Mattu Beach guide", href: "/blogs/mattu-beach-udupi" },
-          ],
-        },
-        {
-          heading: "How to plan a beach day from a REUNION villa",
-          body: "Wake at a REUNION stay, finish breakfast, and drive to one primary beach rather than three. Morning temple + Malpe works; Kapu is best late afternoon; Mattu suits sunset dining at Ocean Café; Hoode and Uchila reward guests who want quiet sand close to their villa gate. Carry sunscreen, water, and modest clothes if you will stop at temples the same day. Photographers should reach Kapu 45 minutes before sunset. Groups of 8+ should pre-book multi-unit stays such as Ocean Manor or Ocean Waves. For celebrations, add beach birthday or candle light dinner packages through REUNION. This structure keeps beaches in Udupi enjoyable instead of a rushed checklist — and every Stay nearby link above routes you to a bookable page.",
-          stayNearby: [
-            { label: "beach villas in Udupi", href: "/properties/category/beach-villas" },
-            { label: "candle light dinner in Udupi", href: "/experiences/candlelight-dinner" },
-          ],
-        },
 ],
       closing:
         "Base yourself at a Reunion villa near Malpe, Mattu, Hoode, or Kapu and you’ll have several of these shores within easy reach. Pair beach mornings with Udupi temple culture and coastal cuisine for a complete coastal Karnataka escape. Best time to visit Udupi’s beaches is October–March; always confirm St. Mary’s Island boats on the day. For Hoode and Uchila detail, see our Hoode & Uchila Beaches guide. Next: tourist places in Udupi, or enquire for a beach villa stay.",
@@ -162,7 +159,7 @@ export const BLOG_POSTS: BlogPost[] = [
     readTime: "6 min read",
     author: "REUNION Team, Udupi",
     date: "October 2025",
-    coverImage: "/blogs/itinerary/sri-krishna-matha.jpg",
+    coverImage: "/blogs/itinerary/sri-krishna-matha-udupi.webp",
     content: {
       intro:
         "This 2-day Udupi itinerary covers temples, beaches and coastal food — plus the best time to visit Udupi and where to stay.",
@@ -170,7 +167,7 @@ export const BLOG_POSTS: BlogPost[] = [
         {
           heading: "Day 1 — Sri Krishna Matha & Malpe",
           images: [
-            "/blogs/itinerary/sri-krishna-matha.jpg",
+            "/blogs/itinerary/sri-krishna-matha-udupi.webp",
             beach("malpe"),
           ],
           imageCaptions: ["Sri Krishna Matha, Udupi", "Malpe Beach"],
@@ -184,9 +181,9 @@ export const BLOG_POSTS: BlogPost[] = [
         {
           heading: "Day 2 — Udupi Sights, Kapu Sunset & Food",
           images: [
-            "/blogs/itinerary/hasta-shilpa.jpg",
+            "/blogs/itinerary/hasta-shilpa-heritage-village-manipal.webp",
             beach("kapu"),
-            "/blogs/itinerary/udupi-food.jpg",
+            "/blogs/itinerary/udupi-vegetarian-cuisine.webp",
           ],
           imageCaptions: [
             "Hasta Shilpa Heritage Village",
@@ -219,9 +216,9 @@ export const BLOG_POSTS: BlogPost[] = [
         {
           heading: "Tips — Best season & coastal festivals",
           images: [
-            "/properties/experiances/exp2.png",
-            "/properties/experiances/exp3.png",
-            "/properties/experiances/exp4.png",
+            "/properties/experiences/reunion-experience-udupi-2.webp",
+            "/properties/experiences/reunion-experience-udupi-3.webp",
+            "/properties/experiences/reunion-experience-udupi-4.webp",
           ],
           imageCaptions: [
             "Pilivesha — Navaratri / Dasara (Sep–Oct)",
@@ -245,7 +242,7 @@ export const BLOG_POSTS: BlogPost[] = [
     readTime: "14 min read",
     author: "REUNION Team, Udupi",
     date: "October 2025",
-    coverImage: "/blogs/tourist-places-hero.jpg",
+    coverImage: "/blogs/tourist-places-in-udupi-1.webp",
     content: {
       intro:
         "These are the best tourist places in Udupi — temples, beaches and day trips we share with every REUNION guest. Whether you are searching for places to visit in Udupi over a weekend from Bangalore or a slower temple-and-beach holiday, use the routes below with map links, typical timings, and where to stay nearby with REUNION. Peak season is October–March; allow extra time in monsoon for rough seas and ferry pauses to St. Mary’s Island.",
@@ -496,7 +493,8 @@ export const BLOG_POSTS: BlogPost[] = [
           heading: "Where to eat — Ocean Café on Mattu Beach",
           body: "Ocean Café by REUNION is the beachfront café on Mattu Beach — seafood, coffee, fireplace lounge seating, and sunset views. Open daily about 9:30 AM–10 PM. Ask for coastal specials and reserve for larger groups. Stay guests at Ocean Hridayam and Ocean Waves can walk over as “dine next door” without a long transfer. For classic vegetarian thalis, keep one meal in Udupi town; use Mattu for the coastal night.",
           stayNearby: [
-            { label: "Ocean Café", href: "/dining" },
+            { label: "Reunion Ocean Café on Mattu Beach", href: "/dining" },
+            { label: "candlelight dinner on Mattu Beach", href: "/experiences/candlelight-dinner" },
             { label: "best restaurants in Udupi", href: "/blogs/best-restaurants-in-udupi" },
           ],
         },
@@ -718,8 +716,8 @@ export const BLOG_POSTS: BlogPost[] = [
           image: beach("hoode"),
           body: "Hoode Beach, Udupi sits north of Malpe with open Arabian Sea views and fewer crowds than the harbour. Locals also say Padutonse for the same stretch — for search and guest clarity we use Hoode Beach, Udupi. Direct lawn-to-sand access makes it ideal for families who want a private coastal feel. How to reach: 20–30 minutes from Udupi town by cab. Best time: October–March. Pair Hoode with Malpe or a temple morning in town. Driving times vary with NH66 traffic; leave a buffer if you have evening Ocean Café plans at Mattu. For photos and rock-bed access notes, ask the REUNION host at Ocean Elite or Ocean Manor on arrival. Local tip from the REUNION team: carry cash for parking and snacks, start beach time after 4 PM in peak heat, and book candle light dinner or Ocean Café tables on weekends in advance. Families with kids often prefer Mattu and Kapu; groups wanting a pool choose Uchila’s Ocean Givaah after a Kapu lighthouse sunset.",
           stayNearby: [
-            { label: "Ocean Elite", href: "/properties/ocean-elite" },
-            { label: "Ocean Manor", href: "/properties/ocean-manor" },
+            { label: "beach villa at Hoode Beach", href: "/properties/ocean-elite" },
+            { label: "beachfront villa for groups at Hoode", href: "/properties/ocean-manor" },
           ],
         },
         {
@@ -728,8 +726,8 @@ export const BLOG_POSTS: BlogPost[] = [
           image: beach("ucchila"),
           body: "Uchila Beach, Udupi is a village shoreline south of Kapu routes — calmer waters, fishing life, and easy day trips toward Padubidri Blue Flag Beach. How to reach: about 25–35 minutes from Udupi city. Best time: October–March. Guests who want a private pool should look at Ocean Givaah (~200 m from the sand); Ocean Daaffy Beach House sits about 100 m from a quiet beach. Uchila works well as a base for Kapu lighthouse sunsets and Padubidri Blue Flag Beach without returning to Udupi town each night. Local tip from the REUNION team: carry cash for parking and snacks, start beach time after 4 PM in peak heat, and book candle light dinner or Ocean Café tables on weekends in advance. Families with kids often prefer Mattu and Kapu; groups wanting a pool choose Uchila’s Ocean Givaah after a Kapu lighthouse sunset.",
           stayNearby: [
-            { label: "Ocean Givaah", href: "/properties/ocean-givaah" },
-            { label: "Ocean Daaffy Beach House", href: "/properties/ocean-daaffy" },
+            { label: "pool villa near Uchila Beach", href: "/properties/ocean-givaah" },
+            { label: "beach house at Uchila", href: "/properties/ocean-daaffy" },
           ],
         },
         {

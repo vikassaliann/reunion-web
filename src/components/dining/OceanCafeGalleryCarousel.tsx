@@ -57,7 +57,7 @@ export default function OceanCafeGalleryCarousel({
           >
             <img
               src={slides[prevIdx].image}
-              alt=""
+              alt={`Reunion Ocean Café — ${slides[prevIdx].title}`}
               className="w-full h-full object-cover grayscale-[20%]"
             />
           </button>
@@ -95,7 +95,7 @@ export default function OceanCafeGalleryCarousel({
           >
             <img
               src={slides[nextIdx].image}
-              alt=""
+              alt={`Reunion Ocean Café — ${slides[nextIdx].title}`}
               className="w-full h-full object-cover grayscale-[20%]"
             />
           </button>

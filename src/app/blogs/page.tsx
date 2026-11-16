@@ -57,7 +57,7 @@ export default function BlogsPage() {
             <>
               <img
                 src={featured.coverImage}
-                alt=""
+                alt={featured.title ? `${featured.title} — Reunion Journal` : "Reunion Journal travel guides for Udupi"}
                 className="absolute inset-0 w-full h-full object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#080808] via-[#080808]/55 to-[#080808]/35" />

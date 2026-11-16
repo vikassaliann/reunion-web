@@ -10,10 +10,12 @@ import { MandalaRing, MandalaLotus } from "@/components/wellness/WellnessMandala
 import ExpandablePageFaq from "@/components/ExpandablePageFaq";
 import KeywordFaqJsonLd from "@/components/KeywordFaqJsonLd";
 import { getKeywordSeo } from "@/data/keywordGuide";
+import { altFor } from "@/data/imageAlt";
+import ExperienceFormGoldBorder from "@/components/experiences/ExperienceFormGoldBorder";
 
 const seo = getKeywordSeo("/experiences/candlelight-dinner");
 
-const cd = (n: number) => `/properties/experiances/candlelight/cd${n}.jpeg`;
+const cd = (n: number) => `/properties/experiences/candlelight/cd${n}.jpeg`;
 
 /** Hero: original still + evening ambience (label 05) only. */
 const HERO_SLIDES = [cd(3), cd(5)];
@@ -57,6 +59,11 @@ const MOMENTS = [
   },
 ];
 
+const INTRO_VIDEOS = [
+  { src: "/properties/experiences/exp16vid.mp4", label: "Evening on the shore" },
+  { src: "/properties/experiences/candlelight/bdy/beachsidevid.mp4", label: "Beachside ambience" },
+] as const;
+
 const NOTES = [
   { n: "01", t: "Private Setup", d: "Secluded spot on Mattu Beach, Udupi" },
   { n: "02", t: "Custom Menu", d: "Multi-course meals & fresh coastal catches" },
@@ -66,7 +73,9 @@ const NOTES = [
 
 export default function CandlelightDinnerPage() {
   const formRef = useRef<HTMLDivElement>(null);
+  const introVideoRef = useRef<HTMLVideoElement>(null);
   const [heroSlide, setHeroSlide] = useState(0);
+  const [introReel, setIntroReel] = useState(0);
 
   useEffect(() => {
     const t = setInterval(
@@ -76,9 +85,20 @@ export default function CandlelightDinnerPage() {
     return () => clearInterval(t);
   }, []);
 
+  useEffect(() => {
+    const v = introVideoRef.current;
+    if (!v) return;
+    v.load();
+    void v.play().catch(() => {});
+  }, [introReel]);
+
   const scrollToBook = () => {
     formRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
+
+  const reelCount = INTRO_VIDEOS.length;
+  const goReelPrev = () => setIntroReel((i) => (i - 1 + reelCount) % reelCount);
+  const goReelNext = () => setIntroReel((i) => (i + 1) % reelCount);
 
   return (
     <div className="bg-[#080808] text-white antialiased min-h-screen overflow-x-hidden">
@@ -92,8 +112,7 @@ export default function CandlelightDinnerPage() {
             <img
               key={src}
               src={src}
-              alt=""
-              role="presentation"
+              alt={altFor(src, "Candlelight dinner on the beach at REUNION, Udupi")}
               className="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ease-in-out"
               style={{ opacity: heroSlide === idx ? 1 : 0 }}
             />
@@ -152,15 +171,47 @@ export default function CandlelightDinnerPage() {
             </p>
           </div>
           <div className="lg:col-span-6 flex justify-center">
-            <div className="relative w-full max-w-[280px] sm:max-w-[320px] aspect-[9/16] overflow-hidden">
-              <video
-                src="/properties/experiances/exp16vid.mp4"
-                autoPlay
-                muted
-                loop
-                playsInline
-                className="w-full h-full object-cover"
-              />
+            <div className="w-full max-w-[280px] sm:max-w-[320px] space-y-4">
+              <div className="relative aspect-[9/16] overflow-hidden ring-1 ring-white/10">
+                <video
+                  ref={introVideoRef}
+                  key={INTRO_VIDEOS[introReel].src}
+                  src={INTRO_VIDEOS[introReel].src}
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  className="w-full h-full object-cover"
+                  aria-label={INTRO_VIDEOS[introReel].label}
+                />
+              </div>
+              <div
+                className="flex items-center justify-between gap-3 px-1"
+                aria-label="Switch between candlelight videos"
+              >
+                <button
+                  type="button"
+                  onClick={goReelPrev}
+                  className="flex h-10 w-10 shrink-0 items-center justify-center text-2xl font-light text-white/35 transition-colors hover:text-[#C9A84C]"
+                  aria-label="Previous video"
+                >
+                  ‹
+                </button>
+                <p className="font-futura text-[10px] tracking-wide text-[#C9A84C] text-center min-w-0">
+                  {INTRO_VIDEOS[introReel].label}
+                  <span className="block text-white/35 mt-0.5">
+                    {introReel + 1} / {reelCount}
+                  </span>
+                </p>
+                <button
+                  type="button"
+                  onClick={goReelNext}
+                  className="flex h-10 w-10 shrink-0 items-center justify-center text-2xl font-light text-white/35 transition-colors hover:text-[#C9A84C]"
+                  aria-label="Next video"
+                >
+                  ›
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -260,19 +311,21 @@ export default function CandlelightDinnerPage() {
               Book your candle light dinner in Udupi
             </h2>
             <p className="font-futura text-xs text-white/40 font-light tracking-wide max-w-sm mx-auto">
-              Tell us your date and occasion — we&apos;ll confirm your private candlelight dinner in Udupi. For larger celebrations, see{" "}
-              <Link href="/events" className="text-[#C9A84C] hover:underline">
-                Events &amp; Weddings
+              Tell us your date and occasion — we&apos;ll confirm your private candlelight dinner in Udupi. To{" "}
+              <Link href="/events#private-beach-venue" className="text-[#C9A84C] hover:underline">
+                book the full beach venue
               </Link>
-              .
+              , see Events &amp; Weddings.
             </p>
           </div>
-          <ContactForm
-            defaultPreference="Candlelight Dinner — Reunion Ocean Café"
-            whatsappNumber="919972231289"
-            instagramHandle="@reunionteam19"
-            dateOnly
-          />
+          <ExperienceFormGoldBorder>
+            <ContactForm
+              defaultPreference="Candlelight Dinner — Reunion Ocean Café"
+              whatsappNumber="919972231289"
+              instagramHandle="@reunionteam19"
+              dateOnly
+            />
+          </ExperienceFormGoldBorder>
         </div>
       </section>
 

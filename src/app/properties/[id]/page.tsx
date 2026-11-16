@@ -2,12 +2,14 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import properties from "@/data/properties.json";
 import { notFound } from "next/navigation";
-import PropertyDetailSection, { PROPERTY_FAQS } from "@/components/PropertyDetailSection";
+import PropertyDetailSection from "@/components/PropertyDetailSection";
+import { PROPERTY_FAQS } from "@/data/propertyFaqs";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import SeoPageH1 from "@/components/SeoPageH1";
 import type { Metadata } from "next";
 import { PROPERTY_SEO } from "@/data/propertySeo";
 import { getPropertyKeywordSeo } from "@/data/keywordGuide";
+import { maxGuestsForProperty } from "@/lib/propertyOccupancy";
 
 const BASE_URL = "https://www.reunionglobal.in";
 
@@ -181,6 +183,11 @@ function getPropertySchema(property: typeof properties[0]) {
 
   const bedroomsCount = property.bedrooms || 1;
   const bathroomsCount = property.bedrooms || 1;
+  const maxGuests = maxGuestsForProperty(property.id, bedroomsCount);
+  const streetAddress =
+    property.id === "de-homes"
+      ? "2nd Floor, UB Square, Court Road, Kadekoppala, Chitpady"
+      : `${property.name}, ${property.location}`;
 
   const amenitiesList = property.amenities.map((amenity) => ({
     '@type': 'LocationFeatureSpecification',
@@ -191,7 +198,9 @@ function getPropertySchema(property: typeof properties[0]) {
   return {
     '@context': 'https://schema.org',
     '@type': 'LodgingBusiness',
-    ...(isHotel ? { additionalType: 'https://schema.org/Hotel' } : {}),
+    additionalType: isHotel
+      ? 'https://schema.org/Hotel'
+      : 'https://schema.org/VacationRental',
     identifier: `reunion-${property.id}`,
     name: propertyTitle,
     description: propertyDescription,
@@ -201,7 +210,7 @@ function getPropertySchema(property: typeof properties[0]) {
     image: allImages,
     address: {
       '@type': 'PostalAddress',
-      streetAddress: `${property.name}, ${property.location}`,
+      streetAddress,
       addressLocality: property.location.split(',')[0]?.trim() || 'Udupi',
       addressRegion: 'Karnataka',
       postalCode: '576101',
@@ -226,7 +235,8 @@ function getPropertySchema(property: typeof properties[0]) {
       },
       occupancy: {
         '@type': 'QuantitativeValue',
-        value: bedroomsCount * 2,
+        value: maxGuests,
+        unitText: 'guests',
       },
       amenityFeature: amenitiesList,
     },
@@ -267,8 +277,8 @@ function getVideoSchema(property: typeof properties[0]) {
 
 // FAQPage JSON-LD schema builder
 function getFaqSchema(propertyId: string) {
-  const faqs = getPropertyKeywordSeo(propertyId)?.faqs;
-  if (!faqs || faqs.length === 0) return null;
+  const faqs = PROPERTY_FAQS[propertyId]?.filter((f) => f.a && f.q);
+  if (!faqs?.length) return null;
 
   return {
     '@context': 'https://schema.org',

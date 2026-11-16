@@ -2,6 +2,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import type { Metadata } from "next";
+import { altFor } from "@/data/imageAlt";
 
 export const metadata: Metadata = {
   title: "REUNION — Explore Udupi | Discover Coastal Karnataka",
@@ -14,56 +15,56 @@ const DESTINATIONS = [
     tagline: "The Untouched Shore",
     desc: "A pristine, lesser-known beach where the Sita River meets the Arabian Sea. Home to the rare Mattu Gulla brinjal farming community, this peaceful shore offers golden sands, gentle waves, and spectacular sunsets without the crowds.",
     distance: "Adjacent to our properties",
-    image: "/properties/ocean cafe/ocean4.png",
+    image: "/properties/ocean-cafe/reunion-ocean-cafe-photo-mattu-beach-udupi-8.webp",
   },
   {
     name: "Malpe Beach",
     tagline: "Golden Sands & Islands",
     desc: "One of the most popular beaches on Karnataka's coast. Malpe is the gateway to St. Mary's Island, offering water sports, local seafood stalls, and long stretches of golden sand perfect for evening walks and family outings.",
     distance: "8 km from Udupi city",
-    image: "/properties/ocean-elite/thumbelite.png",
+    image: "/properties/ocean-elite/reunion-ocean-elite-hoode-beach-udupi.webp",
   },
   {
     name: "St. Mary's Island",
     tagline: "Volcanic Rock Wonder",
     desc: "A protected geological monument featuring stunning hexagonal basalt rock columns formed by volcanic activity 88 million years ago. Accessible by ferry from Malpe, this pristine island offers crystal-clear waters and unique geological formations.",
     distance: "Ferry from Malpe Beach",
-    image: "/properties/ocean-givaah/givaahthumb.png",
+    image: "/properties/ocean-givaah/reunion-ocean-givaah-uchila-udupi.webp",
   },
   {
     name: "Sri Krishna Matha",
     tagline: "Sacred Heritage Temple",
     desc: "The spiritual heart of Udupi — an 800-year-old temple founded by Sri Madhvacharya. Famous for its unique Kanakana Kindi window through which devotees view the deity, and the legendary Udupi cuisine that originated here.",
     distance: "Udupi city centre",
-    image: "/properties/de-homes/dehomesthumb.png",
+    image: "/properties/de-homes/reunion-de-homes-udupi.webp",
   },
   {
     name: "Kapu Lighthouse",
     tagline: "Scenic Coastal Landmark",
     desc: "A 100-year-old lighthouse perched on rocky cliffs offering panoramic views of the Arabian Sea coastline. Climb to the top for breathtaking vistas, or explore the dramatic beach below with its natural rock formations.",
     distance: "12 km from Udupi",
-    image: "/properties/ocean-royal/royalthumb.png",
+    image: "/properties/ocean-royal/reunion-ocean-royal-kapu-udupi.webp",
   },
   {
     name: "Delta Beach",
     tagline: "Where River Meets Sea",
     desc: "A serene beach at the confluence of the Swarna River and the Arabian Sea. Known for its calm backwaters perfect for kayaking, bird watching, and experiencing the raw, untouched beauty of coastal Karnataka.",
     distance: "15 km from Udupi",
-    image: "/properties/ocean-manor/herooo.png",
+    image: "/properties/ocean-manor/reunion-ocean-manor-hoode-beach-udupi.webp",
   },
   {
     name: "Manipal",
     tagline: "The University Town",
     desc: "A vibrant hillside town known for its world-class universities, diverse food scene, street art, and youthful energy. Home to Tapovana Life — our wellness partner — and a thriving café culture.",
     distance: "5 km from Udupi",
-    image: "/properties/krshna/krthumb.png",
+    image: "/properties/krshna/reunion-krshna-manipal-udupi.webp",
   },
   {
     name: "Padubidri End Point",
     tagline: "The Endless Shore",
     desc: "A beautiful stretch of coastline south of Udupi, known for its dramatic rock formations, tidal pools, and stunning views. A perfect spot for photography and peaceful contemplation.",
     distance: "20 km from Udupi",
-    image: "/properties/ocean-waves/wavest.png",
+    image: "/properties/ocean-waves/reunion-ocean-waves-mattu-beach-udupi.webp",
   },
 ];
 
@@ -75,10 +76,10 @@ export default function ExploreUdupiPage() {
       <section className="relative pt-40 pb-32 bg-[#060606] min-h-screen px-4 md:px-10 overflow-hidden">
         {/* Hero Background */}
         <div className="absolute top-0 left-0 right-0 h-[55vh] z-0 flex pointer-events-none">
-          <img src="/properties/ocean cafe/ocean4.png" className="w-1/4 h-full object-cover grayscale brightness-50" alt="" />
-          <img src="/properties/ocean-elite/thumbelite.png" className="w-1/4 h-full object-cover grayscale brightness-50" alt="" />
-          <img src="/properties/ocean-royal/royalthumb.png" className="w-1/4 h-full object-cover grayscale brightness-50" alt="" />
-          <img src="/properties/de-homes/dehomesthumb.png" className="w-1/4 h-full object-cover grayscale brightness-50" alt="" />
+          <img src="/properties/ocean-cafe/reunion-ocean-cafe-photo-mattu-beach-udupi-8.webp" className="w-1/4 h-full object-cover grayscale brightness-50" alt={altFor("/properties/ocean-cafe/reunion-ocean-cafe-photo-mattu-beach-udupi-8.webp", "Explore Udupi coast — Ocean Café")} />
+          <img src="/properties/ocean-elite/reunion-ocean-elite-hoode-beach-udupi.webp" className="w-1/4 h-full object-cover grayscale brightness-50" alt={altFor("/properties/ocean-elite/reunion-ocean-elite-hoode-beach-udupi.webp", "Explore Udupi — REUNION Ocean Elite")} />
+          <img src="/properties/ocean-royal/reunion-ocean-royal-kapu-udupi.webp" className="w-1/4 h-full object-cover grayscale brightness-50" alt={altFor("/properties/ocean-royal/reunion-ocean-royal-kapu-udupi.webp", "Explore Udupi — REUNION Ocean Royal")} />
+          <img src="/properties/de-homes/reunion-de-homes-udupi.webp" className="w-1/4 h-full object-cover grayscale brightness-50" alt={altFor("/properties/de-homes/reunion-de-homes-udupi.webp", "Explore Udupi city stays — REUNION De Homes")} />
         </div>
         <div className="absolute top-0 left-0 right-0 h-[55vh] z-[1] pointer-events-none bg-gradient-to-b from-[#060606]/30 via-[#060606]/60 to-[#060606]" />
 

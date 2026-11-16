@@ -6,9 +6,11 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import type { Metadata } from "next";
 import FilterDropdown from "@/components/FilterDropdown";
 import ExpandablePageFaq from "@/components/ExpandablePageFaq";
+import KeywordSeoSections from "@/components/KeywordSeoSections";
+import { SHOW_KEYWORD_GUIDE_SECTIONS } from "@/data/siteFlags";
 import KeywordFaqJsonLd from "@/components/KeywordFaqJsonLd";
 import { getKeywordSeo } from "@/data/keywordGuide";
-import { propertyCardAlt } from "@/data/imageAlt";
+import { altFor, heroImageAlt } from "@/data/imageAlt";
 const BASE_URL = "https://www.reunionglobal.in";
 const keywordSeo = getKeywordSeo("/properties");
 
@@ -75,9 +77,9 @@ export default function PropertiesPage() {
         {/* Ocean Royal Hero Background */}
         <div className="absolute top-0 left-0 right-0 h-[80vh] z-0 pointer-events-none">
           <img 
-            src="/properties/ocean-royal/royalthumb.png" 
+            src="/properties/ocean-royal/reunion-ocean-royal-kapu-udupi.webp" 
             className="w-full h-full object-cover brightness-[0.62] grayscale-[10%]" 
-            alt="Ocean Royal" 
+            alt={altFor("/properties/ocean-royal/reunion-ocean-royal-kapu-udupi.webp", "REUNION Ocean Royal — Kapu Beach, Udupi")}
           />
           <div className="absolute inset-0 bg-gradient-to-b from-[#060606]/15 via-transparent to-[#060606]/75" />
         </div>
@@ -146,7 +148,7 @@ export default function PropertiesPage() {
                     <Link href={`/properties/${prop.id}`} className="block aspect-[4/3] w-full overflow-hidden group">
                       <img
                         src={prop.heroImage}
-                        alt={propertyCardAlt(prop.name, prop.location)}
+                        alt={heroImageAlt(prop.heroImage, prop.name, prop.location)}
                         loading={index < 2 ? "eager" : "lazy"}
                         className="w-full h-full object-cover transition-transform duration-700"
                       />
@@ -157,9 +159,19 @@ export default function PropertiesPage() {
             })}
           </div>
 
-          {keywordSeo?.faqs?.length ? (
-            <div className="max-w-3xl mx-auto w-full mt-24 pb-8">
-              <ExpandablePageFaq faqs={keywordSeo.faqs} />
+          {keywordSeo && (SHOW_KEYWORD_GUIDE_SECTIONS || keywordSeo.faqs?.length) ? (
+            <div className="max-w-3xl mx-auto w-full mt-14 md:mt-16 space-y-12 md:space-y-14 pb-4">
+              {SHOW_KEYWORD_GUIDE_SECTIONS ? (
+                <KeywordSeoSections
+                  seo={keywordSeo}
+                  hideFaqs
+                  hideLinks
+                  introTitle="Stays & villas across Udupi"
+                />
+              ) : null}
+              {keywordSeo.faqs?.length ? (
+                <ExpandablePageFaq faqs={keywordSeo.faqs} />
+              ) : null}
             </div>
           ) : null}
         </div>

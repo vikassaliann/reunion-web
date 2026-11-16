@@ -20,13 +20,19 @@ export const metadata: Metadata = {
     url: CANONICAL,
     siteName: "REUNION",
     type: "website",
-    images: [{ url: "/properties/experiances/candlelight/bdy/bd.jpeg", width: 1200, height: 630 }],
+    images: [
+      {
+        url: "/properties/experiences/candlelight/bdy/beach-birthday-hero-mattu-sunset.jpg",
+        width: 1200,
+        height: 630,
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: PAGE_TITLE,
     description: PAGE_DESCRIPTION,
-    images: ["/properties/experiances/candlelight/bdy/bd.jpeg"],
+    images: ["/properties/experiences/candlelight/bdy/beach-birthday-hero-mattu-sunset.jpg"],
   },
 };
 

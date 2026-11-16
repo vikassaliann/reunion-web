@@ -1,6 +1,7 @@
 "use client";
 
 import { createContext, useContext, useEffect, useState, ReactNode } from "react";
+import { REUNION_WHATSAPP_DIGITS } from "@/data/factCheck";
 
 interface PartnerContextType {
   isOpen: boolean;
@@ -67,7 +68,7 @@ function PartnerOverlayUI({ isOpen, onClose }: { isOpen: boolean; onClose: () =>
 *Description*: ${payload.description || "N/A"}`;
 
     // 1. Always open WhatsApp tab immediately on submit click
-    const targetWhatsApp = process.env.NEXT_PUBLIC_PARTNER_WHATSAPP || "919980208289";
+    const targetWhatsApp = process.env.NEXT_PUBLIC_PARTNER_WHATSAPP || REUNION_WHATSAPP_DIGITS;
     const whatsappUrl = `https://wa.me/${targetWhatsApp}?text=${encodeURIComponent(fullMessage)}`;
     window.open(whatsappUrl, "_blank");
 

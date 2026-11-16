@@ -3,14 +3,13 @@ import Footer from "@/components/Footer";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import Link from "next/link";
 import EventsGalleryCarousel from "@/components/events/EventsGalleryCarousel";
-
-const CONST = (file: string) => `/properties/const/${file}`;
+import { constProjectImage } from "@/lib/constAssets";
 
 const GALLERY_SLIDES = [
-  { image: CONST("p1.png"), title: "Residential Construction", caption: "" },
-  { image: CONST("p2.png"), title: "Commercial Construction", caption: "" },
-  { image: CONST("p3.png"), title: "Interior Design", caption: "" },
-  { image: CONST("p4.png"), title: "Project Finishing", caption: "" },
+  { image: constProjectImage(1), title: "Residential Construction", caption: "" },
+  { image: constProjectImage(2), title: "Commercial Construction", caption: "" },
+  { image: constProjectImage(3), title: "Interior Design", caption: "" },
+  { image: constProjectImage(4), title: "Project Finishing", caption: "" },
 ] as const;
 
 const WEBSITE = "https://nemmadiconstructions.com/";
@@ -29,7 +28,7 @@ export default function CivilConstructionPage() {
         <section className="relative w-full h-[75vh] md:h-[min(88vh,820px)] flex items-end pb-14 md:pb-20">
           <div className="absolute inset-0">
             <img
-              src={CONST("p1.png")}
+              src={constProjectImage(1)}
               alt="Nemmadi Constructions"
               className="w-full h-full object-cover"
             />
@@ -71,7 +70,7 @@ export default function CivilConstructionPage() {
 
           <div className="text-center max-w-2xl mx-auto mb-16 md:mb-20 space-y-6">
             <img
-              src={CONST("logo.png")}
+              src="/properties/const/logo.png"
               alt="Nemmadi Constructions"
               className="mx-auto h-16 md:h-20 w-auto object-contain"
             />

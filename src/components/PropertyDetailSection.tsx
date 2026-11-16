@@ -6,8 +6,14 @@ import ContactForm from "@/components/ContactForm";
 import { PROPERTY_RELATED } from "@/data/propertyRelated";
 import { PROPERTY_GUESTS } from "@/data/propertyGuests";
 import { CATEGORY_MAP } from "@/utils/categories";
-import { getPropertyKeywordSeo } from "@/data/keywordGuide";
 import ExpandablePageFaq from "@/components/ExpandablePageFaq";
+import { PROPERTY_FAQS } from "@/data/propertyFaqs";
+import { altFor, galleryPhotoAlt } from "@/data/imageAlt";
+import {
+  REUNION_CAFE_PHONE_DISPLAY,
+  REUNION_DE_HOMES_PHONE_DISPLAY,
+  REUNION_PHONE_DISPLAY,
+} from "@/data/factCheck";
 
 /** Upscale small source files in lightbox so they fill the viewport like full-size property photos. */
 function LightboxPhoto({ src, alt }: { src: string; alt: string }) {
@@ -61,27 +67,21 @@ interface PropertyDetailSectionProps {
   seoLead?: string;
 }
 
-// Phone numbers per property
+/** Property-specific lines; default is main reservations. */
 const PROPERTY_PHONES: Record<string, string> = {
-  "ocean-waves":    "+91 9980208289",
-  "ocean-elite":    "+91 9980208289",
-  "ocean-manor":    "+91 9980208289",
-  "ocean-bliss":    "+91 9980208289",
-  "ocean-daaffy":   "+91 9980208289",
-  "arya":           "+91 9980208289",
-  "marina-villa":   "+91 9980208289",
-  "krshna":         "+91 9980208289",
-  "charm-villa":    "+91 9980208289",
-  "de-homes":       "+91 9380740060",
-  "aradhya-villa":  "+91 9980208289",
-  "ocean-hridayam": "+91 9980208289",
-  "ocean-cafe":     "+91 9972231289",
-  "ocean-givaah":   "+91 9980208289",
-  "villa":          "+91 9980208289",
-  "ocean-royal":    "+91 9980208289",
-  "regal-villa":    "+91 9980208289",
-  "reunion-serene":  "+91 9980208289",
+  "de-homes": REUNION_DE_HOMES_PHONE_DISPLAY,
+  "ocean-cafe": REUNION_CAFE_PHONE_DISPLAY,
 };
+
+function propertyPhoneDisplay(propertyId: string) {
+  return PROPERTY_PHONES[propertyId] ?? REUNION_PHONE_DISPLAY;
+}
+
+function propertyWhatsAppDigits(propertyId: string) {
+  const display = propertyPhoneDisplay(propertyId);
+  const digits = display.replace(/\D/g, "");
+  return digits.startsWith("91") ? digits : `91${digits}`;
+}
 
 // Guest/Room capacity info per property
 const GUEST_INFO: Record<string, string[]> = {
@@ -125,9 +125,6 @@ const PROPERTY_GUIDELINES: Record<string, { power: string; highlightDetail: stri
   "ocean-cafe":     { power: "Fireplace & Live Music (Select Days)", highlightDetail: "Open Daily: 9:30 AM – 10:00 PM" },
   "reunion-serene":  { power: "Standard Grid Power", highlightDetail: "Private Outdoor Pool · Terrace & Garden" },
 };
-
-export type { FAQ } from "@/data/propertyFaqs";
-export { PROPERTY_FAQS } from "@/data/propertyFaqs";
 
 // Nearby Tourist Places — 4 route groups with accurate Google Maps search URLs
 export interface TouristPlace {
@@ -211,12 +208,10 @@ export const TOURIST_ROUTES: RouteGroup[] = [
 ];
 
 export default function PropertyDetailSection({ property, mapLink, seoLead }: PropertyDetailSectionProps) {
-  const keywordSeo = getPropertyKeywordSeo(property.id);
-  const faqs = keywordSeo?.faqs ?? [];
+  const faqs = PROPERTY_FAQS[property.id] ?? [];
   const [selectedImageIdx, setSelectedImageIdx] = useState(0);
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [touristOpen, setTouristOpen] = useState(false);
-  const [expandedRoutes, setExpandedRoutes] = useState<Record<number, boolean>>({});
 
   const images = property.gallery && property.gallery.length > 0 ? property.gallery : [property.heroImage];
   const gridSlots = images.slice(0, 5);
@@ -231,10 +226,6 @@ export default function PropertyDetailSection({ property, mapLink, seoLead }: Pr
     setSelectedImageIdx((prev) => (prev - 1 + images.length) % images.length);
   const lightboxNext = () =>
     setSelectedImageIdx((prev) => (prev + 1) % images.length);
-
-  const toggleRoute = (idx: number) => {
-    setExpandedRoutes((prev) => ({ ...prev, [idx]: !prev[idx] }));
-  };
 
   // Highlights: bedrooms + amenities only (no guest count — not provided by user)
   const highlights: string[] = property.bedrooms > 0
@@ -283,7 +274,7 @@ export default function PropertyDetailSection({ property, mapLink, seoLead }: Pr
             >
               <img
                 src={images[0]}
-                alt={`${property.name} — photo 1`}
+                alt={altFor(images[0], galleryPhotoAlt(property.name, 0, images.length))}
                 className="w-full h-full object-cover hover:scale-[1.02] transition-transform duration-700"
               />
             </button>
@@ -301,7 +292,7 @@ export default function PropertyDetailSection({ property, mapLink, seoLead }: Pr
                   >
                     <img
                       src={src}
-                      alt={`${property.name} — photo ${i + 1}`}
+                      alt={altFor(src, galleryPhotoAlt(property.name, i, images.length))}
                       className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
                     />
                     {i === 4 && extraPhotoCount > 0 && (
@@ -321,7 +312,10 @@ export default function PropertyDetailSection({ property, mapLink, seoLead }: Pr
                 >
                   <img
                     src={images[selectedImageIdx]}
-                    alt={`${property.name} — photo ${selectedImageIdx + 1}`}
+                    alt={altFor(
+                    images[selectedImageIdx],
+                    galleryPhotoAlt(property.name, selectedImageIdx, images.length)
+                  )}
                     className="w-full h-full object-cover"
                   />
                 </button>
@@ -335,7 +329,11 @@ export default function PropertyDetailSection({ property, mapLink, seoLead }: Pr
                         selectedImageIdx === i ? "ring-[#C9A84C]" : "ring-transparent opacity-60"
                       }`}
                     >
-                      <img src={src} alt="" className="w-full h-full object-cover" />
+                      <img
+                        src={src}
+                        alt={altFor(src, galleryPhotoAlt(property.name, i, images.length))}
+                        className="w-full h-full object-cover"
+                      />
                     </button>
                   ))}
                 </div>
@@ -384,7 +382,10 @@ export default function PropertyDetailSection({ property, mapLink, seoLead }: Pr
               </button>
               <LightboxPhoto
                 src={images[selectedImageIdx]}
-                alt={`${property.name} — photo ${selectedImageIdx + 1}`}
+                alt={altFor(
+                    images[selectedImageIdx],
+                    galleryPhotoAlt(property.name, selectedImageIdx, images.length)
+                  )}
               />
               <button
                 type="button"
@@ -405,7 +406,11 @@ export default function PropertyDetailSection({ property, mapLink, seoLead }: Pr
                     selectedImageIdx === i ? "ring-[#C9A84C]" : "ring-transparent opacity-50"
                   }`}
                 >
-                  <img src={src} alt="" className="w-full h-full object-cover" />
+                  <img
+                    src={src}
+                    alt={altFor(src, galleryPhotoAlt(property.name, i, images.length))}
+                    className="w-full h-full object-cover"
+                  />
                 </button>
               ))}
             </div>
@@ -524,7 +529,7 @@ export default function PropertyDetailSection({ property, mapLink, seoLead }: Pr
                 </div>
                 <ContactForm
                   defaultPreference={property.name}
-                  whatsappNumber={PROPERTY_PHONES[property.id] ? PROPERTY_PHONES[property.id].replace(/[^\d]/g, "") : "919980208289"}
+                  whatsappNumber={propertyWhatsAppDigits(property.id)}
                   instagramHandle={
                     property.id === "de-homes"
                       ? "@de_homes_reunion"
@@ -537,18 +542,16 @@ export default function PropertyDetailSection({ property, mapLink, seoLead }: Pr
             </div>
           </div>
 
-          {/* Block 2 — Call / Map, then tourist & FAQ */}
+          {/* Block 2 — Call / Map + nearby (left column) */}
           <div className="lg:col-span-7 space-y-12 sm:space-y-16">
             <div className="flex flex-col sm:flex-row gap-4">
-              {PROPERTY_PHONES[property.id] && (
-                <a
-                  href={`tel:${PROPERTY_PHONES[property.id].replace(/[^+\d]/g, "")}`}
-                  className="inline-flex items-center justify-center px-8 py-4 border border-[#C9A84C]/40 bg-transparent text-[#C9A84C] hover:bg-[#C9A84C]/10 transition-all duration-300 font-futura text-[10px] tracking-[0.3em] uppercase"
-                >
-                  Call Us
-                </a>
-              )}
-              {mapLink && (
+              <a
+                href={`tel:+${propertyWhatsAppDigits(property.id)}`}
+                className="inline-flex items-center justify-center px-8 py-4 border border-[#C9A84C]/40 bg-transparent text-[#C9A84C] hover:bg-[#C9A84C]/10 transition-all duration-300 font-futura text-[10px] tracking-[0.3em] uppercase"
+              >
+                Call Us
+              </a>
+              {mapLink ? (
                 <a
                   href={mapLink}
                   target="_blank"
@@ -557,21 +560,27 @@ export default function PropertyDetailSection({ property, mapLink, seoLead }: Pr
                 >
                   Map
                 </a>
-              )}
+              ) : null}
             </div>
 
-            <div className="space-y-4 pt-6 border-t border-white/10">
+            <div className="space-y-4">
+              <h2 className="font-futura text-[11px] tracking-[0.3em] text-white/40 uppercase">
+                Nearby tourist places
+              </h2>
               <button
+                type="button"
+                aria-expanded={touristOpen}
+                aria-controls="property-nearby-places"
                 onClick={() => setTouristOpen(!touristOpen)}
-                className="w-full flex items-center justify-between py-5 border-b border-white/10 group"
+                className="font-futura text-sm text-[#C9A84C]/90 hover:text-[#C9A84C] font-light tracking-wide transition-colors"
               >
-                <h2 className="font-futura text-[11px] tracking-[0.3em] text-white/70 group-hover:text-white uppercase transition-colors">
-                  Nearby Tourist Places
-                </h2>
-                <span className="text-[#C9A84C] text-xl leading-none">{touristOpen ? "−" : "+"}</span>
+                {touristOpen ? "Hide places" : "Show places"}
               </button>
-              <div className={`overflow-hidden transition-all duration-500 ${touristOpen ? "max-h-[3000px] opacity-100" : "max-h-0 opacity-0"}`}>
-                <div className="py-6 space-y-8">
+              <div
+                id="property-nearby-places"
+                className={`overflow-hidden transition-all duration-500 ${touristOpen ? "max-h-[3200px] opacity-100" : "max-h-0 opacity-0"}`}
+              >
+                <div className="pt-4 space-y-8">
                   {property.id !== "reunion-serene" && (
                     <p className="font-futura text-[13px] text-white/55 font-light tracking-wide">
                       <Link href="/blogs/tourist-places-in-udupi" className="text-[#C9A84C] hover:underline">
@@ -584,8 +593,14 @@ export default function PropertyDetailSection({ property, mapLink, seoLead }: Pr
                       <h3 className="font-futura text-[10px] tracking-widest text-[#C9A84C] uppercase">{route.title}</h3>
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                         {route.places.map((place, pIdx) => (
-                          <a key={pIdx} href={place.mapUrl} target="_blank" rel="noopener noreferrer" className="font-futura text-[13px] font-light tracking-wide text-white/70 hover:text-white transition-colors flex items-center gap-3">
-                            <span className="w-1 h-1 bg-white/20 rounded-full"></span>
+                          <a
+                            key={pIdx}
+                            href={place.mapUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="font-futura text-[13px] font-light tracking-wide text-white/70 hover:text-white transition-colors flex items-center gap-3"
+                          >
+                            <span className="w-1 h-1 bg-white/20 rounded-full shrink-0" />
                             {place.name}
                           </a>
                         ))}
@@ -594,17 +609,15 @@ export default function PropertyDetailSection({ property, mapLink, seoLead }: Pr
                   ))}
                 </div>
               </div>
-
-              {faqs.length > 0 ? (
-                <ExpandablePageFaq
-                  faqs={faqs}
-                  title="Frequently Asked Questions"
-                  showTopBorder
-                />
-              ) : null}
             </div>
           </div>
         </div>
+
+        {faqs.length > 0 ? (
+          <div className="border-t border-white/5 py-14 md:py-20 mt-4 max-w-3xl mx-auto w-full">
+            <ExpandablePageFaq faqs={faqs} noDividers />
+          </div>
+        ) : null}
       </div>
     </section>
   );

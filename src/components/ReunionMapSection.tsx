@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { altFor } from "@/data/imageAlt";
 
 type MapLoc = {
   name: string;
@@ -14,29 +15,29 @@ type MapLoc = {
 /* Pins projected from PROPERTY_GEO + place labels; x always east of coastline (land). */
 const MAP_LOCATIONS: MapLoc[] = [
   // North coast — Padutonse / Bengre
-  { name: "Ocean Elite", x: 102, y: 68, link: "https://maps.app.goo.gl/i4qS8YbVEtMqgRFF7", desc: "Private Beachfront Villa, Hoode Beach", image: "/properties/popular/elite.png" },
-  { name: "Ocean Manor", x: 106, y: 78, link: "https://maps.app.goo.gl/QDo2c3Fy8mufX5s77", desc: "Sea & River View Villa, Hoode Beach", image: "/properties/ocean-manor/herooo.png" },
+  { name: "Ocean Elite", x: 102, y: 68, link: "https://maps.app.goo.gl/i4qS8YbVEtMqgRFF7", desc: "Private Beachfront Villa, Hoode Beach", image: "/properties/popular/reunion-ocean-elite-category-udupi.webp" },
+  { name: "Ocean Manor", x: 106, y: 78, link: "https://maps.app.goo.gl/QDo2c3Fy8mufX5s77", desc: "Sea & River View Villa, Hoode Beach", image: "/properties/ocean-manor/reunion-ocean-manor-hoode-beach-udupi.webp" },
   // Malpe
-  { name: "Ocean Bliss", x: 108, y: 118, link: "https://maps.app.goo.gl/y27fBpfybGmGsvwH7", desc: "Cozy Malpe Beach Villa", image: "/properties/ocean-bliss/blissthumb.png" },
+  { name: "Ocean Bliss", x: 108, y: 118, link: "https://maps.app.goo.gl/y27fBpfybGmGsvwH7", desc: "Cozy Malpe Beach Villa", image: "/properties/ocean-bliss/reunion-ocean-bliss-malpe-udupi.webp" },
   // Udupi city belt (inland)
-  { name: "Arya", x: 168, y: 120, link: "https://maps.app.goo.gl/bgDyEDBV22TvRQeLA", desc: "Modern Studio Rooms, Kunjibettu", image: "/properties/arya/aryathumb.png" },
-  { name: "Aradhya Villa", x: 172, y: 130, link: "https://maps.app.goo.gl/h5PDhRjDrsTdj5dR8", desc: "Elegant Villa, Kunjibettu", image: "/properties/aradhya-villa/arathumb.png" },
-  { name: "Charm Villa", x: 155, y: 128, link: "https://maps.app.goo.gl/AuEK46JEGCC1ygA78", desc: "Classic Heritage Villa, Badagabettu", image: "/properties/charm-villa/charmthub.png" },
-  { name: "Marina Villa", x: 145, y: 138, link: "https://maps.app.goo.gl/X5jrFW2phFrZDRgg8", desc: "Luxury Residency, Kannarpady", image: "/properties/marina-villa/marinathumb.png" },
-  { name: "Krshna", x: 205, y: 115, link: "https://maps.app.goo.gl/hXcpqtsWGWkXSxHh7", desc: "Premium Heritage Residency, Manipal", image: "/properties/krshna/krthumb.png" },
-  { name: "De Homes", x: 158, y: 145, link: "https://share.google/AXOZTWONFB5kLZE0o", desc: "Bespoke Townhouse, Chitpady", image: "/properties/popular/dehome.png" },
-  { name: "Regal Villa", x: 164, y: 152, link: "https://maps.app.goo.gl/P3NuZSXE29bcFPT19", desc: "Majestic Residency, Chitpady", image: "/properties/regal-villa/regalhero.png" },
-  { name: "Reunion Villa", x: 152, y: 155, link: "https://maps.app.goo.gl/SJaK4GjhNkq9FKA29", desc: "Classic Private Villa, Chitpady", image: "/properties/villa/villahero.png" },
+  { name: "Arya", x: 168, y: 120, link: "https://maps.app.goo.gl/bgDyEDBV22TvRQeLA", desc: "Modern Studio Rooms, Kunjibettu", image: "/properties/arya/reunion-arya-studio-udupi.webp" },
+  { name: "Aradhya Villa", x: 172, y: 130, link: "https://maps.app.goo.gl/h5PDhRjDrsTdj5dR8", desc: "Elegant Villa, Kunjibettu", image: "/properties/aradhya-villa/reunion-aradhya-villa-udupi.webp" },
+  { name: "Charm Villa", x: 155, y: 128, link: "https://maps.app.goo.gl/AuEK46JEGCC1ygA78", desc: "Classic Heritage Villa, Badagabettu", image: "/properties/charm-villa/reunion-charm-villa-udupi.webp" },
+  { name: "Marina Villa", x: 145, y: 138, link: "https://maps.app.goo.gl/X5jrFW2phFrZDRgg8", desc: "Luxury Residency, Kannarpady", image: "/properties/marina-villa/reunion-marina-villa-udupi.webp" },
+  { name: "Krshna", x: 205, y: 115, link: "https://maps.app.goo.gl/hXcpqtsWGWkXSxHh7", desc: "Premium Heritage Residency, Manipal", image: "/properties/krshna/reunion-krshna-manipal-udupi.webp" },
+  { name: "De Homes", x: 158, y: 145, link: "https://share.google/AXOZTWONFB5kLZE0o", desc: "Bespoke Townhouse, Chitpady", image: "/properties/popular/reunion-de-homes-category-udupi.webp" },
+  { name: "Regal Villa", x: 164, y: 152, link: "https://maps.app.goo.gl/P3NuZSXE29bcFPT19", desc: "Majestic Residency, Chitpady", image: "/properties/regal-villa/reunion-regal-villa-udupi.webp" },
+  { name: "Reunion Villa", x: 152, y: 155, link: "https://maps.app.goo.gl/SJaK4GjhNkq9FKA29", desc: "Classic Private Villa, Chitpady", image: "/properties/villa/reunion-villa-udupi.webp" },
   // Mattu Beach
-  { name: "Ocean Waves", x: 98, y: 175, link: "https://maps.app.goo.gl/DHikkppGEugCp3V19", desc: "Beachside Sanctuary, Mattu", image: "/properties/ocean-waves/wavest.png" },
-  { name: "Ocean Hridayam", x: 104, y: 185, link: "https://maps.app.goo.gl/18cbsHn53VKXr5oa9", desc: "Tranquil Garden Villa, Mattu", image: "/properties/ocean-hridayam/hridthumb.png" },
-  { name: "Reunion Ocean Café", x: 96, y: 192, link: "https://maps.app.goo.gl/r4RPLhfcNUP4ECd18", desc: "Beachside Cafe, Mattu Beach", image: "/properties/ocean cafe/ocean1.png" },
+  { name: "Ocean Waves", x: 98, y: 175, link: "https://maps.app.goo.gl/DHikkppGEugCp3V19", desc: "Beachside Sanctuary, Mattu", image: "/properties/ocean-waves/reunion-ocean-waves-mattu-beach-udupi.webp" },
+  { name: "Ocean Hridayam", x: 104, y: 185, link: "https://maps.app.goo.gl/18cbsHn53VKXr5oa9", desc: "Tranquil Garden Villa, Mattu", image: "/properties/ocean-hridayam/reunion-ocean-hridayam-mattu-beach-udupi.webp" },
+  { name: "Reunion Ocean Café", x: 96, y: 192, link: "https://maps.app.goo.gl/r4RPLhfcNUP4ECd18", desc: "Beachside Cafe, Mattu Beach", image: "/properties/ocean-cafe/reunion-ocean-cafe-photo-mattu-beach-udupi-7.webp" },
   // South coast — Kapu / Bada
-  { name: "Ocean Daaffy", x: 100, y: 225, link: "https://maps.app.goo.gl/RN5CDoGUvA2sbm7j7", desc: "Charming Coastal Villa, Bada", image: "/properties/ocean-daaffy/daaffyhero.png" },
-  { name: "Ocean Givaah", x: 98, y: 235, link: "https://maps.app.goo.gl/4Zau2oTbTh95BmxL6", desc: "Secluded Beachfront Villa, Bada", image: "/properties/popular/givaah.png" },
-  { name: "Ocean Royal", x: 96, y: 245, link: "https://maps.app.goo.gl/R4LzcKq8bcPPS3ub6", desc: "Majestic Beachfront Villa, Kapu", image: "/properties/popular/royal.png" },
+  { name: "Ocean Daaffy", x: 100, y: 225, link: "https://maps.app.goo.gl/RN5CDoGUvA2sbm7j7", desc: "Charming Coastal Villa, Bada", image: "/properties/ocean-daaffy/reunion-ocean-daaffy-uchila-udupi.webp" },
+  { name: "Ocean Givaah", x: 98, y: 235, link: "https://maps.app.goo.gl/4Zau2oTbTh95BmxL6", desc: "Secluded Beachfront Villa, Bada", image: "/properties/popular/reunion-ocean-givaah-category-udupi.webp" },
+  { name: "Ocean Royal", x: 96, y: 245, link: "https://maps.app.goo.gl/R4LzcKq8bcPPS3ub6", desc: "Majestic Beachfront Villa, Kapu", image: "/properties/popular/reunion-ocean-royal-category-udupi.webp" },
   // Outside coastal frame — Shivamogga
-  { name: "Reunion Serene", x: 272, y: 48, link: "https://www.google.com/maps/place/Reunion+Serene+Villa/@13.8619138,75.5884242,17z", desc: "Malnad Nature Stay, Shivamogga", image: "/properties/reunion-serene/hero.png" },
+  { name: "Reunion Serene", x: 272, y: 48, link: "https://www.google.com/maps/place/Reunion+Serene+Villa/@13.8619138,75.5884242,17z", desc: "Malnad Nature Stay, Shivamogga", image: "/properties/reunion-serene/reunion-serene-shivamogga.webp" },
 ];
 
 export default function ReunionMapSection() {
@@ -172,7 +173,7 @@ export default function ReunionMapSection() {
                         }`}>
                           <img
                             src={loc.image}
-                            alt={loc.name}
+                            alt={altFor(loc.image, loc.name)}
                             className="w-full h-full object-cover"
                           />
                           <div className="absolute inset-0 bg-black/20 group-hover/pin:bg-transparent transition-colors" />
@@ -235,7 +236,7 @@ export default function ReunionMapSection() {
                       <div className="relative w-full h-24 bg-zinc-900 overflow-hidden">
                         <img 
                           src={loc.image} 
-                          alt={loc.name} 
+                          alt={altFor(loc.image, loc.name)} 
                           className="w-full h-full object-cover"
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-[#090909] via-[#090909]/30 to-transparent" />
@@ -289,7 +290,7 @@ export default function ReunionMapSection() {
                       <div className="relative w-full h-20 bg-zinc-900 overflow-hidden">
                         <img
                           src={loc.image}
-                          alt={loc.name}
+                          alt={altFor(loc.image, loc.name)}
                           className="w-full h-full object-cover"
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-[#090909] via-transparent to-transparent" />

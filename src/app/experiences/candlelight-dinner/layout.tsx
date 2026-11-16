@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { getKeywordSeo } from "@/data/keywordGuide";
+import { experienceImage } from "@/lib/experienceAssets";
 
 const BASE_URL = "https://www.reunionglobal.in";
 const CANONICAL = BASE_URL + "/experiences/candlelight-dinner";
@@ -34,7 +35,7 @@ export const metadata: Metadata = {
     locale: "en_IN",
     images: [
       {
-        url: BASE_URL + "/properties/experiances/exp12.png",
+        url: BASE_URL + experienceImage(12),
         width: 1200,
         height: 630,
         alt: "Candle light dinner in Udupi — REUNION beachside setup at Mattu Beach",
@@ -45,7 +46,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: PAGE_TITLE,
     description: PAGE_DESCRIPTION,
-    images: [BASE_URL + "/properties/experiances/exp12.png"],
+    images: [BASE_URL + experienceImage(12)],
   },
 };
 
@@ -91,7 +92,7 @@ const serviceSchema = {
     priceCurrency: "INR",
     description: "Private candle light dinner in Udupi on Mattu Beach",
   },
-  image: BASE_URL + "/properties/experiances/exp12.png",
+  image: BASE_URL + experienceImage(12),
 };
 
 export default function CandlelightDinnerLayout({

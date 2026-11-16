@@ -7,9 +7,11 @@ import type { Metadata } from "next";
 import FilterDropdown from "@/components/FilterDropdown";
 import { CATEGORIES, CATEGORY_MAP } from "@/utils/categories";
 import ExpandablePageFaq from "@/components/ExpandablePageFaq";
+import KeywordSeoSections from "@/components/KeywordSeoSections";
+import { SHOW_KEYWORD_GUIDE_SECTIONS } from "@/data/siteFlags";
 import KeywordFaqJsonLd from "@/components/KeywordFaqJsonLd";
 import { getKeywordSeo } from "@/data/keywordGuide";
-import { propertyCardAlt } from "@/data/imageAlt";
+import { heroImageAlt } from "@/data/imageAlt";
 const BASE_URL = "https://www.reunionglobal.in";
 
 const CATEGORY_INTRO: Record<string, string> = {
@@ -25,14 +27,14 @@ const CATEGORY_INTRO: Record<string, string> = {
 
 const CATEGORY_SEO: Record<string, { title: string; description: string }> = {
   "beach-villas": {
-    title: "Beach Villas in Udupi | Private Beach Stays | REUNION",
+    title: "Beach Stay in Udupi | Beachfront Villas | REUNION",
     description:
-      "Private beach villas in Udupi near Malpe, Mattu, Kapu, Hoode and Uchila beaches. Book a REUNION beach villa for family and group stays.",
+      "Beach stays in Udupi, steps from the sand: private beachfront villas with sea-facing balconies for couples, families and groups. Enquire with REUNION.",
   },
   "city-stays": {
-    title: "City Villas in Udupi & Suites near Krishna Temple | REUNION",
+    title: "Homestays in Udupi near Krishna Matha | REUNION",
     description:
-      "City villas and premium suites in Udupi — Chitpady, Kunjibettu and Manipal, close to Sri Krishna Matha. Ideal for families and temple visits.",
+      "Homestays in Udupi with the privacy of a villa: furnished homes near Sri Krishna Matha with kitchens, AC bedrooms and parking. By REUNION.",
   },
   "hotel-stays": {
     title: "REUNION | Hotel Stays — De Homes & D Square in Udupi",
@@ -98,9 +100,26 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
     return propertyCategories.includes(categoryId);
   });
 
+  const itemListSchema = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: keywordSeo?.h1 ?? categoryInfo.label,
+    numberOfItems: properties.length,
+    itemListElement: properties.map((prop, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: prop.name.toUpperCase().startsWith("REUNION ") ? prop.name : `REUNION ${prop.name}`,
+      url: `${BASE_URL}/properties/${prop.id}`,
+    })),
+  };
+
   return (
     <>
       <KeywordFaqJsonLd seo={keywordSeo} />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema) }}
+      />
       <Navbar />
 
       <section className="relative pt-32 pb-24 bg-[#060606] min-h-screen px-4 md:px-10 overflow-hidden">
@@ -109,12 +128,12 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
           <img 
             src={
               categoryId === "city-stays"
-                ? "/properties/krshna/krthumb.png"
+                ? "/properties/krshna/reunion-krshna-manipal-udupi.webp"
                 : categoryId === "hotel-stays"
-                  ? "/properties/de-homes/dehomesthumb.png"
+                  ? "/properties/de-homes/reunion-de-homes-udupi.webp"
                   : categoryId === "shivamogga-stays"
-                    ? "/properties/reunion-serene/hero.png"
-                    : "/properties/ocean-manor/herooo.png"
+                    ? "/properties/reunion-serene/reunion-serene-shivamogga.webp"
+                    : "/properties/ocean-manor/reunion-ocean-manor-hoode-beach-udupi.webp"
             }
             className="w-full h-full object-cover brightness-[0.62] grayscale-[5%]" 
             alt={keywordSeo?.imageAlt ?? categoryInfo.label}
@@ -203,7 +222,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
                       <Link href={`/properties/${prop.id}`} className="block aspect-[4/3] overflow-hidden group">
                         <img
                           src={prop.heroImage}
-                          alt={propertyCardAlt(prop.name, prop.location)}
+                          alt={heroImageAlt(prop.heroImage, prop.name, prop.location)}
                           loading={index < 2 ? "eager" : "lazy"}
                           className="w-full h-full object-cover transition-transform duration-700"
                         />
@@ -223,9 +242,14 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
           )}
         </div>
 
-        {keywordSeo?.faqs?.length ? (
-          <div className="max-w-3xl mx-auto w-full mt-20 pb-8">
-            <ExpandablePageFaq faqs={keywordSeo.faqs} />
+        {keywordSeo && (SHOW_KEYWORD_GUIDE_SECTIONS || keywordSeo.faqs?.length) ? (
+          <div className="max-w-3xl mx-auto w-full mt-14 md:mt-16 space-y-12 md:space-y-14 pb-4">
+            {SHOW_KEYWORD_GUIDE_SECTIONS ? (
+              <KeywordSeoSections seo={keywordSeo} hideFaqs hideLinks showIntro />
+            ) : null}
+            {keywordSeo.faqs?.length ? (
+              <ExpandablePageFaq faqs={keywordSeo.faqs} />
+            ) : null}
           </div>
         ) : null}
       </section>

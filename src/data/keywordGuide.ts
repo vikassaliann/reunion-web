@@ -1,8 +1,9 @@
 /** Keyword Implementation Guide — full page map (titles, metas, H1, lead, H2, FAQ, links). */
 import { ON_PAGE_OVERRIDES } from "@/data/onPageOverrides";
+import { REUNION_PHONE_DISPLAY } from "@/data/factCheck";
 import { PAGE_FAQS_BY_PATH } from "@/data/pageFaqs";
 import { PROPERTY_FAQS } from "@/data/propertyFaqs";
-import { isPlaceholderFaqAnswer, resolvePropertyFaqs } from "@/lib/faqResolve";
+import { isPlaceholderFaqAnswer } from "@/lib/faqResolve";
 
 export type KeywordFaq = { q: string; a: string };
 export type KeywordLink = { label: string; href: string };
@@ -35,19 +36,23 @@ export const KEYWORD_PAGE_SEO: Record<string, KeywordPageSeo> = {
     faqs: [
       { q: "Where are REUNION villas located?", a: "Beach villas at Hoode, Mattu, Uchila, Kapu and near Malpe; city and hotel stays in Udupi and Koteshwara; Reunion Serene near Shivamogga." },
       { q: "How far is Udupi from Bangalore?", a: "Udupi is about 400 km from Bangalore \u2014 7\u20138 hours by road or overnight train." },
-      { q: "How do I book a REUNION stay?", a: "Book via WhatsApp (+91 9980208289), the Contact page, or enquiry forms on each property and experience page." },
+      {
+        q: "How do I book a REUNION stay?",
+        a: `Book via WhatsApp (${REUNION_PHONE_DISPLAY}), the Contact page, or enquiry forms on each property and experience page.`,
+      },
     ],
     links: [
       { label: "villas in Udupi", href: "/properties" },
       { label: "beach villas", href: "/properties/category/beach-villas" },
       { label: "candle light dinner in Udupi", href: "/experiences/candlelight-dinner" },
-      { label: "beach wedding venue", href: "/events" },
+      { label: "beach wedding venue", href: "/events#private-beach-venue" },
     ],
   },
   "/properties": {
-    title: "Udupi Villas | Beach & City Villas in Udupi | REUNION",
-    description: "Browse REUNION's Udupi villas \u2014 private beach villas near Malpe, Mattu, Kapu, Hoode and Uchila, plus city villas near Sri Krishna Matha.",
-    h1: "Villas in Udupi",
+    title: "Places to Stay in Udupi | Villas, Suites & Hotels | REUNION",
+    description:
+      "Places to stay in Udupi, chosen by REUNION: beachfront villas, city homes, hotel suites, a pool villa near Shivamogga, and coastal events.",
+    h1: "Places to Stay in Udupi",
     lead: "Explore REUNION's villas in Udupi \u2014 private beach villas and city villas for families, couples and groups, an easy weekend trip from Bangalore.",
     imageAlt: "Private villas in Udupi by REUNION",
     sections: [
@@ -69,8 +74,9 @@ export const KEYWORD_PAGE_SEO: Record<string, KeywordPageSeo> = {
     ],
   },
   "/properties/category/beach-villas": {
-    title: "Beach Villas in Udupi | Private Beach Stays | REUNION",
-    description: "Private beach villas in Udupi near Malpe, Mattu, Kapu, Hoode and Uchila beaches. Book a",
+    title: "Beach Stay in Udupi | Beachfront Villas | REUNION",
+    description:
+      "Beach stays in Udupi, steps from the sand: private beachfront villas with sea-facing balconies for couples, families and groups. Enquire with REUNION.",
     h1: "Beach Villas in Udupi",
     lead: "REUNION's private beach villas in Udupi sit steps from Hoode, Uchila, Kapu, Mattu and Malpe beaches \u2014 an easy weekend trip from Bangalore.",
     imageAlt: "Beach villa on Mattu Beach, Udupi",
@@ -93,9 +99,10 @@ export const KEYWORD_PAGE_SEO: Record<string, KeywordPageSeo> = {
     ],
   },
   "/properties/category/city-stays": {
-    title: "City Villas in Udupi & Suites near Krishna Temple | REUNION",
-    description: "City villas and premium suites in Udupi \u2014 Chitpady, Kunjibettu and Manipal, close to Sri Krishna Matha. Ideal for families and temple visits.",
-    h1: "City Villas in Udupi",
+    title: "Homestays in Udupi near Krishna Matha | REUNION",
+    description:
+      "Homestays in Udupi with the privacy of a villa: furnished homes near Sri Krishna Matha with kitchens, AC bedrooms and parking. By REUNION.",
+    h1: "Homestays & City Villas in Udupi",
     lead: "REUNION's city villas in Udupi put you close to Sri Krishna Matha, Manipal and Udupi town \u2014 ideal for families, temple visits and longer stays.",
     imageAlt: "City villa in Udupi near Sri Krishna Matha",
     sections: [
@@ -234,7 +241,7 @@ export const KEYWORD_PAGE_SEO: Record<string, KeywordPageSeo> = {
     description: "Celebrate a birthday on the beach in Udupi \u2014 decorated beachfront setup at Mattu Beach with dinner and cake. Packages for couples, families and groups.",
     h1: "Beach Birthday Celebrations in Udupi",
     lead: "Celebrate on the beachfront at Mattu Beach \u2014 decorated setups, dinner and cake by the sand for couples, families and groups.",
-    imageAlt: "Beach birthday decoration at Mattu Beach, Udupi",
+    imageAlt: "Sunset beach birthday celebration on Mattu Beach, Udupi — arch, lantern and beachfront dinner",
     sections: [],
     faqs: [],
     links: [
@@ -901,9 +908,8 @@ export const KEYWORD_PAGE_SEO: Record<string, KeywordPageSeo> = {
 };
 
 function applyPageFaqs(path: string, seo: KeywordPageSeo): KeywordPageSeo {
-  const curated = PAGE_FAQS_BY_PATH[path];
-  if (curated?.length) {
-    return { ...seo, faqs: curated };
+  if (Object.prototype.hasOwnProperty.call(PAGE_FAQS_BY_PATH, path)) {
+    return { ...seo, faqs: PAGE_FAQS_BY_PATH[path] };
   }
   const faqs = seo.faqs.filter((f) => !isPlaceholderFaqAnswer(f.a));
   return faqs.length ? { ...seo, faqs } : { ...seo, faqs: [] };
@@ -912,8 +918,7 @@ function applyPageFaqs(path: string, seo: KeywordPageSeo): KeywordPageSeo {
 export function getPropertyKeywordSeo(id: string): KeywordPageSeo | undefined {
   const seo = getKeywordSeo(`/properties/${id}`);
   if (!seo) return undefined;
-  const faqs = resolvePropertyFaqs(seo.faqs, PROPERTY_FAQS[id]);
-  return { ...seo, faqs };
+  return { ...seo, faqs: PROPERTY_FAQS[id] ?? [] };
 }
 
 function getKeywordSeoBase(path: string): KeywordPageSeo | undefined {

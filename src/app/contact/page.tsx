@@ -6,8 +6,18 @@ import Link from "next/link";
 import { useEnquiry } from "@/components/EnquiryContext";
 import ExpandablePageFaq from "@/components/ExpandablePageFaq";
 import KeywordFaqJsonLd from "@/components/KeywordFaqJsonLd";
+import {
+  REUNION_CAFE_PHONE_DISPLAY,
+  REUNION_CONTACT_EMAIL,
+  REUNION_DE_HOMES_PHONE_DISPLAY,
+  REUNION_FACEBOOK_URL,
+  REUNION_INSTAGRAM_URL,
+  REUNION_OFFICE_ADDRESS,
+  REUNION_PHONE_DISPLAY,
+  REUNION_PHONE_TEL_HREF,
+  REUNION_YOUTUBE_URL,
+} from "@/data/factCheck";
 import { getKeywordSeo } from "@/data/keywordGuide";
-import { REUNION_OFFICE_ADDRESS } from "@/data/factCheck";
 import { CONTACT_FAQS } from "@/data/pageFaqs";
 
 const seo = getKeywordSeo("/contact");
@@ -17,17 +27,17 @@ const CONTACT_VALUE =
 const CONTACT_ROWS = [
   {
     label: "Main reservations",
-    value: "+91 99802 08289",
-    href: "tel:+919980208289",
+    value: REUNION_PHONE_DISPLAY,
+    href: REUNION_PHONE_TEL_HREF,
   },
   {
     label: "Ocean Café, Mattu Beach",
-    value: "+91 99722 31289",
+    value: REUNION_CAFE_PHONE_DISPLAY,
     href: "tel:+919972231289",
   },
   {
     label: "De Homes front desk",
-    value: "+91 93807 40060",
+    value: REUNION_DE_HOMES_PHONE_DISPLAY,
     href: "tel:+919380740060",
   },
   {
@@ -37,8 +47,8 @@ const CONTACT_ROWS = [
   },
   {
     label: "Guest Support",
-    value: "support@reunionglobal.in",
-    href: "mailto:support@reunionglobal.in",
+    value: REUNION_CONTACT_EMAIL,
+    href: `mailto:${REUNION_CONTACT_EMAIL}`,
   },
   {
     label: "Reservations & Enquiry",
@@ -50,7 +60,7 @@ const CONTACT_ROWS = [
 const SOCIAL_LINKS = [
   {
     label: "Facebook",
-    href: "https://www.facebook.com/share/1HEff1Dir3/",
+    href: REUNION_FACEBOOK_URL,
     icon: (
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
         <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
@@ -59,7 +69,7 @@ const SOCIAL_LINKS = [
   },
   {
     label: "Instagram",
-    href: "https://www.instagram.com/reunionteam19",
+    href: REUNION_INSTAGRAM_URL,
     icon: (
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
         <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
@@ -70,7 +80,7 @@ const SOCIAL_LINKS = [
   },
   {
     label: "YouTube",
-    href: "https://www.youtube.com/@reunionteam19",
+    href: REUNION_YOUTUBE_URL,
     icon: (
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
         <path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z" />
@@ -90,7 +100,7 @@ export default function ContactPage() {
 
       <section className="relative min-h-[48vh] flex items-end overflow-hidden">
         <img
-          src="/properties/popular/elite.png"
+          src="/properties/popular/reunion-ocean-elite-category-udupi.webp"
           alt={seo?.imageAlt ?? ""}
           className="absolute inset-0 w-full h-full object-cover"
         />
@@ -111,6 +121,9 @@ export default function ContactPage() {
       <section className="relative page-pad pb-24 sm:pb-28 pt-12 sm:pt-16">
         <div className="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10 sm:gap-14 lg:gap-20">
           <div className="lg:col-span-7 space-y-5">
+            <h2 className="font-futura text-[10px] tracking-[0.4em] text-[#C9A84C] uppercase pb-1">
+              Contact details
+            </h2>
             {CONTACT_ROWS.map((row) => {
               const inner = (
                 <>

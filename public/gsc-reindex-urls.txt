@@ -1,5 +1,5 @@
 # Google Search Console — URL Inspection → Request indexing (post Nov 2026 updates)
-# Paste each URL after deploy. /events/beach-venue permanently redirects to /events.
+# Paste each URL after deploy. /events/beach-venue permanently redirects to /events#private-beach-venue.
 
 https://www.reunionglobal.in/
 https://www.reunionglobal.in/properties
@@ -16,7 +16,6 @@ https://www.reunionglobal.in/properties/ocean-royal
 https://www.reunionglobal.in/properties/ocean-hridayam
 https://www.reunionglobal.in/properties/ocean-bliss
 https://www.reunionglobal.in/properties/de-homes
-https://www.reunionglobal.in/properties/d-square
 https://www.reunionglobal.in/properties/d-square
 https://www.reunionglobal.in/properties/marina-villa
 https://www.reunionglobal.in/properties/charm-villa

@@ -5,13 +5,44 @@ import Link from "next/link";
 import EventsGalleryCarousel from "@/components/events/EventsGalleryCarousel";
 import type { Metadata } from "next";
 import ExpandablePageFaq from "@/components/ExpandablePageFaq";
+import KeywordSeoSections from "@/components/KeywordSeoSections";
+import { SHOW_KEYWORD_GUIDE_SECTIONS } from "@/data/siteFlags";
 import KeywordFaqJsonLd from "@/components/KeywordFaqJsonLd";
 import { getKeywordSeo } from "@/data/keywordGuide";
+import {
+  REUNION_CONTACT_EMAIL,
+  REUNION_PHONE_DISPLAY,
+  REUNION_PHONE_TEL,
+} from "@/data/factCheck";
 
 const BASE_URL = "https://www.reunionglobal.in";
-const PHONE_DISPLAY = "+91 99802 08289";
-const PHONE_TEL = "+919980208289";
-const EMAIL = "reunionrevenue@gmail.com";
+const PHONE_DISPLAY = REUNION_PHONE_DISPLAY;
+const PHONE_TEL = REUNION_PHONE_TEL.replace(/-/g, "");
+const EMAIL = REUNION_CONTACT_EMAIL;
+
+const eventVenueSchema = {
+  "@context": "https://schema.org",
+  "@type": "EventVenue",
+  name: "REUNION Coastal Events — Udupi",
+  description:
+    "Beach weddings, receptions and private celebrations on the Udupi coast with Gutthu Weddings Planner and REUNION guest stays.",
+  url: `${BASE_URL}/events`,
+  telephone: REUNION_PHONE_TEL,
+  email: REUNION_CONTACT_EMAIL,
+  maximumAttendeeCapacity: 150,
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Udupi",
+    addressRegion: "Karnataka",
+    postalCode: "576101",
+    addressCountry: "IN",
+  },
+  geo: {
+    "@type": "GeoCoordinates",
+    latitude: 13.34,
+    longitude: 74.74,
+  },
+};
 
 const wd = (n: number) => `/properties/wedneve/wd${n}.png`;
 
@@ -74,6 +105,10 @@ export default function EventsPage() {
   return (
     <div className="bg-[#060606] text-white antialiased selection:bg-[#C9A84C] selection:text-black min-h-screen">
       <KeywordFaqJsonLd seo={seo} />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(eventVenueSchema) }}
+      />
       <Navbar />
 
       <main>
@@ -121,12 +156,19 @@ export default function EventsPage() {
             <span className="text-[#C9A84C]">Events & Weddings</span>
           </nav>
 
-          <div className="text-center max-w-2xl mx-auto mb-16 md:mb-20 space-y-5">
+          <div
+            id="private-beach-venue"
+            className="text-center max-w-2xl mx-auto mb-16 md:mb-20 space-y-5 scroll-mt-28"
+          >
             <h2 className="font-futura text-[11px] tracking-[0.35em] text-[#C9A84C] uppercase">
               Plan Your Event
             </h2>
             <p className="font-futura text-sm text-white/50 font-light tracking-wide">
-              Beach weddings and private celebrations on the coast —{" "}
+              Beach weddings and private celebrations on the coast — book a{" "}
+              <Link href="/events#private-beach-venue" className="text-[#C9A84C] hover:underline">
+                private beach venue in Udupi
+              </Link>{" "}
+              or{" "}
               <Link href="/contact" className="text-[#C9A84C] hover:underline">
                 enquire with REUNION
               </Link>
@@ -174,9 +216,17 @@ export default function EventsPage() {
             </div>
           </div>
 
-          {seo?.faqs?.length ? (
-            <div className="max-w-3xl mx-auto w-full mt-20">
-              <ExpandablePageFaq faqs={seo.faqs} showTopBorder />
+          {seo && (SHOW_KEYWORD_GUIDE_SECTIONS || seo.faqs?.length) ? (
+            <div className="max-w-3xl mx-auto w-full mt-14 md:mt-16 space-y-12 md:space-y-14">
+              {SHOW_KEYWORD_GUIDE_SECTIONS ? (
+                <KeywordSeoSections
+                  seo={seo}
+                  hideFaqs
+                  hideLinks
+                  introTitle="Beach weddings & events on the Udupi coast"
+                />
+              ) : null}
+              {seo.faqs?.length ? <ExpandablePageFaq faqs={seo.faqs} /> : null}
             </div>
           ) : null}
         </section>

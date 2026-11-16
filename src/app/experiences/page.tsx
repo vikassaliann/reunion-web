@@ -6,17 +6,21 @@ import Footer from "@/components/Footer";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import { MandalaRing, MandalaLotus } from "@/components/wellness/WellnessMandala";
 import ExpandablePageFaq from "@/components/ExpandablePageFaq";
+import KeywordSeoSections from "@/components/KeywordSeoSections";
 import KeywordFaqJsonLd from "@/components/KeywordFaqJsonLd";
 import { getKeywordSeo } from "@/data/keywordGuide";
+import { SHOW_KEYWORD_GUIDE_SECTIONS } from "@/data/siteFlags";
+import { altFor } from "@/data/imageAlt";
+import { experienceImage } from "@/lib/experienceAssets";
 
 const seo = getKeywordSeo("/experiences");
 
 /* ── Hero Slideshow Images (exp9 -> exp6 -> exp1 -> exp4) ── */
 const HERO_SLIDES = [
-  { src: "/properties/experiances/exp9.png", alt: "Coastal Karnataka Experience 9" },
-  { src: "/properties/experiances/exp6.png", alt: "Coastal Karnataka Experience 6" },
-  { src: "/properties/experiances/exp1.png", alt: "Coastal Karnataka Experience 1" },
-  { src: "/properties/experiances/exp4.png", alt: "Coastal Karnataka Experience 4" },
+  { src: experienceImage(9) },
+  { src: experienceImage(6) },
+  { src: experienceImage(1) },
+  { src: experienceImage(4) },
 ];
 
 /* ── Structured Experience Cards ── */
@@ -26,14 +30,14 @@ const CARDS_DATA = [
     title: "Coastal Backwaters",
     tagline: "Where the Coast Slows Down",
     desc: "Glide through Udupi’s tranquil backwaters, where coconut groves, quiet waters, and village life come together in the rhythm of the coast.",
-    image: "/properties/experiances/exp1.png",
+    image: experienceImage(1),
   },
   {
     id: 2,
     title: "Pili Vesha (Tiger Dance)",
     tagline: "When the Streets Come Alive",
     desc: "Experience Pili Vesha, where dancers transform into tigers through vibrant body art, powerful movement, and the unmistakable spirit of coastal celebrations.",
-    images: ["/properties/experiances/exp2.png", "/properties/experiances/exp6.png"],
+    images: [experienceImage(2), experienceImage(6)],
     isSlideshow: true,
   },
   {
@@ -41,14 +45,14 @@ const CARDS_DATA = [
     title: "Kambala",
     tagline: "The Race That Runs Through Our Roots",
     desc: "Feel the raw energy of Kambala — a centuries-old buffalo race where muddy fields, roaring crowds, and tradition collide.",
-    image: "/properties/experiances/exp3.png",
+    image: experienceImage(3),
   },
   {
     id: 4,
     title: "Bhuta Kola / Ritual Art",
     tagline: "Where the Divine Walks Among Us",
     desc: "Witness an ancient ritual tradition where elaborate costumes, sacred performances, fire, and devotion create an experience unlike any other.",
-    images: ["/properties/experiances/exp4.png", "/properties/experiances/exp7.png"],
+    images: [experienceImage(4), experienceImage(7)],
     isSlideshow: true,
   },
   {
@@ -56,7 +60,7 @@ const CARDS_DATA = [
     title: "Yakshagana",
     tagline: "Stories Written in Colour",
     desc: "Step into the dramatic world of Yakshagana, where elaborate costumes, expressive faces, music, and mythology unfold on stage.",
-    images: ["/properties/experiances/exp8.png", "/properties/experiances/exp5.png"],
+    images: [experienceImage(8), experienceImage(5)],
     isSlideshow: true,
   },
   {
@@ -64,14 +68,14 @@ const CARDS_DATA = [
     title: "Coastal Shores & Beaches",
     tagline: "Where the Land Meets the Endless Blue",
     desc: "Discover the untouched beauty of Coastal Karnataka — golden sands, dramatic shores, swaying palms, and sunsets over the Arabian Sea. From quiet hidden beaches to lively coastal stretches, every shore carries its own story.",
-    image: "/properties/experiances/exp10.png",
+    image: experienceImage(10),
   },
   {
     id: 7,
     title: "Backwater Kayaking & Paddling",
     tagline: "Paddle Beyond the Shore",
     desc: "Glide through Udupi’s calm backwaters and coastal waters, surrounded by mangroves, coconut groves, and open skies. A peaceful way to experience the quieter side of Coastal Karnataka.",
-    image: "/properties/experiances/exp11.png",
+    image: experienceImage(11),
   },
 ];
 
@@ -92,7 +96,7 @@ function CardSlideShow({ images, title }: { images: string[]; title: string }) {
         <img
           key={img}
           src={img}
-          alt={`${title} slide ${i + 1}`}
+          alt={altFor(img, `${title} — photo ${i + 1}`)}
           className="absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ease-in-out"
           style={{ opacity: slide === i ? 1 : 0 }}
         />
@@ -123,7 +127,7 @@ export default function ExperiencesPage() {
             <img
               key={slide.src}
               src={slide.src}
-              alt={slide.alt}
+              alt={altFor(slide.src, "REUNION experiences in Udupi, Karnataka")}
               className="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ease-in-out"
               style={{ opacity: currentSlide === idx ? 1 : 0 }}
             />
@@ -211,8 +215,8 @@ export default function ExperiencesPage() {
                     ) : (
                       <div className="aspect-[4/3] overflow-hidden">
                         <img
-                          src={card.image}
-                          alt={card.title}
+                          src={card.image!}
+                          alt={altFor(card.image!, card.title)}
                           className="w-full h-full object-cover"
                         />
                       </div>
@@ -225,10 +229,20 @@ export default function ExperiencesPage() {
         </div>
       </section>
 
-      {seo ? (
-        <div className="max-w-3xl mx-auto w-full px-5 md:px-10 pb-20">
-          <ExpandablePageFaq faqs={seo.faqs} />
-        </div>
+      {seo && (SHOW_KEYWORD_GUIDE_SECTIONS || seo.faqs?.length) ? (
+        <section className="bg-[#060606] border-t border-white/5 py-14 md:py-20 px-5 md:px-10 pb-20 md:pb-24">
+          <div className="max-w-3xl mx-auto w-full space-y-12 md:space-y-14">
+            {SHOW_KEYWORD_GUIDE_SECTIONS ? (
+              <KeywordSeoSections
+                seo={seo}
+                hideFaqs
+                hideLinks
+                introTitle="Experiences & celebrations in Udupi"
+              />
+            ) : null}
+            {seo.faqs?.length ? <ExpandablePageFaq faqs={seo.faqs} /> : null}
+          </div>
+        </section>
       ) : null}
 
       <Footer />

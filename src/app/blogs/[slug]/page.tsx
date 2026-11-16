@@ -75,9 +75,28 @@ export default async function BlogPostPage({
   const others = BLOG_POSTS.filter((b) => b.slug !== post.slug);
   const isBeachesGuide = post.slug === "top-10-beaches-to-visit-in-udupi";
 
+  const articleSchema = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: seo?.h1 ?? post.title,
+    description: seo?.description ?? post.excerpt,
+    image: [`${BASE_URL}${post.coverImage}`],
+    author: { "@type": "Organization", name: "REUNION", url: BASE_URL },
+    publisher: {
+      "@type": "Organization",
+      name: "REUNION",
+      logo: { "@type": "ImageObject", url: `${BASE_URL}/logoo.png` },
+    },
+    mainEntityOfPage: { "@type": "WebPage", "@id": `${BASE_URL}/blogs/${post.slug}` },
+  };
+
   return (
     <div className="bg-[#0a0908] text-white antialiased selection:bg-[#C9A84C] selection:text-black min-h-screen">
       <KeywordFaqJsonLd seo={seo} />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
+      />
       <Navbar />
 
       <main>
@@ -311,29 +330,32 @@ export default async function BlogPostPage({
             </div>
 
             {others.length > 0 && (
-              <aside className="mt-20 pt-12 border-t border-white/10">
+              <aside className="mt-20 pt-12 border-t border-white/10 max-w-2xl">
                 <p className="font-futura text-[10px] tracking-[0.35em] text-[#C9A84C] uppercase mb-6">
                   Next read
                 </p>
-                {others.map((o) => (
-                  <Link
-                    key={o.slug}
-                    href={`/blogs/${o.slug}`}
-                    className="group grid grid-cols-1 sm:grid-cols-12 gap-4 sm:gap-6 border border-white/10 p-3 sm:p-4 hover:border-[#C9A84C]/25 transition-colors"
-                  >
-                    <div className="sm:col-span-4 relative aspect-[16/10] overflow-hidden">
-                      <img src={o.coverImage} alt="" className="w-full h-full object-cover" />
-                    </div>
-                    <div className="sm:col-span-8 flex flex-col justify-center py-1">
-                      <h3 className="font-futura text-base uppercase tracking-[0.1em] group-hover:text-[#C9A84C] transition-colors">
-                        {o.title}
-                      </h3>
-                      <p className="mt-2 font-futura text-xs text-white/40 font-light leading-relaxed line-clamp-2">
-                        {o.excerpt}
-                      </p>
-                    </div>
-                  </Link>
-                ))}
+                <ul className="space-y-0 divide-y divide-white/10 border border-white/10 rounded-sm overflow-hidden">
+                  {others.map((o) => (
+                    <li key={o.slug}>
+                      <Link
+                        href={`/blogs/${o.slug}`}
+                        className="group block px-4 sm:px-5 py-4 sm:py-5 hover:bg-white/[0.03] transition-colors"
+                      >
+                        <p className="font-futura text-[9px] sm:text-[10px] tracking-[0.25em] uppercase text-white/35 mb-1.5">
+                          {o.category}
+                          <span className="text-white/20 mx-2">·</span>
+                          {o.readTime}
+                        </p>
+                        <h3 className="font-futura text-sm sm:text-[15px] uppercase tracking-[0.08em] text-white group-hover:text-[#C9A84C] transition-colors leading-snug">
+                          {o.title}
+                        </h3>
+                        <p className="mt-2 font-futura text-xs text-white/45 font-light leading-relaxed line-clamp-2">
+                          {o.excerpt}
+                        </p>
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
               </aside>
             )}
           </article>

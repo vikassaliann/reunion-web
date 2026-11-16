@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { REUNION_WHATSAPP_DIGITS } from '@/data/factCheck';
 
 export async function POST(request: Request) {
   try {

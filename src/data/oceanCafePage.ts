@@ -12,12 +12,13 @@ export const OCEAN_CAFE_META =
   "Mattu Beach, Kapu Road | Mon - Sun: 9:30 AM – 10:00 PM | Curated Music & Fireplace";
 
 /** Portrait 9:16 source (719×1280) — serve as-is, no re-encode */
-export const OCEAN_CAFE_VIDEO = "/properties/ocean%20cafe/oceancafe.mp4";
+export const OCEAN_CAFE_VIDEO = "/properties/ocean-cafe/oceancafe.mp4";
 export const OCEAN_CAFE_VIDEO_ASPECT = "9 / 16" as const;
 export const OCEAN_CAFE_VIDEO_WIDTH = 719;
 export const OCEAN_CAFE_VIDEO_HEIGHT = 1280;
 
-const oc = (n: number) => `/properties/ocean cafe/oc${n}.png`;
+const oc = (n: number) =>
+  `/properties/ocean-cafe/reunion-ocean-cafe-photo-mattu-beach-udupi-${n}.webp`;
 
 /** Display order for gallery carousel */
 export const OCEAN_CAFE_GALLERY_ORDER = [4, 2, 3, 5, 1, 6] as const;
@@ -69,5 +70,5 @@ export const OCEAN_CAFE_GALLERY_IMAGES = OCEAN_CAFE_GALLERY_SLIDES.map((s) => s.
 
 export const OCEAN_CAFE_PHONE_DISPLAY = "+91 9972231289";
 
-export const OCEAN_CAFE_HERO_IMAGE = "/properties/ocean cafe/herooc.png";
+export const OCEAN_CAFE_HERO_IMAGE = "/properties/ocean-cafe/reunion-ocean-cafe-hero-mattu-beach-udupi.webp";
 export const OCEAN_CAFE_VIDEO_POSTER = oc(3);

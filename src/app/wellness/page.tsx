@@ -5,6 +5,8 @@ import Link from "next/link";
 import Image from "next/image";
 import type { Metadata } from "next";
 import ExpandablePageFaq from "@/components/ExpandablePageFaq";
+import KeywordSeoSections from "@/components/KeywordSeoSections";
+import { SHOW_KEYWORD_GUIDE_SECTIONS } from "@/data/siteFlags";
 import KeywordFaqJsonLd from "@/components/KeywordFaqJsonLd";
 import { getKeywordSeo } from "@/data/keywordGuide";
 import {
@@ -284,13 +286,28 @@ export default function WellnessPage() {
             </div>
           </div>
 
-        </section>
+          {SHOW_KEYWORD_GUIDE_SECTIONS && seo ? (
+            <div className="max-w-3xl mx-auto mt-16 md:mt-20">
+              <KeywordSeoSections
+                seo={seo}
+                hideFaqs
+                hideLinks
+                introTitle="Wellness & spa in Udupi"
+              />
+            </div>
+          ) : null}
 
-        {seo ? (
-          <div className="max-w-3xl mx-auto w-full px-5 md:px-10 pb-20">
-            <ExpandablePageFaq faqs={seo.faqs} />
-          </div>
-        ) : null}
+          {seo?.faqs?.length ? (
+            <div className="max-w-3xl mx-auto mt-14 md:mt-16">
+              <ExpandablePageFaq
+                faqs={seo.faqs}
+                showTopBorder
+                accentColor="#c9b57a"
+                subtitle="Tapovana Life, Manipal — add-ons when you stay with REUNION in Udupi."
+              />
+            </div>
+          ) : null}
+        </section>
       </main>
 
       <Footer />

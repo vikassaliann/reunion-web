@@ -12,7 +12,9 @@ import {
 } from "@/data/oceanCafePage";
 import type { Metadata } from "next";
 import KeywordFaqJsonLd from "@/components/KeywordFaqJsonLd";
+import KeywordSeoSections from "@/components/KeywordSeoSections";
 import { getKeywordSeo } from "@/data/keywordGuide";
+import { SHOW_KEYWORD_GUIDE_SECTIONS } from "@/data/siteFlags";
 
 const BASE_URL = "https://www.reunionglobal.in";
 const MAP_LINK = "https://maps.app.goo.gl/r4RPLhfcNUP4ECd18";
@@ -186,6 +188,18 @@ export default function DiningPage() {
             phone={CAFE_PHONE}
             faqs={diningSeo?.faqs ?? []}
           />
+
+          {SHOW_KEYWORD_GUIDE_SECTIONS && diningSeo?.sections?.length ? (
+            <div className="max-w-3xl mx-auto mt-14 md:mt-16 px-2">
+              <KeywordSeoSections
+                seo={diningSeo}
+                hideFaqs
+                hideLinks
+                light
+                introTitle="Dining on the Mattu coast"
+              />
+            </div>
+          ) : null}
         </section>
       </main>
 

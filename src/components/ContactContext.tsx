@@ -1,6 +1,14 @@
 "use client";
 
 import { createContext, useContext, useEffect, useState, ReactNode } from "react";
+import {
+  REUNION_CONTACT_EMAIL,
+  REUNION_FACEBOOK_URL,
+  REUNION_INSTAGRAM_URL,
+  REUNION_PHONE_DISPLAY,
+  REUNION_PHONE_TEL_HREF,
+  REUNION_YOUTUBE_URL,
+} from "@/data/factCheck";
 
 const ContactCtx = createContext<{ open: () => void }>({ open: () => {} });
 
@@ -53,6 +61,18 @@ const CONTACT_INFO: ContactItem[] = [
     label: "Guest Support",
     value: "support@reunionglobal.in",
     href: "mailto:support@reunionglobal.in",
+  },
+  {
+    type: "normal",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-5 h-5">
+        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+        <polyline points="22,6 12,13 2,6" />
+      </svg>
+    ),
+    label: "Reservations & Enquiry",
+    value: "reunionrevenue@gmail.com",
+    href: "mailto:reunionrevenue@gmail.com",
   },
   {
     type: "normal",

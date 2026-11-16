@@ -66,7 +66,7 @@ export default function EventsGalleryCarousel({
           >
             <img
               src={slides[prevIdx].image}
-              alt=""
+              alt={slides[prevIdx].title}
               className="w-full h-full object-cover grayscale-[25%]"
             />
           </button>
@@ -87,7 +87,7 @@ export default function EventsGalleryCarousel({
           >
             <img
               src={slides[nextIdx].image}
-              alt=""
+              alt={slides[nextIdx].title}
               className="w-full h-full object-cover grayscale-[25%]"
             />
           </button>

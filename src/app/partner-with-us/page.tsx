@@ -6,21 +6,7 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import Link from "next/link";
 import { usePartner } from "@/components/PartnerContext";
 import ExpandablePageFaq from "@/components/ExpandablePageFaq";
-
-const PARTNER_FAQS = [
-  {
-    q: "Can I list my villa with REUNION?",
-    a: "Yes — we partner with owners across Udupi and Coastal Karnataka who want professional hospitality management.",
-  },
-  {
-    q: "What does REUNION manage?",
-    a: "Marketing, guest operations, housekeeping coordination, and revenue optimisation while you retain ownership.",
-  },
-  {
-    q: "How do I start?",
-    a: "Submit the partnership enquiry form — our team reviews your property and responds within a few business days.",
-  },
-];
+import { PARTNER_FAQS } from "@/data/pageFaqs";
 
 export default function PartnerWithUsPage() {
   const { open: openPartner } = usePartner();
@@ -31,8 +17,8 @@ export default function PartnerWithUsPage() {
 
       <section className="relative min-h-[50vh] flex items-end overflow-hidden">
         <img
-          src="/properties/charm-villa/charmthub.png"
-          alt=""
+          src="/properties/charm-villa/reunion-charm-villa-udupi.webp"
+          alt="REUNION Charm Villa — partner with our Udupi hospitality team"
           className="absolute inset-0 w-full h-full object-cover opacity-60"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-[#080808] via-[#080808]/60 to-black/30" />

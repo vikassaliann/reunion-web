@@ -1,57 +1,65 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Link from "next/link";
 import properties from "@/data/properties.json";
 import { MandalaRing, MandalaLotus } from "@/components/wellness/WellnessMandala";
-import ReunionMapSection from "@/components/ReunionMapSection";
+
+const ReunionMapSection = dynamic(() => import("@/components/ReunionMapSection"), {
+  ssr: false,
+  loading: () => <div className="min-h-[min(520px,70vh)] w-full" aria-hidden />,
+});
 import { getKeywordSeo } from "@/data/keywordGuide";
 import ExpandablePageFaq from "@/components/ExpandablePageFaq";
+import KeywordSeoSections from "@/components/KeywordSeoSections";
 import DiwaliGreetingModal from "@/components/DiwaliGreetingModal";
 import SeoPageH1 from "@/components/SeoPageH1";
-import { DIWALI_GREETING_ENABLED } from "@/data/siteFlags";
+import { DIWALI_GREETING_ENABLED, SHOW_KEYWORD_GUIDE_SECTIONS } from "@/data/siteFlags";
+import { altFor, heroImageAlt } from "@/data/imageAlt";
+import { experienceImage } from "@/lib/experienceAssets";
 
 const homeSeo = getKeywordSeo("/");
 /* ── Hero slideshow images ── */
 const HERO_SLIDES = [
-  { src: "/properties/ocean-manor/herooo.png" },
-  { src: "/properties/ocean-royal/royalthumb.png" },
-  { src: "/properties/reunion-serene/hero.png" },
-  { src: "/properties/krshna/krthumb.png" },
-  { src: "/properties/charm-villa/charmthub.png" },
+  { src: "/properties/ocean-manor/reunion-ocean-manor-hoode-beach-udupi.webp" },
+  { src: "/properties/ocean-royal/reunion-ocean-royal-kapu-udupi.webp" },
+  { src: "/properties/reunion-serene/reunion-serene-shivamogga.webp" },
+  { src: "/properties/krshna/reunion-krshna-manipal-udupi.webp" },
+  { src: "/properties/charm-villa/reunion-charm-villa-udupi.webp" },
 ];
 
 const STAY_CATEGORIES = [
   {
     title: "Beach Villas",
     desc: "Wake up to the sound of the waves.",
-    img: "/properties/popular/elite.png",
+    img: "/properties/popular/reunion-ocean-elite-category-udupi.webp",
     href: "/properties?cat=beach",
   },
   {
     title: "Private Pool Villas",
     desc: "Your own space, your own time.",
-    img: "/properties/popular/givaah.png",
+    img: "/properties/popular/reunion-ocean-givaah-category-udupi.webp",
     href: "/properties?cat=pool",
   },
   {
     title: "Premium Suites",
     desc: "Comfort, style and coastal charm.",
-    img: "/properties/de-homes/dehomesthumb.png",
+    img: "/properties/de-homes/reunion-de-homes-udupi.webp",
     href: "/properties?cat=city",
   },
   {
     title: "Heritage Farmhouses",
     desc: "Rustic beauty meets coastal living.",
-    img: "/properties/popular/royal.png",
+    img: "/properties/popular/reunion-ocean-royal-category-udupi.webp",
     href: "/properties?cat=heritage",
   },
   {
     title: "Ocean Café",
     desc: "Dining right on Mattu Beach.",
-    img: "/properties/ocean cafe/ocean1.png",
+    img: "/properties/ocean-cafe/reunion-ocean-cafe-photo-mattu-beach-udupi-7.webp",
     href: "/dining",
   },
 ];
@@ -155,10 +163,12 @@ export default function Home() {
               <img
                 key={slide.src}
                 src={slide.src}
-                alt=""
-                role="presentation"
+                alt={altFor(slide.src, "REUNION luxury villa stay in Udupi, Karnataka")}
                 className="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ease-in-out"
                 style={{ opacity: currentSlide === idx ? 1 : 0 }}
+                loading={idx === 0 ? "eager" : "lazy"}
+                fetchPriority={idx === 0 ? "high" : "low"}
+                decoding="async"
               />
             ))}
           </div>
@@ -244,7 +254,7 @@ export default function Home() {
               <div className="relative reveal">
                 <div className="relative overflow-hidden aspect-[4/3] rounded-sm shadow-xl">
                   <img
-                    src="/properties/popular/elite.png"
+                    src="/properties/popular/reunion-ocean-elite-category-udupi.webp"
                     alt="Reunion coastal experience"
                     className="w-full h-full object-cover"
                   />
@@ -322,7 +332,7 @@ export default function Home() {
                     <div className="relative aspect-[3/4] overflow-hidden bg-white/5">
                       <img
                         src={prop.heroImage}
-                        alt={prop.name}
+                        alt={heroImageAlt(prop.heroImage, prop.name, prop.location)}
                         loading="lazy"
                         className="w-full h-full object-cover"
                       />
@@ -417,7 +427,7 @@ export default function Home() {
                 <div className="order-1 lg:order-2 lg:col-span-7">
                   <div className="aspect-[4/3] w-full overflow-hidden">
                     <img
-                      src="/properties/ocean-elite/thumbelite.png"
+                      src="/properties/ocean-elite/reunion-ocean-elite-hoode-beach-udupi.webp"
                       alt="Reunion Ocean Elite"
                       className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
                     />
@@ -430,7 +440,7 @@ export default function Home() {
                 <div className="lg:col-span-7">
                   <div className="aspect-[4/3] w-full overflow-hidden">
                     <img
-                      src="/properties/ocean-manor/herooo.png"
+                      src="/properties/ocean-manor/reunion-ocean-manor-hoode-beach-udupi.webp"
                       alt="Reunion Ocean Manor"
                       className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
                     />
@@ -479,7 +489,7 @@ export default function Home() {
                 <div className="order-1 lg:order-2 lg:col-span-7">
                   <div className="aspect-[4/3] w-full overflow-hidden">
                     <img
-                      src="/properties/ocean-givaah/givaahthumb.png"
+                      src="/properties/ocean-givaah/reunion-ocean-givaah-uchila-udupi.webp"
                       alt="Reunion Ocean Givaah"
                       className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
                     />
@@ -511,7 +521,7 @@ export default function Home() {
                     <div className="lg:col-span-7">
                       <div className="aspect-[4/3] w-full overflow-hidden">
                         <img
-                          src="/properties/ocean-royal/royalthumb.png"
+                          src="/properties/ocean-royal/reunion-ocean-royal-kapu-udupi.webp"
                           alt="Reunion Ocean Royal"
                           className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
                         />
@@ -560,7 +570,7 @@ export default function Home() {
                     <div className="order-1 lg:order-2 lg:col-span-7">
                       <div className="aspect-[4/3] w-full overflow-hidden">
                         <img
-                          src="/properties/reunion-d-square/dd4.png"
+                          src="/properties/reunion-d-square/reunion-d-square-koteshwara-udupi.webp"
                           alt="Reunion D Square"
                           className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
                         />
@@ -573,7 +583,7 @@ export default function Home() {
                     <div className="lg:col-span-7">
                       <div className="aspect-[4/3] w-full overflow-hidden">
                         <img
-                          src="/properties/de-homes/dehomesthumb.png"
+                          src="/properties/de-homes/reunion-de-homes-udupi.webp"
                           alt="Reunion De Homes"
                           className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
                         />
@@ -604,7 +614,7 @@ export default function Home() {
                     <div className="lg:col-span-7">
                       <div className="aspect-[4/3] w-full overflow-hidden">
                         <img
-                          src="/properties/reunion-serene/hero.png"
+                          src="/properties/reunion-serene/reunion-serene-shivamogga.webp"
                           alt="Reunion Serene"
                           className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
                         />
@@ -654,7 +664,12 @@ export default function Home() {
                     Experiences
                   </h2>
                   <p className="font-futura text-stone-600 text-xs sm:text-sm leading-relaxed font-light tracking-wide max-w-md">
-                    Immerse in private beachside dining, backwater kayaking, coastal wellness, and handcrafted cultural moments across Udupi.
+                    Immerse in private beachside dining, backwater kayaking, coastal wellness, and handcrafted cultural moments across Udupi. Planning
+                    a wedding? See our{" "}
+                    <Link href="/events#private-beach-venue" className="text-[#B8963E] hover:underline">
+                      beach wedding venue
+                    </Link>
+                    .
                   </p>
                 </div>
 
@@ -665,7 +680,7 @@ export default function Home() {
                     className="absolute shadow-2xl hover:z-30 transition-all duration-500 hover:scale-105"
                     style={{ top: "0%", left: "0%", width: "48%", transform: "rotate(-3deg)", zIndex: 5 }}
                   >
-                    <img src="/properties/experiances/exp1.png" alt="Experience" className="w-full aspect-[4/3] object-cover rounded-sm" />
+                    <img src={experienceImage(1)} alt={altFor(experienceImage(1), "REUNION coastal experiences in Udupi")} className="w-full aspect-[4/3] object-cover rounded-sm" loading="lazy" />
                   </div>
 
                   {/* Image 2 — medium, top-right, opposite tilt */}
@@ -673,7 +688,7 @@ export default function Home() {
                     className="absolute shadow-2xl hover:z-30 transition-all duration-500 hover:scale-105"
                     style={{ top: "5%", right: "2%", width: "40%", transform: "rotate(4deg)", zIndex: 8 }}
                   >
-                    <img src="/properties/experiances/exp2.png" alt="Experience" className="w-full aspect-[3/4] object-cover rounded-sm" />
+                    <img src={experienceImage(2)} alt={altFor(experienceImage(2), "Beach celebrations at REUNION, Udupi")} className="w-full aspect-[3/4] object-cover rounded-sm" loading="lazy" />
                   </div>
 
                   {/* Image 3 — small, mid-center, overlapping */}
@@ -681,7 +696,7 @@ export default function Home() {
                     className="absolute shadow-2xl hover:z-30 transition-all duration-500 hover:scale-105"
                     style={{ top: "38%", left: "28%", width: "32%", transform: "rotate(-1.5deg)", zIndex: 12 }}
                   >
-                    <img src="/properties/experiances/exp4.png" alt="Experience" className="w-full aspect-[4/3] object-cover rounded-sm" />
+                    <img src={experienceImage(4)} alt={altFor(experienceImage(4), "Events and weddings at REUNION, Udupi")} className="w-full aspect-[4/3] object-cover rounded-sm" loading="lazy" />
                   </div>
 
                   {/* Image 4 — bottom-left, tilted */}
@@ -689,7 +704,7 @@ export default function Home() {
                     className="absolute shadow-2xl hover:z-30 transition-all duration-500 hover:scale-105"
                     style={{ bottom: "0%", left: "3%", width: "36%", transform: "rotate(2.5deg)", zIndex: 6 }}
                   >
-                    <img src="/properties/experiances/exp7.png" alt="Experience" className="w-full aspect-square object-cover rounded-sm" />
+                    <img src={experienceImage(7)} alt={altFor(experienceImage(7), "Outdoor dining on the Udupi coast")} className="w-full aspect-square object-cover rounded-sm" loading="lazy" />
                   </div>
 
                   {/* Image 5 — bottom-right, slight tilt */}
@@ -697,7 +712,7 @@ export default function Home() {
                     className="absolute shadow-2xl hover:z-30 transition-all duration-500 hover:scale-105"
                     style={{ bottom: "4%", right: "0%", width: "38%", transform: "rotate(-2deg)", zIndex: 10 }}
                   >
-                    <img src="/properties/experiances/exp9.png" alt="Experience" className="w-full aspect-[4/3] object-cover rounded-sm" />
+                    <img src={experienceImage(9)} alt={altFor(experienceImage(9), "REUNION experiences in Udupi, Karnataka")} className="w-full aspect-[4/3] object-cover rounded-sm" loading="lazy" />
                   </div>
                 </div>
 
@@ -734,7 +749,7 @@ export default function Home() {
                     className="absolute shadow-2xl hover:z-40 transition-all duration-500 hover:scale-105"
                     style={{ top: "2%", left: "2%", width: "52%", transform: "rotate(-3deg)", zIndex: 10 }}
                   >
-                    <img src="/properties/experiances/exp12.png" alt="Candle light dinner in Udupi" className="w-full h-auto rounded-sm" />
+                    <img src={experienceImage(12)} alt={altFor(experienceImage(12), "Candlelight dinner on the Udupi coast")} className="w-full h-auto rounded-sm" />
                   </div>
 
                   {/* Image 2 — Top Right */}
@@ -742,7 +757,7 @@ export default function Home() {
                     className="absolute shadow-2xl hover:z-40 transition-all duration-500 hover:scale-105"
                     style={{ top: "15%", right: "0%", width: "48%", transform: "rotate(4deg)", zIndex: 20 }}
                   >
-                    <img src="/properties/experiances/exp13.png" alt="Candlelight dinner in Udupi beach" className="w-full h-auto rounded-sm" />
+                    <img src={experienceImage(13)} alt={altFor(experienceImage(13), "Private candlelight dinner on a Udupi beach")} className="w-full h-auto rounded-sm" />
                   </div>
 
                   {/* Image 3 — Bottom Center Overlap */}
@@ -750,7 +765,7 @@ export default function Home() {
                     className="absolute shadow-2xl hover:z-40 transition-all duration-500 hover:scale-105"
                     style={{ bottom: "2%", left: "15%", width: "60%", transform: "rotate(-1deg)", zIndex: 30 }}
                   >
-                    <img src="/properties/experiances/exp14.png" alt="Private candlelight dinner Udupi" className="w-full h-auto rounded-sm" />
+                    <img src={experienceImage(14)} alt={altFor(experienceImage(14), "Romantic candlelight dining experience, Udupi")} className="w-full h-auto rounded-sm" />
                   </div>
                 </div>
 
@@ -844,10 +859,16 @@ export default function Home() {
         </section>
 
 
-        {homeSeo?.faqs?.length ? (
-          <section className="bg-[#080808] py-14 px-5 md:px-10">
-            <div className="max-w-3xl mx-auto w-full">
-              <ExpandablePageFaq faqs={homeSeo.faqs} noDividers />
+        {homeSeo &&
+        ((SHOW_KEYWORD_GUIDE_SECTIONS && homeSeo.sections.length > 0) || homeSeo.faqs?.length) ? (
+          <section className="bg-[#080808] py-14 md:py-20 px-5 md:px-10 border-t border-white/5">
+            <div className="max-w-3xl mx-auto w-full space-y-12 md:space-y-14">
+              {SHOW_KEYWORD_GUIDE_SECTIONS ? (
+                <KeywordSeoSections seo={homeSeo} hideFaqs hideLinks />
+              ) : null}
+              {homeSeo.faqs?.length ? (
+                <ExpandablePageFaq faqs={homeSeo.faqs} noDividers />
+              ) : null}
             </div>
           </section>
         ) : null}

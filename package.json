@@ -16,7 +16,12 @@
     "build:cf": "node scripts/strip-cf-oversized-assets.mjs && opennextjs-cloudflare build",
     "deploy:cf": "wrangler deploy",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "verify:seo": "node scripts/verify-seo-master.mjs",
+    "images:redirect-map": "node scripts/generate-image-redirect-map.mjs",
+    "images:apply": "node scripts/apply-image-redirects.mjs && node scripts/sync-image-urls.mjs && node scripts/generate-image-alt-map.mjs",
+    "images:prune-legacy": "node scripts/prune-legacy-images.mjs && node scripts/generate-image-alt-map.mjs",
+    "images:url-polish": "node scripts/apply-url-polish.mjs && node scripts/generate-image-alt-map.mjs"
   },
   "dependencies": {
     "next": "16.4.6",
@@ -27,6 +32,7 @@
   "devDependencies": {
     "@emnapi/core": "1.11.3",
     "@emnapi/runtime": "1.11.3",
+    "@opennextjs/cloudflare": "^1.20.17",
     "@tailwindcss/container-queries": "^0.1.1",
     "@tailwindcss/forms": "^0.5.11",
     "@types/node": "^20",
@@ -37,9 +43,9 @@
     "eslint": "^9",
     "eslint-config-next": "16.4.6",
     "postcss": "^8.5.15",
+    "sharp": "^0.35.5",
     "tailwindcss": "^3.4.19",
     "typescript": "^5",
-    "@opennextjs/cloudflare": "^1.20.17",
     "wrangler": "4.80.0"
   }
 }

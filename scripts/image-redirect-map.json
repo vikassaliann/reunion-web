@@ -1,0 +1,1161 @@
+{
+  "renames": [
+    {
+      "from": "/properties/beaches/malpe.png",
+      "to": "/properties/beaches/malpe-beach-udupi.webp"
+    },
+    {
+      "from": "/properties/beaches/mattu.png",
+      "to": "/properties/beaches/mattu-beach-udupi.webp"
+    },
+    {
+      "from": "/properties/ocean-manor/herooo.png",
+      "to": "/properties/ocean-manor/reunion-ocean-manor-hoode-beach-udupi.webp"
+    },
+    {
+      "from": "/properties/reunion-serene/hero.png",
+      "to": "/properties/reunion-serene/reunion-serene-shivamogga.webp"
+    },
+    {
+      "from": "/blogs/itinerary/sri-krishna-matha.jpg",
+      "to": "/blogs/itinerary/sri-krishna-matha-udupi.webp"
+    },
+    {
+      "from": "/properties/beaches/hoode.png",
+      "to": "/properties/beaches/hoode-beach-udupi.webp"
+    },
+    {
+      "from": "/properties/beaches/stmarys.png",
+      "to": "/properties/beaches/st-marys-island-off-malpe-udupi.webp"
+    },
+    {
+      "from": "/blogs/tourist-places-hero.jpg",
+      "to": "/blogs/tourist-places-in-udupi-1.webp"
+    },
+    {
+      "from": "/properties/charm-villa/charmthub.png",
+      "to": "/properties/charm-villa/reunion-charm-villa-udupi.webp"
+    },
+    {
+      "from": "/properties/reunion-d-square/dd4.png",
+      "to": "/properties/reunion-d-square/reunion-d-square-koteshwara-udupi.webp"
+    },
+    {
+      "from": "/properties/krshna/krthumb.png",
+      "to": "/properties/krshna/reunion-krshna-manipal-udupi.webp"
+    },
+    {
+      "from": "/properties/ocean-royal/royalthumb.png",
+      "to": "/properties/ocean-royal/reunion-ocean-royal-kapu-udupi.webp"
+    },
+    {
+      "from": "/properties/aradhya-villa/arathumb.png",
+      "to": "/properties/aradhya-villa/reunion-aradhya-villa-udupi.webp"
+    },
+    {
+      "from": "/properties/arya/aryathumb.png",
+      "to": "/properties/arya/reunion-arya-studio-udupi.webp"
+    },
+    {
+      "from": "/properties/de-homes/dehomesthumb.png",
+      "to": "/properties/de-homes/reunion-de-homes-udupi.webp"
+    },
+    {
+      "from": "/properties/marina-villa/marinathumb.png",
+      "to": "/properties/marina-villa/reunion-marina-villa-udupi.webp"
+    },
+    {
+      "from": "/properties/ocean-bliss/blissthumb.png",
+      "to": "/properties/ocean-bliss/reunion-ocean-bliss-malpe-udupi.webp"
+    },
+    {
+      "from": "/properties/ocean-daaffy/daaffyhero.png",
+      "to": "/properties/ocean-daaffy/reunion-ocean-daaffy-uchila-udupi.webp"
+    },
+    {
+      "from": "/properties/ocean-elite/thumbelite.png",
+      "to": "/properties/ocean-elite/reunion-ocean-elite-hoode-beach-udupi.webp"
+    },
+    {
+      "from": "/properties/ocean-givaah/givaahthumb.png",
+      "to": "/properties/ocean-givaah/reunion-ocean-givaah-uchila-udupi.webp"
+    },
+    {
+      "from": "/properties/ocean-hridayam/hridthumb.png",
+      "to": "/properties/ocean-hridayam/reunion-ocean-hridayam-mattu-beach-udupi.webp"
+    },
+    {
+      "from": "/properties/ocean-waves/wavest.png",
+      "to": "/properties/ocean-waves/reunion-ocean-waves-mattu-beach-udupi.webp"
+    },
+    {
+      "from": "/properties/regal-villa/regalhero.png",
+      "to": "/properties/regal-villa/reunion-regal-villa-udupi.webp"
+    },
+    {
+      "from": "/properties/villa/villahero.png",
+      "to": "/properties/villa/reunion-villa-udupi.webp"
+    },
+    {
+      "from": "/properties/ocean-elite/IMG-20240424-WA0059.jpg.jpeg",
+      "to": "/properties/ocean-elite/reunion-ocean-elite-photo-hoode-beach-udupi-1.webp"
+    },
+    {
+      "from": "/properties/ocean-elite/elite-gallery-0070.jpeg",
+      "to": "/properties/ocean-elite/reunion-ocean-elite-photo-hoode-beach-udupi-2.webp"
+    },
+    {
+      "from": "/properties/ocean-elite/IMG-20240424-WA0071.jpg.jpeg",
+      "to": "/properties/ocean-elite/reunion-ocean-elite-photo-hoode-beach-udupi-3.webp"
+    },
+    {
+      "from": "/properties/ocean-elite/IMG-20240424-WA0086.jpg.jpeg",
+      "to": "/properties/ocean-elite/reunion-ocean-elite-photo-hoode-beach-udupi-4.webp"
+    },
+    {
+      "from": "/properties/ocean-elite/IMG-20240424-WA0087.jpg.jpeg",
+      "to": "/properties/ocean-elite/reunion-ocean-elite-photo-hoode-beach-udupi-5.webp"
+    },
+    {
+      "from": "/properties/ocean-elite/IMG-20240424-WA0101.jpg.jpeg",
+      "to": "/properties/ocean-elite/reunion-ocean-elite-photo-hoode-beach-udupi-6.webp"
+    },
+    {
+      "from": "/properties/ocean-elite/IMG-20240424-WA0105.jpg.jpeg",
+      "to": "/properties/ocean-elite/reunion-ocean-elite-photo-hoode-beach-udupi-7.webp"
+    },
+    {
+      "from": "/properties/ocean-elite/IMG-20240424-WA0106.jpg.jpeg",
+      "to": "/properties/ocean-elite/reunion-ocean-elite-photo-hoode-beach-udupi-8.webp"
+    },
+    {
+      "from": "/properties/ocean-elite/IMG-20240514-WA0004.jpg.jpeg",
+      "to": "/properties/ocean-elite/reunion-ocean-elite-photo-hoode-beach-udupi-9.webp"
+    },
+    {
+      "from": "/properties/ocean-elite/IMG-20250822-WA0001.jpg.jpeg",
+      "to": "/properties/ocean-elite/reunion-ocean-elite-photo-hoode-beach-udupi-10.webp"
+    },
+    {
+      "from": "/properties/ocean-elite/IMG-20250822-WA0002.jpg.jpeg",
+      "to": "/properties/ocean-elite/reunion-ocean-elite-photo-hoode-beach-udupi-11.webp"
+    },
+    {
+      "from": "/properties/ocean-elite/IMG-20250822-WA0003.jpg.jpeg",
+      "to": "/properties/ocean-elite/reunion-ocean-elite-photo-hoode-beach-udupi-12.webp"
+    },
+    {
+      "from": "/properties/ocean-elite/IMG-20260123-WA0075.jpg.jpeg",
+      "to": "/properties/ocean-elite/reunion-ocean-elite-photo-hoode-beach-udupi-13.webp"
+    },
+    {
+      "from": "/properties/ocean-elite/IMG-20260613-WA0097.jpg.jpeg",
+      "to": "/properties/ocean-elite/reunion-ocean-elite-photo-hoode-beach-udupi-14.webp"
+    },
+    {
+      "from": "/properties/ocean-manor/IMG-20240330-WA0005.jpg.jpeg",
+      "to": "/properties/ocean-manor/reunion-ocean-manor-photo-hoode-beach-udupi-1.webp"
+    },
+    {
+      "from": "/properties/ocean-manor/IMG-20240330-WA0010.jpg.jpeg",
+      "to": "/properties/ocean-manor/reunion-ocean-manor-photo-hoode-beach-udupi-2.webp"
+    },
+    {
+      "from": "/properties/ocean-manor/IMG-20240330-WA0014.jpg.jpeg",
+      "to": "/properties/ocean-manor/reunion-ocean-manor-photo-hoode-beach-udupi-3.webp"
+    },
+    {
+      "from": "/properties/ocean-manor/IMG-20240330-WA0015.jpg.jpeg",
+      "to": "/properties/ocean-manor/reunion-ocean-manor-photo-hoode-beach-udupi-4.webp"
+    },
+    {
+      "from": "/properties/ocean-manor/IMG-20240330-WA0029.jpg.jpeg",
+      "to": "/properties/ocean-manor/reunion-ocean-manor-photo-hoode-beach-udupi-5.webp"
+    },
+    {
+      "from": "/properties/ocean-manor/IMG-20240330-WA0032.jpg.jpeg",
+      "to": "/properties/ocean-manor/reunion-ocean-manor-photo-hoode-beach-udupi-6.webp"
+    },
+    {
+      "from": "/properties/ocean-manor/IMG-20240410-WA0001.jpg.jpeg",
+      "to": "/properties/ocean-manor/reunion-ocean-manor-photo-hoode-beach-udupi-7.webp"
+    },
+    {
+      "from": "/properties/ocean-manor/IMG-20240410-WA0013.jpg.jpeg",
+      "to": "/properties/ocean-manor/reunion-ocean-manor-photo-hoode-beach-udupi-8.webp"
+    },
+    {
+      "from": "/properties/ocean-manor/IMG-20240410-WA0018.jpg.jpeg",
+      "to": "/properties/ocean-manor/reunion-ocean-manor-photo-hoode-beach-udupi-9.webp"
+    },
+    {
+      "from": "/properties/ocean-manor/IMG-20240410-WA0021.jpg.jpeg",
+      "to": "/properties/ocean-manor/reunion-ocean-manor-photo-hoode-beach-udupi-10.webp"
+    },
+    {
+      "from": "/properties/ocean-manor/IMG-20240512-WA0012.jpg.jpeg",
+      "to": "/properties/ocean-manor/reunion-ocean-manor-photo-hoode-beach-udupi-11.webp"
+    },
+    {
+      "from": "/properties/ocean-manor/IMG-20240513-WA0005.jpg.jpeg",
+      "to": "/properties/ocean-manor/reunion-ocean-manor-photo-hoode-beach-udupi-12.webp"
+    },
+    {
+      "from": "/properties/ocean-manor/IMG-20250302-WA0013.jpg.jpeg",
+      "to": "/properties/ocean-manor/reunion-ocean-manor-photo-hoode-beach-udupi-13.webp"
+    },
+    {
+      "from": "/properties/ocean-manor/IMG-20250302-WA0032.jpg.jpeg",
+      "to": "/properties/ocean-manor/reunion-ocean-manor-photo-hoode-beach-udupi-14.webp"
+    },
+    {
+      "from": "/properties/ocean-givaah/Reunion Ocean Givaah_eight.jpeg",
+      "to": "/properties/ocean-givaah/reunion-ocean-givaah-photo-uchila-udupi-1.webp"
+    },
+    {
+      "from": "/properties/ocean-givaah/Reunion Ocean Givaah_five.jpeg",
+      "to": "/properties/ocean-givaah/reunion-ocean-givaah-photo-uchila-udupi-2.webp"
+    },
+    {
+      "from": "/properties/ocean-givaah/Reunion Ocean Givaah_four.jpeg",
+      "to": "/properties/ocean-givaah/reunion-ocean-givaah-photo-uchila-udupi-3.webp"
+    },
+    {
+      "from": "/properties/ocean-givaah/Reunion Ocean Givaah_nine.jpeg",
+      "to": "/properties/ocean-givaah/reunion-ocean-givaah-photo-uchila-udupi-4.webp"
+    },
+    {
+      "from": "/properties/ocean-givaah/Reunion Ocean Givaah_one.jpeg",
+      "to": "/properties/ocean-givaah/reunion-ocean-givaah-photo-uchila-udupi-5.webp"
+    },
+    {
+      "from": "/properties/ocean-givaah/Reunion Ocean Givaah_seven.jpeg",
+      "to": "/properties/ocean-givaah/reunion-ocean-givaah-photo-uchila-udupi-6.webp"
+    },
+    {
+      "from": "/properties/ocean-givaah/Reunion Ocean Givaah_six.jpeg",
+      "to": "/properties/ocean-givaah/reunion-ocean-givaah-photo-uchila-udupi-7.webp"
+    },
+    {
+      "from": "/properties/ocean-givaah/Reunion Ocean Givaah_ten.jpeg",
+      "to": "/properties/ocean-givaah/reunion-ocean-givaah-photo-uchila-udupi-8.webp"
+    },
+    {
+      "from": "/properties/ocean-givaah/Reunion Ocean Givaah_three.jpeg",
+      "to": "/properties/ocean-givaah/reunion-ocean-givaah-photo-uchila-udupi-9.webp"
+    },
+    {
+      "from": "/properties/ocean-givaah/Reunion Ocean Givaah_two.jpeg",
+      "to": "/properties/ocean-givaah/reunion-ocean-givaah-photo-uchila-udupi-10.webp"
+    },
+    {
+      "from": "/properties/ocean-royal/Reunion Ocean Royal_eight .jpeg",
+      "to": "/properties/ocean-royal/reunion-ocean-royal-photo-kapu-udupi-1.webp"
+    },
+    {
+      "from": "/properties/ocean-royal/Reunion Ocean Royal_five.jpeg",
+      "to": "/properties/ocean-royal/reunion-ocean-royal-photo-kapu-udupi-2.webp"
+    },
+    {
+      "from": "/properties/ocean-royal/Reunion Ocean Royal_four.jpeg",
+      "to": "/properties/ocean-royal/reunion-ocean-royal-photo-kapu-udupi-3.webp"
+    },
+    {
+      "from": "/properties/ocean-royal/Reunion Ocean Royal_nine.jpeg",
+      "to": "/properties/ocean-royal/reunion-ocean-royal-photo-kapu-udupi-4.webp"
+    },
+    {
+      "from": "/properties/ocean-royal/Reunion Ocean Royal_one.jpeg",
+      "to": "/properties/ocean-royal/reunion-ocean-royal-photo-kapu-udupi-5.webp"
+    },
+    {
+      "from": "/properties/ocean-royal/Reunion Ocean Royal_seven.jpeg",
+      "to": "/properties/ocean-royal/reunion-ocean-royal-photo-kapu-udupi-6.webp"
+    },
+    {
+      "from": "/properties/ocean-royal/Reunion Ocean Royal_six.jpeg",
+      "to": "/properties/ocean-royal/reunion-ocean-royal-photo-kapu-udupi-7.webp"
+    },
+    {
+      "from": "/properties/ocean-royal/Reunion Ocean Royal_ten.jpeg",
+      "to": "/properties/ocean-royal/reunion-ocean-royal-photo-kapu-udupi-8.webp"
+    },
+    {
+      "from": "/properties/ocean-royal/Reunion Ocean Royal_three.jpeg",
+      "to": "/properties/ocean-royal/reunion-ocean-royal-photo-kapu-udupi-9.webp"
+    },
+    {
+      "from": "/properties/ocean-royal/Reunion Ocean Royal_two.jpeg",
+      "to": "/properties/ocean-royal/reunion-ocean-royal-photo-kapu-udupi-10.webp"
+    },
+    {
+      "from": "/properties/de-homes/1000001630.jpg.jpeg",
+      "to": "/properties/de-homes/reunion-de-homes-photo-udupi-1.webp"
+    },
+    {
+      "from": "/properties/de-homes/1000001631.jpg.jpeg",
+      "to": "/properties/de-homes/reunion-de-homes-photo-udupi-2.webp"
+    },
+    {
+      "from": "/properties/de-homes/1000001633.jpg.jpeg",
+      "to": "/properties/de-homes/reunion-de-homes-photo-udupi-3.webp"
+    },
+    {
+      "from": "/properties/de-homes/1000001635.jpg.jpeg",
+      "to": "/properties/de-homes/reunion-de-homes-photo-udupi-4.webp"
+    },
+    {
+      "from": "/properties/de-homes/1000001636.jpg.jpeg",
+      "to": "/properties/de-homes/reunion-de-homes-photo-udupi-5.webp"
+    },
+    {
+      "from": "/properties/de-homes/1000001637.jpg.jpeg",
+      "to": "/properties/de-homes/reunion-de-homes-photo-udupi-6.webp"
+    },
+    {
+      "from": "/properties/de-homes/IMG-20260410-WA0015.jpg.jpeg",
+      "to": "/properties/de-homes/reunion-de-homes-photo-udupi-7.webp"
+    },
+    {
+      "from": "/properties/de-homes/IMG-20260410-WA0016.jpg.jpeg",
+      "to": "/properties/de-homes/reunion-de-homes-photo-udupi-8.webp"
+    },
+    {
+      "from": "/properties/de-homes/Reunion_D_Homes-104_resized.jpg.jpeg",
+      "to": "/properties/de-homes/reunion-de-homes-photo-udupi-9.webp"
+    },
+    {
+      "from": "/properties/de-homes/Reunion_D_Homes-105_resized.jpg.jpeg",
+      "to": "/properties/de-homes/reunion-de-homes-photo-udupi-10.webp"
+    },
+    {
+      "from": "/properties/de-homes/Reunion_D_Homes-106_resized.jpg.jpeg",
+      "to": "/properties/de-homes/reunion-de-homes-photo-udupi-11.webp"
+    },
+    {
+      "from": "/properties/de-homes/Reunion_D_Homes-4_resized.jpg.jpeg",
+      "to": "/properties/de-homes/reunion-de-homes-photo-udupi-12.webp"
+    },
+    {
+      "from": "/properties/reunion-d-square/dde1.png",
+      "to": "/properties/reunion-d-square/reunion-d-square-photo-koteshwara-udupi-1.webp"
+    },
+    {
+      "from": "/properties/reunion-d-square/dde2.png",
+      "to": "/properties/reunion-d-square/reunion-d-square-photo-koteshwara-udupi-2.webp"
+    },
+    {
+      "from": "/properties/reunion-d-square/dde3.png",
+      "to": "/properties/reunion-d-square/reunion-d-square-photo-koteshwara-udupi-3.webp"
+    },
+    {
+      "from": "/properties/reunion-d-square/dd5.png",
+      "to": "/properties/reunion-d-square/reunion-d-square-photo-koteshwara-udupi-4.webp"
+    },
+    {
+      "from": "/properties/reunion-d-square/dd6.png",
+      "to": "/properties/reunion-d-square/reunion-d-square-photo-koteshwara-udupi-5.webp"
+    },
+    {
+      "from": "/properties/ocean-daaffy/daaffy1.avif",
+      "to": "/properties/ocean-daaffy/reunion-ocean-daaffy-photo-uchila-udupi-1.webp"
+    },
+    {
+      "from": "/properties/ocean-daaffy/daaffy2.jpg",
+      "to": "/properties/ocean-daaffy/reunion-ocean-daaffy-photo-uchila-udupi-2.webp"
+    },
+    {
+      "from": "/properties/ocean-daaffy/daaffy4.avif",
+      "to": "/properties/ocean-daaffy/reunion-ocean-daaffy-photo-uchila-udupi-3.webp"
+    },
+    {
+      "from": "/properties/ocean-daaffy/daaffy5.jpg",
+      "to": "/properties/ocean-daaffy/reunion-ocean-daaffy-photo-uchila-udupi-4.webp"
+    },
+    {
+      "from": "/properties/ocean-hridayam/Reunion Ocean Hridayam_eight.jpeg",
+      "to": "/properties/ocean-hridayam/reunion-ocean-hridayam-photo-mattu-beach-udupi-1.webp"
+    },
+    {
+      "from": "/properties/ocean-hridayam/Reunion Ocean Hridayam_five.jpeg",
+      "to": "/properties/ocean-hridayam/reunion-ocean-hridayam-photo-mattu-beach-udupi-2.webp"
+    },
+    {
+      "from": "/properties/ocean-hridayam/Reunion Ocean Hridayam_four.jpeg",
+      "to": "/properties/ocean-hridayam/reunion-ocean-hridayam-photo-mattu-beach-udupi-3.webp"
+    },
+    {
+      "from": "/properties/ocean-hridayam/Reunion Ocean Hridayam_nine.jpeg",
+      "to": "/properties/ocean-hridayam/reunion-ocean-hridayam-photo-mattu-beach-udupi-4.webp"
+    },
+    {
+      "from": "/properties/ocean-hridayam/Reunion Ocean Hridayam_one.jpeg",
+      "to": "/properties/ocean-hridayam/reunion-ocean-hridayam-photo-mattu-beach-udupi-5.webp"
+    },
+    {
+      "from": "/properties/ocean-hridayam/Reunion Ocean Hridayam_seven.jpeg",
+      "to": "/properties/ocean-hridayam/reunion-ocean-hridayam-photo-mattu-beach-udupi-6.webp"
+    },
+    {
+      "from": "/properties/ocean-hridayam/Reunion Ocean Hridayam_six.jpeg",
+      "to": "/properties/ocean-hridayam/reunion-ocean-hridayam-photo-mattu-beach-udupi-7.webp"
+    },
+    {
+      "from": "/properties/ocean-hridayam/Reunion Ocean Hridayam_ten.jpeg",
+      "to": "/properties/ocean-hridayam/reunion-ocean-hridayam-photo-mattu-beach-udupi-8.webp"
+    },
+    {
+      "from": "/properties/ocean-hridayam/Reunion Ocean Hridayam_three.jpeg",
+      "to": "/properties/ocean-hridayam/reunion-ocean-hridayam-photo-mattu-beach-udupi-9.webp"
+    },
+    {
+      "from": "/properties/ocean-hridayam/Reunion Ocean Hridayam_two.jpeg",
+      "to": "/properties/ocean-hridayam/reunion-ocean-hridayam-photo-mattu-beach-udupi-10.webp"
+    },
+    {
+      "from": "/properties/ocean-bliss/Reunion Ocean Bliss_eleven.jpg.jpeg",
+      "to": "/properties/ocean-bliss/reunion-ocean-bliss-photo-malpe-udupi-1.webp"
+    },
+    {
+      "from": "/properties/ocean-bliss/Reunion Ocean Bliss_five.jpeg",
+      "to": "/properties/ocean-bliss/reunion-ocean-bliss-photo-malpe-udupi-2.webp"
+    },
+    {
+      "from": "/properties/ocean-bliss/Reunion Ocean Bliss_four.jpeg",
+      "to": "/properties/ocean-bliss/reunion-ocean-bliss-photo-malpe-udupi-3.webp"
+    },
+    {
+      "from": "/properties/ocean-bliss/Reunion Ocean Bliss_nine.jpeg",
+      "to": "/properties/ocean-bliss/reunion-ocean-bliss-photo-malpe-udupi-4.webp"
+    },
+    {
+      "from": "/properties/ocean-bliss/Reunion Ocean Bliss_one.jpeg",
+      "to": "/properties/ocean-bliss/reunion-ocean-bliss-photo-malpe-udupi-5.webp"
+    },
+    {
+      "from": "/properties/ocean-bliss/Reunion Ocean Bliss_seven.jpeg",
+      "to": "/properties/ocean-bliss/reunion-ocean-bliss-photo-malpe-udupi-6.webp"
+    },
+    {
+      "from": "/properties/ocean-bliss/Reunion Ocean Bliss_six.jpeg",
+      "to": "/properties/ocean-bliss/reunion-ocean-bliss-photo-malpe-udupi-7.webp"
+    },
+    {
+      "from": "/properties/ocean-bliss/Reunion Ocean Bliss_ten.jpeg",
+      "to": "/properties/ocean-bliss/reunion-ocean-bliss-photo-malpe-udupi-8.webp"
+    },
+    {
+      "from": "/properties/ocean-bliss/Reunion Ocean Bliss_three.jpeg",
+      "to": "/properties/ocean-bliss/reunion-ocean-bliss-photo-malpe-udupi-9.webp"
+    },
+    {
+      "from": "/properties/ocean-bliss/Reunion Ocean Bliss_twelve.jpg.jpeg",
+      "to": "/properties/ocean-bliss/reunion-ocean-bliss-photo-malpe-udupi-10.webp"
+    },
+    {
+      "from": "/properties/ocean-bliss/Reunion Ocean Bliss_two.jpeg",
+      "to": "/properties/ocean-bliss/reunion-ocean-bliss-photo-malpe-udupi-11.webp"
+    },
+    {
+      "from": "/properties/marina-villa/IMG-20241022-WA0051.jpg.jpeg",
+      "to": "/properties/marina-villa/reunion-marina-villa-photo-udupi-1.webp"
+    },
+    {
+      "from": "/properties/marina-villa/IMG-20250503-WA0001.jpg.jpeg",
+      "to": "/properties/marina-villa/reunion-marina-villa-photo-udupi-2.webp"
+    },
+    {
+      "from": "/properties/marina-villa/IMG-20250503-WA0002.jpg.jpeg",
+      "to": "/properties/marina-villa/reunion-marina-villa-photo-udupi-3.webp"
+    },
+    {
+      "from": "/properties/marina-villa/IMG-20250503-WA0007.jpg.jpeg",
+      "to": "/properties/marina-villa/reunion-marina-villa-photo-udupi-4.webp"
+    },
+    {
+      "from": "/properties/marina-villa/IMG-20250503-WA0009.jpg.jpeg",
+      "to": "/properties/marina-villa/reunion-marina-villa-photo-udupi-5.webp"
+    },
+    {
+      "from": "/properties/marina-villa/IMG-20250503-WA0011.jpg.jpeg",
+      "to": "/properties/marina-villa/reunion-marina-villa-photo-udupi-6.webp"
+    },
+    {
+      "from": "/properties/marina-villa/IMG-20251002-WA0010.jpg.jpeg",
+      "to": "/properties/marina-villa/reunion-marina-villa-photo-udupi-7.webp"
+    },
+    {
+      "from": "/properties/marina-villa/IMG-20251211-WA0032.jpg.jpeg",
+      "to": "/properties/marina-villa/reunion-marina-villa-photo-udupi-8.webp"
+    },
+    {
+      "from": "/properties/marina-villa/IMG-20251211-WA0033.jpg.jpeg",
+      "to": "/properties/marina-villa/reunion-marina-villa-photo-udupi-9.webp"
+    },
+    {
+      "from": "/properties/marina-villa/IMG-20251211-WA0034.jpg.jpeg",
+      "to": "/properties/marina-villa/reunion-marina-villa-photo-udupi-10.webp"
+    },
+    {
+      "from": "/properties/charm-villa/IMG-20250417-WA0002.jpg.jpeg",
+      "to": "/properties/charm-villa/reunion-charm-villa-photo-udupi-1.webp"
+    },
+    {
+      "from": "/properties/charm-villa/IMG-20250417-WA0005.jpg.jpeg",
+      "to": "/properties/charm-villa/reunion-charm-villa-photo-udupi-2.webp"
+    },
+    {
+      "from": "/properties/charm-villa/IMG-20250417-WA0007.jpg.jpeg",
+      "to": "/properties/charm-villa/reunion-charm-villa-photo-udupi-3.webp"
+    },
+    {
+      "from": "/properties/charm-villa/IMG-20250417-WA0009.jpg.jpeg",
+      "to": "/properties/charm-villa/reunion-charm-villa-photo-udupi-4.webp"
+    },
+    {
+      "from": "/properties/charm-villa/IMG-20250417-WA0014.jpg.jpeg",
+      "to": "/properties/charm-villa/reunion-charm-villa-photo-udupi-5.webp"
+    },
+    {
+      "from": "/properties/charm-villa/IMG-20250417-WA0017.jpg.jpeg",
+      "to": "/properties/charm-villa/reunion-charm-villa-photo-udupi-6.webp"
+    },
+    {
+      "from": "/properties/charm-villa/IMG-20251003-WA0000.jpg.jpeg",
+      "to": "/properties/charm-villa/reunion-charm-villa-photo-udupi-7.webp"
+    },
+    {
+      "from": "/properties/charm-villa/IMG-20251003-WA0001.jpg.jpeg",
+      "to": "/properties/charm-villa/reunion-charm-villa-photo-udupi-8.webp"
+    },
+    {
+      "from": "/properties/charm-villa/IMG-20251014-WA0026.jpg.jpeg",
+      "to": "/properties/charm-villa/reunion-charm-villa-photo-udupi-9.webp"
+    },
+    {
+      "from": "/properties/aradhya-villa/IMG-20251102-WA0006.jpg.jpeg",
+      "to": "/properties/aradhya-villa/reunion-aradhya-villa-photo-udupi-1.webp"
+    },
+    {
+      "from": "/properties/aradhya-villa/IMG-20251102-WA0009.jpg.jpeg",
+      "to": "/properties/aradhya-villa/reunion-aradhya-villa-photo-udupi-2.webp"
+    },
+    {
+      "from": "/properties/aradhya-villa/IMG-20251102-WA0011.jpg.jpeg",
+      "to": "/properties/aradhya-villa/reunion-aradhya-villa-photo-udupi-3.webp"
+    },
+    {
+      "from": "/properties/aradhya-villa/IMG-20251102-WA0012.jpg.jpeg",
+      "to": "/properties/aradhya-villa/reunion-aradhya-villa-photo-udupi-4.webp"
+    },
+    {
+      "from": "/properties/aradhya-villa/IMG-20251102-WA0013.jpg.jpeg",
+      "to": "/properties/aradhya-villa/reunion-aradhya-villa-photo-udupi-5.webp"
+    },
+    {
+      "from": "/properties/aradhya-villa/IMG-20251102-WA0014.jpg.jpeg",
+      "to": "/properties/aradhya-villa/reunion-aradhya-villa-photo-udupi-6.webp"
+    },
+    {
+      "from": "/properties/aradhya-villa/IMG-20251102-WA0017.jpg.jpeg",
+      "to": "/properties/aradhya-villa/reunion-aradhya-villa-photo-udupi-7.webp"
+    },
+    {
+      "from": "/properties/aradhya-villa/IMG-20251102-WA0021.jpg.jpeg",
+      "to": "/properties/aradhya-villa/reunion-aradhya-villa-photo-udupi-8.webp"
+    },
+    {
+      "from": "/properties/aradhya-villa/IMG-20251102-WA0028.jpg.jpeg",
+      "to": "/properties/aradhya-villa/reunion-aradhya-villa-photo-udupi-9.webp"
+    },
+    {
+      "from": "/properties/aradhya-villa/IMG-20251102-WA0029.jpg.jpeg",
+      "to": "/properties/aradhya-villa/reunion-aradhya-villa-photo-udupi-10.webp"
+    },
+    {
+      "from": "/properties/arya/IMG-20250903-WA0000(1).jpg.jpeg",
+      "to": "/properties/arya/reunion-arya-studio-photo-udupi-1.webp"
+    },
+    {
+      "from": "/properties/arya/IMG-20260111-WA0021(3).jpg.jpeg",
+      "to": "/properties/arya/reunion-arya-studio-photo-udupi-2.webp"
+    },
+    {
+      "from": "/properties/arya/IMG-20260111-WA0023(2).jpg.jpeg",
+      "to": "/properties/arya/reunion-arya-studio-photo-udupi-3.webp"
+    },
+    {
+      "from": "/properties/arya/IMG-20260111-WA0024(3).jpg.jpeg",
+      "to": "/properties/arya/reunion-arya-studio-photo-udupi-4.webp"
+    },
+    {
+      "from": "/properties/arya/IMG-20260111-WA0025(4).jpg.jpeg",
+      "to": "/properties/arya/reunion-arya-studio-photo-udupi-5.webp"
+    },
+    {
+      "from": "/properties/arya/IMG-20260111-WA0026(1).jpg.jpeg",
+      "to": "/properties/arya/reunion-arya-studio-photo-udupi-6.webp"
+    },
+    {
+      "from": "/properties/arya/IMG-20260111-WA0036(1).jpg.jpeg",
+      "to": "/properties/arya/reunion-arya-studio-photo-udupi-7.webp"
+    },
+    {
+      "from": "/properties/arya/IMG-20260111-WA0039(1).jpg.jpeg",
+      "to": "/properties/arya/reunion-arya-studio-photo-udupi-8.webp"
+    },
+    {
+      "from": "/properties/krshna/IMG-20240411-WA0002.jpg.jpeg",
+      "to": "/properties/krshna/reunion-krishna-photo-manipal-udupi-1.webp"
+    },
+    {
+      "from": "/properties/krshna/IMG-20240411-WA0003.jpg.jpeg",
+      "to": "/properties/krshna/reunion-krishna-photo-manipal-udupi-2.webp"
+    },
+    {
+      "from": "/properties/krshna/IMG-20240411-WA0005.jpg.jpeg",
+      "to": "/properties/krshna/reunion-krishna-photo-manipal-udupi-3.webp"
+    },
+    {
+      "from": "/properties/krshna/IMG-20240411-WA0010.jpg.jpeg",
+      "to": "/properties/krshna/reunion-krishna-photo-manipal-udupi-4.webp"
+    },
+    {
+      "from": "/properties/krshna/IMG-20240411-WA0011.jpg.jpeg",
+      "to": "/properties/krshna/reunion-krishna-photo-manipal-udupi-5.webp"
+    },
+    {
+      "from": "/properties/krshna/IMG-20240411-WA0019.jpg.jpeg",
+      "to": "/properties/krshna/reunion-krishna-photo-manipal-udupi-6.webp"
+    },
+    {
+      "from": "/properties/krshna/IMG-20240411-WA0025.jpg.jpeg",
+      "to": "/properties/krshna/reunion-krishna-photo-manipal-udupi-7.webp"
+    },
+    {
+      "from": "/properties/krshna/IMG-20240411-WA0027.jpg.jpeg",
+      "to": "/properties/krshna/reunion-krishna-photo-manipal-udupi-8.webp"
+    },
+    {
+      "from": "/properties/krshna/IMG-20241019-WA0010.jpg.jpeg",
+      "to": "/properties/krshna/reunion-krishna-photo-manipal-udupi-9.webp"
+    },
+    {
+      "from": "/properties/krshna/IMG-20241019-WA0012.jpg.jpeg",
+      "to": "/properties/krshna/reunion-krishna-photo-manipal-udupi-10.webp"
+    },
+    {
+      "from": "/properties/krshna/IMG-20241019-WA0014.jpg.jpeg",
+      "to": "/properties/krshna/reunion-krishna-photo-manipal-udupi-11.webp"
+    },
+    {
+      "from": "/properties/krshna/IMG-20241019-WA0016.jpg.jpeg",
+      "to": "/properties/krshna/reunion-krishna-photo-manipal-udupi-12.webp"
+    },
+    {
+      "from": "/properties/ocean-waves/IMG-20241215-WA0057.jpg.jpeg",
+      "to": "/properties/ocean-waves/reunion-ocean-waves-photo-mattu-beach-udupi-1.webp"
+    },
+    {
+      "from": "/properties/ocean-waves/IMG-20241215-WA0058.jpg.jpeg",
+      "to": "/properties/ocean-waves/reunion-ocean-waves-photo-mattu-beach-udupi-2.webp"
+    },
+    {
+      "from": "/properties/ocean-waves/IMG-20241215-WA0062.jpg.jpeg",
+      "to": "/properties/ocean-waves/reunion-ocean-waves-photo-mattu-beach-udupi-3.webp"
+    },
+    {
+      "from": "/properties/ocean-waves/IMG-20241215-WA0064.jpg.jpeg",
+      "to": "/properties/ocean-waves/reunion-ocean-waves-photo-mattu-beach-udupi-4.webp"
+    },
+    {
+      "from": "/properties/ocean-waves/IMG-20241215-WA0066.jpg.jpeg",
+      "to": "/properties/ocean-waves/reunion-ocean-waves-photo-mattu-beach-udupi-5.webp"
+    },
+    {
+      "from": "/properties/ocean-waves/IMG-20241215-WA0067.jpg.jpeg",
+      "to": "/properties/ocean-waves/reunion-ocean-waves-photo-mattu-beach-udupi-6.webp"
+    },
+    {
+      "from": "/properties/ocean-waves/IMG-20241215-WA0076.jpg.jpeg",
+      "to": "/properties/ocean-waves/reunion-ocean-waves-photo-mattu-beach-udupi-7.webp"
+    },
+    {
+      "from": "/properties/ocean-waves/IMG-20241215-WA0080.jpg.jpeg",
+      "to": "/properties/ocean-waves/reunion-ocean-waves-photo-mattu-beach-udupi-8.webp"
+    },
+    {
+      "from": "/properties/ocean-waves/IMG-20241215-WA0081.jpg.jpeg",
+      "to": "/properties/ocean-waves/reunion-ocean-waves-photo-mattu-beach-udupi-9.webp"
+    },
+    {
+      "from": "/properties/ocean-waves/IMG-20250112-WA0026.jpg.jpeg",
+      "to": "/properties/ocean-waves/reunion-ocean-waves-photo-mattu-beach-udupi-10.webp"
+    },
+    {
+      "from": "/properties/regal-villa/regalvilla1.jpeg",
+      "to": "/properties/regal-villa/reunion-regal-villa-photo-udupi-1.webp"
+    },
+    {
+      "from": "/properties/regal-villa/regalvilla2.jpeg",
+      "to": "/properties/regal-villa/reunion-regal-villa-photo-udupi-2.webp"
+    },
+    {
+      "from": "/properties/regal-villa/regalvilla3.jpeg",
+      "to": "/properties/regal-villa/reunion-regal-villa-photo-udupi-3.webp"
+    },
+    {
+      "from": "/properties/regal-villa/regalvilla4.jpeg",
+      "to": "/properties/regal-villa/reunion-regal-villa-photo-udupi-4.webp"
+    },
+    {
+      "from": "/properties/regal-villa/regalvilla5.jpeg",
+      "to": "/properties/regal-villa/reunion-regal-villa-photo-udupi-5.webp"
+    },
+    {
+      "from": "/properties/regal-villa/regalvilla6.jpeg",
+      "to": "/properties/regal-villa/reunion-regal-villa-photo-udupi-6.webp"
+    },
+    {
+      "from": "/properties/regal-villa/regalvilla7.jpeg",
+      "to": "/properties/regal-villa/reunion-regal-villa-photo-udupi-7.webp"
+    },
+    {
+      "from": "/properties/regal-villa/regalvilla8.jpeg",
+      "to": "/properties/regal-villa/reunion-regal-villa-photo-udupi-8.webp"
+    },
+    {
+      "from": "/properties/villa/villa2.jpeg",
+      "to": "/properties/villa/reunion-villa-photo-udupi-1.webp"
+    },
+    {
+      "from": "/properties/villa/villa6.jpeg",
+      "to": "/properties/villa/reunion-villa-photo-udupi-2.webp"
+    },
+    {
+      "from": "/properties/villa/villa4.jpeg",
+      "to": "/properties/villa/reunion-villa-photo-udupi-3.webp"
+    },
+    {
+      "from": "/properties/villa/villa5.jpeg",
+      "to": "/properties/villa/reunion-villa-photo-udupi-4.webp"
+    },
+    {
+      "from": "/properties/villa/villa3.jpeg",
+      "to": "/properties/villa/reunion-villa-photo-udupi-5.webp"
+    },
+    {
+      "from": "/properties/villa/villa7.jpeg",
+      "to": "/properties/villa/reunion-villa-photo-udupi-6.webp"
+    },
+    {
+      "from": "/properties/reunion-serene/seren1.jpeg",
+      "to": "/properties/reunion-serene/reunion-serene-photo-shivamogga-1.webp"
+    },
+    {
+      "from": "/properties/reunion-serene/seren2.jpeg",
+      "to": "/properties/reunion-serene/reunion-serene-photo-shivamogga-2.webp"
+    },
+    {
+      "from": "/properties/reunion-serene/seren3.jpeg",
+      "to": "/properties/reunion-serene/reunion-serene-photo-shivamogga-3.webp"
+    },
+    {
+      "from": "/properties/reunion-serene/seren4.jpeg",
+      "to": "/properties/reunion-serene/reunion-serene-photo-shivamogga-4.webp"
+    },
+    {
+      "from": "/properties/reunion-serene/seren5.jpeg",
+      "to": "/properties/reunion-serene/reunion-serene-photo-shivamogga-5.webp"
+    },
+    {
+      "from": "/properties/reunion-serene/seren6.jpeg",
+      "to": "/properties/reunion-serene/reunion-serene-photo-shivamogga-6.webp"
+    },
+    {
+      "from": "/properties/reunion-serene/seren7.jpeg",
+      "to": "/properties/reunion-serene/reunion-serene-photo-shivamogga-7.webp"
+    },
+    {
+      "from": "/properties/reunion-serene/seren8.jpeg",
+      "to": "/properties/reunion-serene/reunion-serene-photo-shivamogga-8.webp"
+    },
+    {
+      "from": "/properties/reunion-serene/seren9.jpeg",
+      "to": "/properties/reunion-serene/reunion-serene-photo-shivamogga-9.webp"
+    },
+    {
+      "from": "/properties/reunion-serene/seren10.jpeg",
+      "to": "/properties/reunion-serene/reunion-serene-photo-shivamogga-10.webp"
+    },
+    {
+      "from": "/properties/const/p1.png",
+      "to": "/properties/const/nemmadi-constructions-project-udupi-1.webp"
+    },
+    {
+      "from": "/properties/const/p2.png",
+      "to": "/properties/const/nemmadi-constructions-project-udupi-2.webp"
+    },
+    {
+      "from": "/properties/ocean cafe/herooc.png",
+      "to": "/properties/ocean cafe/reunion-ocean-cafe-hero-mattu-beach-udupi.webp"
+    },
+    {
+      "from": "/properties/ocean cafe/oc1.png",
+      "to": "/properties/ocean cafe/reunion-ocean-cafe-photo-mattu-beach-udupi-1.webp"
+    },
+    {
+      "from": "/properties/ocean cafe/oc2.png",
+      "to": "/properties/ocean cafe/reunion-ocean-cafe-photo-mattu-beach-udupi-2.webp"
+    },
+    {
+      "from": "/properties/ocean cafe/oc3.png",
+      "to": "/properties/ocean cafe/reunion-ocean-cafe-photo-mattu-beach-udupi-3.webp"
+    },
+    {
+      "from": "/properties/ocean cafe/oc4.png",
+      "to": "/properties/ocean cafe/reunion-ocean-cafe-photo-mattu-beach-udupi-4.webp"
+    },
+    {
+      "from": "/properties/ocean cafe/oc5.png",
+      "to": "/properties/ocean cafe/reunion-ocean-cafe-photo-mattu-beach-udupi-5.webp"
+    },
+    {
+      "from": "/properties/ocean cafe/oc6.png",
+      "to": "/properties/ocean cafe/reunion-ocean-cafe-photo-mattu-beach-udupi-6.webp"
+    },
+    {
+      "from": "/properties/ocean cafe/ocean1.png",
+      "to": "/properties/ocean cafe/reunion-ocean-cafe-photo-mattu-beach-udupi-7.webp"
+    },
+    {
+      "from": "/properties/ocean cafe/ocean4.png",
+      "to": "/properties/ocean cafe/reunion-ocean-cafe-photo-mattu-beach-udupi-8.webp"
+    },
+    {
+      "from": "/properties/popular/elite.png",
+      "to": "/properties/popular/reunion-ocean-elite-category-udupi.webp"
+    },
+    {
+      "from": "/properties/popular/givaah.png",
+      "to": "/properties/popular/reunion-ocean-givaah-category-udupi.webp"
+    },
+    {
+      "from": "/properties/popular/royal.png",
+      "to": "/properties/popular/reunion-ocean-royal-category-udupi.webp"
+    },
+    {
+      "from": "/properties/popular/dehome.png",
+      "to": "/properties/popular/reunion-de-homes-category-udupi.webp"
+    },
+    {
+      "from": "/properties/popular/manoor.png",
+      "to": "/properties/popular/reunion-ocean-manor-category-udupi.webp"
+    },
+    {
+      "from": "/blogs/itinerary/hasta-shilpa.jpg",
+      "to": "/blogs/itinerary/hasta-shilpa-heritage-village-manipal.webp"
+    },
+    {
+      "from": "/blogs/itinerary/udupi-food.jpg",
+      "to": "/blogs/itinerary/udupi-vegetarian-cuisine.webp"
+    },
+    {
+      "from": "/properties/beaches/kapu.png",
+      "to": "/properties/beaches/kapu-beach-udupi.webp"
+    },
+    {
+      "from": "/properties/beaches/padubidri.png",
+      "to": "/properties/beaches/padubidri-blue-flag-beach-udupi.webp"
+    },
+    {
+      "from": "/properties/beaches/ucchila.png",
+      "to": "/properties/beaches/uchila-beach-udupi.webp"
+    },
+    {
+      "from": "/properties/beaches/maravante.png",
+      "to": "/properties/beaches/maravanthe-beach-udupi.webp"
+    },
+    {
+      "from": "/properties/beaches/delta.png",
+      "to": "/properties/beaches/delta-beach-udupi.webp"
+    },
+    {
+      "from": "/properties/beaches/hejamadi.png",
+      "to": "/properties/beaches/hejamadi-beach-udupi.webp"
+    },
+    {
+      "from": "/properties/experiances/exp1.png",
+      "to": "/properties/experiences/exp1.png"
+    },
+    {
+      "from": "/properties/experiances/exp10.png",
+      "to": "/properties/experiences/exp10.png"
+    },
+    {
+      "from": "/properties/experiances/exp11.png",
+      "to": "/properties/experiences/exp11.png"
+    },
+    {
+      "from": "/properties/experiances/exp12.png",
+      "to": "/properties/experiences/exp12.png"
+    },
+    {
+      "from": "/properties/experiances/exp13.png",
+      "to": "/properties/experiences/exp13.png"
+    },
+    {
+      "from": "/properties/experiances/exp14.png",
+      "to": "/properties/experiences/exp14.png"
+    },
+    {
+      "from": "/properties/experiances/exp15vid.mp4",
+      "to": "/properties/experiences/exp15vid.mp4"
+    },
+    {
+      "from": "/properties/experiances/exp16vid.mp4",
+      "to": "/properties/experiences/exp16vid.mp4"
+    },
+    {
+      "from": "/properties/experiances/exp2.png",
+      "to": "/properties/experiences/exp2.png"
+    },
+    {
+      "from": "/properties/experiances/exp3.png",
+      "to": "/properties/experiences/exp3.png"
+    },
+    {
+      "from": "/properties/experiances/exp4.png",
+      "to": "/properties/experiences/exp4.png"
+    },
+    {
+      "from": "/properties/experiances/exp5.png",
+      "to": "/properties/experiences/exp5.png"
+    },
+    {
+      "from": "/properties/experiances/exp6.png",
+      "to": "/properties/experiences/exp6.png"
+    },
+    {
+      "from": "/properties/experiances/exp7.png",
+      "to": "/properties/experiences/exp7.png"
+    },
+    {
+      "from": "/properties/experiances/exp8.png",
+      "to": "/properties/experiences/exp8.png"
+    },
+    {
+      "from": "/properties/experiances/exp9.png",
+      "to": "/properties/experiences/exp9.png"
+    },
+    {
+      "from": "/properties/ocean cafe/cafevd.mp4",
+      "to": "/properties/ocean-cafe/cafevd.mp4"
+    },
+    {
+      "from": "/properties/ocean%20cafe/cafevd.mp4",
+      "to": "/properties/ocean-cafe/cafevd.mp4"
+    },
+    {
+      "from": "/properties/ocean cafe/ocean2.png",
+      "to": "/properties/ocean-cafe/ocean2.png"
+    },
+    {
+      "from": "/properties/ocean%20cafe/ocean2.png",
+      "to": "/properties/ocean-cafe/ocean2.png"
+    },
+    {
+      "from": "/properties/ocean cafe/ocean3.png",
+      "to": "/properties/ocean-cafe/ocean3.png"
+    },
+    {
+      "from": "/properties/ocean%20cafe/ocean3.png",
+      "to": "/properties/ocean-cafe/ocean3.png"
+    },
+    {
+      "from": "/properties/ocean cafe/ocean5.jpeg",
+      "to": "/properties/ocean-cafe/ocean5.jpeg"
+    },
+    {
+      "from": "/properties/ocean%20cafe/ocean5.jpeg",
+      "to": "/properties/ocean-cafe/ocean5.jpeg"
+    },
+    {
+      "from": "/properties/ocean cafe/ocean6.webp",
+      "to": "/properties/ocean-cafe/ocean6.webp"
+    },
+    {
+      "from": "/properties/ocean%20cafe/ocean6.webp",
+      "to": "/properties/ocean-cafe/ocean6.webp"
+    },
+    {
+      "from": "/properties/ocean cafe/ocean7.webp",
+      "to": "/properties/ocean-cafe/ocean7.webp"
+    },
+    {
+      "from": "/properties/ocean%20cafe/ocean7.webp",
+      "to": "/properties/ocean-cafe/ocean7.webp"
+    },
+    {
+      "from": "/properties/ocean cafe/ocean8.webp",
+      "to": "/properties/ocean-cafe/ocean8.webp"
+    },
+    {
+      "from": "/properties/ocean%20cafe/ocean8.webp",
+      "to": "/properties/ocean-cafe/ocean8.webp"
+    },
+    {
+      "from": "/properties/ocean cafe/ocean9.webp",
+      "to": "/properties/ocean-cafe/ocean9.webp"
+    },
+    {
+      "from": "/properties/ocean%20cafe/ocean9.webp",
+      "to": "/properties/ocean-cafe/ocean9.webp"
+    },
+    {
+      "from": "/properties/ocean cafe/oceancafe.mp4",
+      "to": "/properties/ocean-cafe/oceancafe.mp4"
+    },
+    {
+      "from": "/properties/ocean%20cafe/oceancafe.mp4",
+      "to": "/properties/ocean-cafe/oceancafe.mp4"
+    },
+    {
+      "from": "/properties/ocean cafe/reunion-ocean-cafe-hero-mattu-beach-udupi.webp",
+      "to": "/properties/ocean-cafe/reunion-ocean-cafe-hero-mattu-beach-udupi.webp"
+    },
+    {
+      "from": "/properties/ocean%20cafe/reunion-ocean-cafe-hero-mattu-beach-udupi.webp",
+      "to": "/properties/ocean-cafe/reunion-ocean-cafe-hero-mattu-beach-udupi.webp"
+    },
+    {
+      "from": "/properties/ocean cafe/reunion-ocean-cafe-photo-mattu-beach-udupi-1.webp",
+      "to": "/properties/ocean-cafe/reunion-ocean-cafe-photo-mattu-beach-udupi-1.webp"
+    },
+    {
+      "from": "/properties/ocean%20cafe/reunion-ocean-cafe-photo-mattu-beach-udupi-1.webp",
+      "to": "/properties/ocean-cafe/reunion-ocean-cafe-photo-mattu-beach-udupi-1.webp"
+    },
+    {
+      "from": "/properties/ocean cafe/reunion-ocean-cafe-photo-mattu-beach-udupi-2.webp",
+      "to": "/properties/ocean-cafe/reunion-ocean-cafe-photo-mattu-beach-udupi-2.webp"
+    },
+    {
+      "from": "/properties/ocean%20cafe/reunion-ocean-cafe-photo-mattu-beach-udupi-2.webp",
+      "to": "/properties/ocean-cafe/reunion-ocean-cafe-photo-mattu-beach-udupi-2.webp"
+    },
+    {
+      "from": "/properties/ocean cafe/reunion-ocean-cafe-photo-mattu-beach-udupi-3.webp",
+      "to": "/properties/ocean-cafe/reunion-ocean-cafe-photo-mattu-beach-udupi-3.webp"
+    },
+    {
+      "from": "/properties/ocean%20cafe/reunion-ocean-cafe-photo-mattu-beach-udupi-3.webp",
+      "to": "/properties/ocean-cafe/reunion-ocean-cafe-photo-mattu-beach-udupi-3.webp"
+    },
+    {
+      "from": "/properties/ocean cafe/reunion-ocean-cafe-photo-mattu-beach-udupi-4.webp",
+      "to": "/properties/ocean-cafe/reunion-ocean-cafe-photo-mattu-beach-udupi-4.webp"
+    },
+    {
+      "from": "/properties/ocean%20cafe/reunion-ocean-cafe-photo-mattu-beach-udupi-4.webp",
+      "to": "/properties/ocean-cafe/reunion-ocean-cafe-photo-mattu-beach-udupi-4.webp"
+    },
+    {
+      "from": "/properties/ocean cafe/reunion-ocean-cafe-photo-mattu-beach-udupi-5.webp",
+      "to": "/properties/ocean-cafe/reunion-ocean-cafe-photo-mattu-beach-udupi-5.webp"
+    },
+    {
+      "from": "/properties/ocean%20cafe/reunion-ocean-cafe-photo-mattu-beach-udupi-5.webp",
+      "to": "/properties/ocean-cafe/reunion-ocean-cafe-photo-mattu-beach-udupi-5.webp"
+    },
+    {
+      "from": "/properties/ocean cafe/reunion-ocean-cafe-photo-mattu-beach-udupi-6.webp",
+      "to": "/properties/ocean-cafe/reunion-ocean-cafe-photo-mattu-beach-udupi-6.webp"
+    },
+    {
+      "from": "/properties/ocean%20cafe/reunion-ocean-cafe-photo-mattu-beach-udupi-6.webp",
+      "to": "/properties/ocean-cafe/reunion-ocean-cafe-photo-mattu-beach-udupi-6.webp"
+    },
+    {
+      "from": "/properties/ocean cafe/reunion-ocean-cafe-photo-mattu-beach-udupi-7.webp",
+      "to": "/properties/ocean-cafe/reunion-ocean-cafe-photo-mattu-beach-udupi-7.webp"
+    },
+    {
+      "from": "/properties/ocean%20cafe/reunion-ocean-cafe-photo-mattu-beach-udupi-7.webp",
+      "to": "/properties/ocean-cafe/reunion-ocean-cafe-photo-mattu-beach-udupi-7.webp"
+    },
+    {
+      "from": "/properties/ocean cafe/reunion-ocean-cafe-photo-mattu-beach-udupi-8.webp",
+      "to": "/properties/ocean-cafe/reunion-ocean-cafe-photo-mattu-beach-udupi-8.webp"
+    },
+    {
+      "from": "/properties/ocean%20cafe/reunion-ocean-cafe-photo-mattu-beach-udupi-8.webp",
+      "to": "/properties/ocean-cafe/reunion-ocean-cafe-photo-mattu-beach-udupi-8.webp"
+    },
+    {
+      "from": "/properties/experiences/exp1.png",
+      "to": "/properties/experiences/reunion-experience-udupi-1.webp"
+    },
+    {
+      "from": "/properties/experiences/exp2.png",
+      "to": "/properties/experiences/reunion-experience-udupi-2.webp"
+    },
+    {
+      "from": "/properties/experiences/exp3.png",
+      "to": "/properties/experiences/reunion-experience-udupi-3.webp"
+    },
+    {
+      "from": "/properties/experiences/exp4.png",
+      "to": "/properties/experiences/reunion-experience-udupi-4.webp"
+    },
+    {
+      "from": "/properties/experiences/exp5.png",
+      "to": "/properties/experiences/reunion-experience-udupi-5.webp"
+    },
+    {
+      "from": "/properties/experiences/exp6.png",
+      "to": "/properties/experiences/reunion-experience-udupi-6.webp"
+    },
+    {
+      "from": "/properties/experiences/exp7.png",
+      "to": "/properties/experiences/reunion-experience-udupi-7.webp"
+    },
+    {
+      "from": "/properties/experiences/exp8.png",
+      "to": "/properties/experiences/reunion-experience-udupi-8.webp"
+    },
+    {
+      "from": "/properties/experiences/exp9.png",
+      "to": "/properties/experiences/reunion-experience-udupi-9.webp"
+    },
+    {
+      "from": "/properties/experiences/exp10.png",
+      "to": "/properties/experiences/reunion-experience-udupi-10.webp"
+    },
+    {
+      "from": "/properties/experiences/exp11.png",
+      "to": "/properties/experiences/reunion-experience-udupi-11.webp"
+    },
+    {
+      "from": "/properties/experiences/exp12.png",
+      "to": "/properties/experiences/reunion-experience-udupi-12.webp"
+    },
+    {
+      "from": "/properties/experiences/exp13.png",
+      "to": "/properties/experiences/reunion-experience-udupi-13.webp"
+    },
+    {
+      "from": "/properties/experiences/exp14.png",
+      "to": "/properties/experiences/reunion-experience-udupi-14.webp"
+    },
+    {
+      "from": "/properties/const/p3.png",
+      "to": "/properties/const/nemmadi-constructions-project-udupi-3.webp"
+    },
+    {
+      "from": "/properties/const/p4.png",
+      "to": "/properties/const/nemmadi-constructions-project-udupi-4.webp"
+    }
+  ],
+  "generatedAt": "2026-11-16T10:56:26.903Z"
+}

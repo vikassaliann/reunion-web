@@ -3,6 +3,7 @@
 import { useRef, useState } from "react";
 import properties from "../data/properties.json";
 import Link from "next/link";
+import { heroImageAlt } from "../data/imageAlt";
 
 export default function PropertyCarousel() {
   const trackRef = useRef<HTMLDivElement>(null);
@@ -82,7 +83,7 @@ export default function PropertyCarousel() {
                 <div className="relative aspect-[3/4] w-full overflow-hidden bg-white/5 mb-4">
                   <img
                     src={prop.heroImage}
-                    alt={prop.name}
+                    alt={heroImageAlt(prop.heroImage, prop.name, prop.location)}
                     loading="lazy"
                     className="w-full h-full object-cover"
                   />

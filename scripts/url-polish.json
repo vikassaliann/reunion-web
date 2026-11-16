@@ -1,0 +1,19 @@
+{
+  "beachWebp": {
+    "kapu": "kapu-beach-udupi.webp",
+    "padubidri": "padubidri-blue-flag-beach-udupi.webp",
+    "ucchila": "uchila-beach-udupi.webp",
+    "maravante": "maravanthe-beach-udupi.webp",
+    "delta": "delta-beach-udupi.webp",
+    "hejamadi": "hejamadi-beach-udupi.webp"
+  },
+  "folderMoves": [
+    { "from": "public/properties/experiances", "to": "public/properties/experiences" },
+    { "from": "public/properties/ocean cafe", "to": "public/properties/ocean-cafe" }
+  ],
+  "pathPrefixRedirects": [
+    { "fromPrefix": "/properties/experiances/", "toPrefix": "/properties/experiences/" },
+    { "fromPrefix": "/properties/ocean cafe/", "toPrefix": "/properties/ocean-cafe/" },
+    { "fromPrefix": "/properties/ocean%20cafe/", "toPrefix": "/properties/ocean-cafe/" }
+  ]
+}

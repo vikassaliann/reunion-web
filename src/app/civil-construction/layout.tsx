@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     url: `${BASE_URL}/civil-construction`,
     siteName: "REUNION",
     type: "website",
-    images: [{ url: "/properties/const/p1.png", width: 1200, height: 630 }],
+    images: [{ url: "/properties/const/nemmadi-constructions-project-udupi-1.webp", width: 1200, height: 630 }],
   },
 };
 

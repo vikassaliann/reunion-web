@@ -1,12 +1,14 @@
 "use client";
 
 import { useState } from "react";
+import { altFor, galleryPhotoAlt } from "@/data/imageAlt";
 
 interface PropertyGalleryProps {
   images: string[];
+  propertyLabel?: string;
 }
 
-export default function PropertyGallery({ images }: PropertyGalleryProps) {
+export default function PropertyGallery({ images, propertyLabel }: PropertyGalleryProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   if (!images || images.length === 0) return null;
@@ -93,7 +95,12 @@ export default function PropertyGallery({ images }: PropertyGalleryProps) {
               <div className="w-full h-full border border-antique-gold/30 p-2 glow-card">
                 <img 
                   src={src} 
-                  alt={`Gallery Image ${index + 1}`}
+                  alt={altFor(
+                    src,
+                    propertyLabel
+                      ? galleryPhotoAlt(propertyLabel, index, images.length)
+                      : `REUNION property gallery — photo ${index + 1}`
+                  )}
                   className={`w-full h-full object-cover transition-all duration-700 ${isActive ? 'grayscale-0' : 'grayscale-[50%]'}`}
                 />
               </div>

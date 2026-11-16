@@ -3,6 +3,16 @@
 import { useState } from "react";
 import Link from "next/link";
 import Logo from "./Logo";
+import {
+  REUNION_CONTACT_EMAIL,
+  REUNION_FACEBOOK_URL,
+  REUNION_INSTAGRAM_URL,
+  REUNION_OFFICE_ADDRESS,
+  REUNION_PHONE_DISPLAY,
+  REUNION_PHONE_TEL_HREF,
+  REUNION_YOUTUBE_URL,
+} from "@/data/factCheck";
+import { trackEmailClick, trackPhoneClick } from "@/lib/gtmEvents";
 interface FooterProps {
   variant?: "default" | "estate";
 }
@@ -98,11 +108,38 @@ export default function Footer({ variant = "default" }: FooterProps) {
         <div className="md:col-span-3 space-y-6">
           <p className="font-futura text-[10px] text-[#C9A84C] tracking-[0.3em] uppercase">Contact</p>
           <div className="space-y-4">
-            <p className="font-futura text-xs text-white/50 tracking-wider">
-              Call Us: <a href="tel:+919980208289" className="hover:text-white transition-colors">+91 99802 08289</a>
+            <p className="font-futura text-xs text-white/50 tracking-wider leading-relaxed">
+              {REUNION_OFFICE_ADDRESS.display}
             </p>
             <p className="font-futura text-xs text-white/50 tracking-wider">
-              E-mail: <a href="mailto:support@reunionglobal.in" className="hover:text-white transition-colors">support@reunionglobal.in</a>
+              Call Us:{" "}
+              <a
+                href="tel:+919980208289"
+                className="hover:text-white transition-colors"
+                onClick={() => trackPhoneClick("footer")}
+              >
+                +91 99802 08289
+              </a>
+            </p>
+            <p className="font-futura text-xs text-white/50 tracking-wider">
+              Guest Support:{" "}
+              <a
+                href={`mailto:${REUNION_CONTACT_EMAIL}`}
+                className="hover:text-white transition-colors break-all"
+                onClick={() => trackEmailClick("footer")}
+              >
+                {REUNION_CONTACT_EMAIL}
+              </a>
+            </p>
+            <p className="font-futura text-xs text-white/50 tracking-wider">
+              Reservations & Enquiry:{" "}
+              <a
+                href="mailto:reunionrevenue@gmail.com"
+                className="hover:text-white transition-colors break-all"
+                onClick={() => trackEmailClick("footer")}
+              >
+                reunionrevenue@gmail.com
+              </a>
             </p>
           </div>
         </div>

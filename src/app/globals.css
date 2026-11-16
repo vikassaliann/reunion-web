@@ -241,6 +241,43 @@
   animation: goldPulse 2s ease-in-out infinite;
 }
 
+/* Rotating twin highlights on experience book forms (candlelight / beach birthday) */
+@keyframes experienceFormGoldBorder {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.experience-form-gold-border {
+  padding: 1px;
+  background: rgba(201, 168, 76, 0.12);
+}
+
+.experience-form-gold-border__ring {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 200%;
+  height: 200%;
+  transform: translate(-50%, -50%);
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg 155deg,
+    rgba(201, 168, 76, 0.35) 168deg,
+    #c9a84c 174deg,
+    rgba(201, 168, 76, 0.35) 180deg,
+    transparent 193deg 335deg,
+    rgba(201, 168, 76, 0.35) 348deg,
+    #c9a84c 354deg,
+    rgba(201, 168, 76, 0.35) 360deg
+  );
+  animation: experienceFormGoldBorder 8s linear infinite;
+}
+
+.experience-form-gold-border__inner {
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
 .animate-fade-in-up {
   animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }

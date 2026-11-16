@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from "react";
 import properties from "@/data/properties.json";
+import { trackGenerateLead, trackWhatsAppClick } from "@/lib/gtmEvents";
+import { REUNION_WHATSAPP_DIGITS } from "@/data/factCheck";
 
 interface ContactFormProps {
   defaultPreference?: string;
@@ -39,6 +41,7 @@ export default function ContactForm({
       date: (formData.get("date") as string) || (formData.get("checkin") as string),
       checkout: formData.get("checkout") as string,
       description: formData.get("description") as string,
+      referralSource: (formData.get("referralSource") as string) || "",
     };
 
     const prefLower = (data.preference || "").toLowerCase();
@@ -54,7 +57,8 @@ Name: ${data.name}
 Phone: ${data.phone}
 Email: ${data.email}
 Date: ${data.date || "Not specified"}
-Time/Details: ${data.description || "None provided"}`;
+How did you find us?: ${data.referralSource || "Not specified"}
+Time/Details: ${data.description || "Not specified"}`;
 
     let message: string;
     if (prefLower.includes("birthday")) {
@@ -74,8 +78,16 @@ Email: ${data.email}
 Preference: ${data.preference || "Not specified"}
 Check-In: ${data.date || "Not specified"}
 Check-Out: ${data.checkout || "Not specified"}
+How did you find us?: ${data.referralSource || "Not specified"}
 Inquiry Details: ${data.description || "None provided"}`;
     }
+
+  trackGenerateLead({
+      inquiry_preference: data.preference || "",
+      referral_source: data.referralSource || "",
+      page_path: typeof window !== "undefined" ? window.location.pathname : "",
+    });
+    trackWhatsAppClick("contact_form");
 
     try {
       const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
@@ -194,6 +206,31 @@ Inquiry Details: ${data.description || "None provided"}`;
             </div>
           </div>
         )}
+
+        <div className="relative group">
+          <label
+            className="block font-cinzel text-[8px] tracking-[0.3em] text-[#C9A84C]/70 uppercase mb-1.5"
+            htmlFor="referralSource"
+          >
+            How did you find us?
+          </label>
+          <select
+            name="referralSource"
+            id="referralSource"
+            className="w-full bg-transparent border-0 border-b border-white/10 py-2.5 sm:py-3.5 focus:ring-0 focus:border-[#C9A84C] transition-colors text-sm sm:text-base text-white font-cormorant [color-scheme:dark]"
+            defaultValue=""
+          >
+            <option value="" className="bg-[#0f0e0e] text-white/50">
+              Select one
+            </option>
+            <option value="Google search" className="bg-[#0f0e0e] text-white">Google search</option>
+            <option value="ChatGPT / AI assistant" className="bg-[#0f0e0e] text-white">ChatGPT / AI assistant</option>
+            <option value="Instagram / Facebook" className="bg-[#0f0e0e] text-white">Instagram / Facebook</option>
+            <option value="Friend or family" className="bg-[#0f0e0e] text-white">Friend or family</option>
+            <option value="Booking.com / Airbnb / OTA" className="bg-[#0f0e0e] text-white">Booking.com / Airbnb / OTA</option>
+            <option value="Other" className="bg-[#0f0e0e] text-white">Other</option>
+          </select>
+        </div>
 
         <div className="relative group">
           <textarea name="description" className={`${fieldClass} resize-none`} id="description" placeholder="Inquiry Details" rows={2}></textarea>

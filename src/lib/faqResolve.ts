@@ -16,22 +16,17 @@ export function isPlaceholderFaqAnswer(answer: string): boolean {
   return PLACEHOLDER_PATTERNS.some((re) => re.test(answer));
 }
 
-/** Prefer property-specific FAQs when keyword-guide entries are placeholders. */
+/** AEO property FAQs in propertyFaqs.ts override keyword-guide when present. */
 export function resolvePropertyFaqs(
   keywordFaqs: FaqPair[] | undefined,
   propertyFaqs: FaqPair[] | undefined,
 ): FaqPair[] {
-  const keywordHasPlaceholder =
-    keywordFaqs?.some((f) => isPlaceholderFaqAnswer(f.a)) ?? false;
-
-  if (propertyFaqs?.length && (keywordHasPlaceholder || !keywordFaqs?.length)) {
-    return propertyFaqs;
-  }
+  if (propertyFaqs?.length) return propertyFaqs;
 
   if (keywordFaqs?.length) {
     const filtered = keywordFaqs.filter((f) => !isPlaceholderFaqAnswer(f.a));
     if (filtered.length) return filtered;
   }
 
-  return propertyFaqs ?? keywordFaqs ?? [];
+  return keywordFaqs ?? [];
 }

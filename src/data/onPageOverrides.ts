@@ -16,24 +16,24 @@ export const ON_PAGE_OVERRIDES: Record<
       "Luxury beach and city villas, Ocean Café on Mattu Beach, candlelight dinners, and beach weddings & events in Udupi, Karnataka. Book with REUNION.",
   },
   "/properties": {
-    title: "Villas & Stays in Udupi | Beach & City Villas | REUNION",
-    h1: "Villas & Stays in Udupi",
+    title: "Places to Stay in Udupi | Villas, Suites & Hotels | REUNION",
+    h1: "Places to Stay in Udupi",
     description:
-      "Browse all REUNION villas and stays in Udupi — beachfront villas near Malpe, Kapu, Mattu and Hoode, plus city villas near Sri Krishna Matha.",
+      "Places to stay in Udupi, chosen by REUNION: beachfront villas, city homes, hotel suites, a pool villa near Shivamogga, and coastal events.",
     lead:
       "Explore REUNION's villas and stays in Udupi — private beach villas and city villas for families, couples and groups, an easy weekend trip from Bangalore.",
   },
   "/properties/category/beach-villas": {
-    title: "Beach Villas in Udupi | Beachfront Stays | REUNION",
+    title: "Beach Stay in Udupi | Beachfront Villas | REUNION",
     h1: "Beach Villas in Udupi",
     description:
-      "Beachfront and near-shore villas in Udupi — steps from Malpe, Mattu, Kapu, Hoode and Uchila beaches. Compare REUNION beach villas and enquire.",
+      "Beach stays in Udupi, steps from the sand: private beachfront villas with sea-facing balconies for couples, families and groups. Enquire with REUNION.",
   },
   "/properties/category/city-stays": {
-    title: "City Villas & Suites in Udupi near Krishna Temple | REUNION",
-    h1: "City Villas & Suites in Udupi",
+    title: "Homestays in Udupi near Krishna Matha | REUNION",
+    h1: "Homestays & City Villas in Udupi",
     description:
-      "City villas and premium suites in Udupi — Chitpady, Kunjibettu and Manipal, close to Sri Krishna Matha. Ideal for families and temple visits.",
+      "Homestays in Udupi with the privacy of a villa: furnished homes near Sri Krishna Matha with kitchens, AC bedrooms and parking. By REUNION.",
   },
   "/wellness": {
     title: "Spa & Ayurveda in Udupi | Wellness at REUNION",
