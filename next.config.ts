@@ -117,4 +117,7 @@ const nextConfig: NextConfig = {
 
 export default nextConfig;
 
-initOpenNextCloudflareForDev();
+// Wrangler/miniflare during `next build` breaks CI (workerd _cf_ALARM SQLite mismatch).
+if (process.env.npm_lifecycle_event === "dev") {
+  initOpenNextCloudflareForDev();
+}
