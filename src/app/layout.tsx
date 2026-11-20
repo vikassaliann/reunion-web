@@ -43,13 +43,13 @@ export const metadata: Metadata = {
   icons: {
     // 48×48 PNG first — Google Search favicons require ≥48px; .ico is legacy fallback only.
     icon: [
-      { url: '/favicon-48.png?v=3', type: 'image/png', sizes: '48x48' },
-      { url: '/favicon-96.png?v=3', type: 'image/png', sizes: '96x96' },
-      { url: '/android-chrome-192.png?v=3', type: 'image/png', sizes: '192x192' },
-      { url: '/favicon.ico?v=3', sizes: 'any' },
+      { url: '/favicon-48.png?v=4', type: 'image/png', sizes: '48x48' },
+      { url: '/favicon-96.png?v=4', type: 'image/png', sizes: '96x96' },
+      { url: '/android-chrome-192.png?v=4', type: 'image/png', sizes: '192x192' },
+      { url: '/favicon.ico?v=4', sizes: 'any' },
     ],
-    apple: [{ url: '/apple-touch-icon.png?v=3', sizes: '180x180', type: 'image/png' }],
-    shortcut: '/favicon-48.png?v=3',
+    apple: [{ url: '/apple-touch-icon.png?v=4', sizes: '180x180', type: 'image/png' }],
+    shortcut: '/favicon-48.png?v=4',
   },
   alternates: {
     canonical: 'https://www.reunionglobal.in',
