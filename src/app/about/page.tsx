@@ -155,7 +155,7 @@ function CeoDescription({ text }: { text: string }) {
     : "";
 
   return (
-    <div>
+    <div data-nosnippet>
       <div className="whitespace-pre-line text-white/60 font-futura text-sm font-light leading-[1.9] tracking-wide">
         {expanded || !canCollapse ? text : preview}
         {!expanded && canCollapse && rest ? "…" : null}
@@ -227,7 +227,11 @@ export default function AboutPage() {
         </section>
 
         {/* Our Team */}
-        <section className="relative py-20 md:py-28 px-5 md:px-10 lg:px-16" id="our-team">
+        <section
+          className="relative py-20 md:py-28 px-5 md:px-10 lg:px-16"
+          id="our-team"
+          data-nosnippet
+        >
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-16 md:mb-20 space-y-4">
               <h2 className="font-futura text-3xl md:text-4xl font-light uppercase tracking-[0.2em]">

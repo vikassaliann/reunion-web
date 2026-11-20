@@ -39,16 +39,17 @@ export const metadata: Metadata = {
   authors: [{ name: 'Reunion Global Private Ltd.' }],
   creator: 'Reunion Global Private Ltd.',
   publisher: 'Reunion Global Private Ltd.',
+  manifest: '/site.webmanifest',
   icons: {
-    // Solid black background (no alpha) so Google SERP does not paint a white disc
+    // 48×48 PNG first — Google Search favicons require ≥48px; .ico is legacy fallback only.
     icon: [
-      { url: '/favicon.ico?v=2', sizes: 'any' },
-      { url: '/favicon-48.png?v=2', type: 'image/png', sizes: '48x48' },
-      { url: '/favicon-96.png?v=2', type: 'image/png', sizes: '96x96' },
-      { url: '/android-chrome-192.png?v=2', type: 'image/png', sizes: '192x192' },
+      { url: '/favicon-48.png?v=3', type: 'image/png', sizes: '48x48' },
+      { url: '/favicon-96.png?v=3', type: 'image/png', sizes: '96x96' },
+      { url: '/android-chrome-192.png?v=3', type: 'image/png', sizes: '192x192' },
+      { url: '/favicon.ico?v=3', sizes: 'any' },
     ],
-    apple: [{ url: '/apple-touch-icon.png?v=2', sizes: '180x180', type: 'image/png' }],
-    shortcut: '/favicon.ico?v=2',
+    apple: [{ url: '/apple-touch-icon.png?v=3', sizes: '180x180', type: 'image/png' }],
+    shortcut: '/favicon-48.png?v=3',
   },
   alternates: {
     canonical: 'https://www.reunionglobal.in',

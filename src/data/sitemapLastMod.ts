@@ -2,23 +2,23 @@
 const D = (iso: string) => new Date(iso);
 
 export const SITEMAP_LAST_MOD: Record<string, Date> = {
-  "/": D("2026-11-10T00:00:00.000Z"),
-  "/properties": D("2026-11-10T00:00:00.000Z"),
-  "/properties/category/beach-villas": D("2026-10-10T00:00:00.000Z"),
-  "/properties/category/city-stays": D("2026-10-10T00:00:00.000Z"),
-  "/properties/category/hotel-stays": D("2026-11-10T00:00:00.000Z"),
-  "/properties/category/shivamogga-stays": D("2026-10-14T00:00:00.000Z"),
-  "/dining": D("2026-10-12T00:00:00.000Z"),
-  "/experiences": D("2026-10-11T00:00:00.000Z"),
-  "/experiences/candlelight-dinner": D("2026-11-10T00:00:00.000Z"),
-  "/experiences/beach-birthday": D("2026-10-15T00:00:00.000Z"),
-  "/wellness": D("2026-10-08T00:00:00.000Z"),
-  "/events": D("2026-11-10T00:00:00.000Z"),
-  "/civil-construction": D("2026-10-01T00:00:00.000Z"),
-  "/partner-with-us": D("2026-10-05T00:00:00.000Z"),
-  "/blogs": D("2026-10-16T00:00:00.000Z"),
-  "/about": D("2026-09-20T00:00:00.000Z"),
-  "/contact": D("2026-09-20T00:00:00.000Z"),
+  "/": D("2026-11-20T00:00:00.000Z"),
+  "/properties": D("2026-11-20T00:00:00.000Z"),
+  "/properties/category/beach-villas": D("2026-11-18T00:00:00.000Z"),
+  "/properties/category/city-stays": D("2026-11-18T00:00:00.000Z"),
+  "/properties/category/hotel-stays": D("2026-11-18T00:00:00.000Z"),
+  "/properties/category/shivamogga-stays": D("2026-11-18T00:00:00.000Z"),
+  "/dining": D("2026-11-19T00:00:00.000Z"),
+  "/experiences": D("2026-11-19T00:00:00.000Z"),
+  "/experiences/candlelight-dinner": D("2026-11-20T00:00:00.000Z"),
+  "/experiences/beach-birthday": D("2026-11-20T00:00:00.000Z"),
+  "/wellness": D("2026-11-19T00:00:00.000Z"),
+  "/events": D("2026-11-19T00:00:00.000Z"),
+  "/civil-construction": D("2026-11-16T00:00:00.000Z"),
+  "/partner-with-us": D("2026-11-16T00:00:00.000Z"),
+  "/blogs": D("2026-11-19T00:00:00.000Z"),
+  "/about": D("2026-11-20T00:00:00.000Z"),
+  "/contact": D("2026-11-20T00:00:00.000Z"),
 };
 
 export const BLOG_LAST_MOD: Record<string, Date> = {
@@ -46,7 +46,7 @@ export function lastModForPath(path: string, fallback = new Date()): Date {
 }
 
 export function lastModForProperty(id: string, fallback = new Date()): Date {
-  return PROPERTY_LAST_MOD[id] ?? D("2026-11-10T00:00:00.000Z");
+  return PROPERTY_LAST_MOD[id] ?? D("2026-11-20T00:00:00.000Z");
 }
 
 export function lastModForBlog(slug: string, fallback = new Date()): Date {
