@@ -40,21 +40,6 @@ export const metadata: Metadata = {
   creator: 'Reunion Global Private Ltd.',
   publisher: 'Reunion Global Private Ltd.',
   manifest: '/site.webmanifest',
-  icons: {
-    // Google Search historically indexed reunion-src-logo.jpeg (stable URL, no query string).
-    icon: [
-      {
-        url: '/reunion-src-logo.jpeg',
-        type: 'image/jpeg',
-        sizes: '512x512',
-      },
-      { url: '/favicon-48.png', type: 'image/png', sizes: '48x48' },
-      { url: '/favicon-96.png', type: 'image/png', sizes: '96x96' },
-      { url: '/favicon.ico', sizes: '32x32' },
-    ],
-    apple: [{ url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' }],
-    shortcut: '/reunion-src-logo.jpeg',
-  },
   alternates: {
     canonical: 'https://www.reunionglobal.in',
   },
