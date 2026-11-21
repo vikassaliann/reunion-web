@@ -41,15 +41,19 @@ export const metadata: Metadata = {
   publisher: 'Reunion Global Private Ltd.',
   manifest: '/site.webmanifest',
   icons: {
-    // 48×48 PNG first — Google Search favicons require ≥48px; .ico is legacy fallback only.
+    // Google Search historically indexed reunion-src-logo.jpeg (stable URL, no query string).
     icon: [
-      { url: '/favicon-48.png?v=4', type: 'image/png', sizes: '48x48' },
-      { url: '/favicon-96.png?v=4', type: 'image/png', sizes: '96x96' },
-      { url: '/android-chrome-192.png?v=4', type: 'image/png', sizes: '192x192' },
-      { url: '/favicon.ico?v=4', sizes: 'any' },
+      {
+        url: '/reunion-src-logo.jpeg',
+        type: 'image/jpeg',
+        sizes: '512x512',
+      },
+      { url: '/favicon-48.png', type: 'image/png', sizes: '48x48' },
+      { url: '/favicon-96.png', type: 'image/png', sizes: '96x96' },
+      { url: '/favicon.ico', sizes: '32x32' },
     ],
-    apple: [{ url: '/apple-touch-icon.png?v=4', sizes: '180x180', type: 'image/png' }],
-    shortcut: '/favicon-48.png?v=4',
+    apple: [{ url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' }],
+    shortcut: '/reunion-src-logo.jpeg',
   },
   alternates: {
     canonical: 'https://www.reunionglobal.in',

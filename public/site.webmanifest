@@ -8,6 +8,12 @@
   "theme_color": "#060606",
   "icons": [
     {
+      "src": "/reunion-src-logo.jpeg",
+      "sizes": "512x512",
+      "type": "image/jpeg",
+      "purpose": "any"
+    },
+    {
       "src": "/favicon-48.png",
       "sizes": "48x48",
       "type": "image/png",
