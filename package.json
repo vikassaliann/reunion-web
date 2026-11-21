@@ -18,6 +18,7 @@
     "start": "next start",
     "lint": "eslint",
     "verify:seo": "node scripts/verify-seo-master.mjs",
+    "crawl:smoke": "node scripts/crawl-smoke.mjs",
     "images:redirect-map": "node scripts/generate-image-redirect-map.mjs",
     "images:apply": "node scripts/apply-image-redirects.mjs && node scripts/sync-image-urls.mjs && node scripts/generate-image-alt-map.mjs",
     "images:prune-legacy": "node scripts/prune-legacy-images.mjs && node scripts/generate-image-alt-map.mjs",
